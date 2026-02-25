@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Jonah Tabuzo — Web Developer, Systems Analyst & Visual Creator from the Philippines.">
+  <title>Jonah Tabuzo — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;700&family=Roboto:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- Scroll progress -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <!-- ── NAV ── -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo">jonah<span>.dev</span></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#work" class="nav-link">work</a></li>
+      <li><a href="#about" class="nav-link">about</a></li>
+      <li><a href="#experience" class="nav-link">experience</a></li>
+      <li><a href="#contact" class="nav-link">contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="nav-status" id="navStatus">
+        <span class="status-dot" id="navStatusDot"></span>
+        <span id="navStatusText">connecting...</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section id="hero">
+    <!-- Dot grid background -->
+    <div class="hero-grid" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="sym">~</span>virac, catanduanes, philippines / 2026
+      </div>
+
+      <h1 class="hero-title">
+        <span class="ht-line1"><span class="dim">_</span><span class="green">Jonah</span></span>
+        <span class="ht-line2">Tabuzo</span>
+      </h1>
+
+      <p class="hero-hook">I build web systems and tell visual stories.</p>
+
+      <p class="hero-subtitle">
+        From <span>school management platforms</span> to <span>photo &amp; video production</span>
+        — powered by clean code and AI-assisted workflows.
+      </p>
+
+      <div class="tag-group">
+        <span class="tg-label">// dev</span>
+        <span class="tag tag--green">PHP</span>
+        <span class="tag tag--green">MySQL</span>
+        <span class="tag tag--green">JavaScript</span>
+        <span class="tag tag--green">HTML</span>
+        <span class="tag tag--green">CSS</span>
+        <span class="tag tag--green">Python</span>
+      </div>
+      <div class="tag-group">
+        <span class="tg-label">// creative</span>
+        <span class="tag tag--purple">Video Editing</span>
+        <span class="tag tag--purple">Photography</span>
+        <span class="tag tag--purple">Videography</span>
+        <span class="tag tag--purple">AI-Assisted Workflow</span>
+      </div>
+
+      <div class="hero-actions">
+        <a href="#work" class="btn btn-primary">./view_work</a>
+        <a href="#contact" class="btn btn-outline">./contact_me</a>
+        <a href="https://github.com/Yunah444" target="_blank" rel="noopener" class="btn btn-ghost">github ↗</a>
+      </div>
+    </div>
+
+    <!-- Terminal -->
+    <div class="terminal" id="heroTerminal" aria-label="Profile terminal">
+      <div class="terminal-bar">
+        <div class="t-dot r"></div><div class="t-dot y"></div><div class="t-dot g"></div>
+        <span class="terminal-title">whoami.sh</span>
+      </div>
+      <div class="terminal-body" id="terminalBody">
+        <!-- Lines injected by JS for typewriter effect -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ── WORK ── -->
+  <section id="work">
+    <div class="sec-eyebrow">// projects</div>
+    <div class="sec-title">Work<span class="green">_</span></div>
+    <div class="work-list">
+      <a href="https://github.com/Yunah444/kiddytrack-CPIC" target="_blank" rel="noopener"
+         class="work-row reveal"
+         style="--accent:#00ff41; --delay:0ms">
+        <div class="work-num">01</div>
+        <div class="work-body">
+          <div class="work-top">
+            <span class="work-name">KiddyTrack</span>
+            <span class="work-year">2024</span>
+          </div>
+          <div class="work-desc">Web-based academic performance monitoring for teachers & parents</div>
+          <ul class="work-hl">
+            <li>Designed & implemented database integration and academic tracking modules</li>
+            <li>Built separate dashboards for teachers and parent portals</li>
+            <li>Implemented secure monitoring tools for educational stakeholders</li>
+          </ul>
+          <div class="work-tags">
+            <span class="tag tag--dim">PHP</span>
+            <span class="tag tag--dim">MySQL</span>
+            <span class="tag tag--dim">JavaScript</span>
+            <span class="tag tag--dim">Systems Design</span>
+          </div>
+        </div>
+        <div class="work-arrow">↗</div>
+      </a>
+
+      <a href="#" target="_blank" rel="noopener"
+         class="work-row reveal"
+         style="--accent:#79b8ff; --delay:80ms">
+        <div class="work-num">02</div>
+        <div class="work-body">
+          <div class="work-top">
+            <span class="work-name">Database Management System</span>
+            <span class="work-year">2024</span>
+          </div>
+          <div class="work-desc">Full CRUD asset database system built with PHP, JavaScript & CSS</div>
+          <ul class="work-hl">
+            <li>Full CRUD operations with a clean, responsive interface</li>
+            <li>Structured relational schema with optimized SQL queries</li>
+          </ul>
+          <div class="work-tags">
+            <span class="tag tag--dim">PHP</span>
+            <span class="tag tag--dim">MySQL</span>
+            <span class="tag tag--dim">JavaScript</span>
+            <span class="tag tag--dim">CSS</span>
+          </div>
+        </div>
+        <div class="work-arrow">↗</div>
+      </a>
+
+      <a href="https://github.com/Yunah444/Nero-s-Soundcloud" target="_blank" rel="noopener"
+         class="work-row reveal"
+         style="--accent:#a78bfa; --delay:160ms">
+        <div class="work-num">03</div>
+        <div class="work-body">
+          <div class="work-top">
+            <span class="work-name">Nero's Soundcloud</span>
+            <span class="work-year">2022</span>
+          </div>
+          <div class="work-desc">Lavalink-powered Discord music bot</div>
+          <div class="work-tags">
+            <span class="tag tag--dim">JavaScript</span>
+            <span class="tag tag--dim">Discord.js</span>
+            <span class="tag tag--dim">Lavalink</span>
+          </div>
+        </div>
+        <div class="work-arrow">↗</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── ABOUT ── -->
+  <section id="about">
+    <div class="sec-eyebrow">// about</div>
+    <div class="sec-title">Who I Am<span class="green">_</span></div>
+
+    <div class="about-grid">
+
+      <!-- Bio -->
+      <div class="about-card reveal">
+        <div class="card-label">&gt; bio.txt</div>
+        <p class="body-text">
+          I'm <strong>Jonah Tabuzo</strong>, a web developer and visual creator from
+          <strong>Virac, Catanduanes, Philippines</strong>. I build practical systems and craft
+          visual content — often using <strong>AI as a day-to-day tool</strong> to work faster in
+          both code and creative work.
+        </p>
+        <p class="body-text">
+          Quality Assurance Engineer of <a href="https://pixodeph.vercel.app/" target="_blank" rel="noopener" class="text-link">PIXODE Philippines</a>
+          — A small dev org building digital tools for local communities in the PH.
+        </p>
+        <p class="body-text">
+          I also run <strong>Nero's Cult</strong>, a gaming community on Discord.
+          Find me as <span class="mono-highlight">n3r0_0</span> or
+          <a href="https://discord.gg/HpUJFCTX33" target="_blank" rel="noopener" class="text-link discord-link">join the server ↗</a>
+        </p>
+
+        <!-- Live Discord presence card -->
+        <div class="discord-card" id="discordCard">
+          <div class="dc-body">
+            <div class="dc-avatar-wrap">
+              <img class="dc-avatar" id="dcAvatar" src="" alt="" width="44" height="44">
+              <span class="dc-dot" id="dcDot"></span>
+            </div>
+            <div class="dc-details">
+              <div class="dc-username">n3r0_0</div>
+              <div class="dc-status-text" id="dcStatusText">—</div>
+              <div class="dc-activity-text" id="dcActivityText"></div>
+            </div>
+          </div>
+          <div class="dc-spotify" id="dcSpotify" style="display:none">
+            <svg class="dc-spotify-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+            <div class="dc-spotify-info">
+              <div class="dc-spotify-label">Listening to Spotify</div>
+              <div class="dc-spotify-track" id="dcSpotifyTrack"></div>
+              <div class="dc-spotify-artist" id="dcSpotifyArtist"></div>
+            </div>
+            <div class="dc-spotify-bar"><div class="dc-spotify-fill" id="dcSpotifyFill"></div></div>
+          </div>
+        </div>
+
+        <div class="achievement-row">
+          <div class="achievement-badge">
+            <span class="ach-icon">🏆</span>
+            <div>
+              <div class="ach-label">HACK4GOV CTF 2023</div>
+              <div class="ach-desc">Capture the Flag Participant</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <div class="about-card reveal">
+        <div class="card-label">&gt; skills.json</div>
+
+        <div class="skill-block">
+          <div class="sb-title">// core technical</div>
+          <div class="tag-row">
+            <span class="tag tag--outline">Systems Analysis & IT Project Management</span>
+            <span class="tag tag--outline">Database Management & SQL</span>
+            <span class="tag tag--outline">Programming & Web Development</span>
+            <span class="tag tag--outline">Basic Networking Knowledge</span>
+            <span class="tag tag--outline">Computer Literacy & Troubleshooting</span>
+          </div>
+        </div>
+
+        <div class="skill-block">
+          <div class="sb-title">// professional</div>
+          <div class="tag-row">
+            <span class="tag tag--muted">Communication & Stakeholder Engagement</span>
+            <span class="tag tag--muted">Customer Relationship Building</span>
+            <span class="tag tag--muted">Quick Learner & Team Adaptability</span>
+            <span class="tag tag--muted">Attention to Detail & Organization</span>
+          </div>
+        </div>
+
+        <div class="skill-block">
+          <div class="sb-title">// creative &amp; AI tools</div>
+          <div class="tag-row">
+            <span class="tag tag--purple">Video Editing</span>
+            <span class="tag tag--purple">Photography</span>
+            <span class="tag tag--purple">Videography</span>
+            <span class="tag tag--purple">AI-Assisted Workflow</span>
+            <span class="tag tag--purple">AI (Coding)</span>
+            <span class="tag tag--purple">AI (Editing)</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── EXPERIENCE ── -->
+  <section id="experience">
+    <div class="sec-eyebrow">// experience</div>
+    <div class="sec-title">Timeline<span class="green">_</span></div>
+    <div class="exp-list">
+      <div class="exp-row reveal">
+        <div class="exp-period">2025</div>
+        <div class="exp-line"><div class="exp-dot"></div></div>
+        <div class="exp-body">
+          <div class="exp-title">Samsung Product Promoter</div>
+          <div class="exp-co">Alson's Trading &middot; Virac</div>
+          <p class="exp-desc body-text">Built strong client relationships and developed transferable interpersonal and customer-facing skills while representing a global tech brand.</p>
+        </div>
+      </div>
+
+      <div class="exp-row reveal">
+        <div class="exp-period">2020–2021</div>
+        <div class="exp-line"><div class="exp-dot"></div></div>
+        <div class="exp-body">
+          <div class="exp-title">Administrative Support & Community Outreach</div>
+          <div class="exp-co">Provincial Government Office &middot; Virac</div>
+          <p class="exp-desc body-text">Handled data entry, document preparation, and correspondence management. Streamlined workflows and maintained compliance standards under strict deadlines.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ── -->
+  <section id="contact">
+    <div class="contact-inner">
+      <div class="sec-eyebrow">// contact</div>
+      <h2 class="contact-title">Let's <span class="green">Build</span><br>Something.</h2>
+      <p class="contact-sub">
+        Open to freelance projects, collabs, or just a good conversation
+        about tech, cameras, or games.
+      </p>
+      <a href="mailto:jonahmarkt@gmail.com" class="contact-email">jonahmarkt@gmail.com</a>
+      <div class="contact-phone">+63 928 574 4262</div>
+      <ul class="socials">
+        <li><a href="https://github.com/Yunah444" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://pixodeph.vercel.app/" target="_blank" rel="noopener">PIXODE</a></li>
+        <li><a href="https://discord.gg/HpUJFCTX33" target="_blank" rel="noopener">Discord</a></li>
+        <li><a href="mailto:jonahmarkt@gmail.com" target="_blank" rel="noopener">Email</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <span>&copy; 2026 Jonah Tabuzo</span>
+    <span class="footer-org">PIXODE Philippines</span>
+    <span class="footer-right">
+      <span class="ph-time" id="phTime"></span>
+      &nbsp;·&nbsp;
+      open_to_work: <span class="green">true</span>
+    </span>
+  </footer>
+
+  <!-- Discord presence (Lanyard) -->
+  <div class="discord-presence" id="discordPresence" aria-live="polite">
+    <div class="dp-avatar-wrap">
+      <img class="dp-avatar" id="dpAvatar" src="" alt="Jonah Tabuzo" width="52" height="52">
+      <span class="dp-status-dot" id="dpStatusDot"></span>
+    </div>
+    <div class="dp-info">
+      <div class="dp-top">
+        <span class="dp-name">n3r0_0</span>
+        <span class="dp-badge" id="dpBadge">fetching...</span>
+      </div>
+      <div class="dp-activity" id="dpActivity"></div>
+      <div class="dp-spotify" id="dpSpotify"></div>
+    </div>
+  </div>
+
+  <script>
+    // Pass data to JS
+    window.PORTFOLIO = {
+      tz: "Asia/Manila",
+      discordId: "756339517878829135",
+      terminalLines: [
+        { type: 'cmd',  text: 'cat profile.json' },
+        { type: 'out',  text: '{' },
+        { type: 'kv',   key: 'name',     val: 'Jonah Tabuzo' },
+        { type: 'kv',   key: 'role',     val: 'Dev & Creator' },
+        { type: 'kv',   key: 'location', val: 'Virac, Catanduanes, Philippines' },
+        { type: 'kv',   key: 'org',      val: 'PIXODE Philippines' },
+        { type: 'kv',   key: 'github',   val: '@Yunah444' },
+        { type: 'kv',   key: 'discord',  val: 'n3r0_0' },
+        { type: 'kvl',  key: 'status',   val: 'open_to_work' },
+        { type: 'out',  text: '}' },
+      ]
+    };
+  </script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
