@@ -12,9 +12,7 @@
 </head>
 <body>
 
-  <!-- Scroll progress -->
   <div class="scroll-progress" id="scrollProgress"></div>
-
   <div class="cursor" id="cursor"></div>
   <div class="cursor-glow" id="cursorGlow"></div>
 
@@ -40,7 +38,6 @@
 
   <!-- ── HERO ── -->
   <section id="hero">
-    <!-- Dot grid background -->
     <div class="hero-grid" aria-hidden="true"></div>
 
     <div class="hero-content">
@@ -90,9 +87,7 @@
         <div class="t-dot r"></div><div class="t-dot y"></div><div class="t-dot g"></div>
         <span class="terminal-title">whoami.sh</span>
       </div>
-      <div class="terminal-body" id="terminalBody">
-        <!-- Lines injected by JS for typewriter effect -->
-      </div>
+      <div class="terminal-body" id="terminalBody"></div>
     </div>
   </section>
 
@@ -101,73 +96,81 @@
     <div class="sec-eyebrow">// projects</div>
     <div class="sec-title">Work<span class="green">_</span></div>
     <div class="work-list">
-      <a href="" target="_blank" rel="noopener"
-         class="work-row reveal"
-         style="--accent:#00ff41; --delay:0ms">
-        <div class="work-num">01</div>
+
+      <a href="https://github.com/Yunah444/kiddytrack-CPIC" target="_blank" rel="noopener"
+         class="work-row reveal" data-num="01"
+         style="--accent:#e8b84b; --delay:0ms">
+        <div class="work-card-top">
+          <div class="work-num">01</div>
+          <div class="work-arrow">↗</div>
+        </div>
         <div class="work-body">
           <div class="work-top">
             <span class="work-name">KiddyTrack</span>
             <span class="work-year">2024</span>
           </div>
-          <div class="work-desc">Web-based academic performance monitoring for teachers & parents</div>
+          <div class="work-desc">Web-based academic performance monitoring for teachers &amp; parents</div>
           <ul class="work-hl">
-            <li>Designed & implemented database integration and academic tracking modules</li>
+            <li>Designed &amp; implemented database integration and academic tracking modules</li>
             <li>Built separate dashboards for teachers and parent portals</li>
             <li>Implemented secure monitoring tools for educational stakeholders</li>
           </ul>
-          <div class="work-tags">
-            <span class="tag tag--dim">PHP</span>
-            <span class="tag tag--dim">MySQL</span>
-            <span class="tag tag--dim">JavaScript</span>
-            <span class="tag tag--dim">Systems Design</span>
-          </div>
         </div>
-        <div class="work-arrow">↗</div>
+        <div class="work-tags">
+          <span class="tag tag--dim">PHP</span>
+          <span class="tag tag--dim">MySQL</span>
+          <span class="tag tag--dim">JavaScript</span>
+          <span class="tag tag--dim">Systems Design</span>
+        </div>
       </a>
 
       <a href="#" target="_blank" rel="noopener"
-         class="work-row reveal"
-         style="--accent:#79b8ff; --delay:80ms">
-        <div class="work-num">02</div>
+         class="work-row reveal" data-num="02"
+         style="--accent:#7bafd4; --delay:80ms">
+        <div class="work-card-top">
+          <div class="work-num">02</div>
+          <div class="work-arrow">↗</div>
+        </div>
         <div class="work-body">
           <div class="work-top">
             <span class="work-name">Database Management System</span>
             <span class="work-year">2024</span>
           </div>
-          <div class="work-desc">Full CRUD asset database system built with PHP, JavaScript & CSS</div>
+          <div class="work-desc">Full CRUD asset database system built with PHP, JavaScript &amp; CSS</div>
           <ul class="work-hl">
             <li>Full CRUD operations with a clean, responsive interface</li>
             <li>Structured relational schema with optimized SQL queries</li>
           </ul>
-          <div class="work-tags">
-            <span class="tag tag--dim">PHP</span>
-            <span class="tag tag--dim">MySQL</span>
-            <span class="tag tag--dim">JavaScript</span>
-            <span class="tag tag--dim">CSS</span>
-          </div>
         </div>
-        <div class="work-arrow">↗</div>
+        <div class="work-tags">
+          <span class="tag tag--dim">PHP</span>
+          <span class="tag tag--dim">MySQL</span>
+          <span class="tag tag--dim">JavaScript</span>
+          <span class="tag tag--dim">CSS</span>
+        </div>
       </a>
 
-      <a href="" target="_blank" rel="noopener"
-         class="work-row reveal"
+      <a href="https://github.com/Yunah444/Nero-s-Soundcloud" target="_blank" rel="noopener"
+         class="work-row reveal" data-num="03"
          style="--accent:#a78bfa; --delay:160ms">
-        <div class="work-num">03</div>
+        <div class="work-card-top">
+          <div class="work-num">03</div>
+          <div class="work-arrow">↗</div>
+        </div>
         <div class="work-body">
           <div class="work-top">
             <span class="work-name">Nero's Soundcloud</span>
             <span class="work-year">2022</span>
           </div>
-          <div class="work-desc">Lavalink-powered Discord music bot</div>
-          <div class="work-tags">
-            <span class="tag tag--dim">JavaScript</span>
-            <span class="tag tag--dim">Discord.js</span>
-            <span class="tag tag--dim">Lavalink</span>
-          </div>
+          <div class="work-desc">Lavalink-powered Discord music bot with queue management and playback controls</div>
         </div>
-        <div class="work-arrow">↗</div>
+        <div class="work-tags">
+          <span class="tag tag--dim">JavaScript</span>
+          <span class="tag tag--dim">Discord.js</span>
+          <span class="tag tag--dim">Lavalink</span>
+        </div>
       </a>
+
     </div>
   </section>
 
@@ -177,8 +180,6 @@
     <div class="sec-title">Who I Am<span class="green">_</span></div>
 
     <div class="about-grid">
-
-      <!-- Bio -->
       <div class="about-card reveal">
         <div class="card-label">&gt; bio.txt</div>
         <p class="body-text">
@@ -197,7 +198,6 @@
           <a href="https://discord.gg/HpUJFCTX33" target="_blank" rel="noopener" class="text-link discord-link">join the server ↗</a>
         </p>
 
-        <!-- Live Discord presence card -->
         <div class="discord-card" id="discordCard">
           <div class="dc-body">
             <div class="dc-avatar-wrap">
@@ -232,31 +232,27 @@
         </div>
       </div>
 
-      <!-- Skills -->
       <div class="about-card reveal">
         <div class="card-label">&gt; skills.json</div>
-
         <div class="skill-block">
           <div class="sb-title">// core technical</div>
           <div class="tag-row">
-            <span class="tag tag--outline">Systems Analysis & IT Project Management</span>
-            <span class="tag tag--outline">Database Management & SQL</span>
-            <span class="tag tag--outline">Programming & Web Development</span>
+            <span class="tag tag--outline">Systems Analysis &amp; IT Project Management</span>
+            <span class="tag tag--outline">Database Management &amp; SQL</span>
+            <span class="tag tag--outline">Programming &amp; Web Development</span>
             <span class="tag tag--outline">Basic Networking Knowledge</span>
-            <span class="tag tag--outline">Computer Literacy & Troubleshooting</span>
+            <span class="tag tag--outline">Computer Literacy &amp; Troubleshooting</span>
           </div>
         </div>
-
         <div class="skill-block">
           <div class="sb-title">// professional</div>
           <div class="tag-row">
-            <span class="tag tag--muted">Communication & Stakeholder Engagement</span>
+            <span class="tag tag--muted">Communication &amp; Stakeholder Engagement</span>
             <span class="tag tag--muted">Customer Relationship Building</span>
-            <span class="tag tag--muted">Quick Learner & Team Adaptability</span>
-            <span class="tag tag--muted">Attention to Detail & Organization</span>
+            <span class="tag tag--muted">Quick Learner &amp; Team Adaptability</span>
+            <span class="tag tag--muted">Attention to Detail &amp; Organization</span>
           </div>
         </div>
-
         <div class="skill-block">
           <div class="sb-title">// creative &amp; AI tools</div>
           <div class="tag-row">
@@ -269,7 +265,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </section>
 
@@ -287,12 +282,11 @@
           <p class="exp-desc body-text">Built strong client relationships and developed transferable interpersonal and customer-facing skills while representing a global tech brand.</p>
         </div>
       </div>
-
       <div class="exp-row reveal">
         <div class="exp-period">2020–2021</div>
         <div class="exp-line"><div class="exp-dot"></div></div>
         <div class="exp-body">
-          <div class="exp-title">Administrative Support & Community Outreach</div>
+          <div class="exp-title">Administrative Support &amp; Community Outreach</div>
           <div class="exp-co">Provincial Government Office &middot; Virac</div>
           <p class="exp-desc body-text">Handled data entry, document preparation, and correspondence management. Streamlined workflows and maintained compliance standards under strict deadlines.</p>
         </div>
@@ -315,7 +309,7 @@
         <li><a href="https://github.com/Yunah444" target="_blank" rel="noopener">GitHub</a></li>
         <li><a href="https://pixodeph.vercel.app/" target="_blank" rel="noopener">PIXODE</a></li>
         <li><a href="https://discord.gg/HpUJFCTX33" target="_blank" rel="noopener">Discord</a></li>
-        <li><a href="mailto:jonahmarkt@gmail.com" target="_blank" rel="noopener">Email</a></li>
+        <li><a href="mailto:jonahmarkt@gmail.com">Email</a></li>
       </ul>
     </div>
   </section>
@@ -331,7 +325,7 @@
     </span>
   </footer>
 
-  <!-- Discord presence (Lanyard) -->
+  <!-- Discord presence widget -->
   <div class="discord-presence" id="discordPresence" aria-live="polite">
     <div class="dp-info">
       <div class="dp-top">
@@ -344,7 +338,6 @@
   </div>
 
   <script>
-    // Pass data to JS
     window.PORTFOLIO = {
       tz: "Asia/Manila",
       discordId: "756339517878829135",
