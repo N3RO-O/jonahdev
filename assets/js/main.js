@@ -5,114 +5,352 @@
 (function () {
   'use strict';
 
-  /* ── Custom cursor ─────────────────────────────────────────── */
-  const cur   = document.getElementById('cursor');
-  const glow  = document.getElementById('cursorGlow');
-  let glowX = 0, glowY = 0, mouseX = 0, mouseY = 0;
+  const data = window.PORTFOLIO || {};
 
-  if (cur) {
+  /* ── Helpers ───────────────────────────────────────────────── */
+  const $ = id => document.getElementById(id);
+  const isMobile = () => window.innerWidth <= 768;
+
+  /* ── Scroll progress bar ───────────────────────────────────── */
+  const bar = $('scrollProgress');
+  if (bar) {
+    const updateBar = () => {
+      const max  = document.documentElement.scrollHeight - window.innerHeight;
+      const pct  = max > 0 ? (window.scrollY / max) * 100 : 0;
+      bar.style.width = pct + '%';
+    };
+    window.addEventListener('scroll', updateBar, { passive: true });
+    updateBar();
+  }
+
+  /* ── Custom cursor ─────────────────────────────────────────── */
+  const cur  = $('cursor');
+  const glow = $('cursorGlow');
+  let gx = 0, gy = 0, mx = 0, my = 0;
+
+  if (cur && !isMobile()) {
     document.addEventListener('mousemove', e => {
-      mouseX = e.clientX; mouseY = e.clientY;
-      cur.style.left = mouseX + 'px';
-      cur.style.top  = mouseY + 'px';
+      mx = e.clientX; my = e.clientY;
+      cur.style.left = mx + 'px';
+      cur.style.top  = my + 'px';
     });
     document.addEventListener('mouseleave', () => cur.style.opacity = '0');
     document.addEventListener('mouseenter', () => cur.style.opacity = '1');
   }
-
-  // Smooth glow follow
-  if (glow) {
-    (function animateGlow() {
-      glowX += (mouseX - glowX) * 0.06;
-      glowY += (mouseY - glowY) * 0.06;
-      glow.style.left = glowX + 'px';
-      glow.style.top  = glowY + 'px';
-      requestAnimationFrame(animateGlow);
+  if (glow && !isMobile()) {
+    (function animGlow() {
+      gx += (mx - gx) * 0.055;
+      gy += (my - gy) * 0.055;
+      glow.style.left = gx + 'px';
+      glow.style.top  = gy + 'px';
+      requestAnimationFrame(animGlow);
     })();
   }
 
-  /* ── Mobile nav toggle ─────────────────────────────────────── */
-  const toggle = document.getElementById('navToggle');
-  const links  = document.getElementById('navLinks');
+  /* ── Nav: mobile toggle ────────────────────────────────────── */
+  const toggle = $('navToggle');
+  const navLinks = $('navLinks');
+  const closeNav = () => {
+    navLinks && navLinks.classList.remove('open');
+    toggle   && toggle.classList.remove('open');
+    toggle   && toggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  };
 
-  if (toggle && links) {
+  if (toggle && navLinks) {
     toggle.addEventListener('click', () => {
-      const open = links.classList.toggle('open');
+      const open = navLinks.classList.toggle('open');
       toggle.classList.toggle('open', open);
       toggle.setAttribute('aria-expanded', open);
       document.body.style.overflow = open ? 'hidden' : '';
     });
-
-    links.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => {
-        links.classList.remove('open');
-        toggle.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-      });
-    });
-
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
     document.addEventListener('click', e => {
-      if (!toggle.contains(e.target) && !links.contains(e.target)) {
-        links.classList.remove('open');
-        toggle.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-      }
+      if (!toggle.contains(e.target) && !navLinks.contains(e.target)) closeNav();
     });
   }
 
-  /* ── Scroll reveal ─────────────────────────────────────────── */
-  const revealObs = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      // Stagger siblings in same parent
-      const siblings = [...entry.target.parentElement
-        .querySelectorAll('.reveal:not(.visible)')];
-      const delay = Math.max(0, siblings.indexOf(entry.target)) * 80;
-      setTimeout(() => entry.target.classList.add('visible'), delay);
-      revealObs.unobserve(entry.target);
-    });
-  }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
-
-  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
-
-  /* ── Active nav on scroll ──────────────────────────────────── */
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-link');
-
-  const activeObs = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        navLinks.forEach(a => {
-          a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id);
-        });
-      }
-    });
-  }, { threshold: 0.35 });
-
-  sections.forEach(s => activeObs.observe(s));
-
-  /* ── Navbar shadow on scroll ───────────────────────────────── */
-  const navbar = document.getElementById('navbar');
+  /* ── Nav: shadow on scroll ─────────────────────────────────── */
+  const navbar = $('navbar');
   if (navbar) {
     window.addEventListener('scroll', () => {
-      navbar.style.boxShadow = window.scrollY > 10
-        ? '0 2px 32px rgba(0,0,0,0.7)'
-        : 'none';
+      navbar.classList.toggle('scrolled', window.scrollY > 12);
     }, { passive: true });
   }
 
-  /* ── Typed terminal effect ─────────────────────────────────── */
-  const terminal = document.getElementById('heroTerminal');
-  if (terminal) {
-    // Stagger line visibility for a "typing loads" feel
-    const tLines = terminal.querySelectorAll('.t-line');
-    tLines.forEach((line, i) => {
-      line.style.opacity = '0';
-      line.style.transition = 'opacity 0.15s ease';
-      setTimeout(() => line.style.opacity = '1', 1100 + i * 120);
+  /* ── Active nav link on scroll ─────────────────────────────── */
+  const sections  = document.querySelectorAll('section[id]');
+  const navAnchors = document.querySelectorAll('.nav-link');
+
+  new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navAnchors.forEach(a => a.classList.toggle(
+          'active', a.getAttribute('href') === '#' + e.target.id
+        ));
+      }
     });
+  }, { threshold: 0.38 }).observe && sections.forEach(s =>
+    new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting)
+          navAnchors.forEach(a => a.classList.toggle(
+            'active', a.getAttribute('href') === '#' + e.target.id
+          ));
+      });
+    }, { threshold: 0.35 }).observe(s)
+  );
+
+  /* ── Scroll reveal ─────────────────────────────────────────── */
+  const revObs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const siblings = [...entry.target.parentElement
+        .querySelectorAll('.reveal:not(.visible)')];
+      const delay = Math.max(0, siblings.indexOf(entry.target)) * 90;
+      setTimeout(() => entry.target.classList.add('visible'), delay);
+      revObs.unobserve(entry.target);
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -28px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+
+  /* ── Terminal typewriter ───────────────────────────────────── */
+  const termBody = $('terminalBody');
+  if (termBody && data.terminalLines) {
+    const lines = data.terminalLines;
+    let i = 0;
+
+    // Build a line element from data
+    const buildLine = ({ type, text, key, val }) => {
+      const div = document.createElement('div');
+      div.className = 't-line';
+
+      if (type === 'cmd') {
+        div.innerHTML = `<span class="t-ps1">~$</span><span class="t-cmd"> ${text}</span>`;
+      } else if (type === 'out') {
+        div.innerHTML = `<span class="t-out">${text}</span>`;
+      } else if (type === 'kv' || type === 'kvl') {
+        const comma = type === 'kv' ? '<span class="t-comma">,</span>' : '';
+        div.innerHTML = `<span class="t-out">&nbsp;&nbsp;<span class="t-key">"${key}"</span>: <span class="t-val">"${val}"</span>${comma}</span>`;
+      }
+      return div;
+    };
+
+    // Typewriter: reveal lines one by one
+    const revealNext = () => {
+      if (i >= lines.length) {
+        // Add prompt + blinking cursor at the end
+        const end = document.createElement('div');
+        end.className = 't-line visible';
+        end.innerHTML = `<span class="t-ps1">~$</span> <span class="t-cursor"></span>`;
+        termBody.appendChild(end);
+        return;
+      }
+      const el = buildLine(lines[i]);
+      termBody.appendChild(el);
+      // Trigger reflow then show
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => el.classList.add('visible'));
+      });
+      i++;
+      // Vary delay: cmd lines get slightly longer pause
+      const delay = lines[i - 1]?.type === 'cmd' ? 260 : 95;
+      setTimeout(revealNext, delay);
+    };
+
+    // Start typewriter after hero animation settles
+    setTimeout(revealNext, 1200);
   }
+
+  /* ── Lanyard Discord presence ──────────────────────────────── */
+  const DISCORD_ID = data.discordId;
+  const LANYARD    = `https://api.lanyard.rest/v1/users/${DISCORD_ID}`;
+
+  // Elements
+  const dcDot          = document.getElementById('dcDot');
+  const dcAvatar       = document.getElementById('dcAvatar');
+  const dcStatusText   = document.getElementById('dcStatusText');
+  const dcActivityText = document.getElementById('dcActivityText');
+  const dcSpotify      = document.getElementById('dcSpotify');
+  const dcSpotifyTrack = document.getElementById('dcSpotifyTrack');
+  const dcSpotifyArtist= document.getElementById('dcSpotifyArtist');
+  const dcSpotifyFill  = document.getElementById('dcSpotifyFill');
+  const navDot         = document.getElementById('navStatusDot');
+  const navText        = document.getElementById('navStatusText');
+
+  const STATUS_MAP = {
+    online:  { label: 'available for hire', hire: true  },
+    idle:    { label: 'away / idle',         hire: false },
+    dnd:     { label: 'do not disturb',      hire: false },
+    offline: { label: 'unavailable',         hire: false },
+  };
+
+  let spotifyInterval = null;
+
+  const setClass = (el, cls) => {
+    if (!el) return;
+    el.classList.remove('online','idle','dnd','offline');
+    el.classList.add(cls);
+  };
+
+  const fetchPresence = async () => {
+    try {
+      const res  = await fetch(LANYARD);
+      if (!res.ok) throw new Error('Lanyard error');
+      const json = await res.json();
+      if (!json.success) throw new Error('No data');
+
+      const d      = json.data;
+      const status = d.discord_status || 'offline';
+      const user   = d.discord_user;
+      const info   = STATUS_MAP[status] || STATUS_MAP.offline;
+
+      // Avatar
+      if (dcAvatar && user) {
+        const hash = user.avatar;
+        const ext  = hash && hash.startsWith('a_') ? 'gif' : 'png';
+        dcAvatar.src = hash
+          ? `https://cdn.discordapp.com/avatars/${user.id}/${hash}.${ext}?size=64`
+          : `https://cdn.discordapp.com/embed/avatars/0.png`;
+      }
+
+      // Status dot + nav
+      setClass(dcDot, status);
+      setClass(navDot, status);
+      if (navText) {
+        navText.textContent = info.label;
+        navText.style.color = info.hire ? 'var(--green)' : 'var(--g2)';
+      }
+
+      // Custom status or main status label
+      const customStatus = d.activities?.find(a => a.type === 4);
+      if (dcStatusText) {
+        dcStatusText.textContent = customStatus?.state
+          ? `${customStatus.emoji?.name ?? ''} ${customStatus.state}`.trim()
+          : info.label;
+      }
+
+      // Game / activity (type 0 = Playing, type 1 = Streaming, type 2 = Listening [non-spotify])
+      const game = d.activities?.find(a => a.type === 0 || a.type === 1);
+      if (dcActivityText) {
+        if (game) {
+          const verb = game.type === 1 ? '📡 Streaming' : '🎮 Playing';
+          dcActivityText.textContent = `${verb} ${game.name}`;
+        } else {
+          dcActivityText.textContent = '';
+        }
+      }
+
+      // Spotify
+      clearInterval(spotifyInterval);
+      if (d.listening_to_spotify && d.spotify) {
+        const sp = d.spotify;
+        if (dcSpotify)       dcSpotify.style.display = 'flex';
+        if (dcSpotifyTrack)  dcSpotifyTrack.textContent  = sp.song;
+        if (dcSpotifyArtist) dcSpotifyArtist.textContent = sp.artist.replace(/;/g, ',');
+
+        // Progress bar
+        if (dcSpotifyFill && sp.timestamps) {
+          const update = () => {
+            const now       = Date.now();
+            const start     = sp.timestamps.start;
+            const end       = sp.timestamps.end;
+            const total     = end - start;
+            const elapsed   = now - start;
+            const pct       = Math.min(100, (elapsed / total) * 100);
+            dcSpotifyFill.style.width = pct + '%';
+          };
+          update();
+          spotifyInterval = setInterval(update, 1000);
+        }
+      } else {
+        if (dcSpotify) dcSpotify.style.display = 'none';
+      }
+
+    } catch (err) {
+      // Silently fall back — keep PHP default
+      if (navText) navText.textContent = 'available for hire';
+      console.warn('Lanyard fetch failed:', err.message);
+    }
+  };
+
+  if (DISCORD_ID) {
+    fetchPresence();
+    // Re-poll every 30 seconds
+    setInterval(fetchPresence, 30000);
+  }
+
+  /* ── Lanyard WebSocket (real-time updates) ─────────────────── */
+  if (DISCORD_ID && typeof WebSocket !== 'undefined') {
+    let ws, heartbeatTimer;
+
+    const connectWS = () => {
+      ws = new WebSocket('wss://api.lanyard.rest/socket');
+
+      ws.addEventListener('open', () => {
+        // Lanyard expects a subscribe op on open
+      });
+
+      ws.addEventListener('message', e => {
+        const msg = JSON.parse(e.data);
+
+        if (msg.op === 1) {
+          // Hello — start heartbeat and subscribe
+          heartbeatTimer = setInterval(() => {
+            ws.readyState === WebSocket.OPEN &&
+              ws.send(JSON.stringify({ op: 3 }));
+          }, msg.d.heartbeat_interval);
+
+          ws.send(JSON.stringify({
+            op: 2,
+            d: { subscribe_to_id: DISCORD_ID }
+          }));
+        }
+
+        // op 0 = event (INIT_STATE or PRESENCE_UPDATE)
+        if (msg.op === 0) fetchPresence();
+      });
+
+      ws.addEventListener('close', () => {
+        clearInterval(heartbeatTimer);
+        // Reconnect after 5s
+        setTimeout(connectWS, 5000);
+      });
+
+      ws.addEventListener('error', () => ws.close());
+    };
+
+    connectWS();
+  }
+
+  /* ── PH local time in footer ───────────────────────────────── */
+  const timeEl = $('phTime');
+  if (timeEl && data.tz) {
+    const updateTime = () => {
+      const now = new Date();
+      const str = now.toLocaleTimeString('en-PH', {
+        timeZone: data.tz,
+        hour: '2-digit', minute: '2-digit', second: '2-digit',
+        hour12: true
+      });
+      timeEl.textContent = 'PH ' + str;
+    };
+    updateTime();
+    setInterval(updateTime, 1000);
+  }
+
+  /* ── Keyboard nav accessibility ────────────────────────────── */
+  // Allow Enter/Space on work rows
+  document.querySelectorAll('.work-row').forEach(row => {
+    row.setAttribute('role', 'link');
+    row.setAttribute('tabindex', '0');
+    row.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        row.click();
+      }
+    });
+  });
 
 })();

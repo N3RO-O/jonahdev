@@ -1,24 +1,26 @@
 <?php
 /* ============================================================
-   index.php  —  Jonah Tabuzo Portfolio
+   index.php — Jonah Tabuzo Portfolio
    ============================================================ */
 
-$name      = "Jonah Tabuzo";
-$handle    = "Yunah444";
-$role      = "Web Developer · Visual Creator · Systems Analyst";
-$location  = "Virac, Catanduanes, Philippines";
-$email     = "jonahmarkt@gmail.com";
-$phone     = "+63 928 574 4262";
-$website   = "pixodeph.vercel.app";
-$github    = "https://github.com/Yunah444";
-$org_url   = "https://pixodeph.vercel.app/";
-$org_name  = "PIXODE Philippines";
-$discord   = "n3r0_0";
-$discord_server = "https://discord.gg/HpUJFCTX33";
-$discord_server_name = "Nero's Cult";
-$available = true;
+$name        = "Jonah Tabuzo";
+$handle      = "Yunah444";
+$role        = "Web Developer · Visual Creator · Systems Analyst";
+$hook        = "I build web systems and tell visual stories.";
+$location    = "Virac, Catanduanes, Philippines";
+$tz          = "Asia/Manila";
+$email       = "jonahmarkt@gmail.com";
+$phone       = "+63 928 574 4262";
+$github      = "https://github.com/Yunah444";
+$org_url     = "https://pixodeph.vercel.app/";
+$org_name    = "PIXODE Philippines";
+$org_desc    = "A small dev org building digital tools for local communities in the PH.";
+$discord        = "n3r0_0";
+$discord_id     = "756339517878829135";
+$discord_srv    = "https://discord.gg/HpUJFCTX33";
+$discord_nm     = "Nero's Cult";
+$available      = true; // fallback if Lanyard is unreachable
 
-// Skills grouped
 $languages = ["PHP","MySQL","JavaScript","HTML","CSS","Python"];
 $creative  = ["Video Editing","Photography","Videography","AI-Assisted Workflow"];
 
@@ -40,13 +42,14 @@ $projects = [
   [
     "idx"   => "01",
     "name"  => "KiddyTrack",
+    "short" => "School management platform",
     "desc"  => "Web-based academic performance monitoring for teachers & parents",
     "year"  => "2024",
     "tags"  => ["PHP","MySQL","JavaScript","Systems Design"],
     "url"   => "https://github.com/Yunah444/kiddytrack-CPIC",
-    "type"  => "web",
+    "color" => "#00ff41",
     "highlights" => [
-      "Designed & implemented database integration and academic data tracking modules",
+      "Designed & implemented database integration and academic tracking modules",
       "Built separate dashboards for teachers and parent portals",
       "Implemented secure monitoring tools for educational stakeholders",
     ],
@@ -54,24 +57,26 @@ $projects = [
   [
     "idx"   => "02",
     "name"  => "Database Management System",
-    "desc"  => "Custom asset database system built with PHP, JavaScript & CSS",
+    "short" => "Custom asset database",
+    "desc"  => "Full CRUD asset database system built with PHP, JavaScript & CSS",
     "year"  => "2024",
     "tags"  => ["PHP","MySQL","JavaScript","CSS"],
     "url"   => "#",
-    "type"  => "web",
+    "color" => "#79b8ff",
     "highlights" => [
-      "Full CRUD operations with clean, responsive UI",
-      "Structured relational schema and optimized SQL queries",
+      "Full CRUD operations with a clean, responsive interface",
+      "Structured relational schema with optimized SQL queries",
     ],
   ],
   [
     "idx"   => "03",
     "name"  => "Nero's Soundcloud",
+    "short" => "Discord music bot",
     "desc"  => "Lavalink-powered Discord music bot",
     "year"  => "2022",
     "tags"  => ["JavaScript","Discord.js","Lavalink"],
     "url"   => "https://github.com/Yunah444/Nero-s-Soundcloud",
-    "type"  => "bot",
+    "color" => "#a78bfa",
     "highlights" => [],
   ],
 ];
@@ -82,7 +87,7 @@ $experience = [
     "company" => "Alson's Trading",
     "loc"     => "Virac",
     "period"  => "2025",
-    "desc"    => "Built strong client relationships and developed transferable interpersonal and customer-facing skills.",
+    "desc"    => "Built strong client relationships and developed transferable interpersonal and customer-facing skills while representing a global tech brand.",
   ],
   [
     "title"   => "Administrative Support & Community Outreach",
@@ -94,14 +99,14 @@ $experience = [
 ];
 
 $achievements = [
-  ["label" => "HACK4GOV CTF 2023", "desc" => "Capture the Flag Participant"],
+  ["icon" => "🏆", "label" => "HACK4GOV CTF 2023", "desc" => "Capture the Flag Participant"],
 ];
 
 $socials = [
-  ["label" => "GitHub",   "icon" => "gh",  "url" => "https://github.com/Yunah444"],
-  ["label" => "PIXODE",   "icon" => "px",  "url" => "https://pixodeph.vercel.app/"],
-  ["label" => "Discord",  "icon" => "dc",  "url" => "https://discord.gg/HpUJFCTX33"],
-  ["label" => "Email",    "icon" => "em",  "url" => "mailto:jonahmarkt@gmail.com"],
+  ["label" => "GitHub",   "url" => "https://github.com/Yunah444"],
+  ["label" => "PIXODE",   "url" => "https://pixodeph.vercel.app/"],
+  ["label" => "Discord",  "url" => "https://discord.gg/HpUJFCTX33"],
+  ["label" => "Email",    "url" => "mailto:jonahmarkt@gmail.com"],
 ];
 
 $year = date("Y");
@@ -120,6 +125,9 @@ $year = date("Y");
 </head>
 <body>
 
+  <!-- Scroll progress -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
   <div class="cursor" id="cursor"></div>
   <div class="cursor-glow" id="cursorGlow"></div>
 
@@ -134,44 +142,47 @@ $year = date("Y");
         <li><a href="#<?= $l ?>" class="nav-link"><?= $l ?></a></li>
       <?php endforeach; ?>
     </ul>
-    <?php if($available): ?>
-      <div class="nav-status">
-        <span class="status-dot"></span>available for hire
+    <div class="nav-right">
+      <div class="nav-status" id="navStatus">
+        <span class="status-dot" id="navStatusDot"></span>
+        <span id="navStatusText">connecting...</span>
       </div>
-    <?php endif; ?>
+    </div>
   </nav>
 
   <!-- ── HERO ── -->
   <section id="hero">
+    <!-- Dot grid background -->
+    <div class="hero-grid" aria-hidden="true"></div>
+
     <div class="hero-content">
       <div class="hero-eyebrow">
-        <span class="hero-prompt-sym">~</span> / <?= strtolower($location) ?> / <?= $year ?>
+        <span class="sym">~</span><?= htmlspecialchars(strtolower($location)) ?> / <?= $year ?>
       </div>
+
       <h1 class="hero-title">
-        <span class="dim">_</span><span class="green"><?= explode(' ',$name)[0] ?></span><br>
-        <span class="hero-last"><?= explode(' ',$name)[1] ?></span>
+        <span class="ht-line1"><span class="dim">_</span><span class="green"><?= explode(' ',$name)[0] ?></span></span>
+        <span class="ht-line2"><?= explode(' ',$name)[1] ?></span>
       </h1>
-      <p class="hero-role"><?= htmlspecialchars($role) ?></p>
+
+      <p class="hero-hook"><?= htmlspecialchars($hook) ?></p>
+
       <p class="hero-subtitle">
-        Building practical web systems and crafting visual stories — from school management platforms to photo &amp; video production. I use <span>AI as a tool</span> to work smarter across both code and creative work.
+        From <span>school management platforms</span> to <span>photo &amp; video production</span>
+        — powered by clean code and AI-assisted workflows.
       </p>
 
       <div class="tag-group">
-        <div class="tag-group-label">// languages</div>
-        <div class="tag-row">
-          <?php foreach($languages as $l): ?>
-            <span class="tag tag--green"><?= htmlspecialchars($l) ?></span>
-          <?php endforeach; ?>
-        </div>
+        <span class="tg-label">// dev</span>
+        <?php foreach($languages as $l): ?>
+          <span class="tag tag--green"><?= htmlspecialchars($l) ?></span>
+        <?php endforeach; ?>
       </div>
-
       <div class="tag-group">
-        <div class="tag-group-label">// creative</div>
-        <div class="tag-row">
-          <?php foreach($creative as $c): ?>
-            <span class="tag tag--purple"><?= htmlspecialchars($c) ?></span>
-          <?php endforeach; ?>
-        </div>
+        <span class="tg-label">// creative</span>
+        <?php foreach($creative as $c): ?>
+          <span class="tag tag--purple"><?= htmlspecialchars($c) ?></span>
+        <?php endforeach; ?>
       </div>
 
       <div class="hero-actions">
@@ -181,44 +192,36 @@ $year = date("Y");
       </div>
     </div>
 
-    <div class="terminal" id="heroTerminal">
+    <!-- Terminal -->
+    <div class="terminal" id="heroTerminal" aria-label="Profile terminal">
       <div class="terminal-bar">
         <div class="t-dot r"></div><div class="t-dot y"></div><div class="t-dot g"></div>
         <span class="terminal-title">whoami.sh</span>
       </div>
-      <div class="terminal-body">
-        <div class="t-line"><span class="t-ps1">~$</span><span class="t-cmd"> cat profile.json</span></div>
-        <div class="t-line"><span class="t-out">{</span></div>
-        <div class="t-line"><span class="t-out">&nbsp;&nbsp;<span class="t-key">"name"</span>: <span class="t-val">"<?= htmlspecialchars($name) ?>"</span>,</span></div>
-        <div class="t-line"><span class="t-out">&nbsp;&nbsp;<span class="t-key">"role"</span>: <span class="t-val">"Dev &amp; Creator"</span>,</span></div>
-        <div class="t-line"><span class="t-out">&nbsp;&nbsp;<span class="t-key">"location"</span>: <span class="t-val">"<?= htmlspecialchars($location) ?>"</span>,</span></div>
-        <div class="t-line"><span class="t-out">&nbsp;&nbsp;<span class="t-key">"org"</span>: <span class="t-val">"<?= htmlspecialchars($org_name) ?>"</span>,</span></div>
-        <div class="t-line"><span class="t-out">&nbsp;&nbsp;<span class="t-key">"github"</span>: <span class="t-val">"@<?= htmlspecialchars($handle) ?>"</span>,</span></div>
-        <div class="t-line"><span class="t-out">&nbsp;&nbsp;<span class="t-key">"discord"</span>: <span class="t-val">"<?= htmlspecialchars($discord) ?>"</span>,</span></div>
-        <div class="t-line"><span class="t-out">&nbsp;&nbsp;<span class="t-key">"server"</span>: <span class="t-val">"<?= htmlspecialchars($discord_server_name) ?>"</span>,</span></div>
-        <div class="t-line"><span class="t-out">&nbsp;&nbsp;<span class="t-key">"status"</span>: <span class="t-val">"<?= $available ? 'open_to_work' : 'unavailable' ?>"</span></span></div>
-        <div class="t-line"><span class="t-out">}</span></div>
-        <div class="t-line"><span class="t-ps1">~$</span> <span class="t-cursor"></span></div>
+      <div class="terminal-body" id="terminalBody">
+        <!-- Lines injected by JS for typewriter effect -->
       </div>
     </div>
   </section>
 
   <!-- ── WORK ── -->
   <section id="work">
-    <div class="sec-label">projects</div>
-    <div class="sec-title">Work<span>_</span></div>
+    <div class="sec-eyebrow">// projects</div>
+    <div class="sec-title">Work<span class="green">_</span></div>
     <div class="work-list">
-      <?php foreach($projects as $p): ?>
-        <a href="<?= htmlspecialchars($p['url']) ?>" target="_blank" rel="noopener" class="work-row reveal">
-          <div class="work-idx"><?= $p['idx'] ?></div>
-          <div class="work-info">
-            <div class="work-header">
-              <div class="work-name"><?= htmlspecialchars($p['name']) ?></div>
-              <span class="work-type-badge"><?= htmlspecialchars($p['type']) ?></span>
+      <?php foreach($projects as $i => $p): ?>
+        <a href="<?= htmlspecialchars($p['url']) ?>" target="_blank" rel="noopener"
+           class="work-row reveal"
+           style="--accent:<?= $p['color'] ?>; --delay:<?= $i * 80 ?>ms">
+          <div class="work-num"><?= $p['idx'] ?></div>
+          <div class="work-body">
+            <div class="work-top">
+              <span class="work-name"><?= htmlspecialchars($p['name']) ?></span>
+              <span class="work-year"><?= $p['year'] ?></span>
             </div>
-            <div class="work-meta"><?= $p['year'] ?> — <?= htmlspecialchars($p['desc']) ?></div>
+            <div class="work-desc"><?= htmlspecialchars($p['desc']) ?></div>
             <?php if(!empty($p['highlights'])): ?>
-              <ul class="work-highlights">
+              <ul class="work-hl">
                 <?php foreach($p['highlights'] as $h): ?>
                   <li><?= htmlspecialchars($h) ?></li>
                 <?php endforeach; ?>
@@ -238,36 +241,78 @@ $year = date("Y");
 
   <!-- ── ABOUT ── -->
   <section id="about">
-    <div class="sec-label">about</div>
-    <div class="sec-title">Who I Am<span>_</span></div>
+    <div class="sec-eyebrow">// about</div>
+    <div class="sec-title">Who I Am<span class="green">_</span></div>
+
     <div class="about-grid">
 
+      <!-- Bio -->
       <div class="about-card reveal">
-        <div class="card-label">> bio.txt</div>
-        <p class="about-text">
-          I'm <strong><?= htmlspecialchars($name) ?></strong>, a developer and visual creator from <strong><?= htmlspecialchars($location) ?></strong>.
+        <div class="card-label">&gt; bio.txt</div>
+        <p class="body-text">
+          I'm <strong><?= htmlspecialchars($name) ?></strong>, a web developer and visual creator from
+          <strong><?= htmlspecialchars($location) ?></strong>. I build practical systems and craft
+          visual content — often using <strong>AI as a day-to-day tool</strong> to work faster in
+          both code and creative work.
         </p>
-        <p class="about-text">
-          On the tech side, I build web systems and databases — most notably <strong>KiddyTrack</strong>, a school management platform used by teachers and parents. I'm also a co-founder of <strong><?= htmlspecialchars($org_name) ?></strong>, a small dev org building digital tools for the local community.
+        <p class="body-text">
+          Co-founder of <a href="<?= htmlspecialchars($org_url) ?>" target="_blank" rel="noopener" class="text-link"><?= htmlspecialchars($org_name) ?></a>
+          — <?= htmlspecialchars($org_desc) ?>
         </p>
-        <p class="about-text">
-          On the creative side, I do <strong>video editing, photography, and videography</strong>. I use <strong>AI as a practical tool</strong> in both worlds — whether that's generating code snippets, refining edits, or speeding up creative workflows.
+        <p class="body-text">
+          I also run <strong><?= htmlspecialchars($discord_nm) ?></strong>, a gaming community on Discord.
+          Find me as <span class="mono-highlight"><?= htmlspecialchars($discord) ?></span> or
+          <a href="<?= htmlspecialchars($discord_srv) ?>" target="_blank" rel="noopener" class="text-link discord-link">join the server ↗</a>
         </p>
-        <p class="about-text">
-          I also run <strong><?= htmlspecialchars($discord_server_name) ?></strong>, a gaming community on Discord — join us at <a href="<?= htmlspecialchars($discord_server) ?>" target="_blank" rel="noopener" class="inline-link">discord.gg/HpUJFCTX33</a>.
-        </p>
-        <div class="achievement-tags">
+
+        <!-- Live Discord presence card -->
+        <div class="discord-card" id="discordCard">
+          <div class="dc-header">
+            <svg class="dc-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057.1 18.081.114 18.104.134 18.12a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+            <span class="dc-server"><?= htmlspecialchars($discord_nm) ?></span>
+            <a href="<?= htmlspecialchars($discord_srv) ?>" target="_blank" rel="noopener" class="dc-join">Join ↗</a>
+          </div>
+          <div class="dc-body">
+            <div class="dc-avatar-wrap">
+              <img class="dc-avatar" id="dcAvatar" src="" alt="" width="44" height="44">
+              <span class="dc-dot" id="dcDot"></span>
+            </div>
+            <div class="dc-details">
+              <div class="dc-username"><?= htmlspecialchars($discord) ?></div>
+              <div class="dc-status-text" id="dcStatusText">—</div>
+              <div class="dc-activity-text" id="dcActivityText"></div>
+            </div>
+          </div>
+          <div class="dc-spotify" id="dcSpotify" style="display:none">
+            <svg class="dc-spotify-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+            <div class="dc-spotify-info">
+              <div class="dc-spotify-label">Listening to Spotify</div>
+              <div class="dc-spotify-track" id="dcSpotifyTrack"></div>
+              <div class="dc-spotify-artist" id="dcSpotifyArtist"></div>
+            </div>
+            <div class="dc-spotify-bar"><div class="dc-spotify-fill" id="dcSpotifyFill"></div></div>
+          </div>
+        </div>
+
+        <div class="achievement-row">
           <?php foreach($achievements as $a): ?>
-            <span class="achievement-tag">🏆 <?= htmlspecialchars($a['label']) ?> — <?= htmlspecialchars($a['desc']) ?></span>
+            <div class="achievement-badge">
+              <span class="ach-icon"><?= $a['icon'] ?></span>
+              <div>
+                <div class="ach-label"><?= htmlspecialchars($a['label']) ?></div>
+                <div class="ach-desc"><?= htmlspecialchars($a['desc']) ?></div>
+              </div>
+            </div>
           <?php endforeach; ?>
         </div>
       </div>
 
+      <!-- Skills -->
       <div class="about-card reveal">
-        <div class="card-label">> skills.json</div>
+        <div class="card-label">&gt; skills.json</div>
 
         <div class="skill-block">
-          <div class="skill-block-title">// core technical</div>
+          <div class="sb-title">// core technical</div>
           <div class="tag-row">
             <?php foreach($core_skills as $s): ?>
               <span class="tag tag--outline"><?= htmlspecialchars($s) ?></span>
@@ -276,7 +321,7 @@ $year = date("Y");
         </div>
 
         <div class="skill-block">
-          <div class="skill-block-title">// professional</div>
+          <div class="sb-title">// professional</div>
           <div class="tag-row">
             <?php foreach($soft_skills as $s): ?>
               <span class="tag tag--muted"><?= htmlspecialchars($s) ?></span>
@@ -285,27 +330,14 @@ $year = date("Y");
         </div>
 
         <div class="skill-block">
-          <div class="skill-block-title">// creative & tools</div>
+          <div class="sb-title">// creative &amp; AI tools</div>
           <div class="tag-row">
             <?php foreach($creative as $c): ?>
               <span class="tag tag--purple"><?= htmlspecialchars($c) ?></span>
             <?php endforeach; ?>
-            <span class="tag tag--purple">AI Tools (Coding)</span>
-            <span class="tag tag--purple">AI Tools (Editing)</span>
+            <span class="tag tag--purple">AI (Coding)</span>
+            <span class="tag tag--purple">AI (Editing)</span>
           </div>
-        </div>
-
-        <div class="discord-card">
-          <div class="discord-header">
-            <svg class="discord-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057.1 18.081.114 18.104.134 18.12a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
-            <span class="discord-server-name"><?= htmlspecialchars($discord_server_name) ?></span>
-          </div>
-          <div class="discord-meta">Gaming Community Server</div>
-          <div class="discord-row">
-            <span class="discord-label">Handle</span>
-            <span class="discord-value"><?= htmlspecialchars($discord) ?></span>
-          </div>
-          <a href="<?= htmlspecialchars($discord_server) ?>" target="_blank" rel="noopener" class="btn btn-discord">Join Server ↗</a>
         </div>
       </div>
 
@@ -314,8 +346,8 @@ $year = date("Y");
 
   <!-- ── EXPERIENCE ── -->
   <section id="experience">
-    <div class="sec-label">experience</div>
-    <div class="sec-title">Timeline<span>_</span></div>
+    <div class="sec-eyebrow">// experience</div>
+    <div class="sec-title">Timeline<span class="green">_</span></div>
     <div class="exp-list">
       <?php foreach($experience as $e): ?>
         <div class="exp-row reveal">
@@ -323,8 +355,8 @@ $year = date("Y");
           <div class="exp-line"><div class="exp-dot"></div></div>
           <div class="exp-body">
             <div class="exp-title"><?= htmlspecialchars($e['title']) ?></div>
-            <div class="exp-company"><?= htmlspecialchars($e['company']) ?> &middot; <?= htmlspecialchars($e['loc']) ?></div>
-            <p class="exp-desc"><?= htmlspecialchars($e['desc']) ?></p>
+            <div class="exp-co"><?= htmlspecialchars($e['company']) ?> &middot; <?= htmlspecialchars($e['loc']) ?></div>
+            <p class="exp-desc body-text"><?= htmlspecialchars($e['desc']) ?></p>
           </div>
         </div>
       <?php endforeach; ?>
@@ -333,28 +365,69 @@ $year = date("Y");
 
   <!-- ── CONTACT ── -->
   <section id="contact">
-    <div class="contact-pre">init contact</div>
-    <h2 class="contact-title">Let's <span>Build</span><br>Something.</h2>
-    <p class="contact-sub">Open to freelance projects, collaborations, or just a good conversation about tech, cameras, or games.</p>
-    <a href="mailto:<?= htmlspecialchars($email) ?>" class="contact-email"><?= htmlspecialchars($email) ?></a>
-    <div class="contact-phone"><?= htmlspecialchars($phone) ?></div>
-    <ul class="socials">
-      <?php foreach($socials as $s): ?>
-        <li>
-          <a href="<?= htmlspecialchars($s['url']) ?>" target="_blank" rel="noopener">
-            <?= htmlspecialchars($s['label']) ?>
-          </a>
-        </li>
-      <?php endforeach; ?>
-    </ul>
+    <div class="contact-inner">
+      <div class="sec-eyebrow">// contact</div>
+      <h2 class="contact-title">Let's <span class="green">Build</span><br>Something.</h2>
+      <p class="contact-sub">
+        Open to freelance projects, collabs, or just a good conversation
+        about tech, cameras, or games.
+      </p>
+      <a href="mailto:<?= htmlspecialchars($email) ?>" class="contact-email"><?= htmlspecialchars($email) ?></a>
+      <div class="contact-phone"><?= htmlspecialchars($phone) ?></div>
+      <ul class="socials">
+        <?php foreach($socials as $s): ?>
+          <li><a href="<?= htmlspecialchars($s['url']) ?>" target="_blank" rel="noopener"><?= htmlspecialchars($s['label']) ?></a></li>
+        <?php endforeach; ?>
+      </ul>
+    </div>
   </section>
 
+  <!-- ── FOOTER ── -->
   <footer>
     <span>&copy; <?= $year ?> <?= htmlspecialchars($name) ?></span>
-    <span class="footer-center"><?= htmlspecialchars($org_name) ?> &middot; <?= htmlspecialchars($location) ?></span>
-    <span>open_to_work: <?= $available ? '<span class="green">true</span>' : 'false' ?></span>
+    <span class="footer-org"><?= htmlspecialchars($org_name) ?></span>
+    <span class="footer-right">
+      <span class="ph-time" id="phTime"></span>
+      &nbsp;·&nbsp;
+      open_to_work: <span class="green">true</span>
+    </span>
   </footer>
 
+  <!-- Discord presence (Lanyard) -->
+  <div class="discord-presence" id="discordPresence" aria-live="polite">
+    <div class="dp-avatar-wrap">
+      <img class="dp-avatar" id="dpAvatar" src="" alt="<?= htmlspecialchars($name) ?>" width="52" height="52">
+      <span class="dp-status-dot" id="dpStatusDot"></span>
+    </div>
+    <div class="dp-info">
+      <div class="dp-top">
+        <span class="dp-name"><?= htmlspecialchars($discord) ?></span>
+        <span class="dp-badge" id="dpBadge">fetching...</span>
+      </div>
+      <div class="dp-activity" id="dpActivity"></div>
+      <div class="dp-spotify" id="dpSpotify"></div>
+    </div>
+  </div>
+
+  <script>
+    // Pass PHP data to JS
+    window.PORTFOLIO = {
+      tz: "<?= $tz ?>",
+      discordId: "<?= $discord_id ?>",
+      terminalLines: [
+        { type: 'cmd',  text: 'cat profile.json' },
+        { type: 'out',  text: '{' },
+        { type: 'kv',   key: 'name',     val: '<?= addslashes($name) ?>' },
+        { type: 'kv',   key: 'role',     val: 'Dev &amp; Creator' },
+        { type: 'kv',   key: 'location', val: '<?= addslashes($location) ?>' },
+        { type: 'kv',   key: 'org',      val: '<?= addslashes($org_name) ?>' },
+        { type: 'kv',   key: 'github',   val: '@<?= addslashes($handle) ?>' },
+        { type: 'kv',   key: 'discord',  val: '<?= addslashes($discord) ?>' },
+        { type: 'kvl',  key: 'status',   val: '<?= $available ? "open_to_work" : "unavailable" ?>' },
+        { type: 'out',  text: '}' },
+      ]
+    };
+  </script>
   <script src="assets/js/main.js"></script>
 </body>
 </html>
