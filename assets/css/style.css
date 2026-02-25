@@ -529,9 +529,14 @@ section::after {
 
 .socials { display: flex; justify-content: center; gap: 6px; list-style: none; flex-wrap: wrap; }
 .socials a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
   color: var(--g2); text-decoration: none;
   padding: 9px 18px; border: 1px solid var(--border);
+  min-width: 120px;
+  text-align: center;
   transition: all .16s;
 }
 .socials a:hover { color: var(--green); border-color: var(--green); background: var(--green-faint); }
@@ -635,7 +640,7 @@ footer {
   .socials {
     flex-direction: column;
     align-items: stretch;
-    gap: 10px;
+    gap: 20px;
   }
   .socials li + li {
     margin-top: 4px;
