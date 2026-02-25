@@ -11,13 +11,30 @@
   const $ = id => document.getElementById(id);
   const isMobile = () => window.innerWidth <= 768;
 
+  /* ── Page transition (fade out → new page → fade in) ──────── */
+  const overlay = $('pageTransition');
+  if (overlay) {
+    // Fade in on load
+    window.addEventListener('load', () => {
+      overlay.classList.remove('enter');
+    });
+
+    // Intercept external link clicks for a subtle fade-out
+    document.querySelectorAll('a[href^="http"], a[target="_blank"]').forEach(a => {
+      a.addEventListener('click', e => {
+        // Don't block — just flash the overlay briefly
+        overlay.classList.add('enter');
+        setTimeout(() => overlay.classList.remove('enter'), 400);
+      });
+    });
+  }
+
   /* ── Scroll progress bar ───────────────────────────────────── */
   const bar = $('scrollProgress');
   if (bar) {
     const updateBar = () => {
-      const max  = document.documentElement.scrollHeight - window.innerHeight;
-      const pct  = max > 0 ? (window.scrollY / max) * 100 : 0;
-      bar.style.width = pct + '%';
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
     };
     window.addEventListener('scroll', updateBar, { passive: true });
     updateBar();
@@ -48,7 +65,7 @@
   }
 
   /* ── Nav: mobile toggle ────────────────────────────────────── */
-  const toggle = $('navToggle');
+  const toggle   = $('navToggle');
   const navLinks = $('navLinks');
   const closeNav = () => {
     navLinks && navLinks.classList.remove('open');
@@ -79,18 +96,10 @@
   }
 
   /* ── Active nav link on scroll ─────────────────────────────── */
-  const sections  = document.querySelectorAll('section[id]');
+  const sections   = document.querySelectorAll('section[id]');
   const navAnchors = document.querySelectorAll('.nav-link');
 
-  new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        navAnchors.forEach(a => a.classList.toggle(
-          'active', a.getAttribute('href') === '#' + e.target.id
-        ));
-      }
-    });
-  }, { threshold: 0.38 }).observe && sections.forEach(s =>
+  sections.forEach(s =>
     new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (e.isIntersecting)
@@ -115,17 +124,61 @@
 
   document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
 
+  /* ── Currently Learning — animate progress bars on scroll ──── */
+  const learningCard = $('learningCard');
+  if (learningCard) {
+    const barObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.querySelectorAll('.li-bar').forEach((bar, i) => {
+          setTimeout(() => bar.classList.add('animate'), i * 120);
+        });
+        barObs.unobserve(e.target);
+      });
+    }, { threshold: 0.3 });
+    barObs.observe(learningCard);
+  }
+
+  /* ── Copy to clipboard ─────────────────────────────────────── */
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const text  = btn.dataset.copy;
+      const toast = btn.parentElement.querySelector('.copy-toast');
+
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        // Fallback for older browsers
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.cssText = 'position:fixed;opacity:0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      }
+
+      btn.classList.add('copied');
+      btn.textContent = 'copied!';
+      if (toast) toast.classList.add('show');
+
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.textContent = 'copy';
+        if (toast) toast.classList.remove('show');
+      }, 2000);
+    });
+  });
+
   /* ── Terminal typewriter ───────────────────────────────────── */
   const termBody = $('terminalBody');
   if (termBody && data.terminalLines) {
     const lines = data.terminalLines;
     let i = 0;
 
-    // Build a line element from data
     const buildLine = ({ type, text, key, val }) => {
       const div = document.createElement('div');
       div.className = 't-line';
-
       if (type === 'cmd') {
         div.innerHTML = `<span class="t-ps1">~$</span><span class="t-cmd"> ${text}</span>`;
       } else if (type === 'out') {
@@ -137,10 +190,8 @@
       return div;
     };
 
-    // Typewriter: reveal lines one by one
     const revealNext = () => {
       if (i >= lines.length) {
-        // Add prompt + blinking cursor at the end
         const end = document.createElement('div');
         end.className = 't-line visible';
         end.innerHTML = `<span class="t-ps1">~$</span> <span class="t-cursor"></span>`;
@@ -149,17 +200,11 @@
       }
       const el = buildLine(lines[i]);
       termBody.appendChild(el);
-      // Trigger reflow then show
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => el.classList.add('visible'));
-      });
+      requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('visible')));
       i++;
-      // Vary delay: cmd lines get slightly longer pause
-      const delay = lines[i - 1]?.type === 'cmd' ? 260 : 95;
-      setTimeout(revealNext, delay);
+      setTimeout(revealNext, lines[i - 1]?.type === 'cmd' ? 260 : 95);
     };
 
-    // Start typewriter after hero animation settles
     setTimeout(revealNext, 1200);
   }
 
@@ -167,24 +212,21 @@
   const DISCORD_ID = data.discordId;
   const LANYARD    = `https://api.lanyard.rest/v1/users/${DISCORD_ID}`;
 
-  // Elements (main card)
-  const dcDot          = document.getElementById('dcDot');
-  const dcAvatar       = document.getElementById('dcAvatar');
-  const dcStatusText   = document.getElementById('dcStatusText');
-  const dcActivityText = document.getElementById('dcActivityText');
-  const dcSpotify      = document.getElementById('dcSpotify');
-  const dcSpotifyTrack = document.getElementById('dcSpotifyTrack');
-  const dcSpotifyArtist= document.getElementById('dcSpotifyArtist');
-  const dcSpotifyFill  = document.getElementById('dcSpotifyFill');
-  const navDot         = document.getElementById('navStatusDot');
-  const navText        = document.getElementById('navStatusText');
-
-  // Elements (footer)
-  const dpAvatar       = document.getElementById('dpAvatar');
-  const dpStatusDot    = document.getElementById('dpStatusDot');
-  const dpBadge        = document.getElementById('dpBadge');
-  const dpActivity     = document.getElementById('dpActivity');
-  const dpSpotify      = document.getElementById('dpSpotify');
+  const dcDot          = $('dcDot');
+  const dcAvatar       = $('dcAvatar');
+  const dcStatusText   = $('dcStatusText');
+  const dcActivityText = $('dcActivityText');
+  const dcSpotify      = $('dcSpotify');
+  const dcSpotifyTrack = $('dcSpotifyTrack');
+  const dcSpotifyArtist= $('dcSpotifyArtist');
+  const dcSpotifyFill  = $('dcSpotifyFill');
+  const navDot         = $('navStatusDot');
+  const navText        = $('navStatusText');
+  const dpAvatar       = $('dpAvatar');
+  const dpStatusDot    = $('dpStatusDot');
+  const dpBadge        = $('dpBadge');
+  const dpActivity     = $('dpActivity');
+  const dpSpotify      = $('dpSpotify');
 
   const STATUS_MAP = {
     online:  { label: 'available for hire', hire: true  },
@@ -213,32 +255,23 @@
       const user   = d.discord_user;
       const info   = STATUS_MAP[status] || STATUS_MAP.offline;
 
-      // Avatar
-      if (dcAvatar && user) {
+      const setAvatar = (el, size) => {
+        if (!el || !user) return;
         const hash = user.avatar;
         const ext  = hash && hash.startsWith('a_') ? 'gif' : 'png';
-        dcAvatar.src = hash
-          ? `https://cdn.discordapp.com/avatars/${user.id}/${hash}.${ext}?size=64`
+        el.src = hash
+          ? `https://cdn.discordapp.com/avatars/${user.id}/${hash}.${ext}?size=${size}`
           : `https://cdn.discordapp.com/embed/avatars/0.png`;
-        dcAvatar.onerror = () => {
-          dcAvatar.src = `https://cdn.discordapp.com/embed/avatars/0.png`;
-        };
-      }
-      if (dpAvatar && user) {
-        const hash = user.avatar;
-        const ext  = hash && hash.startsWith('a_') ? 'gif' : 'png';
-        dpAvatar.src = hash
-          ? `https://cdn.discordapp.com/avatars/${user.id}/${hash}.${ext}?size=52`
-          : `https://cdn.discordapp.com/embed/avatars/0.png`;
-        dpAvatar.onerror = () => {
-          dpAvatar.src = `https://cdn.discordapp.com/embed/avatars/0.png`;
-        };
-      }
+        el.onerror = () => { el.src = `https://cdn.discordapp.com/embed/avatars/0.png`; };
+      };
 
-      // Status dot + nav
+      setAvatar(dcAvatar, 64);
+      setAvatar(dpAvatar, 52);
+
       setClass(dcDot, status);
       setClass(navDot, status);
       setClass(dpStatusDot, status);
+
       if (navText) {
         navText.textContent = info.label;
         navText.style.color = info.hire ? 'var(--green)' : 'var(--g2)';
@@ -248,7 +281,6 @@
         dpBadge.style.color = info.hire ? 'var(--green)' : 'var(--g2)';
       }
 
-      // Custom status or main status label
       const customStatus = d.activities?.find(a => a.type === 4);
       if (dcStatusText) {
         dcStatusText.textContent = customStatus?.state
@@ -256,26 +288,11 @@
           : info.label;
       }
 
-      // Game / activity (type 0 = Playing, type 1 = Streaming, type 2 = Listening [non-spotify])
       const game = d.activities?.find(a => a.type === 0 || a.type === 1);
-      if (dcActivityText) {
-        if (game) {
-          const verb = game.type === 1 ? '📡 Streaming' : '🎮 Playing';
-          dcActivityText.textContent = `${verb} ${game.name}`;
-        } else {
-          dcActivityText.textContent = '';
-        }
-      }
-      if (dpActivity) {
-        if (game) {
-          const verb = game.type === 1 ? '📡 Streaming' : '🎮 Playing';
-          dpActivity.textContent = `${verb} ${game.name}`;
-        } else {
-          dpActivity.textContent = '';
-        }
-      }
+      const gameText = game ? `${game.type === 1 ? '📡 Streaming' : '🎮 Playing'} ${game.name}` : '';
+      if (dcActivityText) dcActivityText.textContent = gameText;
+      if (dpActivity)     dpActivity.textContent     = gameText;
 
-      // Spotify
       clearInterval(spotifyInterval);
       if (d.listening_to_spotify && d.spotify) {
         const sp = d.spotify;
@@ -284,15 +301,9 @@
         if (dcSpotifyTrack)  dcSpotifyTrack.textContent  = sp.song;
         if (dcSpotifyArtist) dcSpotifyArtist.textContent = sp.artist.replace(/;/g, ',');
 
-        // Progress bar
         if (dcSpotifyFill && sp.timestamps) {
           const update = () => {
-            const now       = Date.now();
-            const start     = sp.timestamps.start;
-            const end       = sp.timestamps.end;
-            const total     = end - start;
-            const elapsed   = now - start;
-            const pct       = Math.min(100, (elapsed / total) * 100);
+            const pct = Math.min(100, ((Date.now() - sp.timestamps.start) / (sp.timestamps.end - sp.timestamps.start)) * 100);
             dcSpotifyFill.style.width = pct + '%';
           };
           update();
@@ -304,7 +315,6 @@
       }
 
     } catch (err) {
-      // Silently fall back — keep PHP default
       if (navText) navText.textContent = 'available for hire';
       console.warn('Lanyard fetch failed:', err.message);
     }
@@ -312,47 +322,31 @@
 
   if (DISCORD_ID) {
     fetchPresence();
-    // Re-poll every 30 seconds
     setInterval(fetchPresence, 30000);
   }
 
-  /* ── Lanyard WebSocket (real-time updates) ─────────────────── */
+  /* ── Lanyard WebSocket (real-time) ─────────────────────────── */
   if (DISCORD_ID && typeof WebSocket !== 'undefined') {
     let ws, heartbeatTimer;
 
     const connectWS = () => {
       ws = new WebSocket('wss://api.lanyard.rest/socket');
 
-      ws.addEventListener('open', () => {
-        // Lanyard expects a subscribe op on open
-      });
-
       ws.addEventListener('message', e => {
         const msg = JSON.parse(e.data);
-
         if (msg.op === 1) {
-          // Hello — start heartbeat and subscribe
           heartbeatTimer = setInterval(() => {
-            ws.readyState === WebSocket.OPEN &&
-              ws.send(JSON.stringify({ op: 3 }));
+            ws.readyState === WebSocket.OPEN && ws.send(JSON.stringify({ op: 3 }));
           }, msg.d.heartbeat_interval);
-
-          ws.send(JSON.stringify({
-            op: 2,
-            d: { subscribe_to_id: DISCORD_ID }
-          }));
+          ws.send(JSON.stringify({ op: 2, d: { subscribe_to_id: DISCORD_ID } }));
         }
-
-        // op 0 = event (INIT_STATE or PRESENCE_UPDATE)
         if (msg.op === 0) fetchPresence();
       });
 
       ws.addEventListener('close', () => {
         clearInterval(heartbeatTimer);
-        // Reconnect after 5s
         setTimeout(connectWS, 5000);
       });
-
       ws.addEventListener('error', () => ws.close());
     };
 
@@ -363,29 +357,135 @@
   const timeEl = $('phTime');
   if (timeEl && data.tz) {
     const updateTime = () => {
-      const now = new Date();
-      const str = now.toLocaleTimeString('en-PH', {
-        timeZone: data.tz,
-        hour: '2-digit', minute: '2-digit', second: '2-digit',
-        hour12: true
+      timeEl.textContent = 'PH ' + new Date().toLocaleTimeString('en-PH', {
+        timeZone: data.tz, hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true
       });
-      timeEl.textContent = 'PH ' + str;
     };
     updateTime();
     setInterval(updateTime, 1000);
   }
 
   /* ── Keyboard nav accessibility ────────────────────────────── */
-  // Allow Enter/Space on work rows
-  document.querySelectorAll('.work-row').forEach(row => {
+  document.querySelectorAll('.work-row, .blog-card').forEach(row => {
     row.setAttribute('role', 'link');
     row.setAttribute('tabindex', '0');
     row.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        row.click();
-      }
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); row.click(); }
     });
   });
 
 })();
+  /* ── Console easter egg ────────────────────────────────────── */
+  (function () {
+    const gold  = 'color:#e8b84b;font-weight:700;font-size:14px;';
+    const dim   = 'color:#484e58;font-size:11px;';
+    const white = 'color:#edeef0;font-size:11px;';
+    console.log(
+      '%c\n     _     \n    (_)    \n     _  ___ \n    | |/ _ \\\n    | | (_) |\n   _/ |\\___/\n  |__/       \n',
+      gold
+    );
+    console.log('%c👋 Hey developer — you opened DevTools. Respect.', white);
+    console.log('%c   I\'m Jonah Tabuzo, a dev from Virac, PH.', dim);
+    console.log('%c   jonahmarkt@gmail.com  ·  github.com/Yunah444', dim);
+    console.log('%c   Available for freelance & collabs.', gold);
+  })();
+
+  /* ── UTM parameter capture ─────────────────────────────────── */
+  (function () {
+    const params = new URLSearchParams(window.location.search);
+    const set = (id, val) => { const el = document.getElementById(id); if (el && val) el.value = val; };
+    set('utmSource',   params.get('utm_source'));
+    set('utmMedium',   params.get('utm_medium'));
+    set('utmCampaign', params.get('utm_campaign'));
+  })();
+
+  /* ── Contact form — async Formspree submit ─────────────────── */
+  const contactForm = document.getElementById('contactForm');
+  const cfSubmit    = document.getElementById('cfSubmit');
+  const cfSuccess   = document.getElementById('cfSuccess');
+  if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btnText    = cfSubmit.querySelector('.cf-btn-text');
+      const btnSending = cfSubmit.querySelector('.cf-btn-sending');
+      cfSubmit.disabled = true;
+      btnText.style.display    = 'none';
+      btnSending.style.display = 'inline';
+      try {
+        const res = await fetch(contactForm.action, {
+          method: 'POST',
+          body: new FormData(contactForm),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          contactForm.style.display = 'none';
+          cfSuccess.style.display   = 'flex';
+        } else {
+          throw new Error('Form submission failed');
+        }
+      } catch {
+        btnText.style.display    = 'inline';
+        btnSending.style.display = 'none';
+        cfSubmit.disabled        = false;
+        alert('Something went wrong — please email me directly at jonahmarkt@gmail.com');
+      }
+    });
+  }
+
+  /* ── Back to top ───────────────────────────────────────────── */
+  const backToTop = document.getElementById('backToTop');
+  if (backToTop) {
+    window.addEventListener('scroll', () => {
+      backToTop.classList.toggle('visible', window.scrollY > 600);
+    }, { passive: true });
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  }
+
+  /* ── Discord widget collapse ───────────────────────────────── */
+  const dpToggle   = document.getElementById('dpToggle');
+  const dpInfo     = document.getElementById('dpInfo');
+  const dpPresence = document.getElementById('discordPresence');
+  if (dpToggle && dpInfo) {
+    dpToggle.addEventListener('click', () => {
+      const collapsed = dpPresence.classList.toggle('collapsed');
+      dpToggle.textContent = collapsed ? '+' : '−';
+      dpToggle.title       = collapsed ? 'Expand' : 'Minimize';
+    });
+  }
+
+  /* ── GitHub API — live badges ──────────────────────────────── */
+  const GH_USER = (window.PORTFOLIO || {}).githubUser;
+  if (GH_USER && document.getElementById('ghStrip')) {
+    const setGH = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+    const timeAgo = (dateStr) => {
+      const d = new Date(dateStr), now = new Date();
+      const diff = Math.floor((now - d) / 1000);
+      if (diff < 86400) return diff < 3600 ? `${Math.floor(diff/60)}m ago` : `${Math.floor(diff/3600)}h ago`;
+      const days = Math.floor(diff / 86400);
+      return days === 1 ? '1 day ago' : days < 30 ? `${days} days ago` : `${Math.floor(days/30)}mo ago`;
+    };
+
+    (async () => {
+      try {
+        const [userRes, reposRes] = await Promise.all([
+          fetch(`https://api.github.com/users/${GH_USER}`),
+          fetch(`https://api.github.com/users/${GH_USER}/repos?per_page=100&sort=pushed`)
+        ]);
+        const user  = await userRes.json();
+        const repos = await reposRes.json();
+
+        setGH('ghRepos', user.public_repos ?? repos.length);
+
+        const stars = repos.reduce((a, r) => a + (r.stargazers_count || 0), 0);
+        setGH('ghStars', stars);
+
+        if (repos[0]?.pushed_at) setGH('ghCommit', timeAgo(repos[0].pushed_at));
+
+        // Count languages
+        const langMap = {};
+        repos.forEach(r => { if (r.language) langMap[r.language] = (langMap[r.language] || 0) + 1; });
+        const top = Object.entries(langMap).sort((a,b) => b[1]-a[1])[0];
+        if (top) setGH('ghTopLang', top[0]);
+      } catch { /* silently fail — badges just show — */ }
+    })();
+  }

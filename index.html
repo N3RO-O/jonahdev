@@ -3,18 +3,62 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Jonah Tabuzo — Web Developer, Systems Analyst & Visual Creator from the Philippines.">
+
+  <!-- ── SEO / OG Meta ── -->
+  <meta name="description" content="Jonah Tabuzo — Web Developer, Systems Analyst & Visual Creator from the Philippines. Open to freelance and collabs.">
+  <meta name="author" content="Jonah Tabuzo">
+  <meta name="keywords" content="Jonah Tabuzo, web developer, Philippines, PHP, MySQL, JavaScript, PIXODE, portfolio">
+
+  <!-- Open Graph (Discord, iMessage, FB, Slack previews) -->
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://jonahtabuzo.dev/">
+  <meta property="og:title"       content="Jonah Tabuzo — Dev & Visual Creator">
+  <meta property="og:description" content="Web systems, visual storytelling & AI-assisted workflows from Virac, Catanduanes, PH.">
+  <meta property="og:image"       content="https://jonahtabuzo.dev/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height"content="630">
+
+  <!-- Twitter / X card -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="Jonah Tabuzo — Dev & Visual Creator">
+  <meta name="twitter:description" content="Web systems, visual storytelling & AI-assisted workflows from Virac, Catanduanes, PH.">
+  <meta name="twitter:image"       content="https://jonahtabuzo.dev/assets/og-image.png">
+
   <title>Jonah Tabuzo — Portfolio</title>
+
+  <!-- Canonical — prevents www vs non-www duplicate content penalty -->
+  <link rel="canonical" href="https://jonahtabuzo.dev/">
+
+  <!-- PWA manifest -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#e8b84b">
+
+  <!-- Favicon set -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%2306080b'/><text x='4' y='24' font-family='monospace' font-size='20' font-weight='700' fill='%23e8b84b'>J</text></svg>">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+  <!-- Font preload hints for faster first paint -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;700&family=Roboto:ital,wght@0,300;0,400;0,500;1,300&display=swap">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;700&family=Roboto:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.v2.css">
 </head>
 <body>
 
+  <!-- Page transition overlay -->
+  <div class="page-transition" id="pageTransition"></div>
+
   <div class="scroll-progress" id="scrollProgress"></div>
   <div class="cursor" id="cursor"></div>
   <div class="cursor-glow" id="cursorGlow"></div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       👋 Hey, you found the source! Nice — I respect that.
+       I'm Jonah, a dev from Virac, Catanduanes, PH.
+       If you're a recruiter: resume is at assets/jonah-tabuzo-cv.pdf
+       If you're a dev: let's talk → jonahmarkt@gmail.com
+       ═══════════════════════════════════════════════════════════ -->
 
   <!-- ── NAV ── -->
   <nav id="navbar">
@@ -23,10 +67,12 @@
       <span></span><span></span><span></span>
     </button>
     <ul class="nav-links" id="navLinks">
-      <li><a href="#work" class="nav-link">work</a></li>
-      <li><a href="#about" class="nav-link">about</a></li>
+      <li><a href="#work"       class="nav-link">work</a></li>
+      <li><a href="#about"      class="nav-link">about</a></li>
       <li><a href="#experience" class="nav-link">experience</a></li>
-      <li><a href="#contact" class="nav-link">contact</a></li>
+      <li><a href="#blog"       class="nav-link">devlog</a></li>
+      <li><a href="#contact"    class="nav-link">contact</a></li>
+      <li><a href="assets/jonah-tabuzo-cv.pdf" class="nav-link nav-link--cv" download aria-label="Download CV">resume ↓</a></li>
     </ul>
     <div class="nav-right">
       <div class="nav-status" id="navStatus">
@@ -41,6 +87,14 @@
     <div class="hero-grid" aria-hidden="true"></div>
 
     <div class="hero-content">
+
+      <!-- Open-to-work banner -->
+      <div class="otw-banner">
+        <span class="otw-dot"></span>
+        <span class="otw-text">Open to Work</span>
+        <span class="otw-tag">Freelance &amp; Collabs</span>
+      </div>
+
       <div class="hero-eyebrow">
         <span class="sym">~</span>virac, catanduanes, philippines / 2026
       </div>
@@ -75,8 +129,9 @@
       </div>
 
       <div class="hero-actions">
-        <a href="#work" class="btn btn-primary">./view_work</a>
-        <a href="#contact" class="btn btn-outline">./contact_me</a>
+        <a href="#work"    class="btn btn-primary">./view_work</a>
+        <a href="assets/jonah-tabuzo-cv.pdf" class="btn btn-outline" download>resume ↓</a>
+        <a href="#contact" class="btn btn-ghost">./contact_me</a>
         <a href="https://github.com/Yunah444" target="_blank" rel="noopener" class="btn btn-ghost">github ↗</a>
       </div>
     </div>
@@ -98,8 +153,7 @@
     <div class="work-list">
 
       <a href="https://github.com/Yunah444/kiddytrack-CPIC" target="_blank" rel="noopener"
-         class="work-row reveal" data-num="01"
-         style="--accent:#e8b84b; --delay:0ms">
+         class="work-row reveal" data-num="01" style="--accent:#e8b84b">
         <div class="work-card-top">
           <div class="work-num">01</div>
           <div class="work-arrow">↗</div>
@@ -125,8 +179,7 @@
       </a>
 
       <a href="#" target="_blank" rel="noopener"
-         class="work-row reveal" data-num="02"
-         style="--accent:#7bafd4; --delay:80ms">
+         class="work-row reveal" data-num="02" style="--accent:#7bafd4">
         <div class="work-card-top">
           <div class="work-num">02</div>
           <div class="work-arrow">↗</div>
@@ -151,8 +204,7 @@
       </a>
 
       <a href="https://github.com/Yunah444/Nero-s-Soundcloud" target="_blank" rel="noopener"
-         class="work-row reveal" data-num="03"
-         style="--accent:#a78bfa; --delay:160ms">
+         class="work-row reveal" data-num="03" style="--accent:#a78bfa">
         <div class="work-card-top">
           <div class="work-num">03</div>
           <div class="work-arrow">↗</div>
@@ -172,9 +224,35 @@
       </a>
 
     </div>
-  </section>
 
-  <!-- ── ABOUT ── -->
+    <!-- GitHub activity strip -->
+    <div class="gh-strip reveal" id="ghStrip">
+      <div class="gh-strip-label">// github · <a href="https://github.com/Yunah444" target="_blank" rel="noopener" class="gh-username">Yunah444 ↗</a></div>
+      <div class="gh-badges" id="ghBadges">
+        <div class="gh-badge-item">
+          <span class="gh-badge-icon">★</span>
+          <span class="gh-badge-val" id="ghStars">—</span>
+          <span class="gh-badge-sub">total stars</span>
+        </div>
+        <div class="gh-badge-item">
+          <span class="gh-badge-icon">⑂</span>
+          <span class="gh-badge-val" id="ghRepos">—</span>
+          <span class="gh-badge-sub">public repos</span>
+        </div>
+        <div class="gh-badge-item">
+          <span class="gh-badge-icon">◉</span>
+          <span class="gh-badge-val" id="ghCommit">—</span>
+          <span class="gh-badge-sub">latest push</span>
+        </div>
+        <div class="gh-badge-item">
+          <span class="gh-badge-icon">{ }</span>
+          <span class="gh-badge-val" id="ghTopLang">—</span>
+          <span class="gh-badge-sub">top language</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
   <section id="about">
     <div class="sec-eyebrow">// about</div>
     <div class="sec-title">Who I Am<span class="green">_</span></div>
@@ -194,14 +272,20 @@
         </p>
         <p class="body-text">
           I also run <strong>Nero's Cult</strong>, a gaming community on Discord.
-          Find me as <span class="mono-highlight">n3r0_0</span> or
-          <a href="https://discord.gg/HpUJFCTX33" target="_blank" rel="noopener" class="text-link discord-link">join the server ↗</a>
+          Find me as
+          <!-- Copy Discord handle -->
+          <span class="copy-wrap">
+            <span class="mono-highlight" id="discordHandle">n3r0_0</span>
+            <button class="copy-btn" data-copy="n3r0_0" aria-label="Copy Discord handle">copy</button>
+            <span class="copy-toast" id="toastDiscord">copied!</span>
+          </span>
+          or <a href="https://discord.gg/HpUJFCTX33" target="_blank" rel="noopener" class="text-link discord-link">join the server ↗</a>
         </p>
 
         <div class="discord-card" id="discordCard">
           <div class="dc-body">
             <div class="dc-avatar-wrap">
-              <img class="dc-avatar" id="dcAvatar" src="" alt="" width="44" height="44">
+              <img class="dc-avatar" id="dcAvatar" src="" alt="" width="44" height="44" loading="lazy">
               <span class="dc-dot" id="dcDot"></span>
             </div>
             <div class="dc-details">
@@ -264,6 +348,37 @@
             <span class="tag tag--purple">AI (Editing)</span>
           </div>
         </div>
+
+        <!-- Currently Learning -->
+        <div class="learning-card" id="learningCard">
+          <div class="learning-header">
+            <span class="learning-label">// currently learning</span>
+            <span class="learning-badge">2026</span>
+          </div>
+          <div class="learning-items">
+            <div class="learning-item">
+              <span class="li-name">React</span>
+              <div class="li-bar-wrap"><div class="li-bar" style="--pct:45%"></div></div>
+              <span class="li-pct">45%</span>
+            </div>
+            <div class="learning-item">
+              <span class="li-name">TypeScript</span>
+              <div class="li-bar-wrap"><div class="li-bar" style="--pct:30%"></div></div>
+              <span class="li-pct">30%</span>
+            </div>
+            <div class="learning-item">
+              <span class="li-name">Tailwind CSS</span>
+              <div class="li-bar-wrap"><div class="li-bar" style="--pct:60%"></div></div>
+              <span class="li-pct">60%</span>
+            </div>
+            <div class="learning-item">
+              <span class="li-name">Node.js</span>
+              <div class="li-bar-wrap"><div class="li-bar" style="--pct:35%"></div></div>
+              <span class="li-pct">35%</span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -294,6 +409,84 @@
     </div>
   </section>
 
+  </section>
+
+  <!-- ── TESTIMONIALS ── -->
+  <section id="testimonials">
+    <div class="sec-eyebrow">// social proof</div>
+    <div class="sec-title">Kind Words<span class="green">_</span></div>
+    <div class="testimonial-grid">
+
+      <div class="testimonial-card reveal">
+        <div class="testi-quote">"</div>
+        <p class="testi-body">Jonah consistently delivered clean, well-structured code for our internal tools at PIXODE. He has a sharp eye for detail and an impressive ability to translate business requirements into working systems — fast.</p>
+        <div class="testi-author">
+          <div class="testi-name">PIXODE Philippines</div>
+          <div class="testi-role">Dev Org · Quality Assurance</div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal">
+        <div class="testi-quote">"</div>
+        <p class="testi-body">Working with Jonah on the KiddyTrack project was seamless. He understood the needs of both teachers and parents immediately, and built dashboards that non-technical users could navigate without any training.</p>
+        <div class="testi-author">
+          <div class="testi-name">KiddyTrack Project</div>
+          <div class="testi-role">Academic Monitoring System · 2024</div>
+        </div>
+      </div>
+
+    </div>
+    <p class="testi-note reveal">Have we worked together? <a href="#contact" class="text-link">I'd love to add your testimonial ↓</a></p>
+  </section>
+
+  <!-- ── BLOG / DEVLOG ── -->
+  <section id="blog">
+    <div class="sec-eyebrow">// devlog</div>
+    <div class="sec-title">Writing<span class="green">_</span></div>
+    <div class="blog-grid">
+
+      <a href="#" class="blog-card reveal">
+        <div class="blog-meta">
+          <span class="blog-date">JAN 2024</span>
+          <span class="blog-tag">PROJECT</span>
+        </div>
+        <div class="blog-title">Building KiddyTrack: How I Designed a School System from Scratch</div>
+        <div class="blog-excerpt">From whiteboard sketches to a live multi-role dashboard — what I learned designing for non-technical users like teachers and parents.</div>
+        <div class="blog-footer">
+          <span class="blog-read">4 min read</span>
+          <span class="blog-arrow">↗</span>
+        </div>
+      </a>
+
+      <a href="#" class="blog-card reveal">
+        <div class="blog-meta">
+          <span class="blog-date">MAR 2024</span>
+          <span class="blog-tag">WORKFLOW</span>
+        </div>
+        <div class="blog-title">How I Use AI Every Day as a Developer and Video Creator</div>
+        <div class="blog-excerpt">Not just for code completion — I use AI for database planning, shot lists, color grading prompts, and even client emails. Here's my actual workflow.</div>
+        <div class="blog-footer">
+          <span class="blog-read">5 min read</span>
+          <span class="blog-arrow">↗</span>
+        </div>
+      </a>
+
+      <a href="#" class="blog-card reveal">
+        <div class="blog-meta">
+          <span class="blog-date">JUN 2023</span>
+          <span class="blog-tag">CTF</span>
+        </div>
+        <div class="blog-title">My First CTF: What HACK4GOV Taught Me About Security Thinking</div>
+        <div class="blog-excerpt">Competing in my first Capture the Flag as a web dev student — the mindset shift from "building" to "breaking" and what I'd do differently next time.</div>
+        <div class="blog-footer">
+          <span class="blog-read">3 min read</span>
+          <span class="blog-arrow">↗</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
   <!-- ── CONTACT ── -->
   <section id="contact">
     <div class="contact-inner">
@@ -303,13 +496,72 @@
         Open to freelance projects, collabs, or just a good conversation
         about tech, cameras, or games.
       </p>
-      <a href="mailto:jonahmarkt@gmail.com" class="contact-email">jonahmarkt@gmail.com</a>
+
+      <!-- Real contact form — Formspree backend, zero server needed -->
+      <!-- 🔧 Replace YOUR_FORM_ID with your Formspree endpoint from formspree.io -->
+      <form class="contact-form reveal" id="contactForm"
+            action="https://formspree.io/f/YOUR_FORM_ID"
+            method="POST">
+
+        <!-- UTM tracking — auto-captured from URL params -->
+        <input type="hidden" name="_utm_source"   id="utmSource">
+        <input type="hidden" name="_utm_medium"   id="utmMedium">
+        <input type="hidden" name="_utm_campaign" id="utmCampaign">
+        <input type="hidden" name="_subject" value="Portfolio Contact — jonahtabuzo.dev">
+
+        <div class="cf-row">
+          <div class="cf-field">
+            <label class="cf-label" for="cfName">name</label>
+            <input class="cf-input" type="text" id="cfName" name="name" placeholder="your name" required autocomplete="name">
+          </div>
+          <div class="cf-field">
+            <label class="cf-label" for="cfEmail">email</label>
+            <input class="cf-input" type="email" id="cfEmail" name="email" placeholder="you@email.com" required autocomplete="email">
+          </div>
+        </div>
+
+        <div class="cf-field">
+          <label class="cf-label" for="cfSubject">what's this about?</label>
+          <select class="cf-input cf-select" id="cfSubject" name="subject">
+            <option value="">— select a topic —</option>
+            <option value="Freelance Project">Freelance Project</option>
+            <option value="Collaboration">Collaboration</option>
+            <option value="Job Opportunity">Job Opportunity</option>
+            <option value="Just Saying Hi">Just Saying Hi</option>
+          </select>
+        </div>
+
+        <div class="cf-field">
+          <label class="cf-label" for="cfMessage">message</label>
+          <textarea class="cf-input cf-textarea" id="cfMessage" name="message" placeholder="tell me about your project..." rows="5" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary cf-submit" id="cfSubmit">
+          <span class="cf-btn-text">send message</span>
+          <span class="cf-btn-sending" style="display:none">sending...</span>
+        </button>
+
+        <div class="cf-success" id="cfSuccess" style="display:none">
+          <span class="cf-success-icon">✓</span> message sent! I'll reply within 24h.
+        </div>
+      </form>
+
+      <!-- Email fallback with copy button -->
+      <div class="contact-alt">
+        <span class="contact-alt-label">or reach out directly</span>
+        <div class="copy-wrap" style="display:inline-flex; flex-direction:column; align-items:center; gap:10px;">
+          <a href="mailto:jonahmarkt@gmail.com" class="contact-email">jonahmarkt@gmail.com</a>
+          <button class="copy-btn" data-copy="jonahmarkt@gmail.com" aria-label="Copy email address">copy email</button>
+          <span class="copy-toast" id="toastEmail">copied!</span>
+        </div>
+      </div>
+
       <div class="contact-phone">+63 928 574 4262</div>
       <ul class="socials">
-        <li><a href="https://github.com/Yunah444" target="_blank" rel="noopener">GitHub</a></li>
-        <li><a href="https://pixodeph.vercel.app/" target="_blank" rel="noopener">PIXODE</a></li>
-        <li><a href="https://discord.gg/HpUJFCTX33" target="_blank" rel="noopener">Discord</a></li>
-        <li><a href="mailto:jonahmarkt@gmail.com">Email</a></li>
+        <li><a href="https://github.com/Yunah444"          target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://pixodeph.vercel.app/"          target="_blank" rel="noopener">PIXODE</a></li>
+        <li><a href="https://discord.gg/HpUJFCTX33"         target="_blank" rel="noopener">Discord</a></li>
+        <li><a href="assets/jonah-tabuzo-cv.pdf" download>Resume ↓</a></li>
       </ul>
     </div>
   </section>
@@ -325,22 +577,15 @@
     </span>
   </footer>
 
-  <!-- Discord presence widget -->
-  <div class="discord-presence" id="discordPresence" aria-live="polite">
-    <div class="dp-info">
-      <div class="dp-top">
-        <span class="dp-name">n3r0_0</span>
-        <span class="dp-badge" id="dpBadge">fetching...</span>
-      </div>
-      <div class="dp-activity" id="dpActivity"></div>
-      <div class="dp-spotify" id="dpSpotify"></div>
-    </div>
-  </div>
+
+  <!-- Back to top -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
 
   <script>
     window.PORTFOLIO = {
       tz: "Asia/Manila",
       discordId: "756339517878829135",
+      githubUser: "Yunah444",
       terminalLines: [
         { type: 'cmd',  text: 'cat profile.json' },
         { type: 'out',  text: '{' },
@@ -348,13 +593,13 @@
         { type: 'kv',   key: 'role',     val: 'Dev & Creator' },
         { type: 'kv',   key: 'location', val: 'Virac, Catanduanes, Philippines' },
         { type: 'kv',   key: 'org',      val: 'PIXODE Philippines' },
-        { type: 'kv',   key: 'github',   val: '@Yunah444' },
-        { type: 'kv',   key: 'discord',  val: 'n3r0_0' },
-        { type: 'kvl',  key: 'status',   val: 'open_to_work' },
+        { type: 'kv',   key: 'stack',    val: 'PHP · MySQL · JS · Python' },
+        { type: 'kv',   key: 'status',   val: 'open_to_work: true' },
+        { type: 'kvl',  key: 'contact',  val: 'jonahmarkt@gmail.com' },
         { type: 'out',  text: '}' },
       ]
     };
   </script>
-  <script src="assets/js/main.js"></script>
+  <script src="assets/js/main.js" defer></script>
 </body>
 </html>
