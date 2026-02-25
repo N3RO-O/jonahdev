@@ -340,7 +340,7 @@ section::after {
 .t-val  { color: #f0b97a; }
 .t-comma{ color: var(--g3); }
 .t-cursor {
-  display: inline-block; width: 7px; height: 14px;
+  display: inline-block; width: 5px; height: 14px;
   background: var(--green);
   animation: blink 1s step-end infinite;
   vertical-align: middle;
@@ -634,4 +634,16 @@ footer {
   .contact-title { letter-spacing: -2px; }
   .socials { flex-direction: column; align-items: center; }
   .socials a { width: 100%; text-align: center; }
+}
+
+/* ── Discord icon sizing ───────────────────────────────────── */
+.dc-icon {
+  width: 14px;
+  height: 14px;
+}
+/* ── Discord card body layout ───────────────────────────────── */
+.dc-body {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
 }

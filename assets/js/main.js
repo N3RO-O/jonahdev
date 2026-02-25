@@ -167,7 +167,7 @@
   const DISCORD_ID = data.discordId;
   const LANYARD    = `https://api.lanyard.rest/v1/users/${DISCORD_ID}`;
 
-  // Elements
+  // Elements (main card)
   const dcDot          = document.getElementById('dcDot');
   const dcAvatar       = document.getElementById('dcAvatar');
   const dcStatusText   = document.getElementById('dcStatusText');
@@ -178,6 +178,13 @@
   const dcSpotifyFill  = document.getElementById('dcSpotifyFill');
   const navDot         = document.getElementById('navStatusDot');
   const navText        = document.getElementById('navStatusText');
+
+  // Elements (footer)
+  const dpAvatar       = document.getElementById('dpAvatar');
+  const dpStatusDot    = document.getElementById('dpStatusDot');
+  const dpBadge        = document.getElementById('dpBadge');
+  const dpActivity     = document.getElementById('dpActivity');
+  const dpSpotify      = document.getElementById('dpSpotify');
 
   const STATUS_MAP = {
     online:  { label: 'available for hire', hire: true  },
@@ -213,14 +220,32 @@
         dcAvatar.src = hash
           ? `https://cdn.discordapp.com/avatars/${user.id}/${hash}.${ext}?size=64`
           : `https://cdn.discordapp.com/embed/avatars/0.png`;
+        dcAvatar.onerror = () => {
+          dcAvatar.src = `https://cdn.discordapp.com/embed/avatars/0.png`;
+        };
+      }
+      if (dpAvatar && user) {
+        const hash = user.avatar;
+        const ext  = hash && hash.startsWith('a_') ? 'gif' : 'png';
+        dpAvatar.src = hash
+          ? `https://cdn.discordapp.com/avatars/${user.id}/${hash}.${ext}?size=52`
+          : `https://cdn.discordapp.com/embed/avatars/0.png`;
+        dpAvatar.onerror = () => {
+          dpAvatar.src = `https://cdn.discordapp.com/embed/avatars/0.png`;
+        };
       }
 
       // Status dot + nav
       setClass(dcDot, status);
       setClass(navDot, status);
+      setClass(dpStatusDot, status);
       if (navText) {
         navText.textContent = info.label;
         navText.style.color = info.hire ? 'var(--green)' : 'var(--g2)';
+      }
+      if (dpBadge) {
+        dpBadge.textContent = info.label;
+        dpBadge.style.color = info.hire ? 'var(--green)' : 'var(--g2)';
       }
 
       // Custom status or main status label
@@ -241,12 +266,21 @@
           dcActivityText.textContent = '';
         }
       }
+      if (dpActivity) {
+        if (game) {
+          const verb = game.type === 1 ? '📡 Streaming' : '🎮 Playing';
+          dpActivity.textContent = `${verb} ${game.name}`;
+        } else {
+          dpActivity.textContent = '';
+        }
+      }
 
       // Spotify
       clearInterval(spotifyInterval);
       if (d.listening_to_spotify && d.spotify) {
         const sp = d.spotify;
         if (dcSpotify)       dcSpotify.style.display = 'flex';
+        if (dpSpotify)       dpSpotify.style.display = 'block';
         if (dcSpotifyTrack)  dcSpotifyTrack.textContent  = sp.song;
         if (dcSpotifyArtist) dcSpotifyArtist.textContent = sp.artist.replace(/;/g, ',');
 
@@ -266,6 +300,7 @@
         }
       } else {
         if (dcSpotify) dcSpotify.style.display = 'none';
+        if (dpSpotify) dpSpotify.style.display = 'none';
       }
 
     } catch (err) {
