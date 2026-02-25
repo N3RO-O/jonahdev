@@ -512,7 +512,7 @@ section::after {
 .contact-title .green { text-shadow: 0 0 60px rgba(0,255,65,.22); }
 
 .contact-sub {
-  font-family: var(--sans); font-weight: 300;
+  font-family: var(--sans); font-weight: 299;
   font-size: 15px; color: var(--g2);
   max-width: 420px; margin: 0 auto 40px; line-height: 1.75;
 }
