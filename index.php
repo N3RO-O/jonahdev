@@ -256,7 +256,7 @@ $year = date("Y");
           both code and creative work.
         </p>
         <p class="body-text">
-          Co-founder of <a href="<?= htmlspecialchars($org_url) ?>" target="_blank" rel="noopener" class="text-link"><?= htmlspecialchars($org_name) ?></a>
+          Quality Assurance Engineer of <a href="<?= htmlspecialchars($org_url) ?>" target="_blank" rel="noopener" class="text-link"><?= htmlspecialchars($org_name) ?></a>
           — <?= htmlspecialchars($org_desc) ?>
         </p>
         <p class="body-text">
