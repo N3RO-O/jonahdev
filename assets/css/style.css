@@ -189,7 +189,7 @@ section::after {
 /* ── Hero ──────────────────────────────────────────────────── */
 #hero {
   min-height: 100vh;
-  padding: calc(var(--nav-h) + 96px) var(--pad) 96px;
+  padding: calc(var(--nav-h) + 40px) var(--pad) 96px;
   display: flex; align-items: center;
   justify-content: space-between; gap: 56px;
   border-bottom: 1px solid var(--border);
@@ -572,7 +572,7 @@ footer {
 /* ── Small tablet ≤ 860px ─────────────────────────────────── */
 @media (max-width: 860px) {
   :root { --pad: 28px; }
-  #hero { flex-direction: column; align-items: flex-start; padding-top: calc(var(--nav-h) + 60px); gap: 48px; }
+  #hero { flex-direction: column; align-items: flex-start; padding-top: calc(var(--nav-h) + 30px); gap: 48px; }
   .terminal { width: 100%; max-width: 560px; animation-delay: .7s; }
   .about-grid { grid-template-columns: 1fr; }
 }
