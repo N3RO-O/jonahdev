@@ -632,8 +632,19 @@ footer {
 
   .about-card { padding: 24px; }
   .contact-title { letter-spacing: -2px; }
-  .socials { flex-direction: column; align-items: center; }
-  .socials a { width: 100%; text-align: center; }
+  .socials {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .socials li + li {
+    margin-top: 4px;
+  }
+  .socials a {
+    width: 100%;
+    text-align: center;
+    padding: 12px 20px;
+  }
 }
 
 /* ── Discord icon sizing ───────────────────────────────────── */
