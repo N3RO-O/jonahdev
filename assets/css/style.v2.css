@@ -488,23 +488,39 @@ section::after {
   margin-bottom: 10px;
 }
 
+.work-ss-thumbs {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 6px;
+  width: 100%;
+}
+
 @media (max-width: 768px) {
   .work-ss-thumbs {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
+    gap: 5px;
   }
 }
 
 .work-ss-thumb {
   position: relative;
-  width: 100%;
-  aspect-ratio: 16/10;
+  width: 72px;
+  height: 52px;
   overflow: hidden;
   border: 1px solid rgba(255,255,255,.07);
   background: var(--bg3);
   cursor: none;
   transition: border-color .2s, transform .2s, box-shadow .2s;
+  flex-shrink: 0;
   z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .work-ss-thumb {
+    width: 64px;
+    height: 46px;
+    cursor: pointer;
+  }
 }
 @media (max-width: 768px) { .work-ss-thumb { cursor: pointer; } }
 
@@ -960,10 +976,12 @@ footer {
   .socials a { width: auto !important; display: inline-block; text-align: center; }
 
   /* Mobile: screenshot thumbs in a row that scrolls if needed */
-  .work-ss-thumbs {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
-  }
+.work-ss-thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
   .work-ss-thumb {
     width: 100%;
     aspect-ratio: 16/10;
