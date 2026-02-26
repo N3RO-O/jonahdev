@@ -488,4 +488,12 @@
         if (top) setGH('ghTopLang', top[0]);
       } catch { /* silently fail — badges just show — */ }
     })();
+
+        /* ── Video cards — play on hover ───────────────────────────── */
+    document.querySelectorAll('.visual-card--video').forEach(card => {
+      const video = card.querySelector('.visual-video');
+      if (!video) return;
+      card.addEventListener('mouseenter', () => video.play().catch(() => {}));
+      card.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
+});
   }

@@ -26,7 +26,7 @@
 
   <title>Jonah Tabuzo — Portfolio</title>
 
-  <!-- Canonical — prevents www vs non-www duplicate content penalty -->
+  <!-- Canonical -->
   <link rel="canonical" href="https://jonahtabuzo.dev/">
 
   <!-- PWA manifest -->
@@ -37,7 +37,7 @@
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%2306080b'/><text x='4' y='24' font-family='monospace' font-size='20' font-weight='700' fill='%23e8b84b'>J</text></svg>">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 
-  <!-- Font preload hints for faster first paint -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;700&family=Roboto:ital,wght@0,300;0,400;0,500;1,300&display=swap">
@@ -71,6 +71,7 @@
       <li><a href="#about"      class="nav-link">about</a></li>
       <li><a href="#experience" class="nav-link">experience</a></li>
       <li><a href="#blog"       class="nav-link">devlog</a></li>
+      <li><a href="#visual"     class="nav-link">visual</a></li>
       <li><a href="#contact"    class="nav-link">contact</a></li>
       <li><a href="assets/jonah-tabuzo-cv.pdf" class="nav-link nav-link--cv" download aria-label="Download CV">resume ↓</a></li>
     </ul>
@@ -98,17 +99,22 @@
       <div class="hero-eyebrow">
         <span class="sym">~</span>virac, catanduanes, philippines / 2026
       </div>
-
-      <h1 class="hero-title">
-        <span class="ht-line1"><span class="dim">_</span><span class="green">Jonah</span></span>
-        <span class="ht-line2">Tabuzo</span>
-      </h1>
-
+      <div class="hero-title-row">
+        <h1 class="hero-title">
+          <span class="ht-line1"><span class="dim">_</span><span class="green">Jonah</span></span>
+          <span class="ht-line2">Tabuzo</span>
+        </h1>
+        <div class="hero-profile">
+          <img src="assets/jonah-photo.jpg" alt="Jonah Tabuzo" class="hero-avatar">
+          <div class="hero-avatar-ring"></div>
+        </div>
+      </div>
       <p class="hero-hook">I build web systems and tell visual stories.</p>
 
       <p class="hero-subtitle">
-        From <span>school management platforms</span> to <span>photo &amp; video production</span>
-        — powered by clean code and AI-assisted workflows.
+        I design and ship <span>web systems built for real users</span> — and produce
+        <span>photo &amp; video content</span> that actually moves people. Powered by clean
+        code, sharp visuals, and AI-assisted workflows.
       </p>
 
       <div class="tag-group">
@@ -152,6 +158,7 @@
     <div class="sec-title">Work<span class="green">_</span></div>
     <div class="work-list">
 
+      <!-- ── Project 01: KiddyTrack ── -->
       <a href="https://github.com/Yunah444/kiddytrack-CPIC" target="_blank" rel="noopener"
          class="work-row reveal" data-num="01" style="--accent:#e8b84b">
         <div class="work-card-top">
@@ -163,12 +170,43 @@
             <span class="work-name">KiddyTrack</span>
             <span class="work-year">2024</span>
           </div>
-          <div class="work-desc">Web-based academic performance monitoring for teachers &amp; parents</div>
+          <div class="work-desc">A role-based academic monitoring platform designed for teachers, parents, and school administrators — built from scratch for active classroom use.</div>
           <ul class="work-hl">
-            <li>Designed &amp; implemented database integration and academic tracking modules</li>
-            <li>Built separate dashboards for teachers and parent portals</li>
-            <li>Implemented secure monitoring tools for educational stakeholders</li>
+            <li>Separate role-based dashboards for teachers, parents, and principals — non-technical users could navigate without any training</li>
+            <li>Designed the full relational database schema and academic tracking modules from scratch</li>
+            <li>Favorite challenge: making grade data feel human and readable, not just rows in a table</li>
           </ul>
+
+          <!-- Screenshot strip -->
+          <div class="work-screenshots">
+            <span class="work-ss-label">// screenshots — click to expand</span>
+            <div class="work-ss-thumbs">
+              <div class="work-ss-thumb"
+                   data-src="assets/projects/kiddytrack/teacher pov/ss1.png"
+                   data-caption="Teacher dashboard — grade entry view"
+                   data-gallery="kiddytrack">
+                <img src="assets/projects/kiddytrack/teacher pov/ss1.png"
+                     alt="KiddyTrack teacher dashboard" loading="lazy" width="320" height="200">
+                <span class="work-ss-expand">⤢</span>
+              </div>
+              <div class="work-ss-thumb"
+                   data-src="assets/projects/kiddytrack/parent pov/ss1.png"
+                   data-caption="Parent portal — child progress overview"
+                   data-gallery="kiddytrack">
+                <img src="assets/projects/kiddytrack/parent pov/ss1.png"
+                     alt="KiddyTrack parent portal" loading="lazy" width="320" height="200">
+                <span class="work-ss-expand">⤢</span>
+              </div>
+              <div class="work-ss-thumb"
+                   data-src="assets/projects/kiddytrack/principal pov/ss1.png"
+                   data-caption="Principal view — school-wide analytics"
+                   data-gallery="kiddytrack">
+                <img src="assets/projects/kiddytrack/principal pov/ss1.png"
+                     alt="KiddyTrack principal view" loading="lazy" width="320" height="200">
+                <span class="work-ss-expand">⤢</span>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="work-tags">
           <span class="tag tag--dim">PHP</span>
@@ -178,6 +216,7 @@
         </div>
       </a>
 
+      <!-- ── Project 02: Database Management System ── -->
       <a href="#" target="_blank" rel="noopener"
          class="work-row reveal" data-num="02" style="--accent:#7bafd4">
         <div class="work-card-top">
@@ -191,9 +230,37 @@
           </div>
           <div class="work-desc">Full CRUD asset database system built with PHP, JavaScript &amp; CSS</div>
           <ul class="work-hl">
-            <li>Full CRUD operations with a clean, responsive interface</li>
-            <li>Structured relational schema with optimized SQL queries</li>
+            <li>Full CRUD operations with a clean, responsive interface built without any framework</li>
+            <li>Structured relational schema with optimized SQL queries for fast filtering and lookup</li>
           </ul>
+
+          <!-- Placeholder — replace src with real screenshots when ready -->
+          <div class="work-screenshots">
+            <span class="work-ss-label">// screenshots coming soon</span>
+            <div class="work-ss-thumbs">
+              <div class="work-ss-thumb work-ss-thumb--placeholder" data-gallery="dbms"
+                   data-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='400' viewBox='0 0 640 400'%3E%3Crect width='640' height='400' fill='%230c0e13'/%3E%3Crect x='40' y='40' width='560' height='36' rx='3' fill='%231a1e28'/%3E%3Crect x='40' y='40' width='90' height='36' rx='3' fill='%237bafd4' opacity='.18'/%3E%3Crect x='140' y='40' width='70' height='36' rx='3' fill='%231a1e28'/%3E%3Crect x='220' y='40' width='70' height='36' rx='3' fill='%231a1e28'/%3E%3Crect x='40' y='96' width='560' height='24' rx='2' fill='%23161920'/%3E%3Crect x='52' y='102' width='60' height='12' rx='2' fill='%23252930'/%3E%3Crect x='160' y='102' width='100' height='12' rx='2' fill='%23252930'/%3E%3Crect x='312' y='102' width='80' height='12' rx='2' fill='%23252930'/%3E%3Crect x='450' y='102' width='50' height='12' rx='2' fill='%23252930'/%3E%3Crect x='40' y='130' width='560' height='1' fill='%231a1e28'/%3E%3Crect x='40' y='141' width='560' height='22' rx='1' fill='%230e1016'/%3E%3Crect x='52' y='146' width='50' height='10' rx='2' fill='%231a1e28'/%3E%3Crect x='160' y='146' width='80' height='10' rx='2' fill='%231a1e28'/%3E%3Crect x='312' y='146' width='60' height='10' rx='2' fill='%231a1e28'/%3E%3Crect x='450' y='146' width='40' height='10' rx='2' fill='%237bafd4' opacity='.3'/%3E%3Crect x='40' y='173' width='560' height='22' rx='1' fill='%230c0e13'/%3E%3Crect x='52' y='178' width='55' height='10' rx='2' fill='%231a1e28'/%3E%3Crect x='160' y='178' width='90' height='10' rx='2' fill='%231a1e28'/%3E%3Crect x='312' y='178' width='50' height='10' rx='2' fill='%231a1e28'/%3E%3Crect x='450' y='178' width='40' height='10' rx='2' fill='%237bafd4' opacity='.3'/%3E%3Crect x='40' y='205' width='560' height='22' rx='1' fill='%230e1016'/%3E%3Crect x='52' y='210' width='45' height='10' rx='2' fill='%231a1e28'/%3E%3Crect x='160' y='210' width='75' height='10' rx='2' fill='%231a1e28'/%3E%3Crect x='312' y='210' width='65' height='10' rx='2' fill='%231a1e28'/%3E%3Crect x='450' y='210' width='40' height='10' rx='2' fill='%237bafd4' opacity='.3'/%3E%3Crect x='40' y='237' width='560' height='22' rx='1' fill='%230c0e13'/%3E%3Crect x='52' y='242' width='60' height='10' rx='2' fill='%231a1e28'/%3E%3Crect x='160' y='242' width='85' height='10' rx='2' fill='%231a1e28'/%3E%3Crect x='312' y='242' width='55' height='10' rx='2' fill='%231a1e28'/%3E%3Crect x='450' y='242' width='40' height='10' rx='2' fill='%237bafd4' opacity='.3'/%3E%3Crect x='40' y='290' width='120' height='32' rx='3' fill='%237bafd4' opacity='.15'/%3E%3Crect x='52' y='300' width='80' height='10' rx='2' fill='%237bafd4' opacity='.5'/%3E%3Crect x='170' y='290' width='90' height='32' rx='3' fill='%231a1e28'/%3E%3Crect x='182' y='300' width='55' height='10' rx='2' fill='%23484e58'/%3E%3Ctext x='320' y='360' text-anchor='middle' font-family='monospace' font-size='11' fill='%23252930'%3EDB Management System — screenshots coming soon%3C/text%3E%3C/svg%3E"
+                   data-caption="Database Management System — screenshots coming soon">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='400' viewBox='0 0 640 400'%3E%3Crect width='640' height='400' fill='%230c0e13'/%3E%3Crect x='40' y='40' width='560' height='36' rx='3' fill='%231a1e28'/%3E%3Crect x='40' y='40' width='90' height='36' rx='3' fill='%237bafd4' opacity='.18'/%3E%3Crect x='140' y='40' width='70' height='36' rx='3' fill='%231a1e28'/%3E%3Crect x='220' y='40' width='70' height='36' rx='3' fill='%231a1e28'/%3E%3Crect x='40' y='96' width='560' height='24' rx='2' fill='%23161920'/%3E%3Crect x='52' y='102' width='60' height='12' rx='2' fill='%23252930'/%3E%3Crect x='160' y='102' width='100' height='12' rx='2' fill='%23252930'/%3E%3Crect x='312' y='102' width='80' height='12' rx='2' fill='%23252930'/%3E%3Crect x='450' y='102' width='50' height='12' rx='2' fill='%23252930'/%3E%3Crect x='40' y='130' width='560' height='1' fill='%231a1e28'/%3E%3Crect x='40' y='141' width='560' height='22' rx='1' fill='%230e1016'/%3E%3Crect x='52' y='146' width='50' height='10' rx='2' fill='%231a1e28'/%3E%3Crect x='160' y='146' width='80' height='10' rx='2' fill='%231a1e28'/%3E%3Crect x='312' y='146' width='60' height='10' rx='2' fill='%231a1e28'/%3E%3Crect x='450' y='146' width='40' height='10' rx='2' fill='%237bafd4' opacity='.3'/%3E%3Crect x='40' y='173' width='560' height='22' rx='1' fill='%230c0e13'/%3E%3Crect x='52' y='178' width='55' height='10' rx='2' fill='%231a1e28'/%3E%3Crect x='160' y='178' width='90' height='10' rx='2' fill='%231a1e28'/%3E%3Crect x='312' y='178' width='50' height='10' rx='2' fill='%231a1e28'/%3E%3Crect x='450' y='178' width='40' height='10' rx='2' fill='%237bafd4' opacity='.3'/%3E%3Crect x='40' y='205' width='560' height='22' rx='1' fill='%230e1016'/%3E%3Crect x='52' y='210' width='45' height='10' rx='2' fill='%231a1e28'/%3E%3Crect x='160' y='210' width='75' height='10' rx='2' fill='%231a1e28'/%3E%3Crect x='312' y='210' width='65' height='10' rx='2' fill='%231a1e28'/%3E%3Crect x='450' y='210' width='40' height='10' rx='2' fill='%237bafd4' opacity='.3'/%3E%3Crect x='40' y='237' width='560' height='22' rx='1' fill='%230c0e13'/%3E%3Crect x='52' y='242' width='60' height='10' rx='2' fill='%231a1e28'/%3E%3Crect x='160' y='242' width='85' height='10' rx='2' fill='%231a1e28'/%3E%3Crect x='312' y='242' width='55' height='10' rx='2' fill='%231a1e28'/%3E%3Crect x='450' y='242' width='40' height='10' rx='2' fill='%237bafd4' opacity='.3'/%3E%3Crect x='40' y='290' width='120' height='32' rx='3' fill='%237bafd4' opacity='.15'/%3E%3Crect x='52' y='300' width='80' height='10' rx='2' fill='%237bafd4' opacity='.5'/%3E%3Crect x='170' y='290' width='90' height='32' rx='3' fill='%231a1e28'/%3E%3Crect x='182' y='300' width='55' height='10' rx='2' fill='%23484e58'/%3E%3Ctext x='320' y='360' text-anchor='middle' font-family='monospace' font-size='11' fill='%23252930'%3EDB Management System — screenshots coming soon%3C/text%3E%3C/svg%3E"
+                     alt="Database Management System placeholder" width="320" height="200">
+                <span class="work-ss-expand">⤢</span>
+              </div>
+              <div class="work-ss-thumb work-ss-thumb--placeholder" data-gallery="dbms"
+                   data-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='400' viewBox='0 0 640 400'%3E%3Crect width='640' height='400' fill='%230c0e13'/%3E%3Crect x='40' y='40' width='220' height='310' rx='3' fill='%230e1016'/%3E%3Crect x='52' y='52' width='100' height='10' rx='2' fill='%231a1e28'/%3E%3Crect x='52' y='74' width='196' height='1' fill='%231a1e28'/%3E%3Crect x='52' y='86' width='140' height='8' rx='2' fill='%23161920'/%3E%3Crect x='52' y='104' width='110' height='8' rx='2' fill='%23161920'/%3E%3Crect x='52' y='122' width='155' height='8' rx='2' fill='%23161920'/%3E%3Crect x='52' y='140' width='125' height='8' rx='2' fill='%237bafd4' opacity='.2'/%3E%3Crect x='52' y='158' width='140' height='8' rx='2' fill='%23161920'/%3E%3Crect x='52' y='176' width='100' height='8' rx='2' fill='%23161920'/%3E%3Crect x='276' y='40' width='324' height='148' rx='3' fill='%230e1016'/%3E%3Crect x='288' y='52' width='80' height='10' rx='2' fill='%231a1e28'/%3E%3Crect x='288' y='74' width='300' height='1' fill='%231a1e28'/%3E%3Crect x='288' y='86' width='200' height='8' rx='2' fill='%23161920'/%3E%3Crect x='288' y='104' width='160' height='8' rx='2' fill='%23161920'/%3E%3Crect x='288' y='122' width='220' height='8' rx='2' fill='%23161920'/%3E%3Crect x='288' y='140' width='180' height='8' rx='2' fill='%23161920'/%3E%3Crect x='276' y='200' width='324' height='150' rx='3' fill='%230e1016'/%3E%3Crect x='288' y='212' width='70' height='10' rx='2' fill='%231a1e28'/%3E%3Crect x='288' y='234' width='300' height='1' fill='%231a1e28'/%3E%3Crect x='288' y='246' width='180' height='8' rx='2' fill='%23161920'/%3E%3Crect x='288' y='264' width='220' height='8' rx='2' fill='%23161920'/%3E%3Crect x='288' y='282' width='150' height='8' rx='2' fill='%237bafd4' opacity='.2'/%3E%3Crect x='288' y='300' width='200' height='8' rx='2' fill='%23161920'/%3E%3Ctext x='320' y='375' text-anchor='middle' font-family='monospace' font-size='11' fill='%23252930'%3ECRUD Interface — form view%3C/text%3E%3C/svg%3E"
+                   data-caption="Database Management System — form / edit view">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='400' viewBox='0 0 640 400'%3E%3Crect width='640' height='400' fill='%230c0e13'/%3E%3Crect x='40' y='40' width='220' height='310' rx='3' fill='%230e1016'/%3E%3Crect x='52' y='52' width='100' height='10' rx='2' fill='%231a1e28'/%3E%3Crect x='52' y='74' width='196' height='1' fill='%231a1e28'/%3E%3Crect x='52' y='86' width='140' height='8' rx='2' fill='%23161920'/%3E%3Crect x='52' y='104' width='110' height='8' rx='2' fill='%23161920'/%3E%3Crect x='52' y='122' width='155' height='8' rx='2' fill='%23161920'/%3E%3Crect x='52' y='140' width='125' height='8' rx='2' fill='%237bafd4' opacity='.2'/%3E%3Crect x='52' y='158' width='140' height='8' rx='2' fill='%23161920'/%3E%3Crect x='52' y='176' width='100' height='8' rx='2' fill='%23161920'/%3E%3Crect x='276' y='40' width='324' height='148' rx='3' fill='%230e1016'/%3E%3Crect x='288' y='52' width='80' height='10' rx='2' fill='%231a1e28'/%3E%3Crect x='288' y='74' width='300' height='1' fill='%231a1e28'/%3E%3Crect x='288' y='86' width='200' height='8' rx='2' fill='%23161920'/%3E%3Crect x='288' y='104' width='160' height='8' rx='2' fill='%23161920'/%3E%3Crect x='288' y='122' width='220' height='8' rx='2' fill='%23161920'/%3E%3Crect x='288' y='140' width='180' height='8' rx='2' fill='%23161920'/%3E%3Crect x='276' y='200' width='324' height='150' rx='3' fill='%230e1016'/%3E%3Crect x='288' y='212' width='70' height='10' rx='2' fill='%231a1e28'/%3E%3Crect x='288' y='234' width='300' height='1' fill='%231a1e28'/%3E%3Crect x='288' y='246' width='180' height='8' rx='2' fill='%23161920'/%3E%3Crect x='288' y='264' width='220' height='8' rx='2' fill='%23161920'/%3E%3Crect x='288' y='282' width='150' height='8' rx='2' fill='%237bafd4' opacity='.2'/%3E%3Crect x='288' y='300' width='200' height='8' rx='2' fill='%23161920'/%3E%3Ctext x='320' y='375' text-anchor='middle' font-family='monospace' font-size='11' fill='%23252930'%3ECRUD Interface — form view%3C/text%3E%3C/svg%3E"
+                     alt="Database Management System form view placeholder" width="320" height="200">
+                <span class="work-ss-expand">⤢</span>
+              </div>
+              <div class="work-ss-thumb work-ss-thumb--placeholder" data-gallery="dbms"
+                   data-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='400' viewBox='0 0 640 400'%3E%3Crect width='640' height='400' fill='%230c0e13'/%3E%3Crect x='40' y='40' width='560' height='44' rx='3' fill='%230e1016'/%3E%3Crect x='52' y='52' width='120' height='10' rx='2' fill='%237bafd4' opacity='.25'/%3E%3Crect x='440' y='50' width='148' height='14' rx='3' fill='%231a1e28'/%3E%3Crect x='452' y='55' width='80' height='6' rx='2' fill='%23484e58'/%3E%3Crect x='40' y='100' width='178' height='240' rx='3' fill='%230e1016'/%3E%3Crect x='52' y='112' width='50' height='8' rx='2' fill='%237bafd4' opacity='.35'/%3E%3Crect x='52' y='132' width='154' height='28' rx='2' fill='%23161920'/%3E%3Crect x='60' y='140' width='80' height='8' rx='2' fill='%231a1e28'/%3E%3Crect x='52' y='170' width='154' height='28' rx='2' fill='%23161920'/%3E%3Crect x='60' y='178' width='65' height='8' rx='2' fill='%231a1e28'/%3E%3Crect x='52' y='208' width='154' height='28' rx='2' fill='%23161920'/%3E%3Crect x='60' y='216' width='90' height='8' rx='2' fill='%231a1e28'/%3E%3Crect x='228' y='100' width='372' height='240' rx='3' fill='%230e1016'/%3E%3Crect x='240' y='112' width='60' height='8' rx='2' fill='%231a1e28'/%3E%3Crect x='240' y='134' width='348' height='1' fill='%231a1e28'/%3E%3Crect x='240' y='148' width='280' height='10' rx='2' fill='%23161920'/%3E%3Crect x='240' y='170' width='200' height='10' rx='2' fill='%23161920'/%3E%3Crect x='240' y='192' width='320' height='10' rx='2' fill='%23161920'/%3E%3Crect x='240' y='214' width='250' height='10' rx='2' fill='%23161920'/%3E%3Crect x='240' y='260' width='100' height='28' rx='3' fill='%237bafd4' opacity='.18'/%3E%3Crect x='252' y='270' width='65' height='8' rx='2' fill='%237bafd4' opacity='.5'/%3E%3Ctext x='320' y='375' text-anchor='middle' font-family='monospace' font-size='11' fill='%23252930'%3ECRUD Interface — detail view%3C/text%3E%3C/svg%3E"
+                   data-caption="Database Management System — detail / record view">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='400' viewBox='0 0 640 400'%3E%3Crect width='640' height='400' fill='%230c0e13'/%3E%3Crect x='40' y='40' width='560' height='44' rx='3' fill='%230e1016'/%3E%3Crect x='52' y='52' width='120' height='10' rx='2' fill='%237bafd4' opacity='.25'/%3E%3Crect x='440' y='50' width='148' height='14' rx='3' fill='%231a1e28'/%3E%3Crect x='452' y='55' width='80' height='6' rx='2' fill='%23484e58'/%3E%3Crect x='40' y='100' width='178' height='240' rx='3' fill='%230e1016'/%3E%3Crect x='52' y='112' width='50' height='8' rx='2' fill='%237bafd4' opacity='.35'/%3E%3Crect x='52' y='132' width='154' height='28' rx='2' fill='%23161920'/%3E%3Crect x='60' y='140' width='80' height='8' rx='2' fill='%231a1e28'/%3E%3Crect x='52' y='170' width='154' height='28' rx='2' fill='%23161920'/%3E%3Crect x='60' y='178' width='65' height='8' rx='2' fill='%231a1e28'/%3E%3Crect x='52' y='208' width='154' height='28' rx='2' fill='%23161920'/%3E%3Crect x='60' y='216' width='90' height='8' rx='2' fill='%231a1e28'/%3E%3Crect x='228' y='100' width='372' height='240' rx='3' fill='%230e1016'/%3E%3Crect x='240' y='112' width='60' height='8' rx='2' fill='%231a1e28'/%3E%3Crect x='240' y='134' width='348' height='1' fill='%231a1e28'/%3E%3Crect x='240' y='148' width='280' height='10' rx='2' fill='%23161920'/%3E%3Crect x='240' y='170' width='200' height='10' rx='2' fill='%23161920'/%3E%3Crect x='240' y='192' width='320' height='10' rx='2' fill='%23161920'/%3E%3Crect x='240' y='214' width='250' height='10' rx='2' fill='%23161920'/%3E%3Crect x='240' y='260' width='100' height='28' rx='3' fill='%237bafd4' opacity='.18'/%3E%3Crect x='252' y='270' width='65' height='8' rx='2' fill='%237bafd4' opacity='.5'/%3E%3Ctext x='320' y='375' text-anchor='middle' font-family='monospace' font-size='11' fill='%23252930'%3ECRUD Interface — detail view%3C/text%3E%3C/svg%3E"
+                     alt="Database Management System detail view placeholder" width="320" height="200">
+                <span class="work-ss-expand">⤢</span>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="work-tags">
           <span class="tag tag--dim">PHP</span>
@@ -203,6 +270,7 @@
         </div>
       </a>
 
+      <!-- ── Project 03: Nero's Soundcloud ── -->
       <a href="https://github.com/Yunah444/Nero-s-Soundcloud" target="_blank" rel="noopener"
          class="work-row reveal" data-num="03" style="--accent:#a78bfa">
         <div class="work-card-top">
@@ -215,6 +283,34 @@
             <span class="work-year">2022</span>
           </div>
           <div class="work-desc">Lavalink-powered Discord music bot with queue management and playback controls</div>
+
+          <!-- Placeholder — replace with real screenshots or bot-in-action GIFs when ready -->
+          <div class="work-screenshots">
+            <span class="work-ss-label">// screenshots coming soon</span>
+            <div class="work-ss-thumbs">
+              <div class="work-ss-thumb work-ss-thumb--placeholder" data-gallery="nero"
+                   data-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='400' viewBox='0 0 640 400'%3E%3Crect width='640' height='400' fill='%230c0e13'/%3E%3Crect x='0' y='0' width='200' height='400' fill='%230a0b10'/%3E%3Crect x='12' y='16' width='176' height='20' rx='3' fill='%23161920'/%3E%3Crect x='20' y='22' width='80' height='8' rx='2' fill='%23252930'/%3E%3Crect x='12' y='50' width='176' height='1' fill='%231a1e28'/%3E%3Crect x='12' y='62' width='176' height='28' rx='2' fill='%235865f2' opacity='.15'/%3E%3Crect x='20' y='70' width='90' height='10' rx='2' fill='%235865f2' opacity='.5'/%3E%3Crect x='12' y='98' width='176' height='24' rx='2' fill='%23161920'/%3E%3Crect x='20' y='106' width='70' height='8' rx='2' fill='%23484e58'/%3E%3Crect x='12' y='130' width='176' height='24' rx='2' fill='%23161920'/%3E%3Crect x='20' y='138' width='85' height='8' rx='2' fill='%23484e58'/%3E%3Crect x='12' y='162' width='176' height='24' rx='2' fill='%23161920'/%3E%3Crect x='20' y='170' width='60' height='8' rx='2' fill='%23484e58'/%3E%3Crect x='212' y='0' width='428' height='400' fill='%230c0e13'/%3E%3Crect x='224' y='20' width='200' height='12' rx='2' fill='%231a1e28'/%3E%3Crect x='224' y='50' width='404' height='1' fill='%231a1e28'/%3E%3Crect x='224' y='68' width='36' height='36' rx='18' fill='%235865f2' opacity='.3'/%3E%3Crect x='270' y='72' width='80' height='10' rx='2' fill='%23edeef0' opacity='.7'/%3E%3Crect x='270' y='88' width='55' height='8' rx='2' fill='%23484e58'/%3E%3Crect x='224' y='120' width='404' height='1' fill='%231a1e28'/%3E%3Crect x='224' y='136' width='36' height='36' rx='18' fill='%23a78bfa' opacity='.25'/%3E%3Crect x='270' y='140' width='60' height='10' rx='2' fill='%23edeef0' opacity='.5'/%3E%3Crect x='270' y='156' width='40' height='8' rx='2' fill='%23484e58'/%3E%3Crect x='224' y='188' width='404' height='1' fill='%231a1e28'/%3E%3Crect x='224' y='204' width='36' height='36' rx='18' fill='%23a78bfa' opacity='.2'/%3E%3Crect x='270' y='208' width='75' height='10' rx='2' fill='%23edeef0' opacity='.4'/%3E%3Crect x='270' y='224' width='45' height='8' rx='2' fill='%23484e58'/%3E%3Crect x='212' y='320' width='428' height='80' fill='%230a0b10'/%3E%3Crect x='224' y='332' width='180' height='8' rx='2' fill='%23252930'/%3E%3Crect x='224' y='348' width='404' height='4' rx='2' fill='%231a1e28'/%3E%3Crect x='224' y='348' width='140' height='4' rx='2' fill='%23a78bfa' opacity='.5'/%3E%3Ccircle cx='364' cy='350' r='6' fill='%23a78bfa' opacity='.7'/%3E%3Crect x='330' y='362' width='18' height='18' rx='9' fill='%231a1e28'/%3E%3Crect x='356' y='360' width='22' height='22' rx='11' fill='%23a78bfa' opacity='.25'/%3E%3Crect x='384' y='362' width='18' height='18' rx='9' fill='%231a1e28'/%3E%3Ctext x='320' y='393' text-anchor='middle' font-family='monospace' font-size='10' fill='%23252930'%3ENero's Soundcloud — bot in server%3C/text%3E%3C/svg%3E"
+                   data-caption="Nero's Soundcloud — bot running in Discord server">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='400' viewBox='0 0 640 400'%3E%3Crect width='640' height='400' fill='%230c0e13'/%3E%3Crect x='0' y='0' width='200' height='400' fill='%230a0b10'/%3E%3Crect x='12' y='16' width='176' height='20' rx='3' fill='%23161920'/%3E%3Crect x='20' y='22' width='80' height='8' rx='2' fill='%23252930'/%3E%3Crect x='12' y='50' width='176' height='1' fill='%231a1e28'/%3E%3Crect x='12' y='62' width='176' height='28' rx='2' fill='%235865f2' opacity='.15'/%3E%3Crect x='20' y='70' width='90' height='10' rx='2' fill='%235865f2' opacity='.5'/%3E%3Crect x='12' y='98' width='176' height='24' rx='2' fill='%23161920'/%3E%3Crect x='20' y='106' width='70' height='8' rx='2' fill='%23484e58'/%3E%3Crect x='12' y='130' width='176' height='24' rx='2' fill='%23161920'/%3E%3Crect x='20' y='138' width='85' height='8' rx='2' fill='%23484e58'/%3E%3Crect x='12' y='162' width='176' height='24' rx='2' fill='%23161920'/%3E%3Crect x='20' y='170' width='60' height='8' rx='2' fill='%23484e58'/%3E%3Crect x='212' y='0' width='428' height='400' fill='%230c0e13'/%3E%3Crect x='224' y='20' width='200' height='12' rx='2' fill='%231a1e28'/%3E%3Crect x='224' y='50' width='404' height='1' fill='%231a1e28'/%3E%3Crect x='224' y='68' width='36' height='36' rx='18' fill='%235865f2' opacity='.3'/%3E%3Crect x='270' y='72' width='80' height='10' rx='2' fill='%23edeef0' opacity='.7'/%3E%3Crect x='270' y='88' width='55' height='8' rx='2' fill='%23484e58'/%3E%3Crect x='224' y='120' width='404' height='1' fill='%231a1e28'/%3E%3Crect x='224' y='136' width='36' height='36' rx='18' fill='%23a78bfa' opacity='.25'/%3E%3Crect x='270' y='140' width='60' height='10' rx='2' fill='%23edeef0' opacity='.5'/%3E%3Crect x='270' y='156' width='40' height='8' rx='2' fill='%23484e58'/%3E%3Crect x='224' y='188' width='404' height='1' fill='%231a1e28'/%3E%3Crect x='224' y='204' width='36' height='36' rx='18' fill='%23a78bfa' opacity='.2'/%3E%3Crect x='270' y='208' width='75' height='10' rx='2' fill='%23edeef0' opacity='.4'/%3E%3Crect x='270' y='224' width='45' height='8' rx='2' fill='%23484e58'/%3E%3Crect x='212' y='320' width='428' height='80' fill='%230a0b10'/%3E%3Crect x='224' y='332' width='180' height='8' rx='2' fill='%23252930'/%3E%3Crect x='224' y='348' width='404' height='4' rx='2' fill='%231a1e28'/%3E%3Crect x='224' y='348' width='140' height='4' rx='2' fill='%23a78bfa' opacity='.5'/%3E%3Ccircle cx='364' cy='350' r='6' fill='%23a78bfa' opacity='.7'/%3E%3Crect x='330' y='362' width='18' height='18' rx='9' fill='%231a1e28'/%3E%3Crect x='356' y='360' width='22' height='22' rx='11' fill='%23a78bfa' opacity='.25'/%3E%3Crect x='384' y='362' width='18' height='18' rx='9' fill='%231a1e28'/%3E%3Ctext x='320' y='393' text-anchor='middle' font-family='monospace' font-size='10' fill='%23252930'%3ENero's Soundcloud — bot in server%3C/text%3E%3C/svg%3E"
+                     alt="Nero's Soundcloud Discord bot placeholder" width="320" height="200">
+                <span class="work-ss-expand">⤢</span>
+              </div>
+              <div class="work-ss-thumb work-ss-thumb--placeholder" data-gallery="nero"
+                   data-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='400' viewBox='0 0 640 400'%3E%3Crect width='640' height='400' fill='%230c0e13'/%3E%3Crect x='40' y='30' width='560' height='340' rx='4' fill='%230a0b10'/%3E%3Crect x='40' y='30' width='560' height='44' rx='4' fill='%23161920'/%3E%3Crect x='56' y='43' width='24' height='24' rx='12' fill='%23a78bfa' opacity='.4'/%3E%3Crect x='88' y='47' width='100' height='10' rx='2' fill='%23edeef0' opacity='.6'/%3E%3Crect x='88' y='61' width='60' height='7' rx='2' fill='%23484e58'/%3E%3Crect x='40' y='74' width='560' height='1' fill='%231a1e28'/%3E%3Crect x='56' y='92' width='24' height='24' rx='12' fill='%235865f2' opacity='.35'/%3E%3Crect x='88' y='96' width='55' height='9' rx='2' fill='%23edeef0' opacity='.7'/%3E%3Crect x='88' y='111' width='380' height='8' rx='2' fill='%23484e58'/%3E%3Crect x='88' y='124' width='280' height='8' rx='2' fill='%23484e58'/%3E%3Crect x='56' y='152' width='24' height='24' rx='12' fill='%23a78bfa' opacity='.3'/%3E%3Crect x='88' y='156' width='70' height='9' rx='2' fill='%23edeef0' opacity='.5'/%3E%3Crect x='88' y='171' width='300' height='70' rx='3' fill='%23161920'/%3E%3Crect x='100' y='183' width='60' height='8' rx='2' fill='%23a78bfa' opacity='.5'/%3E%3Crect x='100' y='199' width='200' height='8' rx='2' fill='%23edeef0' opacity='.4'/%3E%3Crect x='100' y='215' width='160' height='8' rx='2' fill='%23484e58'/%3E%3Crect x='100' y='229' width='180' height='8' rx='2' fill='%23484e58'/%3E%3Crect x='56' y='260' width='24' height='24' rx='12' fill='%235865f2' opacity='.3'/%3E%3Crect x='88' y='264' width='50' height='9' rx='2' fill='%23edeef0' opacity='.6'/%3E%3Crect x='88' y='279' width='240' height='8' rx='2' fill='%23484e58'/%3E%3Crect x='40' y='318' width='560' height='52' rx='4' fill='%23161920'/%3E%3Crect x='52' y='334' width='420' height='20' rx='3' fill='%230c0e13'/%3E%3Crect x='60' y='340' width='100' height='8' rx='2' fill='%23252930'/%3E%3Ctext x='320' y='393' text-anchor='middle' font-family='monospace' font-size='10' fill='%23252930'%3ENero's Soundcloud — queue commands%3C/text%3E%3C/svg%3E"
+                   data-caption="Nero's Soundcloud — queue and playback commands">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='400' viewBox='0 0 640 400'%3E%3Crect width='640' height='400' fill='%230c0e13'/%3E%3Crect x='40' y='30' width='560' height='340' rx='4' fill='%230a0b10'/%3E%3Crect x='40' y='30' width='560' height='44' rx='4' fill='%23161920'/%3E%3Crect x='56' y='43' width='24' height='24' rx='12' fill='%23a78bfa' opacity='.4'/%3E%3Crect x='88' y='47' width='100' height='10' rx='2' fill='%23edeef0' opacity='.6'/%3E%3Crect x='88' y='61' width='60' height='7' rx='2' fill='%23484e58'/%3E%3Crect x='40' y='74' width='560' height='1' fill='%231a1e28'/%3E%3Crect x='56' y='92' width='24' height='24' rx='12' fill='%235865f2' opacity='.35'/%3E%3Crect x='88' y='96' width='55' height='9' rx='2' fill='%23edeef0' opacity='.7'/%3E%3Crect x='88' y='111' width='380' height='8' rx='2' fill='%23484e58'/%3E%3Crect x='88' y='124' width='280' height='8' rx='2' fill='%23484e58'/%3E%3Crect x='56' y='152' width='24' height='24' rx='12' fill='%23a78bfa' opacity='.3'/%3E%3Crect x='88' y='156' width='70' height='9' rx='2' fill='%23edeef0' opacity='.5'/%3E%3Crect x='88' y='171' width='300' height='70' rx='3' fill='%23161920'/%3E%3Crect x='100' y='183' width='60' height='8' rx='2' fill='%23a78bfa' opacity='.5'/%3E%3Crect x='100' y='199' width='200' height='8' rx='2' fill='%23edeef0' opacity='.4'/%3E%3Crect x='100' y='215' width='160' height='8' rx='2' fill='%23484e58'/%3E%3Crect x='100' y='229' width='180' height='8' rx='2' fill='%23484e58'/%3E%3Crect x='56' y='260' width='24' height='24' rx='12' fill='%235865f2' opacity='.3'/%3E%3Crect x='88' y='264' width='50' height='9' rx='2' fill='%23edeef0' opacity='.6'/%3E%3Crect x='88' y='279' width='240' height='8' rx='2' fill='%23484e58'/%3E%3Crect x='40' y='318' width='560' height='52' rx='4' fill='%23161920'/%3E%3Crect x='52' y='334' width='420' height='20' rx='3' fill='%230c0e13'/%3E%3Crect x='60' y='340' width='100' height='8' rx='2' fill='%23252930'/%3E%3Ctext x='320' y='393' text-anchor='middle' font-family='monospace' font-size='10' fill='%23252930'%3ENero's Soundcloud — queue commands%3C/text%3E%3C/svg%3E"
+                     alt="Nero's Soundcloud queue commands placeholder" width="320" height="200">
+                <span class="work-ss-expand">⤢</span>
+              </div>
+              <div class="work-ss-thumb work-ss-thumb--placeholder" data-gallery="nero"
+                   data-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='400' viewBox='0 0 640 400'%3E%3Crect width='640' height='400' fill='%230c0e13'/%3E%3Crect x='120' y='60' width='400' height='280' rx='6' fill='%230e1016'/%3E%3Crect x='120' y='60' width='400' height='48' rx='6' fill='%23161920'/%3E%3Ccircle cx='150' cy='84' r='16' fill='%23a78bfa' opacity='.35'/%3E%3Crect x='174' y='76' width='90' height='10' rx='2' fill='%23edeef0' opacity='.6'/%3E%3Crect x='174' y='92' width='55' height='7' rx='2' fill='%23a78bfa' opacity='.4'/%3E%3Crect x='120' y='108' width='400' height='1' fill='%231a1e28'/%3E%3Crect x='136' y='124' width='368' height='8' rx='2' fill='%23484e58'/%3E%3Crect x='136' y='140' width='300' height='8' rx='2' fill='%23484e58'/%3E%3Crect x='136' y='168' width='368' height='56' rx='3' fill='%23161920'/%3E%3Crect x='148' y='180' width='36' height='36' rx='3' fill='%23a78bfa' opacity='.2'/%3E%3Crect x='192' y='182' width='120' height='9' rx='2' fill='%23edeef0' opacity='.5'/%3E%3Crect x='192' y='197' width='80' height='8' rx='2' fill='%23484e58'/%3E%3Crect x='192' y='212' width='200' height='4' rx='2' fill='%231a1e28'/%3E%3Crect x='192' y='212' width='80' height='4' rx='2' fill='%23a78bfa' opacity='.5'/%3E%3Crect x='136' y='244' width='368' height='1' fill='%231a1e28'/%3E%3Crect x='316' y='262' width='28' height='28' rx='14' fill='%23a78bfa' opacity='.2'/%3E%3Crect x='278' y='266' width='24' height='20' rx='10' fill='%23161920'/%3E%3Crect x='358' y='266' width='24' height='20' rx='10' fill='%23161920'/%3E%3Crect x='248' y='269' width='18' height='14' rx='7' fill='%23161920'/%3E%3Crect x='388' y='269' width='18' height='14' rx='7' fill='%23161920'/%3E%3Ctext x='320' y='380' text-anchor='middle' font-family='monospace' font-size='10' fill='%23252930'%3ENero's Soundcloud — now playing embed%3C/text%3E%3C/svg%3E"
+                   data-caption="Nero's Soundcloud — now playing embed">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='400' viewBox='0 0 640 400'%3E%3Crect width='640' height='400' fill='%230c0e13'/%3E%3Crect x='120' y='60' width='400' height='280' rx='6' fill='%230e1016'/%3E%3Crect x='120' y='60' width='400' height='48' rx='6' fill='%23161920'/%3E%3Ccircle cx='150' cy='84' r='16' fill='%23a78bfa' opacity='.35'/%3E%3Crect x='174' y='76' width='90' height='10' rx='2' fill='%23edeef0' opacity='.6'/%3E%3Crect x='174' y='92' width='55' height='7' rx='2' fill='%23a78bfa' opacity='.4'/%3E%3Crect x='120' y='108' width='400' height='1' fill='%231a1e28'/%3E%3Crect x='136' y='124' width='368' height='8' rx='2' fill='%23484e58'/%3E%3Crect x='136' y='140' width='300' height='8' rx='2' fill='%23484e58'/%3E%3Crect x='136' y='168' width='368' height='56' rx='3' fill='%23161920'/%3E%3Crect x='148' y='180' width='36' height='36' rx='3' fill='%23a78bfa' opacity='.2'/%3E%3Crect x='192' y='182' width='120' height='9' rx='2' fill='%23edeef0' opacity='.5'/%3E%3Crect x='192' y='197' width='80' height='8' rx='2' fill='%23484e58'/%3E%3Crect x='192' y='212' width='200' height='4' rx='2' fill='%231a1e28'/%3E%3Crect x='192' y='212' width='80' height='4' rx='2' fill='%23a78bfa' opacity='.5'/%3E%3Crect x='136' y='244' width='368' height='1' fill='%231a1e28'/%3E%3Crect x='316' y='262' width='28' height='28' rx='14' fill='%23a78bfa' opacity='.2'/%3E%3Crect x='278' y='266' width='24' height='20' rx='10' fill='%23161920'/%3E%3Crect x='358' y='266' width='24' height='20' rx='10' fill='%23161920'/%3E%3Crect x='248' y='269' width='18' height='14' rx='7' fill='%23161920'/%3E%3Crect x='388' y='269' width='18' height='14' rx='7' fill='%23161920'/%3E%3Ctext x='320' y='380' text-anchor='middle' font-family='monospace' font-size='10' fill='%23252930'%3ENero's Soundcloud — now playing embed%3C/text%3E%3C/svg%3E"
+                     alt="Nero's Soundcloud now playing embed placeholder" width="320" height="200">
+                <span class="work-ss-expand">⤢</span>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="work-tags">
           <span class="tag tag--dim">JavaScript</span>
@@ -224,7 +320,61 @@
       </a>
 
     </div>
+    <!-- ── VISUAL WORK ── -->
+<section id="visual">
+  <div class="sec-eyebrow">// creative work</div>
+  <div class="sec-title">Visual<span class="green">_</span></div>
+  <p class="visual-intro body-text">
+    Beyond code, I shoot and edit — <strong>commercial photography</strong>,
+    <strong>event coverage</strong>, and <strong>short-form video</strong> for local
+    businesses and communities in Catanduanes.
+  </p>
 
+  <div class="visual-grid">
+    <div class="visual-card reveal" data-type="photo">
+      <div class="visual-thumb">
+        <img src="assets/creative/photo-01.jpg" alt="Photography sample" loading="lazy">
+        <div class="visual-overlay">
+          <span class="visual-type">Photography</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="visual-card reveal" data-type="photo">
+      <div class="visual-thumb">
+        <img src="assets/creative/photo-02.jpg" alt="Photography sample" loading="lazy">
+        <div class="visual-overlay">
+          <span class="visual-type">Photography</span>
+        </div>
+      </div>
+    </div>
+        <div class="visual-card reveal" data-type="photo">
+      <div class="visual-thumb">
+        <img src="assets/creative/photo-03.jpg" alt="Photography sample" loading="lazy">
+        <div class="visual-overlay">
+          <span class="visual-type">Photography</span>
+        </div>
+      </div>
+    </div>
+     <div class="visual-card visual-card--video reveal" data-type="video">
+      <div class="visual-thumb">
+        <video class="visual-video"
+           src="assets/creative/your-video.mp4"
+           muted playsinline loop preload="none"
+           poster="assets/creative/your-video-thumb.jpg">
+        </video>
+      <div class="visual-overlay">
+        <span class="visual-type">▶ Videography</span>
+      </div>
+  </div>
+</div>
+  </div>
+
+  <p class="visual-cta body-text" style="margin-top:32px;">
+    Want to see more or discuss a shoot?
+    <a href="#contact" class="text-link">Let's talk ↓</a>
+  </p>
+</section>
     <!-- GitHub activity strip -->
     <div class="gh-strip reveal" id="ghStrip">
       <div class="gh-strip-label">// github · <a href="https://github.com/Yunah444" target="_blank" rel="noopener" class="gh-username">Yunah444 ↗</a></div>
@@ -253,6 +403,8 @@
     </div>
 
   </section>
+
+  <!-- ── ABOUT ── -->
   <section id="about">
     <div class="sec-eyebrow">// about</div>
     <div class="sec-title">Who I Am<span class="green">_</span></div>
@@ -261,19 +413,18 @@
       <div class="about-card reveal">
         <div class="card-label">&gt; bio.txt</div>
         <p class="body-text">
-          I'm <strong>Jonah Tabuzo</strong>, a web developer and visual creator from
-          <strong>Virac, Catanduanes, Philippines</strong>. I build practical systems and craft
-          visual content — often using <strong>AI as a day-to-day tool</strong> to work faster in
-          both code and creative work.
+          I'm <strong>Jonah Tabuzo</strong> — a web developer and visual creator based in
+          <strong>Virac, Catanduanes, Philippines</strong>, graduating 2026. I build
+          production-ready web systems and produce visual content that communicates clearly,
+          leveraging <strong>AI tools daily</strong> to move faster without cutting corners.
         </p>
         <p class="body-text">
-          Quality Assurance Engineer of <a href="https://pixodeph.vercel.app/" target="_blank" rel="noopener" class="text-link">PIXODE Philippines</a>
-          — A small dev org building digital tools for local communities in the PH.
+            Quality Assurance Engineer at <a href="https://pixodeph.vercel.app/" ...>PIXODE Philippines</a>
+            — a dev collective building practical digital tools for underserved communities across the PH.
         </p>
         <p class="body-text">
           I also run <strong>Nero's Cult</strong>, a gaming community on Discord.
           Find me as
-          <!-- Copy Discord handle -->
           <span class="copy-wrap">
             <span class="mono-highlight" id="discordHandle">n3r0_0</span>
             <button class="copy-btn" data-copy="n3r0_0" aria-label="Copy Discord handle">copy</button>
@@ -350,37 +501,27 @@
           </div>
         </div>
 
-        <!-- Currently Learning -->
+        <!-- Currently Learning — fixed, no duplicates -->
         <div class="learning-card" id="learningCard">
           <div class="learning-header">
-            <span class="learning-label">// currently learning</span>
+            <span class="learning-label">// currently building with</span>
             <span class="learning-badge">2026</span>
           </div>
           <div class="learning-items">
+            <div class="learning-item">
+              <span class="li-name">Tailwind CSS</span>
+              <div class="li-bar-wrap"><div class="li-bar" style="--pct:60%"></div></div>
+              <span class="li-pct">60%</span>
+            </div>
             <div class="learning-item">
               <span class="li-name">React</span>
               <div class="li-bar-wrap"><div class="li-bar" style="--pct:45%"></div></div>
               <span class="li-pct">45%</span>
             </div>
             <div class="learning-item">
-              <span class="li-name">ReactJS</span>
-              <div class="li-bar-wrap"><div class="li-bar" style="--pct:40%"></div></div>
-              <span class="li-pct">40%</span>
-            </div>
-            <div class="learning-item">
-              <span class="li-name">Lua Script</span>
-              <div class="li-bar-wrap"><div class="li-bar" style="--pct:25%"></div></div>
-              <span class="li-pct">25%</span>
-            </div>
-            <div class="learning-item">
-              <span class="li-name">C++</span>
-              <div class="li-bar-wrap"><div class="li-bar" style="--pct:20%"></div></div>
-              <span class="li-pct">20%</span>
-            </div>
-            <div class="learning-item">
-              <span class="li-name">C#</span>
-              <div class="li-bar-wrap"><div class="li-bar" style="--pct:15%"></div></div>
-              <span class="li-pct">15%</span>
+              <span class="li-name">Node.js</span>
+              <div class="li-bar-wrap"><div class="li-bar" style="--pct:35%"></div></div>
+              <span class="li-pct">35%</span>
             </div>
             <div class="learning-item">
               <span class="li-name">TypeScript</span>
@@ -388,14 +529,14 @@
               <span class="li-pct">30%</span>
             </div>
             <div class="learning-item">
-              <span class="li-name">Tailwind CSS</span>
-              <div class="li-bar-wrap"><div class="li-bar" style="--pct:60%"></div></div>
-              <span class="li-pct">60%</span>
+              <span class="li-name">Lua Script</span>
+              <div class="li-bar-wrap"><div class="li-bar" style="--pct:25%"></div></div>
+              <span class="li-pct">25%</span>
             </div>
             <div class="learning-item">
-              <span class="li-name">Node.js</span>
-              <div class="li-bar-wrap"><div class="li-bar" style="--pct:35%"></div></div>
-              <span class="li-pct">35%</span>
+              <span class="li-name">C++ / C#</span>
+              <div class="li-bar-wrap"><div class="li-bar" style="--pct:18%"></div></div>
+              <span class="li-pct">~18%</span>
             </div>
           </div>
         </div>
@@ -428,8 +569,6 @@
         </div>
       </div>
     </div>
-  </section>
-
   </section>
 
   <!-- ── TESTIMONIALS ── -->
@@ -514,17 +653,14 @@
       <div class="sec-eyebrow">// contact</div>
       <h2 class="contact-title">Let's <span class="green">Build</span><br>Something.</h2>
       <p class="contact-sub">
-        Open to freelance projects, collabs, or just a good conversation
-        about tech, cameras, or games.
+          Whether it's a web system, a shoot, or a collaboration — I deliver work that's
+          built to last. Let's make something worth showing.
       </p>
 
-      <!-- Real contact form — Formspree backend, zero server needed -->
-      <!-- 🔧 Replace YOUR_FORM_ID with your Formspree endpoint from formspree.io -->
       <form class="contact-form reveal" id="contactForm"
             action="https://formspree.io/f/xojnyrwr"
             method="POST">
 
-        <!-- UTM tracking — auto-captured from URL params -->
         <input type="hidden" name="_utm_source"   id="utmSource">
         <input type="hidden" name="_utm_medium"   id="utmMedium">
         <input type="hidden" name="_utm_campaign" id="utmCampaign">
@@ -567,11 +703,10 @@
         </div>
       </form>
 
-      <!-- Email fallback with copy button -->
       <div class="contact-alt">
         <span class="contact-alt-label">or reach out directly</span>
         <div class="copy-wrap" style="display:inline-flex; flex-direction:column; align-items:center; gap:10px;">
-          <a href="mailto:jonahmarkt@gmail.com" class="contact-email">jonahmarkt@gmail.com</a>
+          <a href="/cdn-cgi/l/email-protection#38525756595055594a534c785f55595154165b5755" class="contact-email"><span class="__cf_email__" data-cfemail="472d2829262f2a26352c3307202a262e2b6924282a">[email&#160;protected]</span></a>
           <button class="copy-btn" data-copy="jonahmarkt@gmail.com" aria-label="Copy email address">copy email</button>
           <span class="copy-toast" id="toastEmail">copied!</span>
         </div>
@@ -598,11 +733,22 @@
     </span>
   </footer>
 
-
   <!-- Back to top -->
   <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
 
-  <script>
+  <!-- ── LIGHTBOX ── -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image preview">
+    <div class="lightbox-inner">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Close preview">✕</button>
+      <button class="lightbox-nav lightbox-nav--prev" id="lightboxPrev" aria-label="Previous image">‹</button>
+      <img class="lightbox-img" id="lightboxImg" src="" alt="">
+      <button class="lightbox-nav lightbox-nav--next" id="lightboxNext" aria-label="Next image">›</button>
+      <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
+  </div>
+
+  <!-- ── Scripts ── -->
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     window.PORTFOLIO = {
       tz: "Asia/Manila",
       discordId: "756339517878829135",
@@ -622,5 +768,173 @@
     };
   </script>
   <script src="assets/js/main.js" defer></script>
-</body>
-</html>
+
+  <!-- Lightbox + screenshot gallery JS -->
+  <script>
+  (function () {
+    'use strict';
+
+    const lb      = document.getElementById('lightbox');
+    const lbImg   = document.getElementById('lightboxImg');
+    const lbCap   = document.getElementById('lightboxCaption');
+    const lbClose = document.getElementById('lightboxClose');
+    const lbPrev  = document.getElementById('lightboxPrev');
+    const lbNext  = document.getElementById('lightboxNext');
+    if (!lb) return;
+
+    let currentIndex   = 0;
+    let currentGallery = [];
+
+    /* Build an array of { src, caption } for a named gallery */
+    const buildGallery = (galleryName) =>
+      Array.from(document.querySelectorAll(`.work-ss-thumb[data-gallery="${galleryName}"]`))
+        .map(t => ({ src: t.dataset.src, caption: t.dataset.caption || '' }));
+
+    const renderSlide = () => {
+      const item = currentGallery[currentIndex];
+      lbImg.style.opacity = '0';
+      setTimeout(() => {
+        lbImg.src         = item.src;
+        lbImg.alt         = item.caption;
+        lbCap.textContent = item.caption;
+        lbImg.style.opacity = '1';
+      }, 100);
+      /* Show/hide nav only if there's more than one image */
+      const multi = currentGallery.length > 1;
+      lbPrev.style.visibility = multi ? 'visible' : 'hidden';
+      lbNext.style.visibility = multi ? 'visible' : 'hidden';
+    };
+
+    const open = (gallery, index) => {
+      currentGallery = gallery;
+      currentIndex   = index;
+      lbImg.style.opacity = '0';
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      /* Slight delay so the overlay fade-in starts first */
+      setTimeout(renderSlide, 60);
+    };
+
+    const close = () => {
+      lb.classList.remove('open');
+      document.body.style.overflow = '';
+      setTimeout(() => { lbImg.src = ''; lbImg.alt = ''; }, 300);
+    };
+
+    const step = (dir) => {
+      currentIndex = (currentIndex + dir + currentGallery.length) % currentGallery.length;
+      renderSlide();
+    };
+
+    lbImg.style.transition    = 'opacity .12s ease';
+    lbClose.addEventListener('click', close);
+    lbPrev.addEventListener('click',  () => step(-1));
+    lbNext.addEventListener('click',  () => step(1));
+
+    /* Close on backdrop click */
+    lb.addEventListener('click', e => { if (e.target === lb) close(); });
+
+    /* Keyboard */
+    document.addEventListener('keydown', e => {
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape')     close();
+      if (e.key === 'ArrowLeft')  step(-1);
+      if (e.key === 'ArrowRight') step(1);
+    });
+
+    /* Wire up all thumbnails — stop propagation so parent <a> doesn't fire */
+    document.querySelectorAll('.work-ss-thumb').forEach(thumb => {
+      thumb.addEventListener('click', e => {
+        e.preventDefault();
+        e.stopPropagation();
+        const gallery = buildGallery(thumb.dataset.gallery);
+        const idx     = gallery.findIndex(g => g.src === thumb.dataset.src);
+        open(gallery, idx >= 0 ? idx : 0);
+      });
+    });
+  })();
+  </script>
+
+  <!-- Console easter egg -->
+  <script>
+  (function () {
+    const gold  = 'color:#e8b84b;font-weight:700;font-size:14px;';
+    const dim   = 'color:#484e58;font-size:11px;';
+    const white = 'color:#edeef0;font-size:11px;';
+    console.log('%c\n     _     \n    (_)    \n     _  ___ \n    | |/ _ \\\n    | | (_) |\n   _/ |\\___/\n  |__/       \n', gold);
+    console.log('%c👋 Hey developer — you opened DevTools. Respect.', white);
+    console.log('%c   I\'m Jonah Tabuzo, a dev from Virac, PH.', dim);
+    console.log('%c   jonahmarkt@gmail.com  ·  github.com/Yunah444', dim);
+    console.log('%c   Available for freelance & collabs.', gold);
+  })();
+  </script>
+
+  <!-- UTM capture -->
+  <script>
+  (function () {
+    const params = new URLSearchParams(window.location.search);
+    const set = (id, val) => { const el = document.getElementById(id); if (el && val) el.value = val; };
+    set('utmSource',   params.get('utm_source'));
+    set('utmMedium',   params.get('utm_medium'));
+    set('utmCampaign', params.get('utm_campaign'));
+  })();
+  </script>
+
+  <!-- Contact form async submit -->
+  <script>
+  (function () {
+    const contactForm = document.getElementById('contactForm');
+    const cfSubmit    = document.getElementById('cfSubmit');
+    const cfSuccess   = document.getElementById('cfSuccess');
+    if (!contactForm) return;
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btnText    = cfSubmit.querySelector('.cf-btn-text');
+      const btnSending = cfSubmit.querySelector('.cf-btn-sending');
+      cfSubmit.disabled        = true;
+      btnText.style.display    = 'none';
+      btnSending.style.display = 'inline';
+      try {
+        const res = await fetch(contactForm.action, {
+          method: 'POST',
+          body: new FormData(contactForm),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          contactForm.style.display = 'none';
+          cfSuccess.style.display   = 'flex';
+        } else {
+          throw new Error('failed');
+        }
+      } catch {
+        btnText.style.display    = 'inline';
+        btnSending.style.display = 'none';
+        cfSubmit.disabled        = false;
+        alert('Something went wrong — please email me directly at jonahmarkt@gmail.com');
+      }
+    });
+  })();
+  </script>
+
+  <!-- Back to top -->
+  <script>
+  (function () {
+    const btn = document.getElementById('backToTop');
+    if (!btn) return;
+    window.addEventListener('scroll', () => {
+      btn.classList.toggle('visible', window.scrollY > 600);
+    }, { passive: true });
+    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  })();
+  </script>
+
+  <!-- Discord widget collapse -->
+  <script>
+  (function () {
+    const dpToggle   = document.getElementById('dpToggle');
+    const dpPresence = document.getElementById('discordPresence');
+    if (!dpToggle || !dpPresence) return;
+    dpToggle.addEventListener('click', () => {
+      dpPresence.classList.toggle('collapsed');
+    });})();
+  </script>
