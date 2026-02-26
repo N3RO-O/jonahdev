@@ -14,15 +14,11 @@
   /* ── Page transition (fade out → new page → fade in) ──────── */
   const overlay = $('pageTransition');
   if (overlay) {
-    // Fade in on load
     window.addEventListener('load', () => {
       overlay.classList.remove('enter');
     });
-
-    // Intercept external link clicks for a subtle fade-out
     document.querySelectorAll('a[href^="http"], a[target="_blank"]').forEach(a => {
-      a.addEventListener('click', e => {
-        // Don't block — just flash the overlay briefly
+      a.addEventListener('click', () => {
         overlay.classList.add('enter');
         setTimeout(() => overlay.classList.remove('enter'), 400);
       });
@@ -124,31 +120,14 @@
 
   document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
 
-  /* ── Currently Learning — animate progress bars on scroll ──── */
-  const learningCard = $('learningCard');
-  if (learningCard) {
-    const barObs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (!e.isIntersecting) return;
-        e.target.querySelectorAll('.li-bar').forEach((bar, i) => {
-          setTimeout(() => bar.classList.add('animate'), i * 120);
-        });
-        barObs.unobserve(e.target);
-      });
-    }, { threshold: 0.3 });
-    barObs.observe(learningCard);
-  }
-
   /* ── Copy to clipboard ─────────────────────────────────────── */
   document.querySelectorAll('.copy-btn').forEach(btn => {
     btn.addEventListener('click', async () => {
       const text  = btn.dataset.copy;
       const toast = btn.parentElement.querySelector('.copy-toast');
-
       try {
         await navigator.clipboard.writeText(text);
       } catch {
-        // Fallback for older browsers
         const ta = document.createElement('textarea');
         ta.value = text;
         ta.style.cssText = 'position:fixed;opacity:0';
@@ -157,11 +136,9 @@
         document.execCommand('copy');
         document.body.removeChild(ta);
       }
-
       btn.classList.add('copied');
       btn.textContent = 'copied!';
       if (toast) toast.classList.add('show');
-
       setTimeout(() => {
         btn.classList.remove('copied');
         btn.textContent = 'copy';
@@ -374,16 +351,12 @@
     });
   });
 
-})();
   /* ── Console easter egg ────────────────────────────────────── */
   (function () {
     const gold  = 'color:#e8b84b;font-weight:700;font-size:14px;';
     const dim   = 'color:#484e58;font-size:11px;';
     const white = 'color:#edeef0;font-size:11px;';
-    console.log(
-      '%c\n     _     \n    (_)    \n     _  ___ \n    | |/ _ \\\n    | | (_) |\n   _/ |\\___/\n  |__/       \n',
-      gold
-    );
+    console.log('%c\n     _     \n    (_)    \n     _  ___ \n    | |/ _ \\\n    | | (_) |\n   _/ |\\___/\n  |__/       \n', gold);
     console.log('%c👋 Hey developer — you opened DevTools. Respect.', white);
     console.log('%c   I\'m Jonah Tabuzo, a dev from Virac, PH.', dim);
     console.log('%c   jonahmarkt@gmail.com  ·  github.com/Yunah444', dim);
@@ -400,9 +373,9 @@
   })();
 
   /* ── Contact form — async Formspree submit ─────────────────── */
-  const contactForm = document.getElementById('contactForm');
-  const cfSubmit    = document.getElementById('cfSubmit');
-  const cfSuccess   = document.getElementById('cfSuccess');
+  const contactForm = $('contactForm');
+  const cfSubmit    = $('cfSubmit');
+  const cfSuccess   = $('cfSuccess');
   if (contactForm) {
     contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -433,7 +406,7 @@
   }
 
   /* ── Back to top ───────────────────────────────────────────── */
-  const backToTop = document.getElementById('backToTop');
+  const backToTop = $('backToTop');
   if (backToTop) {
     window.addEventListener('scroll', () => {
       backToTop.classList.toggle('visible', window.scrollY > 600);
@@ -442,9 +415,9 @@
   }
 
   /* ── Discord widget collapse ───────────────────────────────── */
-  const dpToggle   = document.getElementById('dpToggle');
-  const dpInfo     = document.getElementById('dpInfo');
-  const dpPresence = document.getElementById('discordPresence');
+  const dpToggle   = $('dpToggle');
+  const dpInfo     = $('dpInfo');
+  const dpPresence = $('discordPresence');
   if (dpToggle && dpInfo) {
     dpToggle.addEventListener('click', () => {
       const collapsed = dpPresence.classList.toggle('collapsed');
@@ -454,9 +427,9 @@
   }
 
   /* ── GitHub API — live badges ──────────────────────────────── */
-  const GH_USER = (window.PORTFOLIO || {}).githubUser;
-  if (GH_USER && document.getElementById('ghStrip')) {
-    const setGH = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+  const GH_USER = data.githubUser;
+  if (GH_USER && $('ghStrip')) {
+    const setGH = (id, val) => { const el = $(id); if (el) el.textContent = val; };
     const timeAgo = (dateStr) => {
       const d = new Date(dateStr), now = new Date();
       const diff = Math.floor((now - d) / 1000);
@@ -481,19 +454,20 @@
 
         if (repos[0]?.pushed_at) setGH('ghCommit', timeAgo(repos[0].pushed_at));
 
-        // Count languages
         const langMap = {};
         repos.forEach(r => { if (r.language) langMap[r.language] = (langMap[r.language] || 0) + 1; });
         const top = Object.entries(langMap).sort((a,b) => b[1]-a[1])[0];
         if (top) setGH('ghTopLang', top[0]);
-      } catch { /* silently fail — badges just show — */ }
+      } catch { /* silently fail */ }
     })();
+  } /* ← GitHub block closes correctly here */
 
-        /* ── Video cards — play on hover ───────────────────────────── */
-    document.querySelectorAll('.visual-card--video').forEach(card => {
-      const video = card.querySelector('.visual-video');
-      if (!video) return;
-      card.addEventListener('mouseenter', () => video.play().catch(() => {}));
-      card.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
-});
-  }
+  /* ── Video cards — play on hover ───────────────────────────── */
+  document.querySelectorAll('.visual-card--video').forEach(card => {
+    const video = card.querySelector('.visual-video');
+    if (!video) return;
+    card.addEventListener('mouseenter', () => video.play().catch(() => {}));
+    card.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
+  });
+
+})(); /* ← Main IIFE closes correctly here */
