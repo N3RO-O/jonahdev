@@ -485,76 +485,138 @@ section::after {
   letter-spacing: .14em;
   color: var(--g4);
   text-transform: uppercase;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
+}
+
+.work-ss-pov-group {
+  margin-bottom: 24px;
+  padding: 14px 12px;
+  background: rgba(232,184,75,.04);
+  border: 1px solid rgba(232,184,75,.12);
+  border-radius: 6px;
+  transition: background .2s, border-color .2s;
+}
+
+.work-ss-pov-group:hover {
+  background: rgba(232,184,75,.07);
+  border-color: rgba(232,184,75,.18);
+}
+
+.work-ss-pov-label {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: .12em;
+  color: var(--g2);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  padding: 4px 8px;
+  background: rgba(232,184,75,.1);
+  border-radius: 3px;
+  font-weight: 500;
 }
 
 .work-ss-thumbs {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
-  gap: 6px;
+  gap: 8px;
   width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  padding-bottom: 2px;
+  scroll-snap-type: x mandatory;
 }
 
-@media (max-width: 768px) {
-  .work-ss-thumbs {
-    gap: 5px;
-  }
+.work-ss-thumbs::-webkit-scrollbar {
+  height: 4px;
+}
+
+.work-ss-thumbs::-webkit-scrollbar-track {
+  background: rgba(255,255,255,.02);
+  border-radius: 2px;
+}
+
+.work-ss-thumbs::-webkit-scrollbar-thumb {
+  background: rgba(232,184,75,.2);
+  border-radius: 2px;
+  transition: background .2s;
+}
+
+.work-ss-thumbs::-webkit-scrollbar-thumb:hover {
+  background: rgba(232,184,75,.35);
 }
 
 .work-ss-thumb {
   position: relative;
-  width: 72px;
-  height: 52px;
+  width: 160px;
+  height: 100px;
+  min-width: 160px;
   overflow: hidden;
-  border: 1px solid rgba(255,255,255,.07);
-  background: var(--bg3);
+  border: 1px solid rgba(255,255,255,.08);
+  background: linear-gradient(135deg, var(--bg3) 0%, rgba(255,255,255,.01) 100%);
   cursor: none;
-  transition: border-color .2s, transform .2s, box-shadow .2s;
+  transition: all .25s cubic-bezier(0.4, 0, 0.2, 1);
   flex-shrink: 0;
   z-index: 1;
+  border-radius: 4px;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 @media (max-width: 768px) {
   .work-ss-thumb {
-    width: 64px;
-    height: 46px;
+    width: 120px;
+    height: 75px;
+    min-width: 120px;
     cursor: pointer;
+    border-radius: 3px;
   }
 }
-@media (max-width: 768px) { .work-ss-thumb { cursor: pointer; } }
 
 .work-ss-thumb img {
   width: 100%; height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform .35s ease, filter .35s;
-  filter: brightness(.82) saturate(.85);
+  transition: transform .4s cubic-bezier(0.23, 1, 0.320, 1), filter .3s;
+  filter: brightness(.8) saturate(.82) contrast(1.05);
 }
 
 .work-ss-thumb:hover {
-  border-color: rgba(232,184,75,.45);
-  transform: translateY(-2px) scale(1.01);
-  box-shadow: 0 8px 28px rgba(0,0,0,.5);
+  border-color: rgba(232,184,75,.6);
+  transform: translateY(-4px) scale(1.08);
+  box-shadow: 0 12px 40px rgba(232,184,75,.15), 0 4px 16px rgba(0,0,0,.4);
   z-index: 2;
+  background: linear-gradient(135deg, var(--bg2) 0%, rgba(232,184,75,.05) 100%);
 }
+
+@media (max-width: 768px) {
+  .work-ss-thumb:hover {
+    transform: translateY(-3px) scale(1.06);
+  }
+}
+
 .work-ss-thumb:hover img {
-  transform: scale(1.08);
-  filter: brightness(1) saturate(1);
+  transform: scale(1.15);
+  filter: brightness(1) saturate(1) contrast(1.1);
 }
 
 .work-ss-expand {
   position: absolute;
-  bottom: 5px; right: 6px;
-  font-size: 11px;
-  color: rgba(232,184,75,.9);
+  bottom: 8px; right: 8px;
+  font-size: 13px;
+  color: rgba(232,184,75,.95);
   opacity: 0;
-  transition: opacity .18s;
+  transition: opacity .2s, transform .2s;
   line-height: 1;
-  text-shadow: 0 1px 4px rgba(0,0,0,.7);
+  text-shadow: 0 1px 6px rgba(0,0,0,.8);
   pointer-events: none;
+  transform: scale(0.8);
 }
-.work-ss-thumb:hover .work-ss-expand { opacity: 1; }
+
+.work-ss-thumb:hover .work-ss-expand {
+  opacity: 1;
+  transform: scale(1);
+}
 
 /* ── Placeholder thumb variant ─────────────────────────────── */
 .work-ss-thumb--placeholder {
@@ -975,16 +1037,19 @@ footer {
   .socials li { flex: 0 0 auto; }
   .socials a { width: auto !important; display: inline-block; text-align: center; }
 
-  /* Mobile: screenshot thumbs in a row that scrolls if needed */
-.work-ss-thumbs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 4px;
-}
-  .work-ss-thumb {
-    width: 100%;
-    aspect-ratio: 16/10;
+  /* Mobile: screenshot thumbs carousel with side scroll */
+  .work-ss-thumbs {
+    gap: 6px;
+  }
+  
+  .work-ss-pov-group {
+    margin-bottom: 16px;
+    padding: 10px 8px;
+  }
+  
+  .work-ss-pov-label {
+    font-size: 10px;
+    padding: 3px 6px;
   }
 }
 
