@@ -410,7 +410,7 @@ section::after {
   -webkit-backdrop-filter: blur(12px) saturate(1.2);
   border: 1px solid rgba(255,255,255,.07);
   text-decoration: none; color: var(--white);
-  cursor: none; position: relative; overflow: hidden;
+  cursor: none; position: relative; overflow-x: hidden;
   transition: background .25s, border-color .25s, transform .25s, box-shadow .25s;
   min-height: 260px;
 }
@@ -495,6 +495,7 @@ section::after {
   border: 1px solid rgba(232,184,75,.12);
   border-radius: 6px;
   transition: background .2s, border-color .2s;
+  /* allow inner thumb container to handle scroll */
 }
 
 .work-ss-pov-group:hover {
@@ -503,28 +504,30 @@ section::after {
 }
 
 .work-ss-pov-label {
-  display: inline-block;
+  display: block;
   font-size: 11px;
   letter-spacing: .12em;
-  color: var(--g2);
+  color: rgba(232,184,75,.95);
   text-transform: uppercase;
   margin-bottom: 12px;
   padding: 4px 8px;
-  background: rgba(232,184,75,.1);
+  background: rgba(232,184,75,.15);
   border-radius: 3px;
-  font-weight: 500;
+  font-weight: 600;
+  width: fit-content;
 }
 
 .work-ss-thumbs {
   display: flex;
   flex-direction: row;
   gap: 8px;
-  width: 100%;
+  max-width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
   scroll-behavior: smooth;
   padding-bottom: 2px;
   scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
 }
 
 .work-ss-thumbs::-webkit-scrollbar {
@@ -1641,12 +1644,4 @@ footer {
 }
 .work-ss-pov-group:last-child {
   margin-bottom: 0;
-}
-.work-ss-pov-label {
-  display: block;
-  font-size: 8px;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: var(--g4);
-  margin-bottom: 6px;
 }
