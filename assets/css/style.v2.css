@@ -490,13 +490,20 @@ section::after {
 
 .work-ss-pov-group {
   margin-bottom: 24px;
-  padding: 14px 12px;
+  padding: 14px 12px 14px 12px;
   background: rgba(232,184,75,.04);
   border: 1px solid rgba(232,184,75,.12);
   border-radius: 6px;
   transition: background .2s, border-color .2s;
-  /* allow inner thumb container to handle scroll */
+  width: 100%;           /* constrain to card width */
+  overflow-x: auto;      /* scroll if thumbs exceed width */
+  padding-right: 20px;    /* extra space on right edge */
 }
+
+/* make sure the scroll bar is visible inside the group */
+.work-ss-pov-group::-webkit-scrollbar { height: 5px; }
+.work-ss-pov-group::-webkit-scrollbar-thumb { background: rgba(232,184,75,.2); border-radius: 2px; }
+.work-ss-pov-group::-webkit-scrollbar-thumb:hover { background: rgba(232,184,75,.35); }
 
 .work-ss-pov-group:hover {
   background: rgba(232,184,75,.07);
@@ -521,11 +528,13 @@ section::after {
   display: flex;
   flex-direction: row;
   gap: 8px;
-  max-width: 100%;
-  overflow-x: auto;
+  width: max-content;
+  min-width: 100%;
+  overflow-x: visible;
   overflow-y: hidden;
   scroll-behavior: smooth;
-  padding-bottom: 2px;
+  padding-bottom: 4px; /* give a bit more room for scrollbar */
+  padding-right: 12px; /* ensure gap at end of strip */
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
 }
@@ -1040,20 +1049,39 @@ footer {
   .socials li { flex: 0 0 auto; }
   .socials a { width: auto !important; display: inline-block; text-align: center; }
 
-  /* Mobile: screenshot thumbs carousel with side scroll */
+  /* Mobile: screenshot thumbs grid layout to avoid overflow */
   .work-ss-thumbs {
-    gap: 6px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 4px;
+    width: 100%;
+    overflow: visible; /* let grid wrap instead of scrolling */
+  }
+  /* remove scrollbars since now wrapping takes care of layout */
+  .work-ss-thumbs::-webkit-scrollbar { display: none; }
+  .work-ss-thumb {
+    width: 30%;           /* fluid percentage layout */
+    height: auto;
+    aspect-ratio: 16 / 9;
+    min-width: 80px;
+    border-radius: 3px;
   }
   
   .work-ss-pov-group {
     margin-bottom: 16px;
     padding: 10px 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
   
   .work-ss-pov-label {
     font-size: 10px;
     padding: 3px 6px;
   }
+
+  /* always show a thin scrollbar on mobile for clarity */
+  .work-ss-pov-group::-webkit-scrollbar { height: 6px; }
+  .work-ss-pov-group::-webkit-scrollbar-thumb { background: rgba(232,184,75,.3); }
 }
 
 /* ============================================================
