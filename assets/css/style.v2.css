@@ -1564,7 +1564,13 @@ footer {
 .gh-badge-sub  { font-size: 9px; letter-spacing: .1em; color: var(--g3); text-transform: uppercase; }
 @media (max-width: 600px) {
   .gh-strip { flex-direction: column; align-items: flex-start; gap: 16px; }
-  .gh-badges { gap: 20px; }
+  .gh-badges {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 16px;
+    width: 100%;
+  }
+  .gh-badge-item { align-items: flex-start; }
 }
 
 /* ── Testimonials section ──────────────────────────────────── */

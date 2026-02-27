@@ -359,7 +359,7 @@
     console.log('%c\n     _     \n    (_)    \n     _  ___ \n    | |/ _ \\\n    | | (_) |\n   _/ |\\___/\n  |__/       \n', gold);
     console.log('%c👋 Hey developer — you opened DevTools. Respect.', white);
     console.log('%c   I\'m Jonah Tabuzo, a dev from Virac, PH.', dim);
-    console.log('%c   jonahmarkt@gmail.com  ·  github.com/Yunah444', dim);
+    console.log('%c   jonahmarkt@gmail.com  ·  github.com/N3RO-O', dim);
     console.log('%c   Available for freelance & collabs.', gold);
   })();
 
@@ -447,6 +447,10 @@
         const user  = await userRes.json();
         const repos = await reposRes.json();
 
+        // API rate limit or bad username returns {message: '...'} not an array
+        if (user.message) { console.warn('GitHub API:', user.message); return; }
+        if (!Array.isArray(repos)) { console.warn('GitHub repos API:', repos.message); return; }
+
         setGH('ghRepos', user.public_repos ?? repos.length);
 
         const stars = repos.reduce((a, r) => a + (r.stargazers_count || 0), 0);
@@ -458,7 +462,7 @@
         repos.forEach(r => { if (r.language) langMap[r.language] = (langMap[r.language] || 0) + 1; });
         const top = Object.entries(langMap).sort((a,b) => b[1]-a[1])[0];
         if (top) setGH('ghTopLang', top[0]);
-      } catch { /* silently fail */ }
+      } catch (err) { console.warn('GitHub fetch failed:', err.message); }
     })();
   } /* ← GitHub block closes correctly here */
 
