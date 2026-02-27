@@ -457,8 +457,10 @@ section::after {
 .work-num  { font-size: 10px; color: var(--g3); letter-spacing: .1em; }
 .work-arrow { font-size: 16px; color: var(--g3); transition: all .22s; flex-shrink: 0; }
 
+.work-row,
 .work-body {
-  min-width: 0;   /* ← critical fix for grid overflow */
+  min-width: 0;          /* ← Critical: lets 1fr actually shrink in CSS Grid */
+  overflow: hidden;
 }
 .work-top  { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
 .work-name { font-size: 18px; font-weight: 500; letter-spacing: -.4px; transition: color .22s; line-height: 1.2; }
@@ -479,8 +481,18 @@ section::after {
   margin-top: 18px;
   padding-top: 16px;
   border-top: 1px solid var(--border);
+  /* display:block so pov-groups stack vertically */
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
 }
-
+.work-screenshots img {
+  aspect-ratio: 16 / 9;
+  width: 220px;
+  height: auto;
+}
 .work-ss-label {
   display: block;
   font-size: 9px;
@@ -491,17 +503,165 @@ section::after {
 }
 
 .work-ss-pov-group {
-  margin-bottom: 24px;
-  padding: 14px 12px 14px 12px;
+  margin-bottom: 16px;
+  padding: 12px 12px 14px 12px;
   background: rgba(232,184,75,.04);
   border: 1px solid rgba(232,184,75,.12);
   border-radius: 6px;
   transition: background .2s, border-color .2s;
-  width: 100%;           /* constrain to card width */
-  overflow-x: auto;      /* scroll if thumbs exceed width */
-  padding-right: 20px;    /* extra space on right edge */
+  /* ── CRITICAL FIX: constrain to card, scroll internally ── */
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;          /* clip children, scroll via inner strip */
+  box-sizing: border-box;
+}
+/* ── Screenshot gallery wrapper ────────────────────────────── */
+.work-screenshots-wrap {
+  margin-top: 18px;
 }
 
+.work-screenshots-label {
+  font-size: 9px;
+  letter-spacing: .22em;
+  color: var(--g4);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.work-screenshots-label::after {
+  content: '← swipe';
+  color: var(--g4);
+  font-size: 9px;
+  display: none; /* shown on mobile via media query */
+}
+
+/* ── Tab bar for POV switching ──────────────────────────────── */
+.ss-tabs {
+  display: flex;
+  gap: 3px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.ss-tab {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .1em;
+  padding: 5px 12px;
+  border: 1px solid var(--border);
+  background: var(--bg2);
+  color: var(--g3);
+  cursor: pointer;
+  transition: all .15s;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ss-tab:hover {
+  border-color: var(--border-hi);
+  color: var(--g1);
+}
+
+.ss-tab.active {
+  border-color: var(--green);
+  color: var(--green);
+  background: var(--green-faint);
+}
+
+.ss-tab .ss-tab-icon {
+  font-size: 12px;
+  display: none; /* shown on mobile via media query */
+}
+/* ── The horizontal scroll strip ───────────────────────────── */
+.ss-panel {
+  display: none;
+}
+
+.ss-panel.active {
+  display: block;
+}
+
+.ss-strip {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 8px;
+  max-width: 100%;
+
+  /* ── Peek indicator — shows there are more slides ───────────── */
+.ss-strip::after {
+  content: '';
+  flex-shrink: 0;
+  width: 1px; /* just a spacer so last item isn't flush */
+}
+
+  /* Custom minimal scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-hi) transparent;
+}
+
+.ss-strip::-webkit-scrollbar {
+  height: 3px;
+}
+.ss-strip::-webkit-scrollbar-track {
+  background: transparent;
+}
+.ss-strip::-webkit-scrollbar-thumb {
+  background: var(--border-hi);
+  border-radius: 2px;
+}
+
+.ss-thumb {
+  position: relative;
+  flex-shrink: 0;
+  width: 220px;
+  scroll-snap-align: start;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  background: var(--bg2);
+  cursor: pointer;
+  transition: border-color .15s;
+}
+
+.ss-thumb:hover {
+  border-color: var(--green);
+}
+
+.ss-thumb img {
+  width: 100%;
+  height: 138px;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+}
+
+.ss-thumb-expand {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  width: 20px;
+  height: 20px;
+  background: rgba(0,0,0,.7);
+  border: 1px solid var(--border-hi);
+  color: var(--g2);
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity .15s;
+}
+
+.ss-thumb:hover .ss-thumb-expand {
+  opacity: 1;
+}
 /* make sure the scroll bar is visible inside the group */
 .work-ss-pov-group::-webkit-scrollbar { height: 5px; }
 .work-ss-pov-group::-webkit-scrollbar-thumb { background: rgba(232,184,75,.2); border-radius: 2px; }
@@ -530,15 +690,16 @@ section::after {
   display: flex;
   flex-direction: row;
   gap: 8px;
-  width: max-content;
-  min-width: 100%;
-  overflow-x: visible;
+  /* ── CRITICAL FIX: scroll the strip itself, not the parent ── */
+  overflow-x: auto;
   overflow-y: hidden;
-  scroll-behavior: smooth;
-  padding-bottom: 4px; /* give a bit more room for scrollbar */
-  padding-right: 12px; /* ensure gap at end of strip */
-  scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 6px;
+  padding-right: 12px;
+  /* Don't use width:max-content — let it be a flex row that scrolls */
+  width: 100%;
 }
 
 .work-ss-thumbs::-webkit-scrollbar {
@@ -579,9 +740,9 @@ section::after {
 
 @media (max-width: 768px) {
   .work-ss-thumb {
-    width: 120px;
-    height: 75px;
-    min-width: 120px;
+    width: 130px;
+    height: 82px;
+    min-width: 130px;
     cursor: pointer;
     border-radius: 3px;
   }
@@ -666,35 +827,35 @@ section::after {
   opacity: 0;
 }
 /* ── Work gallery screenshots ──────────────────────────────── */
-.work-screenshots {
+/* This second definition is kept only for legacy — pov-group handles layout */
+.work-screenshots-flat {
   display: flex;
   gap: 10px;
-  overflow-x: auto;           /* scroll within the card, not the page */
+  overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   max-width: 100%;
-  padding-bottom: 6px;        /* room for scrollbar on desktop */
+  padding-bottom: 6px;
 }
 
-.work-screenshots img {
-  width: 220px;               /* fixed thumb width on desktop */
+.work-screenshots-flat img {
+  width: 220px;
   height: 138px;
   object-fit: cover;
-  flex-shrink: 0;             /* prevent squishing */
+  flex-shrink: 0;
   scroll-snap-align: start;
   border: 1px solid var(--border);
 }
 
-/* On mobile: smaller thumbs, still scrollable */
 @media (max-width: 768px) {
-  .work-screenshots img {
+  .work-screenshots-flat img {
     width: 160px;
     height: 100px;
   }
 }
 
 @media (max-width: 480px) {
-  .work-screenshots img {
+  .work-screenshots-flat img {
     width: 130px;
     height: 82px;
   }
@@ -1089,39 +1250,22 @@ footer {
   .socials li { flex: 0 0 auto; }
   .socials a { width: auto !important; display: inline-block; text-align: center; }
 
-  /* Mobile: screenshot thumbs grid layout to avoid overflow */
+  /* Mobile: keep flex scroll, just shrink thumbs */
   .work-ss-thumbs {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-    gap: 4px;
-    width: 100%;
-    overflow: visible; /* let grid wrap instead of scrolling */
+    gap: 6px;
+    padding-right: 8px;
   }
-  /* remove scrollbars since now wrapping takes care of layout */
-  .work-ss-thumbs::-webkit-scrollbar { display: none; }
-  .work-ss-thumb {
-    width: 30%;           /* fluid percentage layout */
-    height: auto;
-    aspect-ratio: 16 / 9;
-    min-width: 80px;
-    border-radius: 3px;
-  }
-  
   .work-ss-pov-group {
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     padding: 10px 8px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
   }
-  
   .work-ss-pov-label {
     font-size: 10px;
     padding: 3px 6px;
   }
-
   /* always show a thin scrollbar on mobile for clarity */
-  .work-ss-pov-group::-webkit-scrollbar { height: 6px; }
-  .work-ss-pov-group::-webkit-scrollbar-thumb { background: rgba(232,184,75,.3); }
+  .work-ss-pov-group::-webkit-scrollbar { display: none; }
+  .work-ss-thumbs::-webkit-scrollbar { display: none; }
 }
 
 /* ============================================================
@@ -1707,9 +1851,7 @@ footer {
 }
 
 /* ── Screenshot POV groups ─────────────────────────────────── */
-.work-ss-pov-group {
-  margin-bottom: 14px;
-}
+/* NOTE: main styles defined above near line 499 — these just handle spacing */
 .work-ss-pov-group:last-child {
   margin-bottom: 0;
 }
