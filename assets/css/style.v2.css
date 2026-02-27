@@ -457,7 +457,9 @@ section::after {
 .work-num  { font-size: 10px; color: var(--g3); letter-spacing: .1em; }
 .work-arrow { font-size: 16px; color: var(--g3); transition: all .22s; flex-shrink: 0; }
 
-.work-body { display: flex; flex-direction: column; flex: 1; }
+.work-body {
+  min-width: 0;   /* ← critical fix for grid overflow */
+}
 .work-top  { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
 .work-name { font-size: 18px; font-weight: 500; letter-spacing: -.4px; transition: color .22s; line-height: 1.2; }
 .work-year { font-size: 10px; color: var(--g3); letter-spacing: .1em; }
@@ -663,7 +665,45 @@ section::after {
 .work-ss-thumb--placeholder:hover::before {
   opacity: 0;
 }
+/* ── Work gallery screenshots ──────────────────────────────── */
+.work-screenshots {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;           /* scroll within the card, not the page */
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+  padding-bottom: 6px;        /* room for scrollbar on desktop */
+}
 
+.work-screenshots img {
+  width: 220px;               /* fixed thumb width on desktop */
+  height: 138px;
+  object-fit: cover;
+  flex-shrink: 0;             /* prevent squishing */
+  scroll-snap-align: start;
+  border: 1px solid var(--border);
+}
+
+/* On mobile: smaller thumbs, still scrollable */
+@media (max-width: 768px) {
+  .work-screenshots img {
+    width: 160px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .work-screenshots img {
+    width: 130px;
+    height: 82px;
+  }
+}
+
+/* Prevent any image from ever overflowing its parent */
+.work-row img {
+  max-width: 100%;
+}
 /* ── Lightbox ───────────────────────────────────────────────── */
 .lightbox {
   position: fixed; inset: 0;
