@@ -396,14 +396,26 @@ section::after {
 
 .work-list {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 3px;
+  align-items: start; /* cards don't stretch to match neighbour's height */
+}
+
+/* Single column below 900px */
+@media (max-width: 900px) {
+  .work-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Only 1 project? Span full width */
+.work-list > :only-child {
+  grid-column: 1 / -1;
 }
 
 .work-row {
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  gap: 0;
+  display: flex;
+  flex-direction: column;
   padding: 36px 32px;
   background: rgba(12,14,19,.6);
   backdrop-filter: blur(12px) saturate(1.2);
@@ -412,7 +424,6 @@ section::after {
   text-decoration: none; color: var(--white);
   cursor: none; position: relative; overflow-x: hidden;
   transition: background .25s, border-color .25s, transform .25s, box-shadow .25s;
-  min-height: 260px;
 }
 
 .work-row::before {
@@ -459,8 +470,13 @@ section::after {
 
 .work-row,
 .work-body {
-  min-width: 0;          /* ← Critical: lets 1fr actually shrink in CSS Grid */
-  overflow: hidden;
+  min-width: 0;
+  overflow-x: hidden;   /* only clip horizontal, never clip expanding screenshots */
+  overflow-y: visible;
+}
+.work-body {
+  display: flex;
+  flex-direction: column;
 }
 .work-top  { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
 .work-name { font-size: 18px; font-weight: 500; letter-spacing: -.4px; transition: color .22s; line-height: 1.2; }
@@ -474,18 +490,22 @@ section::after {
 }
 .work-hl li::before { content: '—'; position: absolute; left: 0; color: var(--g4); }
 
-.work-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: auto; padding-top: 16px; }
+/* ── PHILRADS: blueish highlights ──────────────────────────── */
+[style*="--accent:#800000"] .work-hl li { color: #a8c8e8; }
+[style*="--accent:#800000"] .work-hl li::before { color: #5a8ab0; }
+
+.work-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
 
 /* ── Work card screenshot strip ────────────────────────────── */
 .work-screenshots {
   margin-top: 18px;
   padding-top: 16px;
   border-top: 1px solid var(--border);
-  /* display:block so pov-groups stack vertically */
   display: block;
   width: 100%;
   max-width: 100%;
-  overflow: hidden;
+  overflow-x: hidden;   /* only clip horizontal, allow vertical expand */
+  overflow-y: visible;
   box-sizing: border-box;
 }
 .work-screenshots img {
@@ -493,13 +513,55 @@ section::after {
   width: 220px;
   height: auto;
 }
+
+/* ── Screenshot toggle trigger ──────────────────────────────── */
 .work-ss-label {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-size: 9px;
   letter-spacing: .14em;
-  color: var(--g4);
+  color: var(--g3);
   text-transform: uppercase;
-  margin-bottom: 16px;
+  margin-bottom: 0;
+  cursor: pointer;
+  user-select: none;
+  padding: 6px 0;
+  transition: color .15s;
+}
+.work-ss-label:hover { color: var(--green); }
+
+.work-ss-label::before {
+  content: '▸';
+  font-size: 10px;
+  color: var(--green);
+  transition: transform .25s ease;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* Expanded state — arrow rotates down */
+.work-screenshots.expanded .work-ss-label::before {
+  transform: rotate(90deg);
+}
+
+/* ── Collapsible body ───────────────────────────────────────── */
+.work-ss-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .35s ease;
+}
+.work-ss-body-inner {
+  padding-top: 0;
+  transition: padding-top .35s ease;
+}
+
+/* Expanded */
+.work-screenshots.expanded .work-ss-body {
+  max-height: 2000px; /* large enough for any content */
+}
+.work-screenshots.expanded .work-ss-body-inner {
+  padding-top: 14px;
 }
 
 .work-ss-pov-group {
@@ -1165,10 +1227,6 @@ footer {
 }
 
 @media (max-width: 900px) {
-  .work-list {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
   .work-row { border-radius: 2px; }
 }
 
@@ -1848,6 +1906,23 @@ footer {
 .testi-pending-note {
   font-size: 10px; color: var(--g4); letter-spacing: .06em;
   margin-top: 12px; text-align: center; font-style: italic;
+}
+
+/* ── Maroon accent variant for PHILRADS project ────────────── */
+[style*="--accent:#800000"] .work-ss-pov-group {
+  background: rgba(128,0,0,.04);
+  border-color: rgba(128,0,0,.18);
+}
+[style*="--accent:#800000"] .work-ss-pov-group:hover {
+  background: rgba(128,0,0,.08);
+  border-color: rgba(128,0,0,.28);
+}
+[style*="--accent:#800000"] .work-ss-thumb:hover {
+  border-color: rgba(180,0,0,.6);
+  box-shadow: 0 12px 40px rgba(128,0,0,.18), 0 4px 16px rgba(0,0,0,.4);
+}
+[style*="--accent:#800000"] .work-ss-pov-group::-webkit-scrollbar-thumb {
+  background: rgba(128,0,0,.25);
 }
 
 /* ── Screenshot POV groups ─────────────────────────────────── */

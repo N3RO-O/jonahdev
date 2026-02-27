@@ -470,4 +470,29 @@
     card.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
   });
 
+  /* ── Screenshot strip collapse toggle ─────────────────────── */
+  document.querySelectorAll('.work-ss-label').forEach(label => {
+    const strip = label.closest('.work-screenshots');
+    if (!strip) return;
+
+    // Guard: only init once
+    if (label.dataset.init) return;
+    label.dataset.init = '1';
+
+    // Ensure collapsed on load
+    strip.classList.remove('expanded');
+
+    // Wrap label text in a span so the ::before arrow CSS stays intact
+    label.innerHTML = `<span class="work-ss-label-text">// screenshots — click to expand</span>`;
+
+    label.addEventListener('click', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      const expanded = strip.classList.toggle('expanded');
+      label.querySelector('.work-ss-label-text').textContent = expanded
+        ? '// screenshots — collapse'
+        : '// screenshots — click to expand';
+    });
+  });
+
 })(); /* ← Main IIFE closes correctly here */
