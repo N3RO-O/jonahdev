@@ -53,12 +53,12 @@ export default function Education() {
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.1 }}
-            className="grid gap-4 sm:grid-cols-2"
+            className="grid gap-4 sm:grid-cols-1"
           >
             {certifications.map((cert) => (
               <div
                 key={cert.title}
-                className="card flex flex-col items-center text-center"
+                className="card flex flex-col items-center text-center sm:flex-row sm:items-start sm:text-left sm:gap-4"
               >
                 {cert.image ? (
                   <button
@@ -69,7 +69,7 @@ export default function Education() {
                         index: certImages.findIndex((i) => i.src === cert.image),
                       })
                     }
-                    className="mb-3 w-full overflow-hidden rounded-lg border border-[var(--border)] transition-transform hover:scale-[1.02]"
+                    className="mb-3 w-full shrink-0 overflow-hidden rounded-lg border border-[var(--border)] transition-transform hover:scale-[1.02] sm:mb-0 sm:w-36"
                   >
                     <img
                       src={cert.image}
@@ -79,14 +79,16 @@ export default function Education() {
                     />
                   </button>
                 ) : (
-                  <div className="mb-3 flex h-24 w-full items-center justify-center rounded-lg bg-accent/10 text-accent">
+                  <div className="mb-3 flex h-24 w-36 shrink-0 items-center justify-center rounded-lg bg-accent/10 text-accent sm:mb-0">
                     <Award size={32} />
                   </div>
                 )}
-                <h4 className="font-semibold text-sm">{cert.title}</h4>
-                <p className="text-xs text-[var(--text-muted)]">
-                  {cert.issuer} · {cert.year}
-                </p>
+                <div className="min-w-0 flex-1">
+                  <h4 className="font-semibold text-sm leading-snug">{cert.title}</h4>
+                  <p className="mt-1 text-xs text-[var(--text-muted)]">
+                    {cert.issuer} · {cert.year}
+                  </p>
+                </div>
               </div>
             ))}
           </motion.div>

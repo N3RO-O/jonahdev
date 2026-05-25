@@ -34,7 +34,7 @@ export const navLinks = [
 export const about = {
   paragraphs: [
     "I'm Jonah Tabuzo — a web developer and Information Systems student based in Virac, Catanduanes, Philippines, graduating in 2026. I build production-ready web systems from the ground up and produce photo & video content that communicates clearly.",
-    'As Lead Programmer on my capstone (KiddyTrack) and developer on OJT systems at PHILRADS, I translate real stakeholder needs into dashboards non-technical users can navigate without training. I learn fast, document well, and care about impact over feature count.',
+    'As Lead Programmer on my capstone (KiddyTrack) and developer on separate OJT systems at PHILRADS (IMS and Asset Database), I translate real stakeholder needs into dashboards non-technical users can navigate without training. I learn fast, document well, and care about impact over feature count.',
     "I'm seeking OJT and entry-level roles in IT Support, Web Development, and Systems Analysis — where I can ship reliable tools and grow with a team that values craft.",
     "Outside code, I run Nero's Cult (Discord gaming community), shoot events for local businesses, and contribute QA work at PIXODE Philippines — a dev collective building practical digital tools for underserved communities.",
   ],
@@ -142,7 +142,7 @@ export const projects = [
   {
     id: 'philrads',
     title: 'PHILRADS Asset Database System',
-    subtitle: 'OJT Project 1',
+    subtitle: 'OJT Project · Asset Management',
     year: '2024',
     accent: '#800000',
     description:
@@ -189,50 +189,34 @@ export const projects = [
   {
     id: 'philrads-ims',
     title: 'PHILRADS Inventory Management System (IMS)',
-    subtitle: 'OJT Project · PHILRADS',
+    subtitle: 'OJT Project · Inventory Management',
     year: '2024–2025',
     accent: '#4a9eff',
     description:
-      'Web-based inventory management system built during OJT at PHILRADS — centralizing stock, asset records, and operational data in one platform staff can use daily.',
+      'A separate web-based inventory management system built during OJT at PHILRADS — focused on stock and inventory workflows, independent from the Asset Database System.',
     problem:
-      'Inventory and asset data lived in disconnected spreadsheets and manual logs, slowing lookups and increasing record errors.',
+      'Inventory tracking relied on manual logs and spreadsheets, making stock updates slow and hard to coordinate across roles.',
     solution:
-      'Developed the IMS web portal with structured modules for inventory tracking, integrated with the asset database for end-to-end visibility from dashboard to individual asset records.',
-    role: 'Full-stack developer — requirements gathering, database design, PHP backend, and user-facing modules.',
+      'Built the IMS portal with role-based modules for inventory operations — a standalone system from the asset database project.',
+    role: 'Full-stack developer — requirements gathering, database design, PHP backend, and role-based UI modules.',
     tech: ['PHP', 'MySQL', 'JavaScript', 'HTML/CSS', 'Bootstrap'],
     metrics: [
-      'Live IMS portal deployed for PHILRADS staff',
-      'Integrated asset detail views with inventory workflows',
-      'Role-appropriate views for daily office operations',
+      'Live IMS portal deployed for PHILRADS',
+      'Role-based access for different staff workflows',
+      'Standalone system — separate from Asset Database',
     ],
     features: [
-      'Centralized inventory management dashboard',
-      'Asset record views with full detail pages',
-      'Built for real OJT stakeholder workflows at PHILRADS',
-      'Paired with the PHILRADS Asset Database module',
+      'Centralized inventory management workflows',
+      'Role-based views for PHILRADS staff (screenshots coming soon)',
+      'Deployed live during OJT at PHILRADS',
+      'Not connected to the Asset Database System',
     ],
     links: {
       live: 'https://philrads-ims.page.gd/?i=1',
-      liveSecondary: 'https://assetphilrads.page.gd/Philrads/asset_detail.php?id=10',
-      liveSecondaryLabel: 'Asset detail view',
-      github: 'https://github.com/N3RO-O/Philrads-Asset-Inventory',
+      github: null,
     },
-    galleries: [
-      {
-        label: 'Admin Dashboard',
-        images: Array.from({ length: 6 }, (_, i) => ({
-          src: `/assets/projects/Asset Database System/admin/ss${i + 1}.png`,
-          caption: `IMS / Admin — view ${i + 1}`,
-        })),
-      },
-      {
-        label: 'Staff Views',
-        images: Array.from({ length: 4 }, (_, i) => ({
-          src: `/assets/projects/Asset Database System/staff/ss${i + 1}.png`,
-          caption: `Staff — view ${i + 1}`,
-        })),
-      },
-    ],
+    galleries: [],
+    screenshotsPending: true,
   },
 ]
 
@@ -266,29 +250,30 @@ export const education = {
   period: 'Expected 2026',
   details: [
     'Capstone Lead Programmer — KiddyTrack academic monitoring system',
-    'OJT — PHILRADS IMS & Asset Database System (live deployments)',
+    'OJT — PHILRADS IMS & Asset Database System (separate live deployments)',
     'HACK4GOV CTF 2023 Participant',
   ],
 }
 
 export const certifications = [
   {
-    title: 'OJT Certificate',
-    issuer: 'PHILRADS · On-the-Job Training',
-    year: '2024–2025',
+    title: 'From Manual to Algorithmic: Prioritizing Disaster Relief with Data',
+    issuer: 'Training / Workshop Certificate',
+    year: '2026',
     image: '/assets/cert/tabuzo-certificate.png',
   },
   {
-    title: 'Power BI Data Analytics',
-    issuer: 'Professional Certification',
-    year: '2025',
-    image: '/assets/cert/power-bi.png',
+    title:
+      'Predicting Dengue, Protecting Communities: A Machine Learning–Based Approach to Smarter Public Health Action in Baguio City',
+    issuer: 'Training / Workshop Certificate',
+    year: '2026',
+    image: '/assets/cert/certificate.png',
   },
   {
-    title: 'Certificate of Completion',
-    issuer: 'Training & Development',
-    year: '2025',
-    image: '/assets/cert/certificate.png',
+    title: 'Power BI Dashboard: Zero to Low Code',
+    issuer: 'Power BI Training',
+    year: '2026',
+    image: '/assets/cert/power-bi.png',
   },
   {
     title: 'HACK4GOV CTF 2023',

@@ -179,6 +179,12 @@ function ProjectCard({ project, index }) {
           )}
         </AnimatePresence>
 
+        {project.screenshotsPending && (!project.galleries || project.galleries.length === 0) && (
+          <p className="mt-6 rounded-lg border border-dashed border-[var(--border)] px-4 py-3 font-mono text-xs text-[var(--text-muted)]">
+            // Screenshots coming soon — role-based IMS views will be added when ready
+          </p>
+        )}
+
         {project.galleries?.length > 0 && (
           <div className="mt-8 space-y-6">
             {project.galleries.map((gallery) => (
