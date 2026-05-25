@@ -8,7 +8,7 @@ export const site = {
   email: 'jonahmarkt@gmail.com',
   phone: '+63 928 574 4262',
   cvUrl: '/assets/jonah-tabuzo-cv.pdf',
-  photo: '/assets/jonah-photo.jpg',
+  photo: '/assets/jonah-photo.jpg?v=2',
   availability:
     'Open to OJT & Entry-Level — IT Support, Web Development, Systems Analysis',
   socials: [
@@ -164,7 +164,9 @@ export const projects = [
       'Clean responsive interface for office and field use',
     ],
     links: {
-      live: null,
+      live: 'https://assetphilrads.page.gd/Philrads/',
+      liveSecondary: 'https://assetphilrads.page.gd/Philrads/asset_detail.php?id=10',
+      liveSecondaryLabel: 'Sample asset record',
       github: 'https://github.com/N3RO-O/Philrads-Asset-Inventory',
     },
     galleries: [
@@ -185,22 +187,52 @@ export const projects = [
     ],
   },
   {
-    id: 'ojt2',
-    title: 'OJT Project 2',
-    subtitle: 'In Development',
-    year: '2025',
+    id: 'philrads-ims',
+    title: 'PHILRADS Inventory Management System (IMS)',
+    subtitle: 'OJT Project · PHILRADS',
+    year: '2024–2025',
     accent: '#4a9eff',
-    wip: true,
     description:
-      'Second OJT deliverable currently in active development. Details, screenshots, and live demo coming soon.',
-    problem: 'Details forthcoming.',
-    solution: 'Details forthcoming.',
-    role: 'Developer — OJT placement.',
-    tech: ['TBA'],
-    metrics: [],
-    features: [],
-    links: { live: null, github: null },
-    galleries: [],
+      'Web-based inventory management system built during OJT at PHILRADS — centralizing stock, asset records, and operational data in one platform staff can use daily.',
+    problem:
+      'Inventory and asset data lived in disconnected spreadsheets and manual logs, slowing lookups and increasing record errors.',
+    solution:
+      'Developed the IMS web portal with structured modules for inventory tracking, integrated with the asset database for end-to-end visibility from dashboard to individual asset records.',
+    role: 'Full-stack developer — requirements gathering, database design, PHP backend, and user-facing modules.',
+    tech: ['PHP', 'MySQL', 'JavaScript', 'HTML/CSS', 'Bootstrap'],
+    metrics: [
+      'Live IMS portal deployed for PHILRADS staff',
+      'Integrated asset detail views with inventory workflows',
+      'Role-appropriate views for daily office operations',
+    ],
+    features: [
+      'Centralized inventory management dashboard',
+      'Asset record views with full detail pages',
+      'Built for real OJT stakeholder workflows at PHILRADS',
+      'Paired with the PHILRADS Asset Database module',
+    ],
+    links: {
+      live: 'https://philrads-ims.page.gd/?i=1',
+      liveSecondary: 'https://assetphilrads.page.gd/Philrads/asset_detail.php?id=10',
+      liveSecondaryLabel: 'Asset detail view',
+      github: 'https://github.com/N3RO-O/Philrads-Asset-Inventory',
+    },
+    galleries: [
+      {
+        label: 'Admin Dashboard',
+        images: Array.from({ length: 6 }, (_, i) => ({
+          src: `/assets/projects/Asset Database System/admin/ss${i + 1}.png`,
+          caption: `IMS / Admin — view ${i + 1}`,
+        })),
+      },
+      {
+        label: 'Staff Views',
+        images: Array.from({ length: 4 }, (_, i) => ({
+          src: `/assets/projects/Asset Database System/staff/ss${i + 1}.png`,
+          caption: `Staff — view ${i + 1}`,
+        })),
+      },
+    ],
   },
 ]
 
@@ -234,24 +266,35 @@ export const education = {
   period: 'Expected 2026',
   details: [
     'Capstone Lead Programmer — KiddyTrack academic monitoring system',
-    'OJT — PHILRADS asset inventory system development',
+    'OJT — PHILRADS IMS & Asset Database System (live deployments)',
     'HACK4GOV CTF 2023 Participant',
   ],
 }
 
 export const certifications = [
   {
+    title: 'OJT Certificate',
+    issuer: 'PHILRADS · On-the-Job Training',
+    year: '2024–2025',
+    image: '/assets/cert/tabuzo-certificate.png',
+  },
+  {
+    title: 'Power BI Data Analytics',
+    issuer: 'Professional Certification',
+    year: '2025',
+    image: '/assets/cert/power-bi.png',
+  },
+  {
+    title: 'Certificate of Completion',
+    issuer: 'Training & Development',
+    year: '2025',
+    image: '/assets/cert/certificate.png',
+  },
+  {
     title: 'HACK4GOV CTF 2023',
     issuer: 'Capture the Flag Participant',
     year: '2023',
     image: null,
-  },
-  {
-    title: 'Add your certificates here',
-    issuer: 'Upload scanned certs to /public/assets/certs/',
-    year: '—',
-    image: null,
-    placeholder: true,
   },
 ]
 

@@ -119,6 +119,17 @@ function ProjectCard({ project, index }) {
               Live Demo
             </a>
           )}
+          {project.links.liveSecondary && (
+            <a
+              href={project.links.liveSecondary}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-secondary"
+            >
+              <ExternalLink size={16} />
+              {project.links.liveSecondaryLabel || 'View module'}
+            </a>
+          )}
           {project.links.github && (
             <a
               href={project.links.github}

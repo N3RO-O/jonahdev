@@ -1,11 +1,18 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { GraduationCap, Award } from 'lucide-react'
 import { education, certifications } from '../data/siteData'
 import SectionHeader from './SectionHeader'
+import Lightbox from './Lightbox'
 import { useInView } from '../hooks/useInView'
 
 export default function Education() {
   const [ref, inView] = useInView()
+  const [lightbox, setLightbox] = useState({ images: [], index: null })
+
+  const certImages = certifications
+    .filter((c) => c.image)
+    .map((c) => ({ src: c.image, caption: `${c.title} — ${c.issuer}` }))
 
   return (
     <section id="education" className="py-20 bg-[var(--surface-elevated)]/50">
@@ -51,22 +58,29 @@ export default function Education() {
             {certifications.map((cert) => (
               <div
                 key={cert.title}
-                className={`card flex flex-col items-center text-center ${
-                  cert.placeholder ? 'border-dashed opacity-70' : ''
-                }`}
+                className="card flex flex-col items-center text-center"
               >
-                <div className="mb-3 rounded-lg bg-accent/10 p-3 text-accent">
-                  <Award size={24} />
-                </div>
                 {cert.image ? (
-                  <img
-                    src={cert.image}
-                    alt={cert.title}
-                    className="mb-3 max-h-32 rounded-lg object-contain"
-                  />
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setLightbox({
+                        images: certImages,
+                        index: certImages.findIndex((i) => i.src === cert.image),
+                      })
+                    }
+                    className="mb-3 w-full overflow-hidden rounded-lg border border-[var(--border)] transition-transform hover:scale-[1.02]"
+                  >
+                    <img
+                      src={cert.image}
+                      alt={cert.title}
+                      loading="lazy"
+                      className="max-h-44 w-full object-contain p-2"
+                    />
+                  </button>
                 ) : (
-                  <div className="mb-3 flex h-24 w-full items-center justify-center rounded-lg bg-[var(--surface-elevated)] font-mono text-xs text-[var(--text-muted)]">
-                    {cert.placeholder ? 'Add cert image' : cert.title}
+                  <div className="mb-3 flex h-24 w-full items-center justify-center rounded-lg bg-accent/10 text-accent">
+                    <Award size={32} />
                   </div>
                 )}
                 <h4 className="font-semibold text-sm">{cert.title}</h4>
@@ -78,6 +92,26 @@ export default function Education() {
           </motion.div>
         </div>
       </div>
+
+      {lightbox.index !== null && (
+        <Lightbox
+          images={lightbox.images}
+          index={lightbox.index}
+          onClose={() => setLightbox({ images: [], index: null })}
+          onPrev={() =>
+            setLightbox((lb) => ({
+              ...lb,
+              index: (lb.index - 1 + lb.images.length) % lb.images.length,
+            }))
+          }
+          onNext={() =>
+            setLightbox((lb) => ({
+              ...lb,
+              index: (lb.index + 1) % lb.images.length,
+            }))
+          }
+        />
+      )}
     </section>
   )
 }
