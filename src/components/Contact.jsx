@@ -55,7 +55,7 @@ export default function Contact() {
             onSubmit={handleSubmit}
             className="card space-y-4"
           >
-            <input type="hidden" name="_subject" value="Portfolio Contact — jonahtabuzo.dev" />
+            <input type="hidden" name="_subject" value="Portfolio Contact — jonahdevportfolio.vercel.app" />
 
             <div className="grid gap-4 sm:grid-cols-2">
               <div>

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://jonahtabuzo.dev/sitemap.xml
+Sitemap: https://jonahdevportfolio.vercel.app/sitemap.xml

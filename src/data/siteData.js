@@ -1,4 +1,5 @@
 export const site = {
+  url: 'https://jonahdevportfolio.vercel.app',
   name: 'Jonah Tabuzo',
   title: 'Full-Stack Web Developer & Visual Creator',
   tagline:

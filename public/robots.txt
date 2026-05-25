@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jonahdevportfolio.vercel.app/sitemap.xml
