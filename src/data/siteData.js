@@ -37,10 +37,11 @@ export const navLinks = [
 
 export const about = {
   paragraphs: [
-    "I'm Jonah Mark Tabuzo — an Information Systems graduate with practical experience in web development, project collaboration, and visual design. I build clean, user-friendly, and high-performance web applications that solve real-world problems.",
-    'Currently contributing through PHILRADS, I apply my technical skills to support meaningful projects while continuing to grow as a developer. My work spans full-stack web systems, stakeholder-focused interfaces, and practical digital tools that are easy for non-technical users to navigate.',
-    "I am especially interested in opportunities where I can contribute to reliable web solutions, systems analysis, and product-focused development in a team that values impact and craftsmanship.",
-    "Outside of development, I also create visual content, support creative projects, and stay active in community-driven work through PIXODE Philippines and other local initiatives.",
+    'Results-driven BS Information Systems graduate with 2+ years of hands-on experience designing, developing, and successfully launching practical, user-friendly web applications. A reliable full-stack developer who thrives in taking projects from start to finish — gathering requirements from stakeholders, designing intuitive interfaces, implementing robust systems, and deploying live solutions that deliver real business value.',
+    'At PHILRADS, I built and deployed two live management systems featuring inventory and asset tracking, smart expiration logic, secure approval workflows, and comprehensive activity logging. I also spearheaded the end-to-end development of an academic tracking system, from initial design through full launch.',
+    'I specialize in creating clean, high-performance web applications and stakeholder-focused interfaces that are accessible even to non-technical users. My work combines strong technical skills with visual design sensibility and a deep focus on usability and impact.',
+    'I am particularly interested in opportunities where I can contribute to reliable web solutions, systems analysis, and product-focused development within teams that value craftsmanship and meaningful outcomes.',
+    'Beyond coding, I create visual content, support creative initiatives, and actively contribute to community-driven projects through PIXODE Philippines and other local organizations.',
   ],
   highlights: [
     { icon: 'graduate', label: 'BSIS Graduate', desc: 'Catanduanes State University' },

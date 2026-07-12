@@ -187,7 +187,7 @@ export default function Hero() {
                 />
               </div>
             </ViewfinderFrame>
-            <div className="hero-badge absolute -bottom-4 -right-4 z-20 rounded-2xl border-2 border-accent/50 bg-accent/20 px-4 py-2 text-xs font-mono text-[var(--text)] shadow-[0_32px_80px_-32px_rgba(220,170,78,0.95)] transition duration-300 hover:scale-[1.03] hover:border-accent/70 hover:bg-accent/25">
+            <div className="hero-badge absolute bottom-0 right-0 z-30 translate-x-6 translate-y-6 rounded-2xl border-2 border-accent/50 bg-accent/25 px-4 py-2 text-xs font-mono text-[var(--text)] shadow-[0_32px_80px_-32px_rgba(220,170,78,0.95)] transition duration-300 hover:scale-[1.03] hover:border-accent/70 hover:bg-accent/30">
               <span className="text-accent">◎</span> jonah.dev · 2026
             </div>
           </motion.div>
