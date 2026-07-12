@@ -29,7 +29,7 @@ function GalleryViewer({ galleries, accent, onExpand }) {
   const goTo = (i) => setImgIdx((i + images.length) % images.length)
 
   return (
-    <div className="mt-8">
+    <div className="mt-5">
       {galleries.length > 1 && (
         <div className="mb-4 flex flex-wrap gap-2">
           {galleries.map((g, i) => (
@@ -137,8 +137,9 @@ function ProjectCard({ project, index }) {
       <motion.article
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
+        whileHover={{ y: -6, scale: 1.01 }}
         viewport={{ once: true }}
-        transition={{ delay: index * 0.1 }}
+        transition={{ delay: index * 0.1, type: 'spring', stiffness: 120, damping: 18 }}
         className="card border-dashed opacity-80"
         style={{ borderColor: project.accent + '40' }}
       >
@@ -163,8 +164,9 @@ function ProjectCard({ project, index }) {
       <motion.article
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
+        whileHover={{ y: -8, scale: 1.01 }}
         viewport={{ once: true }}
-        transition={{ delay: index * 0.08 }}
+        transition={{ delay: index * 0.08, type: 'spring', stiffness: 110, damping: 18 }}
         className="card overflow-hidden"
         style={{ borderTopColor: project.accent, borderTopWidth: '3px' }}
       >
@@ -180,11 +182,23 @@ function ProjectCard({ project, index }) {
             <CircleDot size={11} />
             {project.subtitle}
           </span>
-          <h3 className="font-display text-2xl font-semibold">{project.title}</h3>
-          <p className="text-sm text-[var(--text-muted)]">{project.year}</p>
+          <h3 className="font-display text-2xl font-semibold transition-colors duration-200 hover:text-accent">
+            {project.title}
+          </h3>
+          <p className="text-secondary text-sm font-medium">{project.year}</p>
         </div>
 
-        <p className="mt-4 text-[var(--text-muted)]">{project.description}</p>
+        {project.galleries?.length > 0 && (
+          <GalleryViewer galleries={project.galleries} accent={project.accent} onExpand={openLightbox} />
+        )}
+
+        {project.screenshotsPending && (!project.galleries || project.galleries.length === 0) && (
+          <p className="mt-6 rounded-lg border border-dashed border-[var(--border)] px-4 py-3 font-mono text-xs text-[var(--text-muted)]">
+            // Screenshots coming soon — role-based IMS views will be added when ready
+          </p>
+        )}
+
+        <p className="mt-6 text-[var(--text-muted)]">{project.description}</p>
 
         {project.metrics?.length > 0 && (
           <div className="mt-4 flex flex-wrap gap-2">
@@ -282,15 +296,6 @@ function ProjectCard({ project, index }) {
           )}
         </AnimatePresence>
 
-        {project.screenshotsPending && (!project.galleries || project.galleries.length === 0) && (
-          <p className="mt-8 rounded-lg border border-dashed border-[var(--border)] px-4 py-3 font-mono text-xs text-[var(--text-muted)]">
-            // Screenshots coming soon — role-based IMS views will be added when ready
-          </p>
-        )}
-
-        {project.galleries?.length > 0 && (
-          <GalleryViewer galleries={project.galleries} accent={project.accent} onExpand={openLightbox} />
-        )}
       </motion.article>
 
       {lightbox.index !== null && (
@@ -328,7 +333,7 @@ export default function Projects() {
           subtitle="Quality over quantity — capstone and OJT systems with real impact."
         />
 
-        <div ref={ref} className="space-y-8">
+        <div ref={ref} className="grid items-start gap-8 lg:grid-cols-2">
           {projects.map((p, i) => (
             <ProjectCard key={p.id} project={p} index={i} />
           ))}
