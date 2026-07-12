@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { GraduationCap, Award } from 'lucide-react'
+import { GraduationCap, Award, Calendar } from 'lucide-react'
 import { education, certifications } from '../data/siteData'
 import SectionHeader from './SectionHeader'
 import Lightbox from './Lightbox'
@@ -17,81 +17,87 @@ export default function Education() {
   return (
     <section id="education" className="py-20 bg-[var(--surface-elevated)]/50">
       <div className="section-container">
-        <SectionHeader
-          eyebrow="// education & certs"
-          title="Education & Certifications"
-        />
+        <SectionHeader eyebrow="// education & certs" title="Education & Certifications" />
 
-        <div ref={ref} className="grid gap-8 lg:grid-cols-2">
+        <div ref={ref} className="space-y-10">
+          {/* Degree — full-width highlighted banner */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            className="card"
+            className="card flex flex-col gap-5 border-accent/30 !bg-gradient-to-br !from-accent/10 !to-transparent sm:flex-row sm:items-center"
           >
-            <div className="mb-4 flex items-center gap-3">
-              <div className="rounded-lg bg-accent/10 p-3 text-accent">
-                <GraduationCap size={24} />
-              </div>
-              <div>
-                <h3 className="text-lg font-bold">{education.degree}</h3>
-                <p className="text-sm text-[var(--text-muted)]">
-                  {education.school} · {education.period}
-                </p>
-              </div>
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-accent/15 text-accent">
+              <GraduationCap size={28} />
             </div>
-            <ul className="space-y-2 text-sm text-[var(--text-muted)]">
-              {education.details.map((d) => (
-                <li key={d} className="flex gap-2">
-                  <span className="text-accent">▸</span>
-                  {d}
-                </li>
-              ))}
-            </ul>
+            <div className="flex-1">
+              <h3 className="text-xl font-bold">{education.degree}</h3>
+              <p className="text-secondary text-sm font-medium">
+                {education.school} · {education.period}
+              </p>
+              <ul className="mt-3 space-y-3 text-sm text-[var(--text-muted)]">
+                {education.details.map((d) => (
+                  <li key={d} className="flex items-start gap-2">
+                    <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                    <span>{d}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.1 }}
-            className="grid gap-4 sm:grid-cols-1"
-          >
-            {certifications.map((cert) => (
-              <div
-                key={cert.title}
-                className="card flex flex-col items-center text-center sm:flex-row sm:items-start sm:text-left sm:gap-4"
-              >
-                {cert.image ? (
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setLightbox({
-                        images: certImages,
-                        index: certImages.findIndex((i) => i.src === cert.image),
-                      })
-                    }
-                    className="mb-3 w-full shrink-0 overflow-hidden rounded-lg border border-[var(--border)] transition-transform hover:scale-[1.02] sm:mb-0 sm:w-36"
-                  >
-                    <img
-                      src={cert.image}
-                      alt={cert.title}
-                      loading="lazy"
-                      className="max-h-44 w-full object-contain p-2"
-                    />
-                  </button>
-                ) : (
-                  <div className="mb-3 flex h-24 w-36 shrink-0 items-center justify-center rounded-lg bg-accent/10 text-accent sm:mb-0">
-                    <Award size={32} />
+          {/* Certifications — poster-style card grid */}
+          <div>
+            <h3 className="section-eyebrow !mb-5">// certifications & training</h3>
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {certifications.map((cert, i) => (
+                <motion.div
+                  key={cert.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ delay: 0.06 * i }}
+                  className="card group flex flex-col overflow-hidden !p-0"
+                >
+                  {cert.image ? (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setLightbox({
+                          images: certImages,
+                          index: certImages.findIndex((im) => im.src === cert.image),
+                        })
+                      }
+                      className="relative block aspect-[4/3] w-full overflow-hidden border-b border-[var(--border)] bg-[var(--surface-elevated)]"
+                    >
+                      <img
+                        src={cert.image}
+                        alt={cert.title}
+                        loading="lazy"
+                        className="h-full w-full object-contain p-3 transition-transform duration-300 group-hover:scale-105"
+                      />
+                      <span className="absolute right-2 top-2 flex items-center gap-1 rounded-full bg-black/60 px-2 py-0.5 font-mono text-[10px] text-white backdrop-blur-sm">
+                        <Calendar size={10} />
+                        {cert.year}
+                      </span>
+                    </button>
+                  ) : (
+                    <div className="relative flex aspect-[4/3] w-full items-center justify-center border-b border-[var(--border)] bg-accent/10 text-accent">
+                      <Award size={32} />
+                      <span className="absolute right-2 top-2 flex items-center gap-1 rounded-full bg-black/60 px-2 py-0.5 font-mono text-[10px] text-white backdrop-blur-sm">
+                        <Calendar size={10} />
+                        {cert.year}
+                      </span>
+                    </div>
+                  )}
+                  <div className="flex flex-1 flex-col gap-1 p-4">
+                    <h4 className="text-sm font-semibold leading-snug transition-colors group-hover:text-accent">
+                      {cert.title}
+                    </h4>
+                    <p className="text-secondary mt-auto text-xs">{cert.issuer}</p>
                   </div>
-                )}
-                <div className="min-w-0 flex-1">
-                  <h4 className="font-semibold text-sm leading-snug">{cert.title}</h4>
-                  <p className="mt-1 text-xs text-[var(--text-muted)]">
-                    {cert.issuer} · {cert.year}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </motion.div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
