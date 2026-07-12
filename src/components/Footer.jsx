@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react'
 import { site } from '../data/siteData'
 import SocialLinks from './SocialLinks'
 import { FileDown } from 'lucide-react'
+// NOTE (QA): SocialLinks was previously rendered twice in this footer
+// (once here, once again in the row below) — a leftover duplicate from
+// an earlier layout pass. Kept to a single instance now.
 
 export default function Footer() {
   const [time, setTime] = useState('')
@@ -29,8 +32,7 @@ export default function Footer() {
 
         <div className="flex flex-col items-center justify-between gap-3 border-t border-[var(--border)] pt-6 text-sm text-[var(--text-muted)] sm:w-full sm:flex-row">
           <div className="flex items-center gap-4">
-            <SocialLinks />
-            <a href={site.cvUrl} download className="btn-secondary inline-flex items-center gap-2">
+            <a href={site.cvUrl} download className="btn-secondary inline-flex items-center gap-2 border border-accent/70 hover:border-accent">
               <FileDown size={14} />
               Download résumé
             </a>
