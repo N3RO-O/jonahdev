@@ -21,7 +21,11 @@ export default function Testimonials() {
               transition={{ delay: i * 0.1 }}
               className="card relative"
             >
-              <Quote className="absolute right-4 top-4 text-accent/20" size={40} />
+              <Quote
+                className="absolute right-4 top-4 text-accent/10 pointer-events-none"
+                size={28}
+                aria-hidden
+              />
               <p className="text-[var(--text-muted)] leading-relaxed italic">"{t.quote}"</p>
               <footer className="mt-6 border-t border-[var(--border)] pt-4">
                 <cite className="not-italic font-semibold">{t.name}</cite>
