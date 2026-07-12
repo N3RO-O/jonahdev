@@ -103,13 +103,16 @@ export default function Hero() {
                   const isCommand = i % 2 === 0
                   const isCurrentLine = i === lineIndex && !done
                   return (
-                    <div key={i} className={isCommand ? 'mt-2 first:mt-0' : ''}>
+                    <div
+                      key={i}
+                      className={`terminal-line ${isCommand ? 'terminal-line-command mt-2 first:mt-0' : 'terminal-line-output'} ${isCurrentLine ? 'terminal-line-current' : ''}`}
+                    >
                       {isCommand ? (
                         <>
                           <span className="terminal-prompt">$</span> {text}
                         </>
                       ) : (
-                        <span className="text-[var(--text-muted)]">{text}</span>
+                        <span>{text}</span>
                       )}
                       {isCurrentLine && <span className="terminal-caret" />}
                     </div>
