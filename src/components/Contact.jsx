@@ -134,7 +134,7 @@ export default function Contact() {
             initial={{ opacity: 0, x: 20 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ delay: 0.1 }}
-            className="flex flex-col justify-center gap-6"
+            className="card space-y-6"
           >
             <div>
               <p className="mb-2 text-sm text-[var(--text-muted)]">Or reach out directly</p>
@@ -156,27 +156,34 @@ export default function Contact() {
               </div>
             </div>
 
-            <a
-              href={`tel:${site.phone.replace(/\s/g, '')}`}
-              className="flex items-center gap-2 text-[var(--text-muted)] hover:text-accent"
-            >
+            <div className="flex items-center gap-3">
               <Phone size={18} />
-              {site.phone}
-            </a>
+              <a
+                href={`tel:${site.phone.replace(/\s/g, '')}`}
+                className="text-[var(--text-muted)] hover:text-accent"
+              >
+                {site.phone}
+              </a>
+            </div>
 
             <div>
               <p className="mb-3 text-sm text-[var(--text-muted)]">Find me elsewhere</p>
               <SocialLinks variant="list" />
             </div>
 
-            <a
-              href={site.cvUrl}
-              download
-              className="inline-flex w-fit items-center gap-2 text-sm font-medium text-accent hover:underline"
-            >
-              <FileDown size={16} />
-              Download résumé
-            </a>
+            <div className="flex flex-col gap-3 border-t border-[var(--border)] pt-4">
+              <a
+                href={site.cvUrl}
+                download
+                className="btn-primary inline-flex w-full items-center justify-center gap-2"
+              >
+                <FileDown size={16} />
+                Download résumé
+              </a>
+              <p className="text-xs text-[var(--text-muted)]">
+                Save a copy of my résumé or email me directly for faster response.
+              </p>
+            </div>
           </motion.div>
         </div>
       </div>
