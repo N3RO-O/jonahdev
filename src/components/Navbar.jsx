@@ -48,17 +48,10 @@ export default function Navbar({ theme, onToggleTheme }) {
             e.preventDefault()
             scrollTo('hero')
           }}
-          className="font-mono text-lg font-bold"
+          className="group font-mono text-lg font-bold transition-transform duration-200 hover:-translate-y-0.5"
         >
-          jonah<span className="text-[#dcaa4e]">.dev</span>
-        </a>
-
-        <ul className="hidden items-center gap-1 md:flex">
-          {navLinks.map((link) => (
-            <li key={link.id}>
-              <button
-                onClick={() => scrollTo(link.id)}
-                className={`rounded-lg px-3 py-2 text-sm transition-colors ${
+            jonah<span className="text-accent">.dev</span>
+                className={`link-underline rounded-lg px-3 py-2 text-sm transition-colors ${
                   active === link.id
                     ? 'bg-accent/10 text-accent'
                     : 'text-[var(--text-muted)] hover:text-[var(--text)]'
@@ -73,7 +66,7 @@ export default function Navbar({ theme, onToggleTheme }) {
         <div className="flex items-center gap-2">
           <button
             onClick={onToggleTheme}
-            className="rounded-lg border border-[var(--border)] p-2 text-[var(--text-muted)] transition-colors hover:text-accent"
+            className="rounded-lg border border-[var(--border)] p-2 text-[var(--text-muted)] transition-all duration-300 hover:rotate-45 hover:border-accent hover:text-accent"
             aria-label="Toggle theme"
           >
             {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
