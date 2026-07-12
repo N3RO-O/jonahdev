@@ -22,8 +22,8 @@ export default function Testimonials() {
               className="card relative"
             >
               <Quote
-                className="absolute right-4 top-4 text-accent/10 pointer-events-none"
-                size={28}
+                className="absolute right-3 top-3 text-accent/5 pointer-events-none"
+                size={20}
                 aria-hidden
               />
               <p className="text-[var(--text-muted)] leading-relaxed italic">"{t.quote}"</p>
