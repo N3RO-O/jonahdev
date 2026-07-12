@@ -304,6 +304,7 @@ export const creative = {
     { type: 'photo', src: '/assets/creative/photo-04.jpg', alt: 'Photography sample 4' },
     { type: 'photo', src: '/assets/creative/photo-05.jpg', alt: 'Photography sample 5' },
     { type: 'photo', src: '/assets/creative/photo-06.jpg', alt: 'Photography sample 6' },
+    { type: 'photo', src: '/assets/creative/photo-07.jpg', alt: 'Photography sample 7' },
     {
       type: 'video',
       src: '/assets/creative/your-video.mp4',
