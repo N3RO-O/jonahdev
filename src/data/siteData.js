@@ -1,10 +1,10 @@
 export const site = {
   url: 'https://jonahdevportfolio.vercel.app',
-  name: 'Jonah Tabuzo',
+  name: 'Jonah Mark Tabuzo',
   title: 'Full-Stack Web Developer & Visual Creator',
   tagline:
-    'Building practical web systems and telling stories through visuals — BS Information Systems graduate, 2026.',
-  location: 'Virac, Catanduanes, Philippines',
+    'Information Systems graduate building practical web solutions and visual stories from the Philippines.',
+  location: 'Virac, Bicol Region, Philippines',
   email: 'jonahmarkt@gmail.com',
   phone: '+63 928 574 4262',
   cvUrl: '/assets/jonah-tabuzo-cv.pdf',
@@ -37,16 +37,16 @@ export const navLinks = [
 
 export const about = {
   paragraphs: [
-    "I'm Jonah Tabuzo — a web developer and recent Information Systems graduate based in Virac, Catanduanes, Philippines. I build production-ready web systems from the ground up and produce photo & video content that communicates clearly.",
-    'As Lead Programmer on my capstone (KiddyTrack) and developer on separate OJT systems at PHILRADS (IMS and Asset Database), I translate real stakeholder needs into dashboards non-technical users can navigate without training. I learn fast, document well, and care about impact over feature count.',
-    "Now that I've graduated, I'm looking for entry-level roles in IT Support, Web Development, and Systems Analysis — where I can ship reliable tools and grow with a team that values craft.",
-    "Outside code, I run Nero's Cult (Discord gaming community), shoot events for local businesses, and contribute QA work at PIXODE Philippines — a dev collective building practical digital tools for underserved communities.",
+    "I'm Jonah Mark Tabuzo — an Information Systems graduate with practical experience in web development, project collaboration, and visual design. I build clean, user-friendly, and high-performance web applications that solve real-world problems.",
+    'Currently contributing through PHILRADS, I apply my technical skills to support meaningful projects while continuing to grow as a developer. My work spans full-stack web systems, stakeholder-focused interfaces, and practical digital tools that are easy for non-technical users to navigate.',
+    "I am especially interested in opportunities where I can contribute to reliable web solutions, systems analysis, and product-focused development in a team that values impact and craftsmanship.",
+    "Outside of development, I also create visual content, support creative projects, and stay active in community-driven work through PIXODE Philippines and other local initiatives.",
   ],
   highlights: [
-    { icon: 'graduate', label: 'BSIS Graduate', desc: 'Catanduanes State University, 2026' },
-    { icon: 'code', label: 'Lead Programmer', desc: 'KiddyTrack Capstone 2024' },
-    { icon: 'camera', label: 'Visual Creator', desc: 'Photo, video & editing' },
-    { icon: 'zap', label: 'Quick Learner', desc: 'React, Tailwind, modern stack' },
+    { icon: 'graduate', label: 'BSIS Graduate', desc: 'Catanduanes State University' },
+    { icon: 'briefcase', label: 'PHILRADS', desc: 'Contributing through meaningful projects' },
+    { icon: 'camera', label: 'Visual Creator', desc: 'Photography, video & editing' },
+    { icon: 'zap', label: 'Continuous Learner', desc: 'Modern web tools & workflows' },
   ],
 }
 
