@@ -50,7 +50,7 @@ export default function Navbar({ theme, onToggleTheme }) {
           }}
           className="font-mono text-lg font-bold"
         >
-          jonah<span className="text-accent">.dev</span>
+          jonah<span className="text-[#dcaa4e]">.dev</span>
         </a>
 
         <ul className="hidden items-center gap-1 md:flex">
