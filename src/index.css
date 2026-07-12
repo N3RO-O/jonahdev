@@ -4,25 +4,29 @@
 
 @layer base {
   :root {
-    --bg: #f8f9fc;
+    --bg: #f7f7f5;
     --surface: #ffffff;
-    --surface-elevated: #f1f3f8;
-    --text: #0f1419;
-    --text-muted: #5c6570;
-    --border: #e2e6ed;
-    --accent: #c9a227;
-    --accent-glow: rgba(201, 162, 39, 0.15);
+    --surface-elevated: #f0f0ec;
+    --text: #14161a;
+    --text-muted: #5b5f6a;
+    --border: #e2e2dc;
+    --accent: #b8892f;
+    --accent-ink: #ffffff;
+    --accent-glow: rgba(184, 137, 47, 0.14);
+    --focus-ring: rgba(184, 137, 47, 0.45);
   }
 
   .dark {
-    --bg: #0a0e14;
-    --surface: #111820;
-    --surface-elevated: #1a2332;
-    --text: #e8ecf1;
-    --text-muted: #8b95a5;
-    --border: #243044;
-    --accent: #e8b84b;
-    --accent-glow: rgba(232, 184, 75, 0.12);
+    --bg: #0a0d12;
+    --surface: #10141b;
+    --surface-elevated: #171d27;
+    --text: #eef0f3;
+    --text-muted: #8d95a3;
+    --border: #232a37;
+    --accent: #dcaa4e;
+    --accent-ink: #0a0d12;
+    --accent-glow: rgba(220, 170, 78, 0.12);
+    --focus-ring: rgba(220, 170, 78, 0.5);
   }
 
   html {
@@ -38,6 +42,27 @@
     background: var(--accent-glow);
     color: var(--text);
   }
+
+  h1, h2, h3, h4 {
+    @apply font-display;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }
 
 @layer components {
@@ -46,26 +71,49 @@
   }
 
   .section-title {
-    @apply text-3xl font-bold tracking-tight sm:text-4xl;
+    @apply font-display text-3xl font-semibold tracking-tight sm:text-4xl;
   }
 
   .section-eyebrow {
-    @apply mb-2 font-mono text-sm text-accent;
+    @apply mb-3 inline-flex items-center gap-2 font-mono text-sm tracking-tight text-accent;
   }
 
   .card {
-    @apply rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-sm transition-shadow hover:shadow-md;
+    @apply rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-sm transition-all duration-300 hover:border-accent/30 hover:shadow-md;
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-5 py-2.5 text-sm font-semibold text-[#0a0e14] transition-all hover:brightness-110 active:scale-[0.98];
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-5 py-2.5 text-sm font-semibold text-[var(--accent-ink)] shadow-sm transition-all duration-200 hover:brightness-110 hover:shadow-md active:scale-[0.98];
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--border)] bg-[var(--surface)] px-5 py-2.5 text-sm font-medium text-[var(--text)] transition-all hover:border-accent hover:text-accent;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--border)] bg-[var(--surface)] px-5 py-2.5 text-sm font-medium text-[var(--text)] transition-all duration-200 hover:border-accent hover:text-accent hover:shadow-sm active:scale-[0.98];
   }
 
   .badge {
-    @apply inline-flex rounded-lg border border-[var(--border)] bg-[var(--surface-elevated)] px-2.5 py-1 font-mono text-xs text-[var(--text-muted)];
+    @apply inline-flex items-center rounded-lg border border-[var(--border)] bg-[var(--surface-elevated)] px-2.5 py-1 font-mono text-xs text-[var(--text-muted)];
+  }
+
+  .icon-btn {
+    @apply inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text-muted)] transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:text-accent hover:shadow-md;
+  }
+
+  .eyebrow-tag {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-accent/25 bg-accent/10 px-3 py-1 font-mono text-[11px] font-medium uppercase tracking-wide text-accent;
+  }
+
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar {
+    height: 6px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: var(--border);
+    border-radius: 999px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
   }
 }

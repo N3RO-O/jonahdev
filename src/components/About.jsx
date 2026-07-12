@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion'
-import { Code2, Camera, Users, Zap } from 'lucide-react'
+import { Code2, Camera, GraduationCap, Zap } from 'lucide-react'
 import { about } from '../data/siteData'
 import SectionHeader from './SectionHeader'
 import { useInView } from '../hooks/useInView'
 
-const icons = { code: Code2, camera: Camera, users: Users, zap: Zap }
+const icons = { code: Code2, camera: Camera, graduate: GraduationCap, zap: Zap }
 
 export default function About() {
   const [ref, inView] = useInView()

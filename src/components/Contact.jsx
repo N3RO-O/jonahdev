@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Mail, Phone, Copy, Check } from 'lucide-react'
+import { Mail, Phone, Copy, Check, FileDown } from 'lucide-react'
 import { site } from '../data/siteData'
 import SectionHeader from './SectionHeader'
+import SocialLinks from './SocialLinks'
 import { useInView } from '../hooks/useInView'
 
 export default function Contact() {
@@ -163,25 +164,19 @@ export default function Contact() {
               {site.phone}
             </a>
 
-            <ul className="flex flex-wrap gap-4">
-              {site.socials.map((s) => (
-                <li key={s.label}>
-                  <a
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-[var(--text-muted)] hover:text-accent"
-                  >
-                    {s.label} ↗
-                  </a>
-                </li>
-              ))}
-              <li>
-                <a href={site.cvUrl} download className="text-sm text-accent hover:underline">
-                  Resume ↓
-                </a>
-              </li>
-            </ul>
+            <div>
+              <p className="mb-3 text-sm text-[var(--text-muted)]">Find me elsewhere</p>
+              <SocialLinks variant="list" />
+            </div>
+
+            <a
+              href={site.cvUrl}
+              download
+              className="inline-flex w-fit items-center gap-2 text-sm font-medium text-accent hover:underline"
+            >
+              <FileDown size={16} />
+              Download résumé
+            </a>
           </motion.div>
         </div>
       </div>

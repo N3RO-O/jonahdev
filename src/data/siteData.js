@@ -3,19 +3,23 @@ export const site = {
   name: 'Jonah Tabuzo',
   title: 'Full-Stack Web Developer & Visual Creator',
   tagline:
-    'Building practical web systems and telling stories through visuals | Graduating 2026',
+    'Building practical web systems and telling stories through visuals — BS Information Systems graduate, 2026.',
   location: 'Virac, Catanduanes, Philippines',
   email: 'jonahmarkt@gmail.com',
   phone: '+63 928 574 4262',
   cvUrl: '/assets/jonah-tabuzo-cv.pdf',
   photo: '/assets/jonah-photo.jpg?v=2',
-  availability:
-    'Open to OJT & Entry-Level — IT Support, Web Development, Systems Analysis',
+  availability: 'Open to Entry-Level Roles — IT Support, Web Development, Systems Analysis',
   socials: [
-    { label: 'GitHub', href: 'https://github.com/N3RO-O', handle: 'N3RO-O' },
-    { label: 'LinkedIn', href: 'https://linkedin.com/in/jonahtabuzo' },
-    { label: 'Website', href: 'https://pixodeph.vercel.app/' },
-    { label: 'Discord', href: 'https://discord.gg/HpUJFCTX33' },
+    { label: 'GitHub', icon: 'github', href: 'https://github.com/N3RO-O', handle: 'N3RO-O' },
+    {
+      label: 'LinkedIn',
+      icon: 'linkedin',
+      href: 'https://www.linkedin.com/in/jonah-mark-tabuzo-676389191/',
+      handle: 'Jonah Mark Tabuzo',
+    },
+    { label: 'Website', icon: 'website', href: 'https://pixodeph.vercel.app/', handle: 'pixodeph.vercel.app' },
+    { label: 'Discord', icon: 'discord', href: 'https://discord.gg/HpUJFCTX33', handle: "Nero's Cult" },
   ],
   formspree: 'https://formspree.io/f/xojnyrwr',
   githubUser: 'N3RO-O',
@@ -33,15 +37,15 @@ export const navLinks = [
 
 export const about = {
   paragraphs: [
-    "I'm Jonah Tabuzo — a web developer and Information Systems student based in Virac, Catanduanes, Philippines, graduating in 2026. I build production-ready web systems from the ground up and produce photo & video content that communicates clearly.",
+    "I'm Jonah Tabuzo — a web developer and recent Information Systems graduate based in Virac, Catanduanes, Philippines. I build production-ready web systems from the ground up and produce photo & video content that communicates clearly.",
     'As Lead Programmer on my capstone (KiddyTrack) and developer on separate OJT systems at PHILRADS (IMS and Asset Database), I translate real stakeholder needs into dashboards non-technical users can navigate without training. I learn fast, document well, and care about impact over feature count.',
-    "I'm seeking OJT and entry-level roles in IT Support, Web Development, and Systems Analysis — where I can ship reliable tools and grow with a team that values craft.",
+    "Now that I've graduated, I'm looking for entry-level roles in IT Support, Web Development, and Systems Analysis — where I can ship reliable tools and grow with a team that values craft.",
     "Outside code, I run Nero's Cult (Discord gaming community), shoot events for local businesses, and contribute QA work at PIXODE Philippines — a dev collective building practical digital tools for underserved communities.",
   ],
   highlights: [
+    { icon: 'graduate', label: 'BSIS Graduate', desc: 'Catanduanes State University, 2026' },
     { icon: 'code', label: 'Lead Programmer', desc: 'KiddyTrack Capstone 2024' },
     { icon: 'camera', label: 'Visual Creator', desc: 'Photo, video & editing' },
-    { icon: 'users', label: 'Team Player', desc: 'Stakeholder-focused delivery' },
     { icon: 'zap', label: 'Quick Learner', desc: 'React, Tailwind, modern stack' },
   ],
 }
@@ -222,6 +226,13 @@ export const projects = [
 
 export const experience = [
   {
+    period: '2024 – Present',
+    title: 'Quality Assurance Engineer',
+    company: 'PIXODE Philippines',
+    description:
+      'QA for internal tools at a dev collective building practical digital tools for underserved communities across the Philippines.',
+  },
+  {
     period: '2025',
     title: 'Samsung Product Promoter',
     company: "Alson's Trading · Virac",
@@ -229,11 +240,11 @@ export const experience = [
       'Represented a global tech brand on the sales floor — built client relationships and transferable communication, persuasion, and customer-facing skills.',
   },
   {
-    period: '2024 – Present',
-    title: 'Quality Assurance Engineer',
-    company: 'PIXODE Philippines',
+    period: '2024 – 2025',
+    title: 'OJT Full-Stack Developer',
+    company: 'PHILRADS · Virac',
     description:
-      'QA for internal tools at a dev collective building practical digital tools for underserved communities across the Philippines.',
+      'Built and deployed the Asset Database System and a separate Inventory Management System (IMS) from requirements through live rollout.',
   },
   {
     period: '2020 – 2021',
@@ -247,7 +258,7 @@ export const experience = [
 export const education = {
   degree: 'Bachelor of Science in Information Systems',
   school: 'Catanduanes State University',
-  period: 'Expected 2026',
+  period: 'Graduated June 2026',
   details: [
     'Capstone Lead Programmer — KiddyTrack academic monitoring system',
     'OJT — PHILRADS IMS & Asset Database System (separate live deployments)',

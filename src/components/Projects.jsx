@@ -1,19 +1,135 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ExternalLink, Github, ChevronDown, Maximize2, TrendingUp } from 'lucide-react'
+import {
+  ExternalLink,
+  Github,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  Maximize2,
+  TrendingUp,
+  CheckCircle2,
+  CircleDot,
+  Lightbulb,
+  UserCog,
+} from 'lucide-react'
 import { projects } from '../data/siteData'
 import SectionHeader from './SectionHeader'
 import Lightbox from './Lightbox'
 import { useInView } from '../hooks/useInView'
 
+function GalleryViewer({ galleries, accent, onExpand }) {
+  const [tab, setTab] = useState(0)
+  const [imgIdx, setImgIdx] = useState(0)
+
+  const active = galleries[tab]
+  const images = active.images
+  const current = images[imgIdx]
+
+  const goTo = (i) => setImgIdx((i + images.length) % images.length)
+
+  return (
+    <div className="mt-8">
+      {galleries.length > 1 && (
+        <div className="mb-4 flex flex-wrap gap-2">
+          {galleries.map((g, i) => (
+            <button
+              key={g.label}
+              onClick={() => {
+                setTab(i)
+                setImgIdx(0)
+              }}
+              className={`rounded-full border px-3.5 py-1.5 text-xs font-medium transition-all ${
+                i === tab
+                  ? 'border-accent bg-accent/10 text-accent'
+                  : 'border-[var(--border)] text-[var(--text-muted)] hover:border-accent/40 hover:text-[var(--text)]'
+              }`}
+            >
+              {g.label}
+              <span className="ml-1.5 opacity-60">{g.images.length}</span>
+            </button>
+          ))}
+        </div>
+      )}
+
+      <div
+        className="group relative overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--surface-elevated)]"
+        style={{ borderColor: accent + '30' }}
+      >
+        <button
+          onClick={() => onExpand(images, imgIdx)}
+          className="block aspect-[16/10] w-full"
+          aria-label="Expand screenshot"
+        >
+          <img
+            key={current.src}
+            src={current.src}
+            alt={current.caption}
+            loading="lazy"
+            className="h-full w-full object-cover object-top transition-opacity duration-200"
+          />
+        </button>
+
+        <span className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-all group-hover:bg-black/25 group-hover:opacity-100">
+          <Maximize2 className="text-white" size={22} />
+        </span>
+
+        {images.length > 1 && (
+          <>
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                goTo(imgIdx - 1)
+              }}
+              className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-black/40 p-2 text-white opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100"
+              aria-label="Previous screenshot"
+            >
+              <ChevronLeft size={18} />
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                goTo(imgIdx + 1)
+              }}
+              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-black/40 p-2 text-white opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100"
+              aria-label="Next screenshot"
+            >
+              <ChevronRight size={18} />
+            </button>
+            <span className="absolute bottom-3 right-3 rounded-full bg-black/50 px-2.5 py-0.5 font-mono text-[11px] text-white backdrop-blur-sm">
+              {imgIdx + 1} / {images.length}
+            </span>
+          </>
+        )}
+      </div>
+
+      {images.length > 1 && (
+        <div className="mt-3 flex gap-2 overflow-x-auto pb-1 scrollbar-thin">
+          {images.map((img, i) => (
+            <button
+              key={img.src}
+              onClick={() => setImgIdx(i)}
+              className={`h-14 w-20 shrink-0 overflow-hidden rounded-md border-2 transition-all ${
+                i === imgIdx ? 'opacity-100' : 'border-transparent opacity-50 hover:opacity-80'
+              }`}
+              style={i === imgIdx ? { borderColor: accent } : undefined}
+              aria-label={`View ${img.caption}`}
+            >
+              <img src={img.src} alt="" loading="lazy" className="h-full w-full object-cover object-top" />
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
 function ProjectCard({ project, index }) {
   const [expanded, setExpanded] = useState(false)
   const [lightbox, setLightbox] = useState({ images: [], index: null })
-  const allImages = project.galleries?.flatMap((g) => g.images) ?? []
 
-  const openLightbox = (src) => {
-    const idx = allImages.findIndex((img) => img.src === src)
-    setLightbox({ images: allImages, index: idx >= 0 ? idx : 0 })
+  const openLightbox = (images, idx) => {
+    setLightbox({ images, index: idx })
   }
 
   if (project.wip) {
@@ -26,19 +142,11 @@ function ProjectCard({ project, index }) {
         className="card border-dashed opacity-80"
         style={{ borderColor: project.accent + '40' }}
       >
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <span className="badge mb-3">In Progress</span>
-            <h3 className="text-xl font-bold">{project.title}</h3>
-            <p className="text-sm text-[var(--text-muted)]">{project.subtitle} · {project.year}</p>
-          </div>
-          <span
-            className="font-mono text-4xl font-bold opacity-20"
-            style={{ color: project.accent }}
-          >
-            03
-          </span>
-        </div>
+        <span className="eyebrow-tag mb-3">In Progress</span>
+        <h3 className="font-display text-xl font-semibold">{project.title}</h3>
+        <p className="text-sm text-[var(--text-muted)]">
+          {project.subtitle} · {project.year}
+        </p>
         <p className="mt-4 text-[var(--text-muted)]">{project.description}</p>
         <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-[var(--surface-elevated)]">
           <div
@@ -56,34 +164,36 @@ function ProjectCard({ project, index }) {
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ delay: index * 0.1 }}
+        transition={{ delay: index * 0.08 }}
         className="card overflow-hidden"
         style={{ borderTopColor: project.accent, borderTopWidth: '3px' }}
       >
-        <div className="flex flex-wrap items-start justify-between gap-4">
-          <div>
-            <span className="badge mb-2">{project.subtitle}</span>
-            <h3 className="text-2xl font-bold">{project.title}</h3>
-            <p className="text-sm text-[var(--text-muted)]">{project.year}</p>
-          </div>
+        <div>
           <span
-            className="font-mono text-5xl font-bold opacity-15"
-            style={{ color: project.accent }}
+            className="mb-3 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 font-mono text-[11px] font-medium uppercase tracking-wide"
+            style={{
+              borderColor: project.accent + '40',
+              color: project.accent,
+              backgroundColor: project.accent + '12',
+            }}
           >
-            {String(index + 1).padStart(2, '0')}
+            <CircleDot size={11} />
+            {project.subtitle}
           </span>
+          <h3 className="font-display text-2xl font-semibold">{project.title}</h3>
+          <p className="text-sm text-[var(--text-muted)]">{project.year}</p>
         </div>
 
         <p className="mt-4 text-[var(--text-muted)]">{project.description}</p>
 
         {project.metrics?.length > 0 && (
-          <div className="mt-4 flex flex-wrap gap-3">
+          <div className="mt-4 flex flex-wrap gap-2">
             {project.metrics.map((m) => (
               <span
                 key={m}
                 className="inline-flex items-center gap-1.5 rounded-lg bg-accent/10 px-3 py-1.5 text-xs font-medium text-accent"
               >
-                <TrendingUp size={14} />
+                <TrendingUp size={13} />
                 {m}
               </span>
             ))}
@@ -100,8 +210,8 @@ function ProjectCard({ project, index }) {
 
         <ul className="mt-4 space-y-2 text-sm text-[var(--text-muted)]">
           {project.features.map((f) => (
-            <li key={f} className="flex gap-2">
-              <span className="text-accent">▸</span>
+            <li key={f} className="flex gap-2.5">
+              <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-accent" />
               {f}
             </li>
           ))}
@@ -109,12 +219,7 @@ function ProjectCard({ project, index }) {
 
         <div className="mt-6 flex flex-wrap gap-3">
           {project.links.live && (
-            <a
-              href={project.links.live}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary"
-            >
+            <a href={project.links.live} target="_blank" rel="noopener noreferrer" className="btn-primary">
               <ExternalLink size={16} />
               Live Demo
             </a>
@@ -131,25 +236,14 @@ function ProjectCard({ project, index }) {
             </a>
           )}
           {project.links.github && (
-            <a
-              href={project.links.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-secondary"
-            >
+            <a href={project.links.github} target="_blank" rel="noopener noreferrer" className="btn-secondary">
               <Github size={16} />
               GitHub
             </a>
           )}
-          <button
-            onClick={() => setExpanded(!expanded)}
-            className="btn-secondary"
-          >
+          <button onClick={() => setExpanded(!expanded)} className="btn-secondary">
             Case Study
-            <ChevronDown
-              size={16}
-              className={`transition-transform ${expanded ? 'rotate-180' : ''}`}
-            />
+            <ChevronDown size={16} className={`transition-transform ${expanded ? 'rotate-180' : ''}`} />
           </button>
         </div>
 
@@ -161,18 +255,27 @@ function ProjectCard({ project, index }) {
               exit={{ height: 0, opacity: 0 }}
               className="overflow-hidden"
             >
-              <div className="mt-6 space-y-4 border-t border-[var(--border)] pt-6 text-sm">
+              <div className="mt-6 grid gap-5 border-t border-[var(--border)] pt-6 sm:grid-cols-3">
                 <div>
-                  <h4 className="font-semibold text-accent">Problem</h4>
-                  <p className="mt-1 text-[var(--text-muted)]">{project.problem}</p>
+                  <h4 className="flex items-center gap-2 text-sm font-semibold text-accent">
+                    <CircleDot size={14} />
+                    The Problem
+                  </h4>
+                  <p className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">{project.problem}</p>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-accent">Solution</h4>
-                  <p className="mt-1 text-[var(--text-muted)]">{project.solution}</p>
+                  <h4 className="flex items-center gap-2 text-sm font-semibold text-accent">
+                    <Lightbulb size={14} />
+                    The Solution
+                  </h4>
+                  <p className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">{project.solution}</p>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-accent">My Role</h4>
-                  <p className="mt-1 text-[var(--text-muted)]">{project.role}</p>
+                  <h4 className="flex items-center gap-2 text-sm font-semibold text-accent">
+                    <UserCog size={14} />
+                    My Role
+                  </h4>
+                  <p className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">{project.role}</p>
                 </div>
               </div>
             </motion.div>
@@ -180,48 +283,13 @@ function ProjectCard({ project, index }) {
         </AnimatePresence>
 
         {project.screenshotsPending && (!project.galleries || project.galleries.length === 0) && (
-          <p className="mt-6 rounded-lg border border-dashed border-[var(--border)] px-4 py-3 font-mono text-xs text-[var(--text-muted)]">
+          <p className="mt-8 rounded-lg border border-dashed border-[var(--border)] px-4 py-3 font-mono text-xs text-[var(--text-muted)]">
             // Screenshots coming soon — role-based IMS views will be added when ready
           </p>
         )}
 
         {project.galleries?.length > 0 && (
-          <div className="mt-8 space-y-6">
-            {project.galleries.map((gallery) => (
-              <div key={gallery.label}>
-                <p className="mb-3 font-mono text-xs text-[var(--text-muted)]">
-                  {gallery.label} — click to expand
-                </p>
-                <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-thin">
-                  {gallery.images.slice(0, 8).map((img) => (
-                    <button
-                      key={img.src}
-                      onClick={() => openLightbox(img.src)}
-                      className="group relative shrink-0 overflow-hidden rounded-lg border border-[var(--border)] transition-transform hover:scale-[1.02]"
-                    >
-                      <img
-                        src={img.src}
-                        alt={img.caption}
-                        loading="lazy"
-                        className="h-28 w-44 object-cover object-top sm:h-32 sm:w-52"
-                      />
-                      <span className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-all group-hover:bg-black/40 group-hover:opacity-100">
-                        <Maximize2 className="text-white" size={20} />
-                      </span>
-                    </button>
-                  ))}
-                  {gallery.images.length > 8 && (
-                    <button
-                      onClick={() => openLightbox(gallery.images[8].src)}
-                      className="flex h-28 w-24 shrink-0 items-center justify-center rounded-lg border border-dashed border-[var(--border)] text-xs text-[var(--text-muted)] hover:border-accent hover:text-accent sm:h-32"
-                    >
-                      +{gallery.images.length - 8} more
-                    </button>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
+          <GalleryViewer galleries={project.galleries} accent={project.accent} onExpand={openLightbox} />
         )}
       </motion.article>
 

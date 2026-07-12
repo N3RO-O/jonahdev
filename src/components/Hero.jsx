@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
-import { ArrowDown, Download, Github, Linkedin, Mail, ExternalLink } from 'lucide-react'
+import { ArrowDown, Download, Mail } from 'lucide-react'
 import { site } from '../data/siteData'
+import SocialLinks from './SocialLinks'
 
 export default function Hero() {
   return (
@@ -32,14 +33,14 @@ export default function Hero() {
               transition={{ delay: 0.1 }}
               className="section-eyebrow mb-4"
             >
-              {site.location} · 2026
+              {site.location} · BSIS Graduate
             </motion.p>
 
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.15, duration: 0.5 }}
-              className="text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl"
+              className="font-display text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl"
             >
               {site.name}
               <br />
@@ -81,25 +82,12 @@ export default function Hero() {
               transition={{ delay: 0.45 }}
               className="mt-8 flex flex-wrap items-center gap-4"
             >
-              {site.socials.map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 text-sm text-[var(--text-muted)] transition-colors hover:text-accent"
-                >
-                  {s.label === 'GitHub' && <Github size={16} />}
-                  {s.label === 'LinkedIn' && <Linkedin size={16} />}
-                  {s.label === 'Website' && <ExternalLink size={16} />}
-                  {s.handle || s.label}
-                </a>
-              ))}
+              <SocialLinks />
               <a
                 href={`mailto:${site.email}`}
-                className="flex items-center gap-1.5 text-sm text-[var(--text-muted)] hover:text-accent"
+                className="flex items-center gap-1.5 text-sm text-[var(--text-muted)] transition-colors hover:text-accent"
               >
-                <Mail size={16} />
+                <Mail size={15} />
                 {site.email}
               </a>
             </motion.div>

@@ -6,13 +6,14 @@ export default {
     extend: {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['"Space Grotesk"', 'Inter', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
       },
       colors: {
         accent: {
-          DEFAULT: '#c9a227',
-          light: '#e8b84b',
-          dark: '#9a7b1a',
+          DEFAULT: '#dcaa4e',
+          light: '#e8bf72',
+          dark: '#b8892f',
         },
         surface: {
           DEFAULT: 'var(--surface)',

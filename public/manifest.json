@@ -1,11 +1,11 @@
 {
   "name": "Jonah Tabuzo — Dev & Visual Creator",
   "short_name": "jonah.dev",
-  "description": "Web Developer, Systems Analyst & Visual Creator from the Philippines.",
+  "description": "Web Developer, Systems Analyst & Visual Creator from the Philippines. BS Information Systems graduate, 2026.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#06080b",
-  "theme_color": "#e8b84b",
+  "background_color": "#0a0d12",
+  "theme_color": "#dcaa4e",
   "icons": [
     {
       "src": "/assets/icons/icon-192.png",
