@@ -31,14 +31,7 @@ export default function Footer() {
         <SocialLinks includeEmail />
 
         <div className="flex flex-col items-center justify-between gap-3 border-t border-[var(--border)] pt-6 text-sm text-[var(--text-muted)] sm:w-full sm:flex-row">
-          <div className="flex items-center gap-4">
-            <a href={site.cvUrl} download className="btn-secondary inline-flex items-center gap-2 border border-accent/70 hover:border-accent">
-              <FileDown size={14} />
-              Download résumé
-            </a>
-          </div>
-
-          <span className="font-mono">
+            <span className="font-mono">
             jonah<span className="text-accent">.dev</span>
           </span>
 
