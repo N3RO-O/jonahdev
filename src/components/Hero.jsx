@@ -172,7 +172,7 @@ export default function Hero() {
             animate={{ opacity: 1, scale: 1 }}
             whileHover={{ scale: 1.02 }}
             transition={{ delay: 0.2, duration: 0.5, type: 'spring', stiffness: 120, damping: 18 }}
-            className="relative mx-auto lg:mx-0"
+            className="relative mx-auto lg:mx-0 overflow-visible"
           >
             {/* Viewfinder-framed portrait — the recurring signature motif
                 tying his photography eye to the rest of the site. */}
