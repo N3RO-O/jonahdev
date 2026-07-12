@@ -37,7 +37,12 @@ export default function Testimonials() {
 
         <p className="mt-8 text-center text-sm text-[var(--text-muted)]">
           Have we worked together?{' '}
-          <a href="#contact" className="text-accent hover:underline">
+          <a
+            href="https://tabuzoportfolio.vercel.app/#contact"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-accent hover:underline"
+          >
             I'd love to add your testimonial ↓
           </a>
         </p>

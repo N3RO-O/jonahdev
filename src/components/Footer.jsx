@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { site } from '../data/siteData'
 import SocialLinks from './SocialLinks'
+import { FileDown } from 'lucide-react'
 
 export default function Footer() {
   const [time, setTime] = useState('')
@@ -27,14 +28,34 @@ export default function Footer() {
         <SocialLinks includeEmail />
 
         <div className="flex flex-col items-center justify-between gap-3 border-t border-[var(--border)] pt-6 text-sm text-[var(--text-muted)] sm:w-full sm:flex-row">
-          <span>© {year} {site.name} · BSIS Graduate</span>
+          <div className="flex items-center gap-4">
+            <SocialLinks />
+            <a href={site.cvUrl} download className="btn-secondary inline-flex items-center gap-2">
+              <FileDown size={14} />
+              Download résumé
+            </a>
+          </div>
+
           <span className="font-mono">
             jonah<span className="text-accent">.dev</span>
           </span>
+
           <span className="font-mono text-xs">
             {time} PHT · open_to_work: <span className="text-accent">true</span>
           </span>
         </div>
+
+        <p className="text-xs text-[var(--text-muted)]">
+          Built with React, Vite &amp; Tailwind CSS ·{' '}
+          <a
+            href={`https://github.com/${site.githubUser}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-accent hover:underline"
+          >
+            source on GitHub
+          </a>
+        </p>
       </div>
     </footer>
   )

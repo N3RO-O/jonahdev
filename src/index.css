@@ -10,11 +10,11 @@
     --text: #14161a;
     --text-muted: #5b5f6a;
     --border: #e2e2dc;
-    --accent: #a3721f;
-    --accent-rgb: 163, 114, 31;
-    --accent-ink: #ffffff;
-    --accent-glow: rgba(163, 114, 31, 0.14);
-    --focus-ring: rgba(163, 114, 31, 0.5);
+    --accent: #dcaa4e;
+    --accent-rgb: 220, 170, 78;
+    --accent-ink: #0a0d12;
+    --accent-glow: rgba(220, 170, 78, 0.14);
+    --focus-ring: rgba(220, 170, 78, 0.5);
   }
 
   .dark {
@@ -85,7 +85,12 @@
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-5 py-2.5 text-sm font-semibold text-[var(--accent-ink)] shadow-sm transition-all duration-200 hover:brightness-110 hover:shadow-md active:scale-[0.98];
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold shadow-sm transition-all duration-200 hover:brightness-110 hover:shadow-md active:scale-[0.98];
+    background-color: var(--accent);
+    color: var(--accent-ink);
+    border: 1px solid rgba(var(--accent-rgb), 0.12);
+    box-shadow: 0 6px 20px rgba(var(--accent-rgb), 0.08);
+    opacity: 1;
   }
 
   .btn-secondary {
