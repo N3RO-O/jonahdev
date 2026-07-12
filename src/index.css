@@ -10,10 +10,11 @@
     --text: #14161a;
     --text-muted: #5b5f6a;
     --border: #e2e2dc;
-    --accent: #b8892f;
+    --accent: #a3721f;
+    --accent-rgb: 163, 114, 31;
     --accent-ink: #ffffff;
-    --accent-glow: rgba(184, 137, 47, 0.14);
-    --focus-ring: rgba(184, 137, 47, 0.45);
+    --accent-glow: rgba(163, 114, 31, 0.14);
+    --focus-ring: rgba(163, 114, 31, 0.5);
   }
 
   .dark {
@@ -24,6 +25,7 @@
     --text-muted: #8d95a3;
     --border: #232a37;
     --accent: #dcaa4e;
+    --accent-rgb: 220, 170, 78;
     --accent-ink: #0a0d12;
     --accent-glow: rgba(220, 170, 78, 0.12);
     --focus-ring: rgba(220, 170, 78, 0.5);
@@ -87,7 +89,7 @@
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--border)] bg-[var(--surface)] px-5 py-2.5 text-sm font-medium text-[var(--text)] transition-all duration-200 hover:border-accent hover:text-accent hover:shadow-sm active:scale-[0.98];
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--border)] bg-[var(--surface-elevated)] px-5 py-2.5 text-sm font-medium text-[var(--text)] transition-all duration-200 hover:border-accent hover:text-accent hover:shadow-sm active:scale-[0.98];
   }
 
   .badge {
