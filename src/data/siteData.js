@@ -8,7 +8,7 @@ export const site = {
   email: 'jonahmarkt@gmail.com',
   phone: '+63 928 574 4262',
   cvUrl: '/assets/jonah-tabuzo-cv.pdf',
-  photo: '/assets/jonah-photo-v3.jpg?v=3',
+  photo: '/assets/jonah-photo.jpg?v=4',
   availability: 'Open to Entry-Level Roles — IT Support, Web Development, Systems Analysis',
   socials: [
     { label: 'GitHub', icon: 'github', href: 'https://github.com/N3RO-O', handle: 'N3RO-O' },
