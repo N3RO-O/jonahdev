@@ -11,7 +11,7 @@ export default {
       },
       colors: {
         accent: {
-          DEFAULT: '#dcaa4e',
+          DEFAULT: 'rgb(var(--accent-rgb) / <alpha-value>)',
           light: '#e8bf72',
           dark: '#b8892f',
         },

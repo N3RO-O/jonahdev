@@ -61,11 +61,17 @@ export default function Lightbox({ images, index, onClose, onPrev, onNext }) {
       )}
 
       <div className="max-h-[85vh] max-w-5xl" onClick={(e) => e.stopPropagation()}>
-        <img
-          src={item.src}
-          alt={item.caption}
-          className="max-h-[80vh] w-auto rounded-lg object-contain"
-        />
+        <div className="viewfinder relative">
+          <img
+            src={item.src}
+            alt={item.caption}
+            className="max-h-[80vh] w-auto rounded-lg object-contain"
+          />
+          <span aria-hidden="true" className="vf-corner vf-corner-active vf-tl" />
+          <span aria-hidden="true" className="vf-corner vf-corner-active vf-tr" />
+          <span aria-hidden="true" className="vf-corner vf-corner-active vf-bl" />
+          <span aria-hidden="true" className="vf-corner vf-corner-active vf-br" />
+        </div>
         <p className="mt-3 text-center text-sm text-white/80">{item.caption}</p>
         <p className="text-center text-xs text-white/50">
           {index + 1} / {images.length}

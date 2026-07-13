@@ -24,8 +24,12 @@ export default function Skills() {
   const [ref, inView] = useInView()
 
   return (
-    <section id="skills" className="py-20 bg-[var(--surface-elevated)]/50">
-      <div className="section-container">
+    <section id="skills" className="relative overflow-hidden py-20 bg-[var(--surface-elevated)]/50">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        <div className="absolute -left-24 top-10 h-72 w-72 rounded-full bg-accent/5 blur-3xl" />
+        <div className="absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-accent/6 blur-3xl" />
+      </div>
+      <div className="section-container relative">
         <SectionHeader
           eyebrow="// skills"
           title="Skills & Tools"
@@ -41,13 +45,13 @@ export default function Skills() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: i * 0.08, duration: 0.4 }}
-                className={`card ${cat.accent ? 'border-accent/40 ring-1 ring-accent/20' : ''}`}
+                className={`card group ${cat.accent ? 'border-accent/40 ring-1 ring-accent/20' : ''}`}
               >
                 <div className="mb-4 flex items-center gap-3">
-                  <div className="rounded-lg bg-accent/10 p-2 text-accent">
+                  <div className="rounded-lg bg-accent/10 p-2 text-accent transition-transform duration-300 group-hover:scale-110 group-hover:bg-accent/20">
                     <Icon size={20} />
                   </div>
-                  <h3 className="font-semibold">{cat.title}</h3>
+                  <h3 className="font-semibold transition-colors group-hover:text-accent">{cat.title}</h3>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {cat.skills.map((skill) => (

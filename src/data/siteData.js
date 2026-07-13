@@ -18,6 +18,12 @@ export const site = {
       href: 'https://www.linkedin.com/in/jonah-mark-tabuzo-676389191/',
       handle: 'Jonah Mark Tabuzo',
     },
+    {
+      label: 'Facebook',
+      icon: 'facebook',
+      href: 'https://www.facebook.com/profile.php?id=61591681414570',
+      handle: 'Jonah Mark Tabuzo',
+    },
     { label: 'Website', icon: 'website', href: 'https://pixodeph.vercel.app/', handle: 'pixodeph.vercel.app' },
     { label: 'Discord', icon: 'discord', href: 'https://discord.gg/HpUJFCTX33', handle: "Nero's Cult" },
   ],

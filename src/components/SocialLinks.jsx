@@ -1,8 +1,9 @@
-import { Github, Linkedin, Globe, Mail, Phone } from 'lucide-react'
+import { Facebook, Github, Linkedin, Globe, Mail } from 'lucide-react'
 import DiscordIcon from './icons/DiscordIcon'
 import { site } from '../data/siteData'
 
 const iconMap = {
+  facebook: Facebook,
   github: Github,
   linkedin: Linkedin,
   website: Globe,

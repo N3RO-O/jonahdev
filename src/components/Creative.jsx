@@ -125,50 +125,57 @@ export default function Creative() {
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={inView ? { opacity: 1, scale: 1 } : {}}
                   transition={{ delay: i * 0.08 }}
-                  className={spanClass}
+                  className={`viewfinder group relative ${spanClass}`}
                 >
                   <VideoTile item={item} spanClass="h-full" onOpen={setActiveVideo} />
+                  <span aria-hidden="true" className="vf-corner vf-tl" />
+                  <span aria-hidden="true" className="vf-corner vf-tr" />
+                  <span aria-hidden="true" className="vf-corner vf-bl" />
+                  <span aria-hidden="true" className="vf-corner vf-br" />
                 </motion.div>
               )
             }
 
             return (
-              <motion.button
+              <motion.div
                 key={item.src}
-                type="button"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={inView ? { opacity: 1, scale: 1 } : {}}
                 transition={{ delay: i * 0.08 }}
-                onClick={() =>
-                  setLightbox({
-                    images: photos,
-                    index: photos.findIndex((p) => p.src === item.src),
-                  })
-                }
-                className={`group relative overflow-hidden rounded-2xl border border-[var(--border)] ${spanClass}`}
+                className={`viewfinder group relative ${spanClass}`}
               >
-                <img
-                  src={item.src}
-                  alt={item.alt}
-                  loading="lazy"
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="pointer-events-none absolute inset-0 flex items-end bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 transition-opacity group-hover:opacity-100">
-                  <span className="text-sm font-medium text-white">Photography</span>
-                </div>
-              </motion.button>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setLightbox({
+                      images: photos,
+                      index: photos.findIndex((p) => p.src === item.src),
+                    })
+                  }
+                  className="block h-full w-full overflow-hidden rounded-2xl border border-[var(--border)]"
+                >
+                  <img
+                    src={item.src}
+                    alt={item.alt}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="pointer-events-none absolute inset-0 flex items-end bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 transition-opacity group-hover:opacity-100">
+                    <span className="text-sm font-medium text-white">Photography</span>
+                  </div>
+                </button>
+                <span aria-hidden="true" className="vf-corner vf-tl" />
+                <span aria-hidden="true" className="vf-corner vf-tr" />
+                <span aria-hidden="true" className="vf-corner vf-bl" />
+                <span aria-hidden="true" className="vf-corner vf-br" />
+              </motion.div>
             )
           })}
         </div>
 
         <p className="mt-8 text-center text-sm text-[var(--text-muted)]">
           Want to see more or discuss a shoot?{' '}
-          <a
-            href="https://tabuzoportfolio.vercel.app/#contact"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-accent hover:underline"
-          >
+          <a href="#contact" className="link-underline text-accent">
             Let's talk ↓
           </a>
         </p>

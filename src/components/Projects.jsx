@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import {
   ExternalLink,
   Github,
@@ -127,6 +127,18 @@ function GalleryViewer({ galleries, accent, onExpand }) {
 function ProjectCard({ project, index }) {
   const [expanded, setExpanded] = useState(false)
   const [lightbox, setLightbox] = useState({ images: [], index: null })
+  const reduceMotion = useReducedMotion()
+
+  const cardMotion = {
+    initial: reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 },
+    whileInView: { opacity: 1, y: 0 },
+    whileHover: reduceMotion ? undefined : { y: -10, scale: 1.015 },
+    whileTap: reduceMotion ? undefined : { scale: 0.995 },
+    viewport: { once: true, amount: 0.25 },
+    transition: reduceMotion
+      ? { duration: 0 }
+      : { delay: index * 0.07, type: 'spring', stiffness: 105, damping: 16 },
+  }
 
   const openLightbox = (images, idx) => {
     setLightbox({ images, index: idx })
@@ -135,12 +147,13 @@ function ProjectCard({ project, index }) {
   if (project.wip) {
     return (
       <motion.article
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        whileHover={{ y: -6, scale: 1.01 }}
-        viewport={{ once: true }}
-        transition={{ delay: index * 0.1, type: 'spring', stiffness: 120, damping: 18 }}
-        className="card border-dashed opacity-80"
+        initial={cardMotion.initial}
+        whileInView={cardMotion.whileInView}
+        whileHover={cardMotion.whileHover}
+        whileTap={cardMotion.whileTap}
+        viewport={cardMotion.viewport}
+        transition={cardMotion.transition}
+        className="card border-dashed opacity-80 will-change-transform"
         style={{ borderColor: project.accent + '40' }}
       >
         <span className="eyebrow-tag mb-3">In Progress</span>
@@ -162,12 +175,13 @@ function ProjectCard({ project, index }) {
   return (
     <>
       <motion.article
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        whileHover={{ y: -8, scale: 1.01 }}
-        viewport={{ once: true }}
-        transition={{ delay: index * 0.08, type: 'spring', stiffness: 110, damping: 18 }}
-        className="card overflow-hidden"
+        initial={cardMotion.initial}
+        whileInView={cardMotion.whileInView}
+        whileHover={cardMotion.whileHover}
+        whileTap={cardMotion.whileTap}
+        viewport={cardMotion.viewport}
+        transition={cardMotion.transition}
+        className="card overflow-hidden will-change-transform"
         style={{ borderTopColor: project.accent, borderTopWidth: '3px' }}
       >
         <div>
@@ -255,7 +269,13 @@ function ProjectCard({ project, index }) {
               GitHub
             </a>
           )}
-          <button onClick={() => setExpanded(!expanded)} className="btn-secondary">
+          <button
+            type="button"
+            onClick={() => setExpanded(!expanded)}
+            className="btn-secondary"
+            aria-expanded={expanded}
+            aria-controls={`${project.id}-details`}
+          >
             Case Study
             <ChevronDown size={16} className={`transition-transform ${expanded ? 'rotate-180' : ''}`} />
           </button>
@@ -264,6 +284,7 @@ function ProjectCard({ project, index }) {
         <AnimatePresence>
           {expanded && (
             <motion.div
+              id={`${project.id}-details`}
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}

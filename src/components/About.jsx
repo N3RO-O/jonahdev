@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion'
-import { Code2, Camera, GraduationCap, Zap, Briefcase } from 'lucide-react'
+import { Camera, GraduationCap, Zap, Briefcase } from 'lucide-react'
 import { about } from '../data/siteData'
 import SectionHeader from './SectionHeader'
 import { useInView } from '../hooks/useInView'
 
-const icons = { code: Code2, camera: Camera, graduate: GraduationCap, zap: Zap, briefcase: Briefcase }
+// QA note: `code`/Code2 was imported but never used by any highlight entry — removed.
+const icons = { camera: Camera, graduate: GraduationCap, zap: Zap, briefcase: Briefcase }
 
 export default function About() {
   const [ref, inView] = useInView()
@@ -41,13 +42,13 @@ export default function About() {
             {about.highlights.map((h) => {
               const Icon = icons[h.icon]
               return (
-                <div key={h.label} className="card flex items-start gap-3 !p-4">
-                  <div className="rounded-lg bg-accent/10 p-2 text-accent">
+                <div key={h.label} className="card group flex items-start gap-3 !p-4">
+                  <div className="rounded-lg bg-accent/10 p-2 text-accent transition-transform duration-300 group-hover:scale-110 group-hover:bg-accent/20">
                     <Icon size={20} />
                   </div>
                   <div>
-                    <div className="font-semibold text-sm">{h.label}</div>
-                    <div className="text-xs text-[var(--text-muted)]">{h.desc}</div>
+                    <div className="text-sm font-semibold transition-colors group-hover:text-accent">{h.label}</div>
+                    <div className="text-secondary text-xs">{h.desc}</div>
                   </div>
                 </div>
               )

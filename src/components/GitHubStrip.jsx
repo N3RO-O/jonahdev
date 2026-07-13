@@ -45,26 +45,28 @@ export default function GitHubStrip() {
             href={`https://github.com/${site.githubUser}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 font-mono text-sm text-accent hover:underline"
+            className="link-underline flex items-center gap-2 font-mono text-sm text-accent transition-transform duration-200 hover:-translate-y-0.5"
           >
             <Github size={18} />
             {site.githubUser} ↗
           </a>
           <div className="flex flex-wrap gap-8">
-            <div className="text-center">
-              <div className="flex items-center justify-center gap-1 text-2xl font-bold">
+            <div className="group text-center transition-transform duration-200 hover:-translate-y-0.5">
+              <div className="flex items-center justify-center gap-1 text-2xl font-bold transition-colors group-hover:text-accent">
                 <Star size={18} className="text-accent" />
                 {stats.stars}
               </div>
-              <div className="text-xs text-[var(--text-muted)]">total stars</div>
+              <div className="text-secondary text-xs">total stars</div>
             </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold">{stats.repos}</div>
-              <div className="text-xs text-[var(--text-muted)]">public repos</div>
+            <div className="group text-center transition-transform duration-200 hover:-translate-y-0.5">
+              <div className="text-2xl font-bold transition-colors group-hover:text-accent">{stats.repos}</div>
+              <div className="text-secondary text-xs">public repos</div>
             </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold font-mono">{stats.topLang}</div>
-              <div className="text-xs text-[var(--text-muted)]">top language</div>
+            <div className="group text-center transition-transform duration-200 hover:-translate-y-0.5">
+              <div className="font-mono text-2xl font-bold transition-colors group-hover:text-accent">
+                {stats.topLang}
+              </div>
+              <div className="text-secondary text-xs">top language</div>
             </div>
           </div>
         </div>

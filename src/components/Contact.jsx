@@ -41,8 +41,12 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-20">
-      <div className="section-container">
+    <section id="contact" className="relative overflow-hidden py-20">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        <div className="absolute left-1/3 -top-16 h-80 w-80 -translate-x-1/2 rounded-full bg-accent/5 blur-3xl" />
+        <div className="absolute -right-20 bottom-0 h-72 w-72 rounded-full bg-accent/6 blur-3xl" />
+      </div>
+      <div className="section-container relative">
         <SectionHeader
           eyebrow="// contact"
           title="Let's Build Something"
