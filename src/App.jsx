@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useTheme } from './hooks/useTheme'
 import { useCardSpotlight } from './hooks/useCardSpotlight'
+import { useMagneticHover } from './hooks/useMagneticHover'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -14,10 +15,13 @@ import Testimonials from './components/Testimonials'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import BackToTop from './components/BackToTop'
+import VisitorCounter from './components/VisitorCounter'
+import AmbientGlow from './components/AmbientGlow'
 
 export default function App() {
   const { theme, toggle } = useTheme()
   useCardSpotlight()
+  useMagneticHover()
   const [mounted, setMounted] = useState(false)
   const [introComplete, setIntroComplete] = useState(false)
   const [showIntro, setShowIntro] = useState(true)
@@ -38,6 +42,7 @@ export default function App() {
 
   return (
     <div className={`app-shell ${mounted ? 'is-mounted' : ''}`}>
+      <AmbientGlow />
       {showIntro && (
         <div className={`intro-overlay ${introComplete ? 'intro-hidden' : ''}`} aria-hidden="true">
           <div className="intro-panel">
@@ -69,6 +74,7 @@ export default function App() {
       </main>
       <Footer />
       <BackToTop />
+      <VisitorCounter />
     </div>
   )
 }

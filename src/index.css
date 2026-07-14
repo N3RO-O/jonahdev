@@ -781,4 +781,54 @@
   .scrollbar-thin::-webkit-scrollbar-track {
     background: transparent;
   }
+
+  /* ————— Site-wide cursor-tracked ambient glow — the hero's .spotlight
+     effect, extended across the whole page via useAmbientCursor.js. Sits
+     behind content (rendered first in the DOM) so it reads as ambient
+     light rather than an overlay, and eases in/out on enter/leave. ————— */
+  .ambient-glow {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    background: radial-gradient(420px circle at var(--gx, 50%) var(--gy, 50%), rgba(var(--accent-rgb), 0.05), transparent 72%);
+  }
+  .dark .ambient-glow {
+    background: radial-gradient(460px circle at var(--gx, 50%) var(--gy, 50%), rgba(var(--accent-rgb), 0.08), transparent 72%);
+    mix-blend-mode: screen;
+  }
+
+  /* ————— Live visitor counter badge — terminal-style pill mirroring
+     BackToTop's placement on the opposite corner. ————— */
+  .visitor-badge {
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .visitor-badge:hover {
+    transform: translateY(-2px);
+    border-color: rgba(var(--accent-rgb), 0.5);
+    box-shadow: 0 10px 28px -14px rgba(var(--accent-rgb), 0.45);
+  }
+  .visitor-dot {
+    @apply h-1.5 w-1.5 shrink-0 rounded-full;
+    background-color: var(--text-muted);
+  }
+  .visitor-dot.is-live {
+    background-color: var(--accent);
+    animation: visitor-pulse 2.2s ease-out infinite;
+  }
+  @keyframes visitor-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0.55); }
+    70% { box-shadow: 0 0 0 6px rgba(var(--accent-rgb), 0); }
+    100% { box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .visitor-dot.is-live {
+      animation: none;
+    }
+    .ambient-glow {
+      display: none;
+    }
+  }
 }
