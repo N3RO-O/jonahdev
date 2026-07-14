@@ -21,7 +21,7 @@ const SESSION_FLAG = 'jt-visit-counted-session'
 const VISITED_FLAG = 'jt-visit-counted'
 const CACHE_KEY = 'jt-visit-cache'
 const API_BASE = 'https://counterapi.com/api'
-const ESTIMATED_VISITORS = 2000
+const ESTIMATED_VISITORS = 2785
 
 export function useVisitorCount() {
   const [count, setCount] = useState(() => {
