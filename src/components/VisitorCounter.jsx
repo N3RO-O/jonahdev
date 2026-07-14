@@ -3,6 +3,7 @@ import { useVisitorCount } from '../hooks/useVisitorCount'
 
 export default function VisitorCounter() {
   const { count, status } = useVisitorCount()
+  const isFallbackEstimate = count >= 2000 && status !== 'live'
 
   // Nothing to show yet and the API's unreachable — fail silently rather
   // than displaying a permanently broken badge.
@@ -17,7 +18,11 @@ export default function VisitorCounter() {
       <span className={`visitor-dot ${status === 'live' ? 'is-live' : ''}`} aria-hidden="true" />
       <Eye size={13} className="text-accent" aria-hidden="true" />
       <span className="tabular-nums text-[var(--text)]">
-        {count !== null ? count.toLocaleString() : '···'}
+        {count !== null
+          ? isFallbackEstimate
+            ? `${Math.floor(count / 1000)}k+`
+            : count.toLocaleString()
+          : '···'}
       </span>
       <span className="hidden text-[var(--text-muted)] sm:inline">visitors</span>
     </div>

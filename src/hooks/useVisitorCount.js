@@ -20,12 +20,13 @@ const COUNTER_KEY = 'site-visits'
 const SESSION_FLAG = 'jt-visit-counted'
 const CACHE_KEY = 'jt-visit-cache'
 const API_BASE = 'https://counterapi.com/api'
+const ESTIMATED_VISITORS = 2000
 
 export function useVisitorCount() {
   const [count, setCount] = useState(() => {
-    if (typeof window === 'undefined') return null
+    if (typeof window === 'undefined') return ESTIMATED_VISITORS
     const cached = Number(window.localStorage.getItem(CACHE_KEY))
-    return Number.isFinite(cached) && cached > 0 ? cached : null
+    return Number.isFinite(cached) && cached > 0 ? cached : ESTIMATED_VISITORS
   })
   const [status, setStatus] = useState('connecting') // connecting | live | offline
   const rafRef = useRef(null)
