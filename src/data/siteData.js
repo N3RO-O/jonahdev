@@ -297,19 +297,19 @@ export const certifications = [
     title: 'CC Loyalty Award',
     issuer: 'Recognition & Achievement',
     year: '2026',
-    image: '/assets/cert/cc loyalty award.jpg',
+    image: '/assets/cert/loyalty.jpg',
   },
   {
     title: 'Certificate of Completion',
     issuer: 'Professional Training',
     year: '2026',
-    image: '/assets/cert/Certificate of Completion.jpg',
+    image: '/assets/cert/COC.jpg',
   },
   {
     title: 'GIP Dole Training Program',
     issuer: 'Government Internship Program',
     year: '2026',
-    image: '/assets/cert/GIP Dole.jpg',
+    image: '/assets/cert/Dole.jpg',
   },
   {
     title: 'HACK4GOV CTF 2023',
@@ -333,26 +333,20 @@ export const creative = {
     {
       type: 'video',
       src: '/assets/creative/video-1.mp4',
-      poster: '/assets/creative/video-1 thumbnail.png',
+      poster: '/assets/creative/video-1-thumbnail.png',
       alt: 'Videography sample 1',
     },
     {
       type: 'video',
       src: '/assets/creative/video-2.mp4',
-      poster: '/assets/creative/video-1 thumbnail.png',
+      poster: '/assets/creative/video-1-thumbnail.png',
       alt: 'Videography sample 2',
     },
     {
       type: 'video',
       src: '/assets/creative/video-3.mp4',
-      poster: '/assets/creative/video-3 thumbnail.png',
+      poster: '/assets/creative/video-3-thumbnail.png',
       alt: 'Videography sample 3',
-    },
-    {
-      type: 'video',
-      src: '/assets/creative/video-4.mp4',
-      poster: '/assets/creative/video-3 thumbnail.png',
-      alt: 'Videography sample 4',
     },
   ],
 }
