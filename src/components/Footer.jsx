@@ -43,7 +43,7 @@ export default function Footer() {
         <p className="text-xs text-[var(--text-muted)]">
           Built with React, Vite &amp; Tailwind CSS ·{' '}
           <a
-            href={`https://github.com/${site.githubUser}`}
+            href="https://github.com/N3RO-O/jonahdev"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-accent hover:underline"
