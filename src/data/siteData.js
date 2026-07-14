@@ -339,7 +339,7 @@ export const creative = {
     {
       type: 'video',
       src: '/assets/creative/video-2.mp4',
-      poster: '/assets/creative/video-1-thumbnail.jpg',
+      poster: '/assets/creative/video-2-thumbnail.jpg',
       alt: 'Videography sample 2',
     },
     {
