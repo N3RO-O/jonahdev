@@ -18,13 +18,9 @@ export default function VisitorCounter() {
       <span className={`visitor-dot ${status === 'live' ? 'is-live' : ''}`} aria-hidden="true" />
       <Eye size={13} className="text-accent" aria-hidden="true" />
       <span className="tabular-nums text-[var(--text)]">
-        {count !== null
-          ? isFallbackEstimate
-            ? `${Math.floor(count / 1000)}k+`
-            : count.toLocaleString()
-          : '···'}
+        {count !== null ? count.toLocaleString() : '···'}
       </span>
-      <span className="hidden text-[var(--text-muted)] sm:inline">visitors</span>
+      <span className="hidden text-[var(--text-muted)] sm:inline">people visited this site</span>
     </div>
   )
 }

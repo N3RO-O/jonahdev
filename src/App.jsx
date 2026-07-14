@@ -48,7 +48,7 @@ export default function App() {
           <div className="intro-panel">
             <div className="intro-brand">
               <span className="intro-brand-text">
-                jonah<span className="intro-brand-suffix">.dev</span>
+                jonah<span className="intro-brand-suffix brand-accent">.dev</span>
               </span>
             </div>
             <p className="intro-tagline">Building polished web experiences with code, clarity, and craft.</p>

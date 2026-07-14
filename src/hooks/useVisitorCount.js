@@ -17,7 +17,8 @@ import { useEffect, useRef, useState } from 'react'
  */
 const NAMESPACE = 'jonahdevportfolio-vercel-app'
 const COUNTER_KEY = 'site-visits'
-const SESSION_FLAG = 'jt-visit-counted'
+const SESSION_FLAG = 'jt-visit-counted-session'
+const VISITED_FLAG = 'jt-visit-counted'
 const CACHE_KEY = 'jt-visit-cache'
 const API_BASE = 'https://counterapi.com/api'
 const ESTIMATED_VISITORS = 2000
@@ -53,7 +54,8 @@ export function useVisitorCount() {
       rafRef.current = requestAnimationFrame(step)
     }
 
-    const alreadyCounted = window.sessionStorage.getItem(SESSION_FLAG) === '1'
+    const hasVisitedBefore = window.localStorage.getItem(VISITED_FLAG) === '1'
+    const alreadyCounted = window.sessionStorage.getItem(SESSION_FLAG) === '1' || hasVisitedBefore
     const url = `${API_BASE}/${NAMESPACE}/view/${COUNTER_KEY}${alreadyCounted ? '?readOnly=true' : ''}`
 
     fetch(url)
@@ -65,7 +67,10 @@ export function useVisitorCount() {
         if (cancelled) return
         const next = Number(data?.value)
         if (!Number.isFinite(next) || next <= 0) throw new Error('bad payload')
-        if (!alreadyCounted) window.sessionStorage.setItem(SESSION_FLAG, '1')
+        if (!alreadyCounted) {
+          window.sessionStorage.setItem(SESSION_FLAG, '1')
+          window.localStorage.setItem(VISITED_FLAG, '1')
+        }
         window.localStorage.setItem(CACHE_KEY, String(next))
         setStatus('live')
         animateTo(next)

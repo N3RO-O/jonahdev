@@ -117,7 +117,7 @@ export default function Navbar({ theme, onToggleTheme }) {
             }}
             className="group font-mono text-lg font-bold transition-transform duration-200 hover:-translate-y-0.5"
           >
-            jonah<span className="text-accent">.dev</span>
+            jonah<span className="brand-accent">.dev</span>
             <span className="ml-0.5 inline-block h-[1em] w-[2px] translate-y-[2px] bg-accent opacity-0 transition-opacity group-hover:opacity-100" />
           </a>
 

@@ -274,7 +274,7 @@ export default function Hero() {
             transition={reduceMotion ? { duration: 0 } : { delay: 0.55, duration: 0.45, ease: 'easeOut' }}
             className="hero-badge absolute right-4 bottom-4 z-40 rounded-2xl border border-accent/90 bg-black/80 px-3 py-1.5 text-[11px] font-mono text-white shadow-[0_24px_60px_-24px_rgba(0,0,0,0.45),0_0_0_1px_rgba(220,170,78,0.65)]"
           >
-            <span className="text-accent">◎</span> jonah<span className="text-accent">.dev</span> · 2026
+            <span className="brand-accent">◎</span> jonah<span className="brand-accent">.dev</span> · 2026
           </motion.div>
           </motion.div>
         </div>

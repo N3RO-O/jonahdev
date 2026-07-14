@@ -32,7 +32,7 @@ export default function Footer() {
 
         <div className="flex flex-col items-center justify-between gap-3 border-t border-[var(--border)] pt-6 text-sm text-[var(--text-muted)] sm:w-full sm:flex-row">
             <span className="font-mono">
-            jonah<span className="text-accent">.dev</span>
+            jonah<span className="brand-accent">.dev</span>
           </span>
 
           <span className="font-mono text-xs">
