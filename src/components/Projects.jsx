@@ -342,24 +342,3 @@ function ProjectCard({ project, index }) {
   )
 }
 
-
-  const [ref, inView] = useInView()
-
-  return (
-    <section id="projects" className="py-20">
-      <div className="section-container">
-        <SectionHeader
-          eyebrow="// featured work"
-          title="Featured Projects"
-          subtitle="Quality over quantity — capstone and OJT systems with real impact."
-        />
-
-        <div ref={ref} className="grid items-start gap-8 lg:grid-cols-2">
-          {projects.map((p, i) => (
-            <ProjectCard key={p.id} project={p} index={i} />
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
