@@ -342,7 +342,7 @@ function ProjectCard({ project, index }) {
   )
 }
 
-export default function Projects() {
+
   const [ref, inView] = useInView()
 
   return (
