@@ -366,7 +366,7 @@ function ProjectCard({ project, index }) {
           </button>
         </div>
 
-        <AnimatePresence>
+        <AnimatePresence initial={false}>
           {expanded && (
             <motion.div
               id={`${project.id}-details`}
@@ -376,31 +376,32 @@ function ProjectCard({ project, index }) {
               className="overflow-hidden"
             >
               <div className="mt-6 grid gap-5 border-t border-[var(--border)] pt-6 sm:grid-cols-3">
-                <div>
+                <div className="space-y-2">
                   <h4 className="flex items-center gap-2 text-sm font-semibold text-accent">
                     <CircleDot size={14} />
                     The Problem
                   </h4>
-                  <p className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">{project.problem}</p>
+                  <p className="text-sm leading-relaxed text-[var(--text-muted)]">{project.problem}</p>
                 </div>
-                <div>
+                <div className="space-y-2">
                   <h4 className="flex items-center gap-2 text-sm font-semibold text-accent">
                     <Lightbulb size={14} />
                     The Solution
                   </h4>
-                  <p className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">{project.solution}</p>
+                  <p className="text-sm leading-relaxed text-[var(--text-muted)]">{project.solution}</p>
                 </div>
-                <div>
+                <div className="space-y-2">
                   <h4 className="flex items-center gap-2 text-sm font-semibold text-accent">
                     <UserCog size={14} />
                     My Role
                   </h4>
-                  <p className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">{project.role}</p>
+                  <p className="text-sm leading-relaxed text-[var(--text-muted)]">{project.role}</p>
                 </div>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
+
 
       </motion.article>
 
