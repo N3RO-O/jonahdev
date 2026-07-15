@@ -6,7 +6,10 @@
 - [x] Run build/dev to verify no runtime errors.
 - [ ] If you want live numbers, add a small server-side proxy to bypass CORS (CounterAPI doesn’t send CORS headers).
 - [x] Add FAQ section.
-- [x] Run build/dev to verify no runtime errors.
+- [x] Testimonials carousel.
+- [ ] Run build/dev to verify no runtime errors.
+
+
 
 
 
