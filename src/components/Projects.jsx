@@ -124,6 +124,91 @@ function GalleryViewer({ galleries, accent, onExpand }) {
   )
 }
 
+
+
+
+
+export default function Projects() {
+  const [ref] = useInView()
+
+
+  const techOptions = Array.from(
+    new Set(
+      projects
+        .flatMap((p) => p.tech ?? [])
+        .map((t) => String(t).trim())
+        .filter(Boolean),
+    ),
+  )
+
+  const [activeTech, setActiveTech] = useState('All')
+
+  const filtered = activeTech === 'All' ? projects : projects.filter((p) => (p.tech ?? []).includes(activeTech))
+
+  return (
+    <section id="projects" className="py-20">
+      <div className="section-container">
+        <SectionHeader
+          eyebrow="// featured work"
+          title="Featured Projects"
+          subtitle="Quality over quantity — capstone and OJT systems with real impact."
+        />
+
+        {techOptions.length > 0 && (
+          <div className="mb-8 flex flex-wrap items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setActiveTech('All')}
+              className={`rounded-full border px-4 py-2 text-xs font-medium transition-all ${
+                activeTech === 'All'
+                  ? 'border-accent bg-accent/10 text-accent'
+                  : 'border-[var(--border)] text-[var(--text-muted)] hover:border-accent/40 hover:text-[var(--text)]'
+              }`}
+            >
+              All
+            </button>
+
+            {techOptions.map((t) => (
+              <button
+                key={t}
+                type="button"
+                onClick={() => setActiveTech(t)}
+                className={`rounded-full border px-4 py-2 text-xs font-medium transition-all ${
+                  activeTech === t
+                    ? 'border-accent bg-accent/10 text-accent'
+                    : 'border-[var(--border)] text-[var(--text-muted)] hover:border-accent/40 hover:text-[var(--text)]'
+                }`}
+              >
+                {t}
+              </button>
+            ))}
+          </div>
+        )}
+
+        <div ref={ref} className="grid items-start gap-8 lg:grid-cols-2">
+          <AnimatePresence mode="popLayout">
+            {filtered.map((p, i) => (
+              <motion.div
+                key={p.id}
+                layout
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 12 }}
+                transition={{ type: 'spring', stiffness: 110, damping: 18 }}
+                className="w-full"
+              >
+                <ProjectCard project={p} index={i} />
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// NOTE: The rest of the file (old duplicate Projects implementation) was removed during this fix.
+
 function ProjectCard({ project, index }) {
   const [expanded, setExpanded] = useState(false)
   const [lightbox, setLightbox] = useState({ images: [], index: null })
