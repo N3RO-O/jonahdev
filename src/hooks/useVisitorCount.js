@@ -23,13 +23,14 @@ const CACHE_KEY = 'jt-visit-cache'
 const API_BASE = 'https://counterapi.com/api'
 const RETRY_BASE_MS = 30_000
 const RETRY_MAX_MS = 10 * 60_000
+const FALLBACK_VISITORS = 2785
 
 export function useVisitorCount() {
   const [count, setCount] = useState(() => {
-    if (typeof window === 'undefined') return null
+    if (typeof window === 'undefined') return FALLBACK_VISITORS
 
     const cached = Number(window.localStorage.getItem(CACHE_KEY))
-    return Number.isFinite(cached) && cached > 0 ? cached : null
+    return Number.isFinite(cached) && cached > 0 ? cached : FALLBACK_VISITORS
   })
   const [status, setStatus] = useState('connecting') // connecting | live | offline
   const rafRef = useRef(null)
@@ -86,6 +87,9 @@ export function useVisitorCount() {
         })
         .catch(() => {
           if (cancelled) return
+
+          // Keep showing a number (cached/fallback) instead of blanking UI.
+          // Still retry so the number updates once the API becomes reachable.
           setStatus('offline')
 
           const delay = Math.min(retryMs, RETRY_MAX_MS)
