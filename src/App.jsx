@@ -13,9 +13,11 @@ import Creative from './components/Creative'
 import Education from './components/Education'
 import Testimonials from './components/Testimonials'
 import Contact from './components/Contact'
+import FAQ from './components/FAQ'
+
 import Footer from './components/Footer'
 import BackToTop from './components/BackToTop'
-import VisitorCounter from './components/VisitorCounter'
+
 import AmbientGlow from './components/AmbientGlow'
 
 export default function App() {
@@ -70,11 +72,13 @@ export default function App() {
         <Creative />
         <Education />
         <Testimonials />
+        <FAQ />
         <Contact />
+
       </main>
       <Footer />
       <BackToTop />
-      <VisitorCounter />
+
     </div>
   )
 }
