@@ -8,12 +8,13 @@ import { useTypewriter } from '../hooks/useTypewriter'
 
 const bootLines = [
   `whoami`,
-  `→ ${site.name} — Full-Stack Developer & QA Engineer`,
+  `→ Jonah — Full-Stack Web Developer & Visual Creator`,
   `status --check availability`,
-  `● ${site.availability}`,
+  `● Open to IT Support · Web Development · Systems Analysis`,
   `location`,
-  `→ ${site.location}`,
+  `→ Philippines (Virac · Bicol)`,
 ]
+
 
 export default function Hero() {
   const heroRef = useRef(null)
