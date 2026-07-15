@@ -21,13 +21,15 @@ const SESSION_FLAG = 'jt-visit-counted-session'
 const VISITED_FLAG = 'jt-visit-counted'
 const CACHE_KEY = 'jt-visit-cache'
 const API_BASE = 'https://counterapi.com/api'
-const ESTIMATED_VISITORS = 2785
+const RETRY_BASE_MS = 30_000
+const RETRY_MAX_MS = 10 * 60_000
 
 export function useVisitorCount() {
   const [count, setCount] = useState(() => {
-    if (typeof window === 'undefined') return ESTIMATED_VISITORS
+    if (typeof window === 'undefined') return null
+
     const cached = Number(window.localStorage.getItem(CACHE_KEY))
-    return Number.isFinite(cached) && cached > 0 ? cached : ESTIMATED_VISITORS
+    return Number.isFinite(cached) && cached > 0 ? cached : null
   })
   const [status, setStatus] = useState('connecting') // connecting | live | offline
   const rafRef = useRef(null)
@@ -58,27 +60,42 @@ export function useVisitorCount() {
     const alreadyCounted = window.sessionStorage.getItem(SESSION_FLAG) === '1' || hasVisitedBefore
     const url = `${API_BASE}/${NAMESPACE}/view/${COUNTER_KEY}${alreadyCounted ? '?readOnly=true' : ''}`
 
-    fetch(url)
-      .then((res) => {
-        if (!res.ok) throw new Error('counter unavailable')
-        return res.json()
-      })
-      .then((data) => {
-        if (cancelled) return
-        const next = Number(data?.value)
-        if (!Number.isFinite(next) || next <= 0) throw new Error('bad payload')
-        if (!alreadyCounted) {
-          window.sessionStorage.setItem(SESSION_FLAG, '1')
-          window.localStorage.setItem(VISITED_FLAG, '1')
-        }
-        window.localStorage.setItem(CACHE_KEY, String(next))
-        setStatus('live')
-        animateTo(next)
-      })
-      .catch(() => {
-        if (cancelled) return
-        setStatus('offline')
-      })
+    let retryMs = RETRY_BASE_MS
+
+    const run = () => {
+      if (cancelled) return
+
+      fetch(url)
+        .then((res) => {
+          if (!res.ok) throw new Error('counter unavailable')
+          return res.json()
+        })
+        .then((data) => {
+          if (cancelled) return
+          const next = Number(data?.value)
+          if (!Number.isFinite(next) || next <= 0) throw new Error('bad payload')
+
+          if (!alreadyCounted) {
+            window.sessionStorage.setItem(SESSION_FLAG, '1')
+            window.localStorage.setItem(VISITED_FLAG, '1')
+          }
+
+          window.localStorage.setItem(CACHE_KEY, String(next))
+          setStatus('live')
+          animateTo(next)
+        })
+        .catch(() => {
+          if (cancelled) return
+          setStatus('offline')
+
+          const delay = Math.min(retryMs, RETRY_MAX_MS)
+          retryMs *= 1.6
+
+          window.setTimeout(run, delay)
+        })
+    }
+
+    run()
 
     return () => {
       cancelled = true
