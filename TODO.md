@@ -4,6 +4,10 @@
 - [x] Ensure UI renders placeholder/last cached value appropriately.
 
 - [x] Run build/dev to verify no runtime errors.
+- [ ] If you want live numbers, add a small server-side proxy to bypass CORS (CounterAPI doesn’t send CORS headers).
+- [x] Run build/dev to verify no runtime errors.
+
+
 
 
 

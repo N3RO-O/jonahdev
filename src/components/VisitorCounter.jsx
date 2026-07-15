@@ -7,7 +7,7 @@ export default function VisitorCounter() {
 
   // Nothing to show yet and the API's unreachable — fail silently rather
   // than displaying a permanently broken badge.
-  if (count === null && status === 'offline') return null
+  if (count === null) return null
 
   return (
     <div
