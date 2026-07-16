@@ -269,101 +269,70 @@ function ProjectCard({ project, index }) {
         className="card overflow-hidden will-change-transform"
         style={{ borderTopColor: project.accent, borderTopWidth: '3px' }}
       >
-        <div>
-          <span
-            className="mb-3 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 font-mono text-[11px] font-medium uppercase tracking-wide"
-            style={{
-              borderColor: project.accent + '40',
-              color: project.accent,
-              backgroundColor: project.accent + '12',
-            }}
-          >
-            <CircleDot size={11} />
-            {project.subtitle}
-          </span>
-          <h3 className="font-display text-2xl font-semibold transition-colors duration-200 hover:text-accent">
-            {project.title}
-          </h3>
-          <p className="text-secondary text-sm font-medium">{project.year}</p>
-        </div>
-
-        {project.galleries?.length > 0 && (
-          <GalleryViewer galleries={project.galleries} accent={project.accent} onExpand={openLightbox} />
-        )}
-
-        {project.screenshotsPending && (!project.galleries || project.galleries.length === 0) && (
-          <p className="mt-6 rounded-lg border border-dashed border-[var(--border)] px-4 py-3 font-mono text-xs text-[var(--text-muted)]">
-            // Screenshots coming soon — role-based IMS views will be added when ready
-          </p>
-        )}
-
-        <p className="mt-6 text-[var(--text-muted)]">{project.description}</p>
-
-        {project.metrics?.length > 0 && (
-          <div className="mt-4 flex flex-wrap gap-2">
-            {project.metrics.map((m) => (
-              <span
-                key={m}
-                className="inline-flex items-center gap-1.5 rounded-lg bg-accent/10 px-3 py-1.5 text-xs font-medium text-accent"
-              >
-                <TrendingUp size={13} />
-                {m}
-              </span>
-            ))}
-          </div>
-        )}
-
-        <div className="mt-4 flex flex-wrap gap-2">
-          {project.tech.map((t) => (
-            <span key={t} className="badge">
-              {t}
-            </span>
-          ))}
-        </div>
-
-        <ul className="mt-4 space-y-2 text-sm text-[var(--text-muted)]">
-          {project.features.map((f) => (
-            <li key={f} className="flex gap-2.5">
-              <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-accent" />
-              {f}
-            </li>
-          ))}
-        </ul>
-
-        <div className="mt-6 flex flex-wrap gap-3">
-          {project.links.live && (
-            <a href={project.links.live} target="_blank" rel="noopener noreferrer" className="btn-primary">
-              <ExternalLink size={16} />
-              Live Demo
-            </a>
-          )}
-          {project.links.liveSecondary && (
-            <a
-              href={project.links.liveSecondary}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-secondary"
+        <div className="p-5 sm:p-6">
+          <div>
+            <span
+              className="mb-3 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 font-mono text-[11px] font-medium uppercase tracking-wide"
+              style={{
+                borderColor: project.accent + '40',
+                color: project.accent,
+                backgroundColor: project.accent + '12',
+              }}
             >
-              <ExternalLink size={16} />
-              {project.links.liveSecondaryLabel || 'View module'}
-            </a>
+              <CircleDot size={11} />
+              {project.subtitle}
+            </span>
+            <h3 className="font-display text-2xl font-semibold transition-colors duration-200 hover:text-accent">
+              {project.title}
+            </h3>
+            <p className="text-secondary text-sm font-medium">{project.year}</p>
+          </div>
+
+          {project.galleries?.length > 0 && (
+            <GalleryViewer galleries={project.galleries} accent={project.accent} onExpand={openLightbox} />
           )}
-          {project.links.github && (
-            <a href={project.links.github} target="_blank" rel="noopener noreferrer" className="btn-secondary">
-              <Github size={16} />
-              GitHub
-            </a>
+
+          {project.screenshotsPending && (!project.galleries || project.galleries.length === 0) && (
+            <p className="mt-5 rounded-lg border border-dashed border-[var(--border)] px-4 py-3 font-mono text-xs text-[var(--text-muted)]">
+              // Screenshots coming soon — role-based IMS views will be added when ready
+            </p>
           )}
-          <button
-            type="button"
-            onClick={() => setExpanded(!expanded)}
-            className="btn-secondary"
-            aria-expanded={expanded}
-            aria-controls={`${project.id}-details`}
-          >
-            Case Study
-            <ChevronDown size={16} className={`transition-transform ${expanded ? 'rotate-180' : ''}`} />
-          </button>
+
+          <div className="mt-5 flex flex-wrap gap-3">
+            {project.links.live && (
+              <a href={project.links.live} target="_blank" rel="noopener noreferrer" className="btn-primary">
+                <ExternalLink size={16} />
+                Live Demo
+              </a>
+            )}
+            {project.links.liveSecondary && (
+              <a
+                href={project.links.liveSecondary}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary"
+              >
+                <ExternalLink size={16} />
+                {project.links.liveSecondaryLabel || 'View module'}
+              </a>
+            )}
+            {project.links.github && (
+              <a href={project.links.github} target="_blank" rel="noopener noreferrer" className="btn-secondary">
+                <Github size={16} />
+                GitHub
+              </a>
+            )}
+            <button
+              type="button"
+              onClick={() => setExpanded(!expanded)}
+              className="btn-secondary"
+              aria-expanded={expanded}
+              aria-controls={`${project.id}-details`}
+            >
+              Details
+              <ChevronDown size={16} className={`transition-transform ${expanded ? 'rotate-180' : ''}`} />
+            </button>
+          </div>
         </div>
 
         <AnimatePresence initial={false}>
@@ -373,35 +342,69 @@ function ProjectCard({ project, index }) {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              className="overflow-hidden"
+              className="overflow-hidden border-t border-[var(--border)]"
             >
-              <div className="mt-6 grid gap-5 border-t border-[var(--border)] pt-6 sm:grid-cols-3">
-                <div className="space-y-2">
-                  <h4 className="flex items-center gap-2 text-sm font-semibold text-accent">
-                    <CircleDot size={14} />
-                    The Problem
-                  </h4>
-                  <p className="text-sm leading-relaxed text-[var(--text-muted)]">{project.problem}</p>
+              <div className="space-y-6 p-5 sm:p-6">
+                <p className="text-sm leading-relaxed text-[var(--text-muted)]">{project.description}</p>
+
+                {project.metrics?.length > 0 && (
+                  <div className="flex flex-wrap gap-2">
+                    {project.metrics.map((m) => (
+                      <span
+                        key={m}
+                        className="inline-flex items-center gap-1.5 rounded-lg bg-accent/10 px-3 py-1.5 text-xs font-medium text-accent"
+                      >
+                        <TrendingUp size={13} />
+                        {m}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                <div className="flex flex-wrap gap-2">
+                  {project.tech.map((t) => (
+                    <span key={t} className="badge">
+                      {t}
+                    </span>
+                  ))}
                 </div>
-                <div className="space-y-2">
-                  <h4 className="flex items-center gap-2 text-sm font-semibold text-accent">
-                    <Lightbulb size={14} />
-                    The Solution
-                  </h4>
-                  <p className="text-sm leading-relaxed text-[var(--text-muted)]">{project.solution}</p>
-                </div>
-                <div className="space-y-2">
-                  <h4 className="flex items-center gap-2 text-sm font-semibold text-accent">
-                    <UserCog size={14} />
-                    My Role
-                  </h4>
-                  <p className="text-sm leading-relaxed text-[var(--text-muted)]">{project.role}</p>
+
+                <ul className="space-y-2 text-sm text-[var(--text-muted)]">
+                  {project.features.map((f) => (
+                    <li key={f} className="flex gap-2.5">
+                      <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-accent" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="grid gap-5 sm:grid-cols-3">
+                  <div className="space-y-2">
+                    <h4 className="flex items-center gap-2 text-sm font-semibold text-accent">
+                      <CircleDot size={14} />
+                      The Problem
+                    </h4>
+                    <p className="text-sm leading-relaxed text-[var(--text-muted)]">{project.problem}</p>
+                  </div>
+                  <div className="space-y-2">
+                    <h4 className="flex items-center gap-2 text-sm font-semibold text-accent">
+                      <Lightbulb size={14} />
+                      The Solution
+                    </h4>
+                    <p className="text-sm leading-relaxed text-[var(--text-muted)]">{project.solution}</p>
+                  </div>
+                  <div className="space-y-2">
+                    <h4 className="flex items-center gap-2 text-sm font-semibold text-accent">
+                      <UserCog size={14} />
+                      My Role
+                    </h4>
+                    <p className="text-sm leading-relaxed text-[var(--text-muted)]">{project.role}</p>
+                  </div>
                 </div>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
-
 
       </motion.article>
 
