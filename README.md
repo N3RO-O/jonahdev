@@ -34,7 +34,7 @@ Edit `src/data/siteData.js` for:
 
 Static files live in `public/assets/`:
 
-- `jonah-photo.jpg`, `jonah-tabuzo-cv.pdf`
+- `jonah-photo-updated.jpg`, `jonah-tabuzo-cv.pdf`
 - `projects/` — project screenshots
 - `creative/` — photography & video
 - `certs/` — add certificate images (optional)
@@ -44,7 +44,3 @@ Static files live in `public/assets/`:
 This site does not ship with analytics. To add Google Analytics, insert the
 GA snippet into `index.html` `<head>` and replace `G-XXXXXXXXXX` with your
 measurement ID. Everything else deploys as-is.
-
-## Legacy site
-
-The previous static HTML version is saved as `index.legacy.html`.
