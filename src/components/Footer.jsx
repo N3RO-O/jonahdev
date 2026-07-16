@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { site, navLinks } from '../data/siteData'
+import { site } from '../data/siteData'
 import SocialLinks from './SocialLinks'
 import { FileDown } from 'lucide-react'
 // NOTE (QA): SocialLinks was previously rendered twice in this footer
@@ -25,15 +25,10 @@ export default function Footer() {
     return () => clearInterval(id)
   }, [])
 
-  const scrollTo = (id) => {
-    const el = document.getElementById(id)
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }
-
   return (
     <footer className="border-t border-[var(--border)] py-12">
       <div className="section-container">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]">
+        <div className="grid gap-10 sm:grid-cols-2">
           {/* Brand + socials */}
           <div className="space-y-4">
             <span className="font-mono text-lg font-bold">
@@ -43,26 +38,6 @@ export default function Footer() {
               {site.tagline}
             </p>
             <SocialLinks includeEmail />
-          </div>
-
-          {/* Quick links */}
-          <div>
-            <h4 className="mb-4 font-mono text-[11px] uppercase tracking-[0.28em] text-[var(--text-muted)]">
-              Quick Links
-            </h4>
-            <ul className="space-y-2.5">
-              {navLinks.map((link) => (
-                <li key={link.id}>
-                  <button
-                    type="button"
-                    onClick={() => scrollTo(link.id)}
-                    className="text-sm text-[var(--text-muted)] transition-colors hover:text-accent"
-                  >
-                    {link.label}
-                  </button>
-                </li>
-              ))}
-            </ul>
           </div>
 
           {/* Contact + CV */}
