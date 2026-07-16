@@ -38,6 +38,7 @@ export const navLinks = [
   { id: 'experience', label: 'Experience' },
   { id: 'creative', label: 'Creative' },
   { id: 'education', label: 'Education' },
+  { id: 'blog', label: 'Blog' },
   { id: 'contact', label: 'Contact' },
 ]
 

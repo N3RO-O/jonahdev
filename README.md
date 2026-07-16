@@ -44,3 +44,20 @@ Static files live in `public/assets/`:
 This site does not ship with analytics. To add Google Analytics, insert the
 GA snippet into `index.html` `<head>` and replace `G-XXXXXXXXXX` with your
 measurement ID. Everything else deploys as-is.
+
+## Analytics (optional)
+
+Microsoft Clarity is supported out of the box but **off by default** (no
+trackers load). Enable it by setting a project ID:
+
+```
+# .env (or Vercel project env)
+VITE_CLARITY_ID=your-clarity-project-id
+```
+
+## Blog
+
+Posts live in `src/data/blog.js` as structured content (title, date, excerpt,
+tags, and a `body` array of paragraph / heading / code blocks). The `Blog`
+component renders a list and an in-page detail view — no router or markdown
+dependency required. Add an entry to publish a new post.

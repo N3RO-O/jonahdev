@@ -14,6 +14,7 @@ import Education from './components/Education'
 import Testimonials from './components/Testimonials'
 import Contact from './components/Contact'
 import FAQ from './components/FAQ'
+import Blog from './components/Blog'
 
 import Footer from './components/Footer'
 import BackToTop from './components/BackToTop'
@@ -73,6 +74,7 @@ export default function App() {
         <Education />
         <Testimonials />
         <FAQ />
+        <Blog />
         <Contact />
 
       </main>
