@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:xampp": "node scripts/build-xampp.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

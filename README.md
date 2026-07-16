@@ -39,9 +39,11 @@ Static files live in `public/assets/`:
 - `creative/` — photography & video
 - `certs/` — add certificate images (optional)
 
-## Google Analytics
+## Analytics (optional)
 
-Uncomment the GA script in `index.html` and replace `G-XXXXXXXXXX` with your measurement ID.
+This site does not ship with analytics. To add Google Analytics, insert the
+GA snippet into `index.html` `<head>` and replace `G-XXXXXXXXXX` with your
+measurement ID. Everything else deploys as-is.
 
 ## Legacy site
 
