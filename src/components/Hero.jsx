@@ -4,17 +4,6 @@ import { ArrowDown, Download, Mail } from 'lucide-react'
 import { site } from '../data/siteData'
 import SocialLinks from './SocialLinks'
 import ViewfinderFrame from './ViewfinderFrame.jsx'
-import { useTypewriter } from '../hooks/useTypewriter'
-
-const bootLines = [
-  `whoami`,
-  `→ Jonah — Full-Stack Web Developer & Visual Creator`,
-  `status --check availability`,
-  `● Open to IT Support · Web Development · Systems Analysis`,
-  `location`,
-  `→ Philippines (Virac · Bicol)`,
-]
-
 
 export default function Hero() {
   const heroRef = useRef(null)
@@ -72,8 +61,6 @@ export default function Hero() {
 
     smoothScrollTo(offsetPosition, 620)
   }
-
-  const { printed, lineIndex, done } = useTypewriter(bootLines, { speed: 16, lineDelay: 220, startDelay: 500 })
 
   useEffect(() => {
     if (reduceMotion) return
@@ -159,49 +146,6 @@ export default function Hero() {
             >
               {site.tagline}
             </motion.p>
-
-            {/* Signature moment: a boot-log style terminal that "types" out
-                who he is, echoing the QA / systems-engineer identity in his
-                own words rather than a decorative flourish. */}
-            <motion.div
-              initial={motionHidden}
-              animate={{ opacity: 1, y: 0 }}
-              transition={motionTransition(0.32)}
-              className="terminal-frame mt-8 max-w-xl"
-            >
-              <div className="terminal-titlebar">
-                <span className="terminal-dot" />
-                <span className="terminal-dot" />
-                <span className="terminal-dot is-accent" />
-                <span className="ml-2 font-mono text-xs text-[var(--text-muted)]">
-                  guest@jonah-dev — zsh
-                </span>
-              </div>
-              <div className="terminal-body" aria-live="polite">
-                {bootLines.map((_, i) => {
-                  const text = printed[i]
-                  if (!text && i > lineIndex) return null
-                  const isCommand = i % 2 === 0
-                  const isCurrentLine = i === lineIndex && !done
-                  return (
-                    <div
-                      key={i}
-                      className={`terminal-line ${isCommand ? 'terminal-line-command mt-2 first:mt-0' : 'terminal-line-output'} ${isCurrentLine ? 'terminal-line-current' : ''}`}
-                    >
-                      {isCommand ? (
-                        <>
-                          <span className="terminal-prompt">$</span> {text}
-                        </>
-                      ) : (
-                        <span>{text}</span>
-                      )}
-                      {isCurrentLine && <span className="terminal-caret" />}
-                    </div>
-                  )
-                })}
-                {done && <span className="terminal-caret" />}
-              </div>
-            </motion.div>
 
             <motion.div
               initial={motionHidden}
