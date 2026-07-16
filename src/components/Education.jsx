@@ -41,7 +41,7 @@ export default function Education() {
               onClick={() => setExpandedDegree(!expandedDegree)}
               className="w-full text-left"
             >
-              <div className="grid gap-8 p-8 sm:p-10 lg:grid-cols-[320px_minmax(360px,1fr)]">
+                <div className="grid gap-8 p-6 sm:p-8 lg:p-10 lg:grid-cols-[300px_minmax(0,1fr)]">
                 {/* Left Sidebar */}
                 <motion.aside
                   layout
