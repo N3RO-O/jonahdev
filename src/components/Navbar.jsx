@@ -18,11 +18,26 @@ export default function Navbar({ theme, onToggleTheme }) {
   }, [open])
 
   useEffect(() => {
+    // Prevent the page from getting stuck unscrollable if the user
+    // changes viewport size while the mobile menu is open.
     document.body.style.overflow = open ? 'hidden' : ''
+
     return () => {
       document.body.style.overflow = ''
     }
   }, [open])
+
+  // If switching between desktop/mobile breakpoints while the menu is open,
+  // close it to avoid a stuck overlay state.
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 768px)')
+    const onChange = () => {
+      if (mq.matches) setOpen(false)
+    }
+    onChange()
+    mq.addEventListener?.('change', onChange)
+    return () => mq.removeEventListener?.('change', onChange)
+  }, [])
 
   useEffect(() => {
     const onScroll = () => {
@@ -178,6 +193,7 @@ export default function Navbar({ theme, onToggleTheme }) {
               role="dialog"
               aria-modal="true"
               aria-label="Mobile navigation"
+              onClick={(e) => e.stopPropagation()}
             >
               <div className="mx-auto flex max-w-6xl flex-col px-4 py-3 sm:px-6">
                 <div className="flex items-center justify-between gap-3 border-b border-[var(--border)] pb-3">
