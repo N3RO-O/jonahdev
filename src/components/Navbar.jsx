@@ -123,7 +123,7 @@ export default function Navbar({ theme, onToggleTheme }) {
           />
         </div>
 
-        <nav aria-label="Primary navigation" className="flex h-16 items-center justify-between">
+        <nav aria-label="Primary navigation" className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-2 px-4 sm:px-6">
 
           <a
             href="#hero"
@@ -131,7 +131,7 @@ export default function Navbar({ theme, onToggleTheme }) {
               e.preventDefault()
               scrollTo('hero')
             }}
-            className="group font-mono text-lg font-bold transition-transform duration-200 hover:-translate-y-0.5"
+            className="group min-w-0 shrink truncate font-mono text-lg font-bold transition-transform duration-200 hover:-translate-y-0.5"
           >
             jonah<span className="brand-accent">.dev</span>
             <span className="ml-0.5 inline-block h-[1em] w-[2px] translate-y-[2px] bg-accent opacity-0 transition-opacity group-hover:opacity-100" />
@@ -155,7 +155,7 @@ export default function Navbar({ theme, onToggleTheme }) {
             ))}
           </ul>
 
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 items-center gap-2">
             <button
               onClick={onToggleTheme}
               className="rounded-lg border border-[var(--border)] p-2 text-[var(--text-muted)] transition-all duration-300 hover:rotate-45 hover:border-accent hover:text-accent"
