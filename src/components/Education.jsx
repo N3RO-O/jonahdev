@@ -16,12 +16,6 @@ export default function Education() {
     .filter((c) => c.image)
     .map((c) => ({ src: c.image, caption: `${c.title} — ${c.issuer}` }))
 
-  const detailStyles = [
-    'border-[var(--border)] hover:border-accent/40',
-    'border-[var(--border)] hover:border-sky-400/40',
-    'border-[var(--border)] hover:border-violet-400/40',
-  ]
-
   const dotStyles = ['bg-accent', 'bg-sky-400', 'bg-violet-400']
 
   return (
@@ -35,72 +29,96 @@ export default function Education() {
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
-            className="card overflow-hidden"
+            className="relative overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--surface)] shadow-sm transition-all duration-300 hover:shadow-lg"
           >
-            <button
-              onClick={() => setExpandedDegree(!expandedDegree)}
-              className="flex w-full items-center justify-between gap-6 p-6 text-left sm:p-8"
-              aria-expanded={expandedDegree}
-            >
-              <div className="flex items-center gap-4 sm:gap-5">
-                <span className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-accent/10 text-accent ring-1 ring-accent/20">
-                  <GraduationCap size={28} />
-                </span>
-                <div>
-                  <p className="text-[11px] uppercase tracking-[0.3em] text-[var(--text-muted)]">Degree</p>
-                  <h3 className="mt-0.5 text-xl font-bold text-[var(--text)] sm:text-2xl">{education.degree}</h3>
-                  <p className="mt-0.5 text-sm text-[var(--text-muted)]">{education.school}</p>
+            {/* accent rail */}
+            <span className="pointer-events-none absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-accent via-accent/70 to-transparent" />
+
+            <div className="p-6 sm:p-8">
+              <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
+                {/* Identity */}
+                <div className="flex items-start gap-4 sm:gap-5">
+                  <span className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-accent/10 text-accent ring-1 ring-accent/20">
+                    <GraduationCap size={28} />
+                  </span>
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[var(--text-muted)]">
+                        Education
+                      </p>
+                      <span className="inline-flex items-center gap-1 rounded-full bg-accent/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.15em] text-accent">
+                        <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                        Graduated
+                      </span>
+                    </div>
+                    <h3 className="mt-1 text-xl font-bold leading-tight text-[var(--text)] sm:text-2xl">
+                      {education.degree}
+                    </h3>
+                    <p className="mt-1 flex flex-wrap items-center gap-x-2 text-sm text-[var(--text-muted)]">
+                      {education.school}
+                      <span className="text-[var(--border)]">·</span>
+                      <span className="inline-flex items-center gap-1 text-accent">
+                        <Sparkles size={12} />
+                        Full-Stack Focus
+                      </span>
+                    </p>
+                  </div>
+                </div>
+
+                {/* Meta + toggle */}
+                <div className="flex shrink-0 items-center gap-3">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--border)] bg-[var(--surface-elevated)] px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+                    <Calendar size={12} />
+                    {education.period}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setExpandedDegree(!expandedDegree)}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-[var(--border)] px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)] transition-colors hover:border-accent hover:text-accent"
+                    aria-expanded={expandedDegree}
+                  >
+                    Details
+                    <ChevronDown
+                      size={16}
+                      className={`transition-transform duration-300 ${expandedDegree ? 'rotate-180' : ''}`}
+                    />
+                  </button>
                 </div>
               </div>
 
-              <div className="flex shrink-0 items-center gap-3">
-                <span className="hidden rounded-full border border-accent/40 bg-accent/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-accent sm:inline-flex">
-                  {education.period}
-                </span>
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-accent/30 bg-accent/5 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
-                  <Sparkles size={12} />
-                  Full-Stack
-                </span>
-                <ChevronDown
-                  size={20}
-                  className={`text-[var(--text-muted)] transition-transform duration-300 ${expandedDegree ? 'rotate-180' : ''}`}
-                />
-              </div>
-            </button>
+              <AnimatePresence initial={false}>
+                {expandedDegree && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="mt-6 space-y-6 border-t border-[var(--border)] pt-6">
+                      <p className="text-sm leading-7 text-[var(--text-muted)]">
+                        A polished summary of coursework, project achievements, and hands-on training with a focus on
+                        practical systems delivery across academic and live projects — collaborative development, data-driven
+                        decision making, and production-ready deployment.
+                      </p>
 
-            <AnimatePresence>
-              {expandedDegree && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="overflow-hidden border-t border-[var(--border)]"
-                >
-                  <div className="space-y-6 p-6 sm:p-8">
-                    <p className="text-sm leading-7 text-[var(--text-muted)]">
-                      A polished summary of coursework, project achievements, and hands-on training with a focus on
-                      practical systems delivery across academic and live projects — collaborative development, data-driven
-                      decision making, and production-ready deployment.
-                    </p>
-
-                    <div className="grid gap-3 sm:grid-cols-3">
-                      {education.details.map((detail, index) => (
-                        <div
-                          key={detail}
-                          className={`group rounded-2xl border bg-[var(--surface-elevated)] p-4 text-sm shadow-sm transition duration-300 ${detailStyles[index]}`}
-                        >
-                          <div className="flex items-start gap-3">
-                            <span className={`mt-1 h-2.5 w-2.5 shrink-0 rounded-full ${dotStyles[index]}`} />
-                            <span className="text-[var(--text)]">{detail}</span>
-                          </div>
-                        </div>
-                      ))}
+                      {/* Highlight timeline */}
+                      <ol className="relative space-y-4 pl-6">
+                        <span className="absolute left-[7px] top-1.5 bottom-1.5 w-px bg-[var(--border)]" />
+                        {education.details.map((detail, index) => (
+                          <li key={detail} className="relative">
+                            <span
+                              className={`absolute -left-6 top-1.5 h-3.5 w-3.5 rounded-full border-2 border-accent bg-[var(--surface)] ${dotStyles[index]}`}
+                            />
+                            <span className="text-sm font-medium text-[var(--text)]">{detail}</span>
+                          </li>
+                        ))}
+                      </ol>
                     </div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </motion.div>
 
           {/* Certifications Section */}
