@@ -195,7 +195,7 @@ export default function Projects() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 12 }}
                 transition={{ type: 'spring', stiffness: 110, damping: 18 }}
-                className="w-full"
+                className="w-full min-w-0"
               >
                 <ProjectCard project={p} index={i} />
               </motion.div>

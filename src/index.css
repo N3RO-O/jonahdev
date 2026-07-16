@@ -41,6 +41,28 @@
 
   html {
     scroll-behavior: smooth;
+    /* Lock the page to the viewport width. Without this, a single
+       overflowing child stretches the layout viewport wider than the
+       screen and the browser "zooms out", leaving a black gutter on
+       the right in mobile device emulation. */
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  /* Any media must never exceed its container — this is what makes the
+     project screenshots / browser mockups scale down instead of spilling
+     over their card boundaries on narrow screens. */
+  img,
+  video,
+  svg,
+  canvas {
+    max-width: 100%;
+    height: auto;
   }
 
   body {
@@ -85,6 +107,20 @@
   #root {
     position: relative;
     z-index: 1;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  main {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Containers must never force the page wider than the viewport on mobile. */
+  .section-container {
+    width: 100%;
+    max-width: 72rem;
   }
 
   /* Branded scrollbar — thin, accent-tinted, same warm gold used everywhere
