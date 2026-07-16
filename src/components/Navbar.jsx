@@ -123,7 +123,8 @@ export default function Navbar({ theme, onToggleTheme }) {
           />
         </div>
 
-        <nav aria-label="Primary navigation" className="section-container flex h-16 items-center justify-between">
+        <nav aria-label="Primary navigation" className="flex h-16 items-center justify-between">
+
           <a
             href="#hero"
             onClick={(e) => {
@@ -195,7 +196,7 @@ export default function Navbar({ theme, onToggleTheme }) {
               aria-label="Mobile navigation"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="mx-auto flex max-w-6xl flex-col px-4 py-3 sm:px-6">
+              <div className="mx-auto flex w-full max-w-6xl flex-col px-4 py-3 sm:px-6">
                 <div className="flex items-center justify-between gap-3 border-b border-[var(--border)] pb-3">
                   <span className="font-mono text-sm font-semibold text-[var(--text)]">Menu</span>
                   <button
