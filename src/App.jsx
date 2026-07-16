@@ -34,8 +34,8 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    const introTimer = window.setTimeout(() => setIntroComplete(true), 2800)
-    const hideTimer = window.setTimeout(() => setShowIntro(false), 3600)
+    const introTimer = window.setTimeout(() => setIntroComplete(true), 1800)
+    const hideTimer = window.setTimeout(() => setShowIntro(false), 2500)
     return () => {
       window.clearTimeout(introTimer)
       window.clearTimeout(hideTimer)
@@ -63,7 +63,7 @@ export default function App() {
 
       <Navbar theme={theme} onToggleTheme={toggle} />
       <main>
-        <Hero />
+        <Hero introDone={!showIntro} />
         <About />
         <Skills />
         <Projects />

@@ -5,7 +5,7 @@ import { site } from '../data/siteData'
 import SocialLinks from './SocialLinks'
 import ViewfinderFrame from './ViewfinderFrame.jsx'
 
-export default function Hero() {
+export default function Hero({ introDone = true }) {
   const heroRef = useRef(null)
   const loopOneRef = useRef(null)
   const loopTwoRef = useRef(null)
@@ -13,7 +13,10 @@ export default function Hero() {
   const pointerRef = useRef({ x: 0.5, y: 0.5 })
   const reduceMotion = useReducedMotion()
 
+  const revealed = reduceMotion || introDone
+
   const motionHidden = reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
+  const motionShow = revealed ? { opacity: 1, y: 0 } : motionHidden
   const motionTransition = (delay, opts = {}) =>
     reduceMotion ? { duration: 0 } : { delay, duration: 0.5, ...opts }
 
@@ -120,7 +123,7 @@ export default function Hero() {
           <div>
             <motion.p
               initial={motionHidden}
-              animate={{ opacity: 1, y: 0 }}
+              animate={motionShow}
               transition={motionTransition(0.1)}
               className="section-eyebrow mb-4"
             >
@@ -129,7 +132,7 @@ export default function Hero() {
 
             <motion.h1
               initial={motionHidden}
-              animate={{ opacity: 1, y: 0 }}
+              animate={motionShow}
               transition={motionTransition(0.15)}
               className="font-display text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl"
             >
@@ -140,7 +143,7 @@ export default function Hero() {
 
             <motion.p
               initial={motionHidden}
-              animate={{ opacity: 1, y: 0 }}
+              animate={motionShow}
               transition={motionTransition(0.25)}
               className="mt-6 max-w-xl text-lg text-[var(--text-muted)]"
             >
@@ -149,7 +152,7 @@ export default function Hero() {
 
             <motion.div
               initial={motionHidden}
-              animate={{ opacity: 1, y: 0 }}
+              animate={motionShow}
               transition={motionTransition(0.4)}
               className="mt-8 flex flex-wrap gap-3"
             >
@@ -177,7 +180,7 @@ export default function Hero() {
 
             <motion.div
               initial={motionHidden}
-              animate={{ opacity: 1, y: 0 }}
+              animate={motionShow}
               transition={motionTransition(0.5)}
               className="mt-8 flex flex-wrap items-center gap-4"
             >
@@ -194,7 +197,7 @@ export default function Hero() {
 
           <motion.div
             initial={reduceMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
+            animate={revealed ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
             whileHover={reduceMotion ? undefined : { scale: 1.02 }}
             transition={reduceMotion ? { duration: 0 } : { delay: 0.2, duration: 0.5, type: 'spring', stiffness: 120, damping: 18 }}
             className="relative mx-auto lg:mx-0 overflow-visible"
@@ -214,7 +217,7 @@ export default function Hero() {
             </ViewfinderFrame>
             <motion.div
             initial={reduceMotion ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 18, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
+            animate={revealed ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 18, scale: 0.96 }}
             whileHover={reduceMotion ? undefined : { scale: 1.03 }}
             transition={reduceMotion ? { duration: 0 } : { delay: 0.55, duration: 0.45, ease: 'easeOut' }}
             className="hero-badge absolute right-4 bottom-4 z-40 rounded-2xl border border-accent/90 bg-black/80 px-3 py-1.5 text-[11px] font-mono text-white shadow-[0_24px_60px_-24px_rgba(0,0,0,0.45),0_0_0_1px_rgba(220,170,78,0.65)]"
