@@ -229,6 +229,38 @@ export const projects = [
     galleries: [],
     screenshotsPending: true,
   },
+  {
+    id: 'nerovault',
+    title: 'Nerovault',
+    subtitle: 'Solo Build · Budget & Savings Tracker',
+    year: '2026',
+    accent: '#22c55e',
+    description:
+      'A 100% free, private budget and savings tracker. Everything stays on your device — no sign-up, no backend, no cloud uploads. Track income, expenses, bills, and savings goals with instant, local-first stats.',
+    problem:
+      'Most budgeting tools lock your data behind accounts, subscriptions, or servers you don’t control — a hard no for people who just want to watch their own spending privately.',
+    solution:
+      'Built a single-page PWA that persists everything to the browser’s localStorage and runs entirely client-side, with an installable offline app shell (service worker + manifest) and CSV/JSON backup & restore.',
+    role: 'Solo developer — architecture, UI/UX, offline/PWA support, and data-migration pipeline.',
+    tech: ['HTML', 'CSS', 'JavaScript', 'Tailwind CSS', 'Chart.js', 'PWA', 'localStorage'],
+    metrics: [
+      'Zero backend — 100% client-side, no accounts',
+      'Installable offline PWA (service worker + manifest)',
+      'Live net-worth & savings-rate stats',
+    ],
+    features: [
+      'Budget categories with auto-normalizing percentages',
+      'Bills with Not yet due → Ready → Paid lifecycle',
+      'Savings goals with pace tracking + confetti',
+      'JSON backup/restore & CSV export (screenshots coming soon)',
+    ],
+    links: {
+      live: 'https://nerovault.vercel.app/',
+      github: 'https://github.com/N3RO-O/Nerovault',
+    },
+    galleries: [],
+    screenshotsPending: true,
+  },
 ]
 
 export const experience = [
