@@ -17,6 +17,7 @@ import FAQ from './components/FAQ'
 import Blog from './components/Blog'
 import Footer from './components/Footer'
 import BackToTop from './components/BackToTop'
+import AsciiIntro from './components/AsciiIntro'
 
 import AmbientGlow from './components/AmbientGlow'
 
@@ -25,21 +26,12 @@ export default function App() {
   useCardSpotlight()
   useMagneticHover()
   const [mounted, setMounted] = useState(false)
-  const [introComplete, setIntroComplete] = useState(false)
   const [showIntro, setShowIntro] = useState(true)
+  const [introComplete, setIntroComplete] = useState(false)
 
   useEffect(() => {
     const frame = requestAnimationFrame(() => setMounted(true))
     return () => cancelAnimationFrame(frame)
-  }, [])
-
-  useEffect(() => {
-    const introTimer = window.setTimeout(() => setIntroComplete(true), 1800)
-    const hideTimer = window.setTimeout(() => setShowIntro(false), 2500)
-    return () => {
-      window.clearTimeout(introTimer)
-      window.clearTimeout(hideTimer)
-    }
   }, [])
 
   return (
@@ -52,19 +44,10 @@ export default function App() {
       </a>
       <AmbientGlow />
       {showIntro && (
-        <div className={`intro-overlay ${introComplete ? 'intro-hidden' : ''}`} aria-hidden="true">
-          <div className="intro-panel">
-            <div className="intro-brand">
-              <span className="intro-brand-text">
-                jonah<span className="intro-brand-suffix brand-accent">.dev</span>
-              </span>
-            </div>
-            <p className="intro-tagline">Building polished web experiences with code, clarity, and craft.</p>
-            <div className="intro-loading" aria-hidden="true">
-              <div className="intro-loading-fill" />
-            </div>
-          </div>
-        </div>
+        <AsciiIntro
+          onComplete={() => setIntroComplete(true)}
+          onHide={() => setShowIntro(false)}
+        />
       )}
 
       <Navbar theme={theme} onToggleTheme={toggle} />
