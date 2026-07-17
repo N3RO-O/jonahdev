@@ -71,8 +71,8 @@ export default function App() {
       <main id="main">
         <Hero introDone={!showIntro} />
         <About />
-        <Skills />
-        <Projects />
+      <Skills />
+      <Projects />
         <GitHubStrip />
         <Experience />
         <Creative />

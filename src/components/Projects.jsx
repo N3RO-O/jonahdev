@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
+import { motion, AnimatePresence, useReducedMotion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import {
   ExternalLink,
   Github,
@@ -21,12 +21,20 @@ import { useInView } from '../hooks/useInView'
 function GalleryViewer({ galleries, accent, onExpand }) {
   const [tab, setTab] = useState(0)
   const [imgIdx, setImgIdx] = useState(0)
+  const [hovered, setHovered] = useState(false)
+  const reduceMotion = useReducedMotion()
 
   const active = galleries[tab]
   const images = active.images
   const current = images[imgIdx]
 
   const goTo = (i) => setImgIdx((i + images.length) % images.length)
+
+  const captionLines = String(current.caption ?? '')
+    .split(/\s*[—–|]\s*|\s*[:·]\s*/)
+    .map((s) => s.trim())
+    .filter(Boolean)
+  const lines = captionLines.length > 0 ? captionLines : [String(current.caption ?? '')]
 
   return (
     <div className="mt-5">
@@ -55,6 +63,8 @@ function GalleryViewer({ galleries, accent, onExpand }) {
       <div
         className="group relative overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--surface-elevated)]"
         style={{ borderColor: accent + '30' }}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
       >
         <button
           onClick={() => onExpand(images, imgIdx)}
@@ -66,9 +76,47 @@ function GalleryViewer({ galleries, accent, onExpand }) {
             src={current.src}
             alt={current.caption}
             loading="lazy"
-            className="h-full w-full object-cover object-top transition-opacity duration-200"
+            className="h-full w-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.04]"
           />
         </button>
+
+        <AnimatePresence>
+          {hovered && current.caption && (
+            <motion.div
+              key={current.src + '-caption'}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25, ease: 'easeOut' }}
+              className="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col gap-0.5 bg-gradient-to-t from-black/85 via-black/45 to-transparent px-5 pb-5 pt-14"
+            >
+              {lines.map((line, i) => (
+                <motion.p
+                  key={line + i}
+                  initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 4 }}
+                  transition={
+                    reduceMotion
+                      ? { duration: 0 }
+                      : {
+                          delay: 0.06 + i * 0.06,
+                          duration: 0.4,
+                          ease: [0.22, 1, 0.36, 1],
+                        }
+                  }
+                  className={
+                    i === 0
+                      ? 'text-sm font-semibold leading-snug text-white'
+                      : 'text-xs leading-snug text-white/75'
+                  }
+                >
+                  {line}
+                </motion.p>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <span className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-all group-hover:bg-black/25 group-hover:opacity-100">
           <Maximize2 className="text-white" size={22} />
@@ -150,7 +198,6 @@ export default function Projects() {
       <div className="section-container">
         <SectionHeader
           index="03"
-          size="lg"
           eyebrow="// featured work"
           title="Featured Projects"
           subtitle="Quality over quantity — capstone and OJT systems with real impact."
@@ -216,16 +263,45 @@ function ProjectCard({ project, index }) {
   const [lightbox, setLightbox] = useState({ images: [], index: null })
   const reduceMotion = useReducedMotion()
 
+  // Mouse-position driven 3D tilt (subtle, max ~4deg).
+  const mouseX = useMotionValue(0.5)
+  const mouseY = useMotionValue(0.5)
+  const springConfig = { stiffness: 160, damping: 26, mass: 0.6 }
+  const rotateX = useSpring(useTransform(mouseY, [0, 1], [2, -2]), springConfig)
+  const rotateY = useSpring(useTransform(mouseX, [0, 1], [-2, 2]), springConfig)
+  // Shine sweep follows the horizontal mouse position.
+  const shineX = useSpring(useTransform(mouseX, [0, 1], ['0%', '100%']), springConfig)
+  const shineBackground = useTransform(
+    shineX,
+    (x) => `linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.06) ${x}, transparent 70%)`,
+  )
+
+  const handleMouseMove = (e) => {
+    if (reduceMotion) return
+    const rect = e.currentTarget.getBoundingClientRect()
+    mouseX.set((e.clientX - rect.left) / rect.width)
+    mouseY.set((e.clientY - rect.top) / rect.height)
+  }
+
+  const handleMouseLeave = () => {
+    mouseX.set(0.5)
+    mouseY.set(0.5)
+  }
+
   const cardMotion = {
     initial: reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 },
     whileInView: { opacity: 1, y: 0 },
-    whileHover: reduceMotion ? undefined : { y: -10, scale: 1.015 },
+    whileHover: reduceMotion ? undefined : { y: -6, scale: 1.008 },
     whileTap: reduceMotion ? undefined : { scale: 0.995 },
     viewport: { once: true, amount: 0.25 },
     transition: reduceMotion
       ? { duration: 0 }
       : { delay: index * 0.07, type: 'spring', stiffness: 105, damping: 16 },
   }
+
+  const tiltStyle = reduceMotion
+    ? undefined
+    : { rotateX, rotateY, transformStyle: 'preserve-3d', transformPerspective: 1000 }
 
   const openLightbox = (images, idx) => {
     setLightbox({ images, index: idx })
@@ -240,9 +316,18 @@ function ProjectCard({ project, index }) {
         whileTap={cardMotion.whileTap}
         viewport={cardMotion.viewport}
         transition={cardMotion.transition}
-        className="card border-dashed opacity-80 will-change-transform"
-        style={{ borderColor: project.accent + '40' }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{ borderColor: project.accent + '40', ...tiltStyle }}
+        className="card group/card relative border-dashed opacity-80 will-change-transform"
       >
+        {!reduceMotion && (
+          <motion.span
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 z-10 rounded-[inherit] opacity-0 transition-opacity duration-300 group-hover/card:opacity-100"
+            style={{ background: shineBackground }}
+          />
+        )}
         <span className="eyebrow-tag mb-3">In Progress</span>
         <h3 className="font-display text-xl font-semibold">{project.title}</h3>
         <p className="text-sm text-[var(--text-muted)]">
@@ -268,9 +353,18 @@ function ProjectCard({ project, index }) {
         whileTap={cardMotion.whileTap}
         viewport={cardMotion.viewport}
         transition={cardMotion.transition}
-        className="card overflow-hidden will-change-transform"
-        style={{ borderTopColor: project.accent, borderTopWidth: '3px' }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        className="card group/card relative overflow-hidden will-change-transform"
+        style={{ borderTopColor: project.accent, borderTopWidth: '3px', ...tiltStyle }}
       >
+        {!reduceMotion && (
+          <motion.span
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 z-20 opacity-0 transition-opacity duration-300 group-hover/card:opacity-100"
+            style={{ background: shineBackground }}
+          />
+        )}
         <div className="p-5 sm:p-6">
           <div>
             <span

@@ -15,7 +15,6 @@ export default function About() {
       <div className="section-container">
         <SectionHeader
           index="01"
-          size="lg"
           eyebrow="// about"
           title="About Me"
           subtitle="Developer, systems thinker, and visual storyteller from Catanduanes."
