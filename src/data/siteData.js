@@ -39,6 +39,7 @@ export const navLinks = [
   { id: 'creative', label: 'Creative' },
   { id: 'education', label: 'Education' },
   { id: 'blog', label: 'Blog' },
+  { id: 'resume', label: 'Resume' },
   { id: 'contact', label: 'Contact' },
 ]
 
@@ -266,89 +267,127 @@ export const projects = [
 
 export const experience = [
   {
-    period: '2024 – Present',
-    title: 'Quality Assurance Engineer',
+    period: 'Apr 2024 – Present',
+    title: 'Freelance — Administrative Support & Community Outreach',
     company: 'PIXODE Philippines',
     description:
-      'QA for internal tools at a dev collective building practical digital tools for underserved communities across the Philippines.',
+      'Provide administrative support and community outreach for a dev collective building practical digital tools for underserved communities across the Philippines.',
   },
   {
-    period: '2025',
+    period: 'Jun – Jul 2025',
     title: 'Samsung Product Promoter',
     company: "Alson's Trading · Virac",
     description:
-      'Represented a global tech brand on the sales floor — built client relationships and transferable communication, persuasion, and customer-facing skills.',
+      'Contractual sales-floor role representing a global tech brand — built client relationships and honed communication, persuasion, and customer-facing skills.',
   },
   {
-    period: '2024 – 2025',
-    title: 'OJT Full-Stack Developer',
-    company: 'PHILRADS · Virac',
+    period: 'Feb – May 2026',
+    title: 'IT Support — On-the-Job Training',
+    company: 'PHILRADS · Quezon City',
     description:
-      'Built and deployed the Asset Database System and a separate Inventory Management System (IMS) from requirements through live rollout.',
+      'Completed IT support OJT, assisting with technical operations and internal systems support.',
   },
   {
-    period: '2020 – 2021',
-    title: 'Administrative Support & Community Outreach',
-    company: 'Provincial Government Office · Virac',
+    period: 'Feb – May 2026',
+    title: 'Full-Stack Web Development — On-the-Job Training',
+    company: 'PHILRADS · Quezon City',
     description:
-      'Data entry, document preparation, and correspondence. Streamlined workflows and maintained compliance under strict deadlines.',
+      '462-hour OJT building and deploying live web systems (Asset Database System, Inventory Management System) from requirements through rollout.',
+  },
+  {
+    period: 'May – Nov 2023',
+    title: 'Contract of Service — GIP & Admin Support / Community Outreach',
+    company: 'DOLE · Government Service',
+    description:
+      'Contract-of-Service role under the Government Internship Program (GIP) and Administrative Support & Community Outreach, counted as government service.',
   },
 ]
 
 export const education = {
   degree: 'Bachelor of Science in Information Systems',
   school: 'Catanduanes State University',
-  period: 'Graduated June 2026',
+  period: 'Expected to graduate 2026',
   details: [
+    'Completing a BS in Information Systems, expected to graduate in 2026',
     'Capstone Lead Programmer — KiddyTrack academic monitoring system',
     'OJT — PHILRADS IMS & Asset Database System (separate live deployments)',
-    'HACK4GOV CTF 2023 Participant',
   ],
+  secondary: {
+    degree: 'Technical Vocational and Livelihood (TVL)',
+    school: 'Catanduanes Colleges High School',
+    period: '2013 – 2019',
+    note: 'Graduated with a Loyalty Award',
+  },
+  postgrad: 'No vocational/trade course or graduate studies completed.',
 }
 
 export const certifications = [
   {
     title: 'From Manual to Algorithmic: Prioritizing Disaster Relief with Data',
-    issuer: 'Training / Workshop Certificate',
+    issuer: 'University of the Cordilleras · Webinar',
     year: '2026',
     image: '/assets/cert/tabuzo-certificate.png',
   },
   {
     title:
-      'Predicting Dengue, Protecting Communities: A Machine Learning–Based Approach to Smarter Public Health Action in Baguio City',
-    issuer: 'Training / Workshop Certificate',
+      'Predicting Dengue, Protecting Communities: A Machine Learning–Based Approach to Smarter Public Health Action',
+    issuer: 'University of the Cordilleras · Webinar',
     year: '2026',
     image: '/assets/cert/certificate.png',
   },
   {
     title: 'Power BI Dashboard: Zero to Low Code',
-    issuer: 'Power BI Training',
+    issuer: 'Datasense PH · Training',
     year: '2026',
     image: '/assets/cert/power-bi.png',
   },
   {
-    title: 'CC Loyalty Award',
-    issuer: 'Recognition & Achievement',
-    year: '2026',
-    image: '/assets/cert/loyalty.jpg',
+    title: 'Employment Coaching & Career Counseling Seminar',
+    issuer: 'Catanduanes State University',
+    year: '2025',
+    image: null,
   },
   {
-    title: 'Certificate of Completion',
+    title: 'HACK4GOV CTF 2023',
+    issuer: 'Department of Information and Communications Technology (DICT)',
+    year: '2023',
+    image: null,
+  },
+  {
+    title: 'GIP DOLE Training Program (1,480 hours)',
+    issuer: 'Department of Labor and Employment',
+    year: '2023',
+    image: '/assets/cert/Dole.jpg',
+  },
+  {
+    title: 'On-the-Job Training in Hospitality Operations (80 hours)',
+    issuer: 'Rakdell Inn',
+    year: '2019',
+    image: null,
+  },
+  {
+    title: 'Techniques in Tourguiding',
+    issuer: 'Regional Food and Travel Expo',
+    year: '2018',
+    image: null,
+  },
+  {
+    title: 'TVL Skills Competition Participant',
+    issuer: 'Catanduanes Colleges',
+    year: '2017',
+    image: null,
+  },
+  {
+    title: 'Certificate of Completion — Professional Training',
     issuer: 'Professional Training',
     year: '2026',
     image: '/assets/cert/COC.jpg',
   },
   {
-    title: 'GIP Dole Training Program',
-    issuer: 'Government Internship Program',
-    year: '2026',
-    image: '/assets/cert/Dole.jpg',
-  },
-  {
-    title: 'HACK4GOV CTF 2023',
-    issuer: 'Capture the Flag Participant',
-    year: '2023',
-    image: null,
+    title: 'CC Loyalty Award',
+    issuer: 'Recognition & Achievement',
+    year: '2019',
+    image: '/assets/cert/loyalty.jpg',
   },
 ]
 

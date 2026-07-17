@@ -437,6 +437,34 @@
     50%, 95% { opacity: 0; }
     100% { opacity: 1; }
   }
+
+  /* Print: when the user prints the résumé, hide everything except the
+     resume section so "Save as PDF" yields a clean, single-page document. */
+  @media print {
+    .app-shell > *:not(main),
+    main > *:not(#resume),
+    .intro-overlay,
+    .ambient-glow,
+    nav,
+    footer {
+      display: none !important;
+    }
+    body,
+    #root,
+    .app-shell,
+    main {
+      background: #fff !important;
+      color: #000 !important;
+      overflow: visible !important;
+    }
+    #resume {
+      padding: 0 !important;
+    }
+    .card {
+      box-shadow: none !important;
+      border-color: #ddd !important;
+    }
+  }
 }
 
 @layer components {

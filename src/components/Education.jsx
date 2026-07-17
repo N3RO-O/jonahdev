@@ -114,6 +114,30 @@ export default function Education() {
                           </li>
                         ))}
                       </ol>
+
+                      {/* Secondary education */}
+                      {education.secondary && (
+                        <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface-elevated)] p-5">
+                          <div className="flex items-center gap-3">
+                            <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent ring-1 ring-accent/20">
+                              <GraduationCap size={20} />
+                            </span>
+                            <div>
+                              <p className="text-sm font-semibold text-[var(--text)]">
+                                {education.secondary.degree}
+                              </p>
+                              <p className="text-xs text-[var(--text-muted)]">
+                                {education.secondary.school} · {education.secondary.period}
+                                {education.secondary.note ? ` · ${education.secondary.note}` : ''}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                      {education.postgrad && (
+                        <p className="text-xs text-[var(--text-muted)]">{education.postgrad}</p>
+                      )}
                     </div>
                   </motion.div>
                 )}

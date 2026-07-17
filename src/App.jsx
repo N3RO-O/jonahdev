@@ -15,6 +15,7 @@ import Testimonials from './components/Testimonials'
 import Contact from './components/Contact'
 import FAQ from './components/FAQ'
 import Blog from './components/Blog'
+import Resume from './components/Resume'
 
 import Footer from './components/Footer'
 import BackToTop from './components/BackToTop'
@@ -45,6 +46,12 @@ export default function App() {
 
   return (
     <div className={`app-shell ${mounted ? 'is-mounted' : ''}`}>
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-[var(--surface)] focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-accent focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-accent"
+      >
+        Skip to content
+      </a>
       <AmbientGlow />
       {showIntro && (
         <div className={`intro-overlay ${introComplete ? 'intro-hidden' : ''}`} aria-hidden="true">
@@ -63,7 +70,7 @@ export default function App() {
       )}
 
       <Navbar theme={theme} onToggleTheme={toggle} />
-      <main>
+      <main id="main">
         <Hero introDone={!showIntro} />
         <About />
         <Skills />
@@ -75,6 +82,7 @@ export default function App() {
         <Testimonials />
         <FAQ />
         <Blog />
+        <Resume />
         <Contact />
 
       </main>
