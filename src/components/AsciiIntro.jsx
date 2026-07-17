@@ -4,14 +4,28 @@ import { useEffect, useRef, useState } from 'react'
 // Renders the brand wordmark as a solid block of text. Every row is kept
 // verbatim; the banner is scaled down with clamp() so it fits on mobile.
 const ASCII_BANNER = String.raw`
-     ___  _______  __    _  _______  __   __        ______   _______  __   __
-    |   ||       ||  |  | ||   _   ||  | |  |      |      | |       ||  | |  |
-    |   ||   _   ||   |_| ||  |_|  ||  |_|  |      |  _    ||    ___||  |_|  |
-    |   ||  | |  ||       ||       ||       |      | | |   ||   |___ |       |
- ___|   ||  |_|  ||  _    ||       ||       | ___  | |_|   ||    ___||       |
-|       ||       || | |   ||   _   ||   _   ||   | |       ||   |___  |     |
-|_______||_______||_|  |__||__| |__||__| |__||___| |______| |_______|  |___|
+                                                           
+   ▄▄▄▄▄▄                            ▄▄▄▄▄▄               
+  █▀ ██                   █▄        █▀██▀▀██              
+     ██       ▄           ██          ██   ██             
+     ██ ▄███▄ ████▄ ▄▀▀█▄ ████▄       ██   ██ ▄█▀█▄▀█▄ ██▀
+     ██ ██ ██ ██ ██ ▄█▀██ ██ ██     ▄ ██   ██ ██▄█▀ ██▄██ 
+     ██▄▀███▀▄██ ▀█▄▀█▄██▄██ ██ ██  ▀██▀███▀ ▄▀█▄▄▄  ▀█▀  
+ ▄   ██                                                   
+ ▀████▀
 `
+
+// Normalize the banner into equal-width rows so the block renders as one
+// coherent unit regardless of stray leading/trailing whitespace.
+const BANNER_ROWS = (() => {
+  const rows = ASCII_BANNER.replace(/^\n|\n$/g, '').split('\n')
+  const width = Math.max(...rows.map((r) => r.length))
+  return rows.map((r) => r.padEnd(width, ' '))
+})()
+
+// Column at which the "DEV" block begins, so it can be tinted with the
+// site accent while "JONAH" stays the default text color.
+const DEV_SPLIT = 31
 
 const BOOT_LINES = [
   '> initializing system ............ OK',
@@ -21,15 +35,16 @@ const BOOT_LINES = [
   '> welcome. before the web itself —',
 ]
 
-const TYPE_SPEED = 28
-const BANNER_HOLD = 650
-const TOTAL_HOLD = 1400
+const TYPE_SPEED = 18
+const BANNER_HOLD = 450
+const TOTAL_HOLD = 1300
 
 export default function AsciiIntro({ onComplete, onHide }) {
   const [typed, setTyped] = useState('')
   const [showBanner, setShowBanner] = useState(false)
   const [line, setLine] = useState(0)
   const [done, setDone] = useState(false)
+  const [glitched, setGlitched] = useState(false)
   const completeRef = useRef(false)
 
   // 1) type out the boot log line by line
@@ -58,6 +73,8 @@ export default function AsciiIntro({ onComplete, onHide }) {
   // 2) after the banner appears, wait then fire completion + hide
   useEffect(() => {
     if (!showBanner) return
+    // fire the one-shot lock-in glitch shortly after the banner reveals
+    const glitchTimer = setTimeout(() => setGlitched(true), 120)
     const completeTimer = setTimeout(() => {
       completeRef.current = true
       onComplete?.()
@@ -67,6 +84,7 @@ export default function AsciiIntro({ onComplete, onHide }) {
       onHide?.()
     }, TOTAL_HOLD + 700)
     return () => {
+      clearTimeout(glitchTimer)
       clearTimeout(completeTimer)
       clearTimeout(hideTimer)
     }
@@ -97,25 +115,30 @@ export default function AsciiIntro({ onComplete, onHide }) {
         </pre>
 
         {showBanner && (
-          <pre
-            className="ascii-banner font-mono mt-5"
-            style={{
-              fontSize: 'clamp(2px, 0.9vw, 7px)',
-              lineHeight: 1.0,
-              letterSpacing: '0.02em',
-              textAlign: 'center',
-              margin: 0,
-              whiteSpace: 'pre',
-              overflow: 'hidden',
-              animation: 'ascii-banner-in 0.7s cubic-bezier(0.22,1,0.36,1) both',
-            }}
-          >
-            {ASCII_BANNER.split('\n').map((row, idx) => (
-              <div key={idx} className="ascii-row">
-                {row}
-              </div>
-            ))}
-          </pre>
+          <div className="mt-5 flex justify-center">
+            <pre
+              className={`ascii-banner ascii-flicker font-mono ${glitched ? 'ascii-glitch' : ''}`}
+              style={{
+                fontSize: 'clamp(3px, 1.15vw, 9px)',
+                lineHeight: 1.0,
+                letterSpacing: '0.02em',
+                textAlign: 'left',
+                margin: 0,
+                whiteSpace: 'pre',
+                overflow: 'visible',
+              }}
+            >
+              {BANNER_ROWS.map((row, idx) => (
+                <div key={idx} className="ascii-row">
+                  {row.split('').map((ch, cidx) => (
+                    <span key={cidx} className={cidx >= DEV_SPLIT ? 'brand-accent' : undefined}>
+                      {ch}
+                    </span>
+                  ))}
+                </div>
+              ))}
+            </pre>
+          </div>
         )}
 
         {showBanner && (

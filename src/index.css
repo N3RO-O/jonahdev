@@ -228,6 +228,78 @@
     }
   }
 
+  /* CRT-style flicker + accent glow that runs while the banner is shown,
+     giving the boot screen a "live terminal" feel before it fades. */
+  .ascii-flicker {
+    animation: ascii-banner-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both,
+      ascii-flicker 2.4s steps(1, end) 0.7s infinite,
+      ascii-glow 2.4s ease-in-out 0.7s infinite;
+  }
+
+  @keyframes ascii-flicker {
+    0%, 100% { opacity: 1; }
+    3% { opacity: 0.72; }
+    6% { opacity: 1; }
+    9% { opacity: 0.86; }
+    12% { opacity: 1; }
+    40% { opacity: 0.94; }
+    41% { opacity: 0.6; }
+    42% { opacity: 1; }
+    70% { opacity: 0.9; }
+    72% { opacity: 1; }
+    88% { opacity: 0.78; }
+    90% { opacity: 1; }
+  }
+
+  @keyframes ascii-glow {
+    0%, 100% {
+      text-shadow: 0 0 2px rgba(var(--accent-rgb), 0.0);
+      filter: drop-shadow(0 0 0 rgba(var(--accent-rgb), 0));
+    }
+    50% {
+      text-shadow: 0 0 6px rgba(var(--accent-rgb), 0.35);
+      filter: drop-shadow(0 0 4px rgba(var(--accent-rgb), 0.28));
+    }
+  }
+
+  /* One-shot techy glitch — a brief RGB split + horizontal jitter that
+     fires right after the banner appears so the wordmark "locks in". */
+  .ascii-glitch {
+    animation: ascii-glitch 0.55s steps(2, end) 0.7s 1;
+  }
+
+  @keyframes ascii-glitch {
+    0% {
+      transform: translate(0, 0);
+      text-shadow: 0 0 0 rgba(var(--accent-rgb), 0);
+    }
+    20% {
+      transform: translate(-1px, 0);
+      text-shadow: 1.5px 0 0 rgba(var(--accent-rgb), 0.45),
+        -1.5px 0 0 rgba(80, 170, 255, 0.35);
+    }
+    40% {
+      transform: translate(1px, 0);
+      text-shadow: -1.5px 0 0 rgba(var(--accent-rgb), 0.4),
+        1.5px 0 0 rgba(80, 170, 255, 0.3);
+    }
+    60% {
+      transform: translate(-0.5px, 0);
+      text-shadow: 1px 0 0 rgba(var(--accent-rgb), 0.3);
+    }
+    100% {
+      transform: translate(0, 0);
+      text-shadow: 0 0 0 rgba(var(--accent-rgb), 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ascii-flicker,
+    .ascii-glitch {
+      animation: ascii-banner-in 0.4s ease both;
+    }
+  }
+
   .intro-tagline {
     margin-top: 1rem;
     color: var(--text-muted);
