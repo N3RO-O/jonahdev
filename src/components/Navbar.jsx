@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Menu, X, Sun, Moon, Download } from 'lucide-react'
+import { Menu, X, Sun, Moon } from 'lucide-react'
 import { navLinks, site } from '../data/siteData'
 
 export default function Navbar({ theme, onToggleTheme }) {
@@ -163,10 +163,6 @@ export default function Navbar({ theme, onToggleTheme }) {
             >
               {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
             </button>
-            <a href={site.cvUrl} download className="btn-primary hidden sm:inline-flex">
-              <Download size={16} />
-              CV
-            </a>
             <button
               type="button"
               className="rounded-lg border border-[var(--border)] p-2 md:hidden"
@@ -225,13 +221,7 @@ export default function Navbar({ theme, onToggleTheme }) {
                         {link.label}
                       </button>
                     </li>
-                  ))}
-                  <li>
-                    <a href={site.cvUrl} download className="btn-primary mt-2 w-full">
-                      <Download size={16} />
-                      Download CV
-                    </a>
-                  </li>
+                   ))}
                 </ul>
               </div>
             </div>
