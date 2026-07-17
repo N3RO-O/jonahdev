@@ -1,10 +1,6 @@
 import { useEffect, useState } from 'react'
 import { site } from '../data/siteData'
 import SocialLinks from './SocialLinks'
-import { FileDown } from 'lucide-react'
-// NOTE (QA): SocialLinks was previously rendered twice in this footer
-// (once here, once again in the row below) — a leftover duplicate from
-// an earlier layout pass. Kept to a single instance now.
 
 export default function Footer() {
   const [time, setTime] = useState('')
@@ -26,57 +22,38 @@ export default function Footer() {
   }, [])
 
   return (
-    <footer className="border-t border-[var(--border)] py-12">
+    <footer className="border-t border-[var(--border)] py-16">
       <div className="section-container">
-        <div className="grid gap-10 sm:grid-cols-2">
-          {/* Brand + socials */}
-          <div className="space-y-4">
-            <span className="font-mono text-lg font-bold">
-              jonah<span className="brand-accent">.dev</span>
-            </span>
-            <p className="max-w-xs text-sm text-[var(--text-muted)]">
-              {site.tagline}
-            </p>
-            <SocialLinks includeEmail />
-          </div>
+        <div className="flex flex-col items-center text-center">
+          <span className="font-mono text-2xl font-bold">
+            jonah<span className="brand-accent">.dev</span>
+          </span>
+          <p className="mt-3 max-w-md text-sm text-[var(--text-muted)]">
+            {site.tagline}
+          </p>
+          <SocialLinks includeEmail className="mt-6" />
 
-          {/* Contact + CV */}
-          <div>
-            <h4 className="mb-4 font-mono text-[11px] uppercase tracking-[0.28em] text-[var(--text-muted)]">
-              Get in Touch
-            </h4>
-            <ul className="space-y-2.5 text-sm text-[var(--text-muted)]">
-              <li>
-                <a href={`mailto:${site.email}`} className="transition-colors hover:text-accent">
-                  {site.email}
-                </a>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="font-mono text-xs">
-                  {time} PHT · open_to_work: <span className="text-accent">true</span>
-                </span>
-              </li>
-              <li className="pt-1">
-                <a href={site.cvUrl} download className="btn-secondary inline-flex items-center gap-2 text-xs">
-                  <FileDown size={14} />
-                  Download résumé
-                </a>
-              </li>
-            </ul>
+          <div className="mt-8 flex items-center gap-2 text-xs font-mono text-[var(--text-muted)]">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--accent)] opacity-75"></span>
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--accent)]"></span>
+            </span>
+            <span>{time} PHT</span>
+            <span className="text-[var(--border)]">·</span>
+            <span>open_to_work: <span className="text-[var(--accent)]">true</span></span>
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-[var(--border)] pt-6 text-xs text-[var(--text-muted)] sm:flex-row">
+        <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-[var(--border)] pt-6 text-xs text-[var(--text-muted)] sm:flex-row">
           <span>© {year} Jonah Mark Tabuzo. All rights reserved.</span>
           <span>
-            Made with <span className="text-accent">React</span> +{' '}
-            <span className="text-accent">Vite</span> &amp;{' '}
+            Built with <span className="text-[var(--accent)]">React</span> +{' '}
+            <span className="text-[var(--accent)]">Vite</span> &amp;{' '}
             <a
               href="https://github.com/N3RO-O/jonahdev"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-accent hover:underline"
+              className="hover:text-[var(--accent)] hover:underline"
             >
               source on GitHub
             </a>
