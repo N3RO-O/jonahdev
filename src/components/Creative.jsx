@@ -106,6 +106,7 @@ export default function Creative() {
     <section id="creative" className="py-20">
       <div className="section-container">
         <SectionHeader
+          index="05"
           eyebrow="// creative work"
           title="Photography & Videography"
           subtitle={creative.intro}

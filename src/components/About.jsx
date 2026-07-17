@@ -14,6 +14,7 @@ export default function About() {
     <section id="about" className="py-20">
       <div className="section-container">
         <SectionHeader
+          index="01"
           eyebrow="// about"
           title="About Me"
           subtitle="Developer, systems thinker, and visual storyteller from Catanduanes."

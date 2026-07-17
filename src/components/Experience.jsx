@@ -10,6 +10,7 @@ export default function Experience() {
     <section id="experience" className="py-20 bg-[var(--surface-elevated)]/50">
       <div className="section-container">
         <SectionHeader
+          index="04"
           eyebrow="// experience"
           title="Experience"
           subtitle="Transferable skills from tech, government, and client-facing roles."

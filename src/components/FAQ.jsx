@@ -27,7 +27,7 @@ export default function FAQ() {
   return (
     <section id="faq" className="py-20">
       <div className="section-container">
-        <SectionHeader eyebrow="// faq" title="Quick Answers" subtitle="Short, practical details before we build." />
+        <SectionHeader index="08" eyebrow="// faq" title="Quick Answers" subtitle="Short, practical details before we build." />
 
         <div ref={ref} className="mt-10 grid gap-4 md:grid-cols-2">
           {faqs.map((item, idx) => (

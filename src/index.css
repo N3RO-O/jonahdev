@@ -581,7 +581,12 @@
   }
 
   .section-title {
-    @apply font-display text-3xl font-semibold tracking-tight sm:text-4xl;
+    @apply font-display font-semibold tracking-tight;
+    /* Fluid scale: grows smoothly with viewport instead of jumping at the
+       sm/lg breakpoints, so the title always feels intentionally sized
+       rather than "the sm: bucket happened to apply here". */
+    font-size: clamp(1.75rem, 1.35rem + 1.8vw, 2.75rem);
+    line-height: 1.15;
   }
 
   .section-eyebrow {
@@ -597,6 +602,19 @@
   }
   .section-eyebrow span {
     letter-spacing: 0.08em;
+  }
+
+  /* Editorial frame-counter numerals that sit beside each section header on
+     wide screens — a nod to the photography/viewfinder motif (frame
+     numbers on a contact sheet) that also gives the eye a rhythm to track
+     while scrolling, instead of every section announcing itself identically. */
+  .section-index {
+    @apply select-none font-mono font-bold tabular-nums text-accent/25;
+    font-size: clamp(2.5rem, 2rem + 2vw, 4rem);
+    line-height: 1;
+  }
+  .section-index-rule {
+    background: linear-gradient(180deg, rgba(var(--accent-rgb), 0.5), transparent);
   }
 
   .hero-badge {

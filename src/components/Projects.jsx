@@ -149,6 +149,7 @@ export default function Projects() {
     <section id="projects" className="py-20">
       <div className="section-container">
         <SectionHeader
+          index="03"
           eyebrow="// featured work"
           title="Featured Projects"
           subtitle="Quality over quantity — capstone and OJT systems with real impact."

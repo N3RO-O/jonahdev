@@ -52,6 +52,7 @@ export default function Blog() {
     <section id="blog" className="py-20">
       <div className="section-container">
         <SectionHeader
+          index="09"
           eyebrow="// writing"
           title="Blog & Notes"
           subtitle="Short, practical pieces on building fast, thoughtful web experiences."

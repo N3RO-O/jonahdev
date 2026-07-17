@@ -48,6 +48,7 @@ export default function Contact() {
       </div>
       <div className="section-container relative">
         <SectionHeader
+          index="10"
           eyebrow="// contact"
           title="Let's Build Something"
           subtitle="Web systems, shoots, or collaborations — I deliver work built to last."

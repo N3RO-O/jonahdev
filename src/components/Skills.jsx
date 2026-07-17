@@ -31,6 +31,7 @@ export default function Skills() {
       </div>
       <div className="section-container relative">
         <SectionHeader
+          index="02"
           eyebrow="// skills"
           title="Skills & Tools"
           subtitle="Organized by category — technical, professional, and creative."

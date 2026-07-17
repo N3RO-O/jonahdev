@@ -21,7 +21,7 @@ export default function Education() {
   return (
     <section id="education" className="py-20">
       <div className="section-container">
-        <SectionHeader eyebrow="// education & certs" title="Education & Certifications" />
+        <SectionHeader index="06" eyebrow="// education & certs" title="Education & Certifications" />
 
         <div ref={ref} className="space-y-10">
           {/* Main Degree Card */}

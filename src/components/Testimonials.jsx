@@ -25,7 +25,7 @@ export default function Testimonials() {
   return (
     <section id="testimonials" className="py-20">
       <div className="section-container">
-        <SectionHeader eyebrow="// social proof" title="Kind Words" />
+        <SectionHeader index="07" eyebrow="// social proof" title="Kind Words" />
 
         <div ref={ref} className="relative">
           <AnimatePresence mode="wait">

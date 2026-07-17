@@ -15,10 +15,15 @@ export default function Hero({ introDone = true }) {
 
   const revealed = reduceMotion || introDone
 
+  // Same expo-out curve used for the intro overlay and scroll-to easing
+  // elsewhere on the site, so the hero's first impression moves with the
+  // same signature feel as everything after it.
+  const EASE = [0.22, 1, 0.36, 1]
+
   const motionHidden = reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
   const motionShow = revealed ? { opacity: 1, y: 0 } : motionHidden
   const motionTransition = (delay, opts = {}) =>
-    reduceMotion ? { duration: 0 } : { delay, duration: 0.5, ...opts }
+    reduceMotion ? { duration: 0 } : { delay, duration: 0.6, ease: EASE, ...opts }
 
   const handleMouseMove = (e) => {
     const el = heroRef.current
@@ -130,11 +135,25 @@ export default function Hero({ introDone = true }) {
               {site.location} · BSIS Graduate
             </motion.p>
 
+            <motion.div
+              initial={motionHidden}
+              animate={motionShow}
+              transition={motionTransition(0.12)}
+              className="mb-5 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1.5 text-xs font-medium text-accent"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+              </span>
+              Open to work
+            </motion.div>
+
             <motion.h1
               initial={motionHidden}
               animate={motionShow}
               transition={motionTransition(0.15)}
-              className="font-display text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl"
+              className="font-display font-semibold tracking-tight"
+              style={{ fontSize: 'clamp(2.5rem, 1.9rem + 3vw, 4.5rem)', lineHeight: 1.05 }}
             >
               {site.name}
               <br />
