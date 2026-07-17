@@ -173,7 +173,8 @@ export default function Hero({ introDone = true }) {
               initial={motionHidden}
               animate={motionShow}
               transition={motionTransition(0.4)}
-              className="mt-8 flex flex-wrap gap-3"
+              className="flex flex-wrap gap-3"
+              style={{ marginTop: 'clamp(1.5rem, 1.1rem + 1.5vw, 2rem)' }}
             >
               <button
                 type="button"
@@ -223,8 +224,12 @@ export default function Hero({ introDone = true }) {
           >
             {/* Viewfinder-framed portrait — the recurring signature motif
                 tying his photography eye to the rest of the site. */}
-            <ViewfinderFrame variant="static" rounded="rounded-2xl" className="h-64 w-64 sm:h-80 sm:w-80">
-              <div className="h-64 w-64 border-2 border-accent/30 shadow-2xl sm:h-80 sm:w-80">
+            <ViewfinderFrame
+              variant="static"
+              rounded="rounded-2xl"
+              className="h-[clamp(15rem,12rem+10vw,21rem)] w-[clamp(15rem,12rem+10vw,21rem)]"
+            >
+              <div className="h-[clamp(15rem,12rem+10vw,21rem)] w-[clamp(15rem,12rem+10vw,21rem)] border-2 border-accent/30 shadow-2xl">
                 <img
                   src={site.photo}
                   alt={site.name}

@@ -16,8 +16,9 @@ const item = {
   show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
 }
 
-export default function SectionHeader({ eyebrow, title, subtitle, index }) {
+export default function SectionHeader({ eyebrow, title, subtitle, index, size = 'md' }) {
   const [ref, inView] = useInView()
+  const isLg = size === 'lg'
 
   return (
     <motion.div
@@ -25,7 +26,9 @@ export default function SectionHeader({ eyebrow, title, subtitle, index }) {
       variants={container}
       initial="hidden"
       animate={inView ? 'show' : 'hidden'}
-      className="mb-12 md:mb-16 grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,5rem)_1fr] lg:items-end lg:gap-8"
+      className={`grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,5rem)_1fr] lg:items-end lg:gap-8 ${
+        isLg ? 'mb-14 md:mb-20' : 'mb-12 md:mb-16'
+      }`}
     >
       {index && (
         <motion.div
@@ -33,7 +36,7 @@ export default function SectionHeader({ eyebrow, title, subtitle, index }) {
           aria-hidden="true"
           className="hidden lg:flex lg:items-end lg:gap-4"
         >
-          <span className="section-index">{index}</span>
+          <span className={`section-index ${isLg ? 'section-index-lg' : ''}`}>{index}</span>
           <span className="section-index-rule mb-1 h-10 w-px" />
         </motion.div>
       )}
@@ -48,7 +51,7 @@ export default function SectionHeader({ eyebrow, title, subtitle, index }) {
             {eyebrow}
           </motion.p>
         )}
-        <motion.h2 variants={item} className="section-title">
+        <motion.h2 variants={item} className={`section-title ${isLg ? 'section-title-lg' : ''}`}>
           {title}
         </motion.h2>
         {subtitle && (

@@ -150,6 +150,7 @@ export default function Projects() {
       <div className="section-container">
         <SectionHeader
           index="03"
+          size="lg"
           eyebrow="// featured work"
           title="Featured Projects"
           subtitle="Quality over quantity — capstone and OJT systems with real impact."

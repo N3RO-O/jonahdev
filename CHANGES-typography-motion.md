@@ -37,6 +37,24 @@ two-column layout next to the portrait.
   automatically. Previously only Hero checked this explicitly — Section
   reveals, Testimonials, Creative's grid, etc. did not.
 
+## 4. Flagship weight on two sections (SectionHeader.jsx, index.css, About.jsx, Projects.jsx)
+Giving all ten sections a numeral fixed the "identical header" problem, but
+they were still all the same *size*. Added an optional `size="lg"` variant
+on `<SectionHeader>` — a bigger title and index numeral, used only on
+**About** (right after the Hero, so it carries some of that energy forward)
+and **Projects** (your featured-work section, the one that should carry
+the most visual weight). Everything else stays at the standard size, so
+the two flagship sections read as genuine high points in the scroll rather
+than the whole page getting louder.
+
+## 5. Fluid hero portrait + CTA rhythm (Hero.jsx)
+The portrait was fixed at `h-64 w-64` on mobile and jumped straight to
+`h-80 w-80` at the `sm` breakpoint — a visible size-jump on resize/rotation.
+It now scales continuously with `clamp(15rem, 12rem + 10vw, 21rem)`, same
+technique as the section titles, so the headline and the portrait scale as
+one system instead of two different sizing strategies. The CTA button
+row's top margin got the same fluid treatment for consistency.
+
 ## How to apply
 Drop `src/index.css`, `src/main.jsx`, and everything in `src/components/`
 here into the matching paths in your project (overwriting the existing
@@ -50,10 +68,9 @@ npm run dev
 Verified with `npm run build` — no errors, no new dependencies.
 
 ## Where I'd go next
-- Vary the *rhythm* further: give 2–3 sections (About, Projects) a wider or
-  differently-aligned header treatment instead of every section being the
-  same width/alignment, now that the numeral gives you a hook to hang that
-  variation on.
-- The Hero portrait/CTA column could pick up a matching fluid-scale pass.
+- Extend the `size="lg"` treatment thinking to Contact (the closing CTA)
+  if you want the page to end on the same weight it opens with.
+- Creative's grid could pick up a similar rhythm break — e.g. one larger
+  "hero" tile in the grid instead of every tile being identical size.
 - A per-section accent shift (same gold, different intensity/motif per
   section) would reinforce the numbering device even further.

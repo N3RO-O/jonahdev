@@ -617,6 +617,18 @@
     background: linear-gradient(180deg, rgba(var(--accent-rgb), 0.5), transparent);
   }
 
+  /* "Flagship" size step — used sparingly (About right after the Hero,
+     Projects as the featured-work section) so two or three beats in the
+     scroll get more weight than the rest, instead of all ten sections
+     announcing themselves at identical volume. */
+  .section-title-lg {
+    font-size: clamp(2.25rem, 1.6rem + 3vw, 4rem);
+    line-height: 1.08;
+  }
+  .section-index-lg {
+    font-size: clamp(3.25rem, 2.4rem + 3.2vw, 5.5rem);
+  }
+
   .hero-badge {
     @apply relative z-40 rounded-2xl px-3 py-1.5 font-mono text-[11px] text-white transition duration-300 ease-out;
     border-color: rgba(220, 170, 78, 0.75);
