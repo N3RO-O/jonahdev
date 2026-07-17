@@ -37,7 +37,7 @@ export default function SectionHeader({ eyebrow, title, subtitle, index, size = 
           className="hidden lg:flex lg:items-end lg:gap-4"
         >
           <span className={`section-index ${isLg ? 'section-index-lg' : ''}`}>{index}</span>
-          <span className="section-index-rule mb-1 h-10 w-px" />
+          <span className="section-index-rule mb-1 h-8 w-px" />
         </motion.div>
       )}
 

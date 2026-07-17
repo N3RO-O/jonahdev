@@ -135,19 +135,6 @@ export default function Hero({ introDone = true }) {
               {site.location} · BSIS Graduate
             </motion.p>
 
-            <motion.div
-              initial={motionHidden}
-              animate={motionShow}
-              transition={motionTransition(0.12)}
-              className="mb-5 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1.5 text-xs font-medium text-accent"
-            >
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
-              </span>
-              Open to work
-            </motion.div>
-
             <motion.h1
               initial={motionHidden}
               animate={motionShow}
