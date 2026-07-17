@@ -39,8 +39,6 @@ export default function Footer() {
               <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--accent)]"></span>
             </span>
             <span>{time} PHT</span>
-            <span className="text-[var(--border)]">·</span>
-            <span>open_to_work: <span className="text-[var(--accent)]">true</span></span>
           </div>
         </div>
 

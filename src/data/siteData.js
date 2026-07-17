@@ -9,7 +9,6 @@ export const site = {
   phone: '+63 928 574 4262',
   cvUrl: '/assets/jonah-tabuzo-cv.pdf',
   photo: '/assets/jonah-photo-updated.jpg?v=5',
-  availability: 'Open to Entry-Level Roles — IT Support, Web Development, Systems Analysis',
   socials: [
     { label: 'GitHub', icon: 'github', href: 'https://github.com/N3RO-O', handle: 'N3RO-O' },
     {
@@ -305,7 +304,7 @@ export const experience = [
 export const education = {
   degree: 'Bachelor of Science in Information Systems',
   school: 'Catanduanes State University',
-  period: 'Expected to graduate 2026',
+  period: 'Graduated June 2026',
   details: [
     'Completing a BS in Information Systems, expected to graduate in 2026',
     'Capstone Lead Programmer — KiddyTrack academic monitoring system',
