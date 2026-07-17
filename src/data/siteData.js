@@ -156,7 +156,7 @@ export const projects = [
     id: 'philrads',
     title: 'PHILRADS Asset Database System',
     subtitle: 'OJT Project · Asset Management',
-    year: '2024',
+    year: '2026',
     accent: '#800000',
     description:
       'Role-based asset inventory and management system for PHILRADS — tracking equipment, resources, and records with full CRUD functionality.',
@@ -203,7 +203,7 @@ export const projects = [
     id: 'philrads-ims',
     title: 'PHILRADS Inventory Management System (IMS)',
     subtitle: 'OJT Project · Inventory Management',
-    year: '2024–2025',
+    year: '2026',
     accent: '#4a9eff',
     description:
       'A separate web-based inventory management system built during OJT at PHILRADS — focused on stock and inventory workflows, independent from the Asset Database System.',
