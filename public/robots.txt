@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://jonahdevportfolio.vercel.app/sitemap.xml
+Sitemap: https://tabuzoportfolio.vercel.app/sitemap.xml

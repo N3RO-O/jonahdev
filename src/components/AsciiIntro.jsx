@@ -35,7 +35,7 @@ const BOOT_LINES = [
   '> welcome. before the web itself —',
 ]
 
-const TYPE_SPEED = 18
+const TYPE_SPEED = 23
 const BANNER_HOLD = 450
 const TOTAL_HOLD = 1300
 
@@ -44,7 +44,6 @@ export default function AsciiIntro({ onComplete, onHide }) {
   const [showBanner, setShowBanner] = useState(false)
   const [line, setLine] = useState(0)
   const [done, setDone] = useState(false)
-  const [glitched, setGlitched] = useState(false)
   const completeRef = useRef(false)
 
   // 1) type out the boot log line by line
@@ -73,8 +72,6 @@ export default function AsciiIntro({ onComplete, onHide }) {
   // 2) after the banner appears, wait then fire completion + hide
   useEffect(() => {
     if (!showBanner) return
-    // fire the one-shot lock-in glitch shortly after the banner reveals
-    const glitchTimer = setTimeout(() => setGlitched(true), 120)
     const completeTimer = setTimeout(() => {
       completeRef.current = true
       onComplete?.()
@@ -84,7 +81,6 @@ export default function AsciiIntro({ onComplete, onHide }) {
       onHide?.()
     }, TOTAL_HOLD + 700)
     return () => {
-      clearTimeout(glitchTimer)
       clearTimeout(completeTimer)
       clearTimeout(hideTimer)
     }
@@ -115,9 +111,12 @@ export default function AsciiIntro({ onComplete, onHide }) {
         </pre>
 
         {showBanner && (
-          <div className="mt-5 flex justify-center">
+          <div
+            className="mt-5 flex justify-center"
+            style={{ animation: 'ascii-banner-in 0.7s cubic-bezier(0.22,1,0.36,1) both' }}
+          >
             <pre
-              className={`ascii-banner ascii-flicker font-mono ${glitched ? 'ascii-glitch' : ''}`}
+              className="ascii-banner font-mono"
               style={{
                 fontSize: 'clamp(3px, 1.15vw, 9px)',
                 lineHeight: 1.0,
@@ -130,11 +129,7 @@ export default function AsciiIntro({ onComplete, onHide }) {
             >
               {BANNER_ROWS.map((row, idx) => (
                 <div key={idx} className="ascii-row">
-                  {row.split('').map((ch, cidx) => (
-                    <span key={cidx} className={cidx >= DEV_SPLIT ? 'brand-accent' : undefined}>
-                      {ch}
-                    </span>
-                  ))}
+                  {row}
                 </div>
               ))}
             </pre>

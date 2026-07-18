@@ -15,7 +15,7 @@ import { useEffect, useRef, useState } from 'react'
  * - Fails soft: if the API is unreachable, we fall back to the last cached
  *   value (marked "offline") instead of showing a broken UI.
  */
-const NAMESPACE = 'jonahdevportfolio-vercel-app'
+const NAMESPACE = 'tabuzoportfolio-vercel-app'
 const COUNTER_KEY = 'site-visits'
 const SESSION_FLAG = 'jt-visit-counted-session'
 const VISITED_FLAG = 'jt-visit-counted'
