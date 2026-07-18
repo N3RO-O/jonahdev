@@ -118,20 +118,16 @@ export default function AsciiIntro({ onComplete, onHide }) {
             <pre
               className="ascii-banner font-mono"
               style={{
-                fontSize: 'clamp(3px, 1.15vw, 9px)',
-                lineHeight: 1.0,
+                fontSize: 'clamp(2.5px, 1.15vw, 8px)',
+                lineHeight: 1.05,
                 letterSpacing: '0.02em',
-                textAlign: 'left',
+                textAlign: 'center',
                 margin: 0,
                 whiteSpace: 'pre',
                 overflow: 'visible',
               }}
             >
-              {BANNER_ROWS.map((row, idx) => (
-                <div key={idx} className="ascii-row">
-                  {row}
-                </div>
-              ))}
+              {BANNER_ROWS.join('\n')}
             </pre>
           </div>
         )}
