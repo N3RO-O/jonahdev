@@ -24,8 +24,10 @@ npm run preview  # preview production build
 Edit `src/data/siteData.js` for:
 
 - Hero headline, availability banner, social links
-- Projects (case studies, tech badges, metrics, screenshots)
-- Skills categories
+- Projects (case studies, tech badges, metrics, screenshots) — project cards
+  carry no outbound links; each one opens an inline case study instead
+- Skills: `coreStack` (the primary-stack strip) and `skillCategories`
+  (the spec-sheet rows, each with a `caption`)
 - Experience, education, certifications
 - Creative gallery paths
 - Contact form (Formspree URL)

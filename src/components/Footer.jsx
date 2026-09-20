@@ -46,15 +46,7 @@ export default function Footer() {
           <span>© {year} Jonah Mark Tabuzo. All rights reserved.</span>
           <span>
             Built with <span className="text-[var(--accent)]">React</span> +{' '}
-            <span className="text-[var(--accent)]">Vite</span> &amp;{' '}
-            <a
-              href="https://github.com/N3RO-O/jonahdev"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-[var(--accent)] hover:underline"
-            >
-              source on GitHub
-            </a>
+            <span className="text-[var(--accent)]">Vite</span>
           </span>
         </div>
       </div>

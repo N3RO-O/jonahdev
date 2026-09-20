@@ -1,6 +1,11 @@
 # TODO
 
 ## Done
+- [x] Remove the ASCII boot intro entirely — site paints straight into the hero
+- [x] Strip every outbound project link (GitHub source + live demo); cards now
+      open an inline case study and surface their tech stack when collapsed
+- [x] Redesign Skills & Tools: primary-stack strip + datasheet rows replacing
+      the 3x2 grid of identical cards
 - [x] Mobile responsiveness: global overflow guard, Education min-column, navbar padding/truncate
 - [x] Dead-code cleanup: remove VisitorCounter, XAMPP scripts + build:xampp, redundant useTheme ternary, stale README note
 - [x] Single source of assets: delete root `assets/` + `index.legacy.html`; keep `public/assets/` + `dist/`

@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence, useReducedMotion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import {
-  ExternalLink,
-  Github,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
@@ -256,8 +254,6 @@ export default function Projects() {
   )
 }
 
-// NOTE: The rest of the file (old duplicate Projects implementation) was removed during this fix.
-
 function ProjectCard({ project, index }) {
   const [expanded, setExpanded] = useState(false)
   const [lightbox, setLightbox] = useState({ images: [], index: null })
@@ -355,7 +351,7 @@ function ProjectCard({ project, index }) {
         transition={cardMotion.transition}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        className="card group/card relative overflow-hidden will-change-transform"
+        className="card group/card relative overflow-hidden p-0 will-change-transform"
         style={{ borderTopColor: project.accent, borderTopWidth: '3px', ...tiltStyle }}
       >
         {!reduceMotion && (
@@ -394,42 +390,38 @@ function ProjectCard({ project, index }) {
             </p>
           )}
 
-          <div className="mt-5 flex flex-wrap gap-3">
-            {project.links.live && (
-              <a href={project.links.live} target="_blank" rel="noopener noreferrer" className="btn-primary">
-                <ExternalLink size={16} />
-                Live Demo
-              </a>
-            )}
-            {project.links.liveSecondary && (
-              <a
-                href={project.links.liveSecondary}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-secondary"
-              >
-                <ExternalLink size={16} />
-                {project.links.liveSecondaryLabel || 'View module'}
-              </a>
-            )}
-            {project.links.github && (
-              <a href={project.links.github} target="_blank" rel="noopener noreferrer" className="btn-secondary">
-                <Github size={16} />
-                GitHub
-              </a>
-            )}
-            <button
-              type="button"
-              onClick={() => setExpanded(!expanded)}
-              className="btn-secondary"
-              aria-expanded={expanded}
-              aria-controls={`${project.id}-details`}
-            >
-              Details
-              <ChevronDown size={16} className={`transition-transform ${expanded ? 'rotate-180' : ''}`} />
-            </button>
-          </div>
+          {project.tech?.length > 0 && (
+            <div className="mt-5 flex flex-wrap gap-2">
+              {project.tech.slice(0, 5).map((t) => (
+                <span key={t} className="badge">
+                  {t}
+                </span>
+              ))}
+              {project.tech.length > 5 && (
+                <span className="badge border-dashed">+{project.tech.length - 5}</span>
+              )}
+            </div>
+          )}
         </div>
+
+        {/* Full-width case-study toggle. With no outbound links on a card,
+            this is the card's only action, so it gets the full footer
+            instead of sitting in a row of buttons. */}
+        <button
+          type="button"
+          onClick={() => setExpanded(!expanded)}
+          className="case-study-toggle"
+          aria-expanded={expanded}
+          aria-controls={`${project.id}-details`}
+        >
+          <span className="font-mono text-[11px] uppercase tracking-[0.18em]">
+            {expanded ? 'Hide case study' : 'Read case study'}
+          </span>
+          <ChevronDown
+            size={15}
+            className={`transition-transform duration-300 ${expanded ? 'rotate-180' : ''}`}
+          />
+        </button>
 
         <AnimatePresence initial={false}>
           {expanded && (
@@ -456,14 +448,6 @@ function ProjectCard({ project, index }) {
                     ))}
                   </div>
                 )}
-
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.map((t) => (
-                    <span key={t} className="badge">
-                      {t}
-                    </span>
-                  ))}
-                </div>
 
                 <ul className="space-y-2 text-sm text-[var(--text-muted)]">
                   {project.features.map((f) => (

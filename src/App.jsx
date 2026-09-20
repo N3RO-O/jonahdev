@@ -17,8 +17,6 @@ import FAQ from './components/FAQ'
 import Blog from './components/Blog'
 import Footer from './components/Footer'
 import BackToTop from './components/BackToTop'
-import AsciiIntro from './components/AsciiIntro'
-
 import AmbientGlow from './components/AmbientGlow'
 
 export default function App() {
@@ -26,8 +24,6 @@ export default function App() {
   useCardSpotlight()
   useMagneticHover()
   const [mounted, setMounted] = useState(false)
-  const [showIntro, setShowIntro] = useState(true)
-  const [introComplete, setIntroComplete] = useState(false)
 
   useEffect(() => {
     const frame = requestAnimationFrame(() => setMounted(true))
@@ -43,32 +39,24 @@ export default function App() {
         Skip to content
       </a>
       <AmbientGlow />
-      {showIntro && (
-        <AsciiIntro
-          onComplete={() => setIntroComplete(true)}
-          onHide={() => setShowIntro(false)}
-        />
-      )}
 
       <Navbar theme={theme} onToggleTheme={toggle} />
       <main id="main">
-        <Hero introDone={!showIntro} />
+        <Hero />
         <About />
-      <Skills />
-      <Projects />
+        <Skills />
+        <Projects />
         <GitHubStrip />
         <Experience />
         <Creative />
         <Education />
         <Testimonials />
         <FAQ />
-      <Blog />
-      <Contact />
-
+        <Blog />
+        <Contact />
       </main>
       <Footer />
       <BackToTop />
-
     </div>
   )
 }

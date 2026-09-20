@@ -57,25 +57,34 @@ export const about = {
   ],
 }
 
+// The tools that actually carry the shipped work — surfaced above the
+// full breakdown so a recruiter scanning for five seconds still lands on
+// the right five words.
+export const coreStack = ['PHP', 'MySQL', 'JavaScript', 'React', 'Tailwind CSS']
+
 export const skillCategories = [
   {
     title: 'Frontend',
     icon: 'layout',
+    caption: 'Interfaces built to stay readable for non-technical users.',
     skills: ['React', 'JavaScript', 'HTML5', 'CSS3', 'Tailwind CSS', 'Responsive UI'],
   },
   {
     title: 'Backend',
     icon: 'server',
+    caption: 'Role-based systems, relational schemas, and CRUD workflows.',
     skills: ['PHP', 'MySQL', 'AJAX', 'REST APIs', 'Session Auth', 'CRUD Systems'],
   },
   {
     title: 'Tools & Methods',
     icon: 'wrench',
+    caption: 'Version control, database design, and requirements work.',
     skills: ['Git', 'GitHub', 'Systems Analysis', 'SQL', 'Database Design', 'Basic Networking'],
   },
   {
     title: 'Professional',
     icon: 'briefcase',
+    caption: 'The non-code half of getting a system into real hands.',
     skills: [
       'Project Management',
       'Stakeholder Engagement',
@@ -87,11 +96,13 @@ export const skillCategories = [
   {
     title: 'Creative',
     icon: 'camera',
+    caption: 'The same eye for composition that shapes the interfaces.',
     skills: ['Photography', 'Videography', 'Video Editing', 'Visual Storytelling'],
   },
   {
     title: 'Currently Learning',
     icon: 'book',
+    caption: 'Picking these up next, in order of priority.',
     skills: ['TypeScript', 'Node.js', 'Laravel', 'C++ / C#'],
     accent: true,
   },
@@ -122,10 +133,6 @@ export const projects = [
       'Relational database schema designed from scratch',
       'Grade tracking presented clearly for non-technical users',
     ],
-    links: {
-      live: 'https://kiddytrack.page.gd',
-      github: null,
-    },
     galleries: [
       {
         label: 'Teacher Dashboard',
@@ -174,12 +181,6 @@ export const projects = [
       'Role-based access control (Admin / Staff)',
       'Clean responsive interface for office and field use',
     ],
-    links: {
-      live: 'https://assetphilrads.page.gd/Philrads/',
-      liveSecondary: 'https://assetphilrads.page.gd/Philrads/asset_detail.php?id=10',
-      liveSecondaryLabel: 'Sample asset record',
-      github: 'https://github.com/N3RO-O/Philrads-Asset-Inventory',
-    },
     galleries: [
       {
         label: 'Admin Dashboard',
@@ -222,10 +223,6 @@ export const projects = [
       'Deployed live during OJT at PHILRADS',
       'Not connected to the Asset Database System',
     ],
-    links: {
-      live: 'https://philrads-ims.page.gd/?i=1',
-      github: null,
-    },
     galleries: [],
     screenshotsPending: true,
   },
@@ -254,10 +251,6 @@ export const projects = [
       'Savings goals with pace tracking + confetti',
       'JSON backup/restore & CSV export (screenshots coming soon)',
     ],
-    links: {
-      live: 'https://nerovault.vercel.app/',
-      github: 'https://github.com/N3RO-O/Nerovault',
-    },
     galleries: [],
     screenshotsPending: true,
   },
