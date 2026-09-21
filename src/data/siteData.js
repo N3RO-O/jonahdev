@@ -49,6 +49,15 @@ export const about = {
     'I am particularly interested in opportunities where I can contribute to reliable web solutions, systems analysis, and product-focused development within teams that value craftsmanship and meaningful outcomes.',
     'Beyond coding, I create visual content, support creative initiatives, and actively contribute to community-driven projects through PIXODE Philippines and other local organizations.',
   ],
+  // Scannable facts for the About rail. Every value here already appears
+  // elsewhere on the site (hero location, education block, page meta) —
+  // this just puts them where someone skimming will actually find them.
+  facts: [
+    { label: 'Based in', value: 'Virac, Catanduanes, PH' },
+    { label: 'Degree', value: 'BS Information Systems, 2026' },
+    { label: 'Focus', value: 'Full-stack web systems' },
+    { label: 'Open to', value: 'Web Development · IT Support · Systems Analysis' },
+  ],
   highlights: [
     { icon: 'graduate', label: 'BSIS Graduate', desc: 'Catanduanes State University' },
     { icon: 'briefcase', label: 'PHILRADS', desc: 'Contributing through meaningful projects' },
@@ -67,13 +76,31 @@ export const skillCategories = [
     title: 'Frontend',
     icon: 'layout',
     caption: 'Interfaces built to stay readable for non-technical users.',
-    skills: ['React', 'JavaScript', 'HTML5', 'CSS3', 'Tailwind CSS', 'Responsive UI'],
+    skills: [
+      'React',
+      'JavaScript',
+      'HTML5',
+      'CSS3',
+      'Tailwind CSS',
+      'Responsive UI',
+      'WordPress',
+      'FlutterFlow',
+      'Figma',
+    ],
   },
   {
     title: 'Backend',
     icon: 'server',
     caption: 'Role-based systems, relational schemas, and CRUD workflows.',
-    skills: ['PHP', 'MySQL', 'AJAX', 'REST APIs', 'Session Auth', 'CRUD Systems'],
+    skills: [
+      'PHP',
+      'MySQL',
+      'Supabase',
+      'AJAX',
+      'REST APIs',
+      'Session Auth',
+      'CRUD Systems',
+    ],
   },
   {
     title: 'Tools & Methods',

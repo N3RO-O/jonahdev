@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion, AnimatePresence, useReducedMotion, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import {
   ChevronDown,
   ChevronLeft,
@@ -10,6 +10,7 @@ import {
   CircleDot,
   Lightbulb,
   UserCog,
+  ImageOff,
 } from 'lucide-react'
 import { projects } from '../data/siteData'
 import SectionHeader from './SectionHeader'
@@ -35,7 +36,7 @@ function GalleryViewer({ galleries, accent, onExpand }) {
   const lines = captionLines.length > 0 ? captionLines : [String(current.caption ?? '')]
 
   return (
-    <div className="mt-5">
+    <div>
       {galleries.length > 1 && (
         <div className="mb-4 flex flex-wrap gap-2">
           {galleries.map((g, i) => (
@@ -170,13 +171,8 @@ function GalleryViewer({ galleries, accent, onExpand }) {
   )
 }
 
-
-
-
-
 export default function Projects() {
   const [ref] = useInView()
-
 
   const techOptions = Array.from(
     new Set(
@@ -189,7 +185,8 @@ export default function Projects() {
 
   const [activeTech, setActiveTech] = useState('All')
 
-  const filtered = activeTech === 'All' ? projects : projects.filter((p) => (p.tech ?? []).includes(activeTech))
+  const filtered =
+    activeTech === 'All' ? projects : projects.filter((p) => (p.tech ?? []).includes(activeTech))
 
   return (
     <section id="projects" className="py-20">
@@ -202,15 +199,11 @@ export default function Projects() {
         />
 
         {techOptions.length > 0 && (
-          <div className="mb-8 flex flex-wrap items-center gap-2">
+          <div className="mb-6 flex flex-wrap items-center gap-1.5">
             <button
               type="button"
               onClick={() => setActiveTech('All')}
-              className={`rounded-full border px-4 py-2 text-xs font-medium transition-all ${
-                activeTech === 'All'
-                  ? 'border-accent bg-accent/10 text-accent'
-                  : 'border-[var(--border)] text-[var(--text-muted)] hover:border-accent/40 hover:text-[var(--text)]'
-              }`}
+              className={`filter-pill ${activeTech === 'All' ? 'is-active' : ''}`}
             >
               All
             </button>
@@ -220,11 +213,7 @@ export default function Projects() {
                 key={t}
                 type="button"
                 onClick={() => setActiveTech(t)}
-                className={`rounded-full border px-4 py-2 text-xs font-medium transition-all ${
-                  activeTech === t
-                    ? 'border-accent bg-accent/10 text-accent'
-                    : 'border-[var(--border)] text-[var(--text-muted)] hover:border-accent/40 hover:text-[var(--text)]'
-                }`}
+                className={`filter-pill ${activeTech === t ? 'is-active' : ''}`}
               >
                 {t}
               </button>
@@ -232,261 +221,171 @@ export default function Projects() {
           </div>
         )}
 
-        <div ref={ref} className="grid items-start gap-8 lg:grid-cols-2">
-          <AnimatePresence mode="popLayout">
-            {filtered.map((p, i) => (
-              <motion.div
-                key={p.id}
-                layout
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 12 }}
-                transition={{ type: 'spring', stiffness: 110, damping: 18 }}
-                className="w-full min-w-0"
-              >
-                <ProjectCard project={p} index={i} />
-              </motion.div>
+        <div ref={ref} className="sheet">
+          <div className="sheet-head">
+            <span>
+              {filtered.length} of {projects.length} projects
+            </span>
+            <span>{activeTech === 'All' ? 'all stacks' : activeTech}</span>
+          </div>
+
+          <AnimatePresence mode="popLayout" initial={false}>
+            {filtered.map((p) => (
+              <ProjectRow key={p.id} project={p} />
             ))}
           </AnimatePresence>
+
+          {filtered.length === 0 && (
+            <p className="px-6 py-10 text-center font-mono text-sm text-[var(--text-muted)]">
+              no projects use {activeTech}
+            </p>
+          )}
         </div>
       </div>
     </section>
   )
 }
 
-function ProjectCard({ project, index }) {
+function ProjectRow({ project }) {
   const [expanded, setExpanded] = useState(false)
   const [lightbox, setLightbox] = useState({ images: [], index: null })
   const reduceMotion = useReducedMotion()
 
-  // Mouse-position driven 3D tilt (subtle, max ~4deg).
-  const mouseX = useMotionValue(0.5)
-  const mouseY = useMotionValue(0.5)
-  const springConfig = { stiffness: 160, damping: 26, mass: 0.6 }
-  const rotateX = useSpring(useTransform(mouseY, [0, 1], [2, -2]), springConfig)
-  const rotateY = useSpring(useTransform(mouseX, [0, 1], [-2, 2]), springConfig)
-  // Shine sweep follows the horizontal mouse position.
-  const shineX = useSpring(useTransform(mouseX, [0, 1], ['0%', '100%']), springConfig)
-  const shineBackground = useTransform(
-    shineX,
-    (x) => `linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.06) ${x}, transparent 70%)`,
-  )
+  const cover = project.galleries?.[0]?.images?.[0]
+  const shotCount = (project.galleries ?? []).reduce((n, g) => n + g.images.length, 0)
+  const panelId = `${project.id}-details`
 
-  const handleMouseMove = (e) => {
-    if (reduceMotion) return
-    const rect = e.currentTarget.getBoundingClientRect()
-    mouseX.set((e.clientX - rect.left) / rect.width)
-    mouseY.set((e.clientY - rect.top) / rect.height)
-  }
-
-  const handleMouseLeave = () => {
-    mouseX.set(0.5)
-    mouseY.set(0.5)
-  }
-
-  const cardMotion = {
-    initial: reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 },
-    whileInView: { opacity: 1, y: 0 },
-    whileHover: reduceMotion ? undefined : { y: -6, scale: 1.008 },
-    whileTap: reduceMotion ? undefined : { scale: 0.995 },
-    viewport: { once: true, amount: 0.25 },
-    transition: reduceMotion
-      ? { duration: 0 }
-      : { delay: index * 0.07, type: 'spring', stiffness: 105, damping: 16 },
-  }
-
-  const tiltStyle = reduceMotion
-    ? undefined
-    : { rotateX, rotateY, transformStyle: 'preserve-3d', transformPerspective: 1000 }
-
-  const openLightbox = (images, idx) => {
-    setLightbox({ images, index: idx })
-  }
-
-  if (project.wip) {
-    return (
-      <motion.article
-        initial={cardMotion.initial}
-        whileInView={cardMotion.whileInView}
-        whileHover={cardMotion.whileHover}
-        whileTap={cardMotion.whileTap}
-        viewport={cardMotion.viewport}
-        transition={cardMotion.transition}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        style={{ borderColor: project.accent + '40', ...tiltStyle }}
-        className="card group/card relative border-dashed opacity-80 will-change-transform"
-      >
-        {!reduceMotion && (
-          <motion.span
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 z-10 rounded-[inherit] opacity-0 transition-opacity duration-300 group-hover/card:opacity-100"
-            style={{ background: shineBackground }}
-          />
-        )}
-        <span className="eyebrow-tag mb-3">In Progress</span>
-        <h3 className="font-display text-xl font-semibold">{project.title}</h3>
-        <p className="text-sm text-[var(--text-muted)]">
-          {project.subtitle} · {project.year}
-        </p>
-        <p className="mt-4 text-[var(--text-muted)]">{project.description}</p>
-        <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-[var(--surface-elevated)]">
-          <div
-            className="h-full w-2/3 animate-pulse rounded-full"
-            style={{ backgroundColor: project.accent }}
-          />
-        </div>
-      </motion.article>
-    )
-  }
+  const openLightbox = (images, idx) => setLightbox({ images, index: idx })
 
   return (
-    <>
-      <motion.article
-        initial={cardMotion.initial}
-        whileInView={cardMotion.whileInView}
-        whileHover={cardMotion.whileHover}
-        whileTap={cardMotion.whileTap}
-        viewport={cardMotion.viewport}
-        transition={cardMotion.transition}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        className="card group/card relative overflow-hidden p-0 will-change-transform"
-        style={{ borderTopColor: project.accent, borderTopWidth: '3px', ...tiltStyle }}
+    <motion.div
+      layout={!reduceMotion}
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 8 }}
+      transition={reduceMotion ? { duration: 0 } : { type: 'spring', stiffness: 130, damping: 20 }}
+      className="sheet-row"
+    >
+      <button
+        type="button"
+        onClick={() => setExpanded(!expanded)}
+        className="project-row"
+        aria-expanded={expanded}
+        aria-controls={panelId}
       >
-        {!reduceMotion && (
-          <motion.span
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 z-20 opacity-0 transition-opacity duration-300 group-hover/card:opacity-100"
-            style={{ background: shineBackground }}
-          />
-        )}
-        <div className="p-5 sm:p-6">
-          <div>
-            <span
-              className="mb-3 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 font-mono text-[11px] font-medium uppercase tracking-wide"
-              style={{
-                borderColor: project.accent + '40',
-                color: project.accent,
-                backgroundColor: project.accent + '12',
-              }}
-            >
-              <CircleDot size={11} />
-              {project.subtitle}
-            </span>
-            <h3 className="font-display text-2xl font-semibold transition-colors duration-200 hover:text-accent">
-              {project.title}
-            </h3>
-            <p className="text-secondary text-sm font-medium">{project.year}</p>
-          </div>
-
-          {project.galleries?.length > 0 && (
-            <GalleryViewer galleries={project.galleries} accent={project.accent} onExpand={openLightbox} />
+        <span className="project-row-thumb" style={{ borderColor: project.accent + '40' }}>
+          {cover ? (
+            <img src={cover.src} alt="" loading="lazy" />
+          ) : (
+            <ImageOff size={18} className="text-[var(--text-muted)]" />
           )}
+          {shotCount > 0 && <span className="project-row-shots">{shotCount}</span>}
+        </span>
 
-          {project.screenshotsPending && (!project.galleries || project.galleries.length === 0) && (
-            <p className="mt-5 rounded-lg border border-dashed border-[var(--border)] px-4 py-3 font-mono text-xs text-[var(--text-muted)]">
-              // Screenshots coming soon — role-based IMS views will be added when ready
-            </p>
-          )}
-
-          {project.tech?.length > 0 && (
-            <div className="mt-5 flex flex-wrap gap-2">
-              {project.tech.slice(0, 5).map((t) => (
-                <span key={t} className="badge">
-                  {t}
-                </span>
-              ))}
-              {project.tech.length > 5 && (
-                <span className="badge border-dashed">+{project.tech.length - 5}</span>
-              )}
-            </div>
-          )}
-        </div>
-
-        {/* Full-width case-study toggle. With no outbound links on a card,
-            this is the card's only action, so it gets the full footer
-            instead of sitting in a row of buttons. */}
-        <button
-          type="button"
-          onClick={() => setExpanded(!expanded)}
-          className="case-study-toggle"
-          aria-expanded={expanded}
-          aria-controls={`${project.id}-details`}
-        >
-          <span className="font-mono text-[11px] uppercase tracking-[0.18em]">
-            {expanded ? 'Hide case study' : 'Read case study'}
+        <span className="min-w-0 flex-1">
+          <span className="project-row-kicker" style={{ color: project.accent }}>
+            <CircleDot size={10} />
+            {project.subtitle}
+            {project.wip && <span className="project-row-wip">In progress</span>}
           </span>
+          <span className="project-row-title">{project.title}</span>
+          <span className="project-row-desc">{project.description}</span>
+          <span className="project-row-chips">
+            {project.tech.slice(0, 4).map((t) => (
+              <span key={t} className="badge">
+                {t}
+              </span>
+            ))}
+            {project.tech.length > 4 && (
+              <span className="badge border-dashed">+{project.tech.length - 4}</span>
+            )}
+          </span>
+        </span>
+
+        <span className="project-row-side">
+          <span className="project-row-year">{project.year}</span>
           <ChevronDown
-            size={15}
+            size={16}
             className={`transition-transform duration-300 ${expanded ? 'rotate-180' : ''}`}
           />
-        </button>
+        </span>
+      </button>
 
-        <AnimatePresence initial={false}>
-          {expanded && (
-            <motion.div
-              id={`${project.id}-details`}
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              className="overflow-hidden border-t border-[var(--border)]"
-            >
-              <div className="space-y-6 p-5 sm:p-6">
-                <p className="text-sm leading-relaxed text-[var(--text-muted)]">{project.description}</p>
+      <AnimatePresence initial={false}>
+        {expanded && (
+          <motion.div
+            id={panelId}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={reduceMotion ? { duration: 0 } : { duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden"
+          >
+            <div className="space-y-6 border-t border-[var(--border)] px-5 py-6 sm:px-6">
+              {project.galleries?.length > 0 && (
+                <GalleryViewer
+                  galleries={project.galleries}
+                  accent={project.accent}
+                  onExpand={openLightbox}
+                />
+              )}
 
-                {project.metrics?.length > 0 && (
-                  <div className="flex flex-wrap gap-2">
-                    {project.metrics.map((m) => (
-                      <span
-                        key={m}
-                        className="inline-flex items-center gap-1.5 rounded-lg bg-accent/10 px-3 py-1.5 text-xs font-medium text-accent"
-                      >
-                        <TrendingUp size={13} />
-                        {m}
-                      </span>
-                    ))}
-                  </div>
-                )}
+              {project.screenshotsPending && !project.galleries?.length && (
+                <p className="rounded-lg border border-dashed border-[var(--border)] px-4 py-3 font-mono text-xs text-[var(--text-muted)]">
+                  Screenshots coming soon
+                </p>
+              )}
 
-                <ul className="space-y-2 text-sm text-[var(--text-muted)]">
-                  {project.features.map((f) => (
-                    <li key={f} className="flex gap-2.5">
-                      <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-accent" />
-                      {f}
-                    </li>
+              {project.metrics?.length > 0 && (
+                <div className="flex flex-wrap gap-2">
+                  {project.metrics.map((m) => (
+                    <span
+                      key={m}
+                      className="inline-flex items-center gap-1.5 rounded-lg bg-accent/10 px-3 py-1.5 text-xs font-medium text-accent"
+                    >
+                      <TrendingUp size={13} />
+                      {m}
+                    </span>
                   ))}
-                </ul>
+                </div>
+              )}
 
-                <div className="grid gap-5 sm:grid-cols-3">
-                  <div className="space-y-2">
-                    <h4 className="flex items-center gap-2 text-sm font-semibold text-accent">
-                      <CircleDot size={14} />
-                      The Problem
-                    </h4>
-                    <p className="text-sm leading-relaxed text-[var(--text-muted)]">{project.problem}</p>
-                  </div>
-                  <div className="space-y-2">
-                    <h4 className="flex items-center gap-2 text-sm font-semibold text-accent">
-                      <Lightbulb size={14} />
-                      The Solution
-                    </h4>
-                    <p className="text-sm leading-relaxed text-[var(--text-muted)]">{project.solution}</p>
-                  </div>
-                  <div className="space-y-2">
-                    <h4 className="flex items-center gap-2 text-sm font-semibold text-accent">
-                      <UserCog size={14} />
-                      My Role
-                    </h4>
-                    <p className="text-sm leading-relaxed text-[var(--text-muted)]">{project.role}</p>
-                  </div>
+              <ul className="space-y-2 text-sm text-[var(--text-muted)]">
+                {project.features.map((f) => (
+                  <li key={f} className="flex gap-2.5">
+                    <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-accent" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+
+              <div className="grid gap-5 sm:grid-cols-3">
+                <div className="space-y-2">
+                  <h4 className="flex items-center gap-2 text-sm font-semibold text-accent">
+                    <CircleDot size={14} />
+                    The Problem
+                  </h4>
+                  <p className="text-sm leading-relaxed text-[var(--text-muted)]">{project.problem}</p>
+                </div>
+                <div className="space-y-2">
+                  <h4 className="flex items-center gap-2 text-sm font-semibold text-accent">
+                    <Lightbulb size={14} />
+                    The Solution
+                  </h4>
+                  <p className="text-sm leading-relaxed text-[var(--text-muted)]">{project.solution}</p>
+                </div>
+                <div className="space-y-2">
+                  <h4 className="flex items-center gap-2 text-sm font-semibold text-accent">
+                    <UserCog size={14} />
+                    My Role
+                  </h4>
+                  <p className="text-sm leading-relaxed text-[var(--text-muted)]">{project.role}</p>
                 </div>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-      </motion.article>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {lightbox.index !== null && (
         <Lightbox
@@ -507,7 +406,6 @@ function ProjectCard({ project, index }) {
           }
         />
       )}
-    </>
+    </motion.div>
   )
 }
-
