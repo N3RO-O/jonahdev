@@ -95,9 +95,13 @@ export const skillCategories = [
     skills: [
       'PHP',
       'MySQL',
+      'PostgreSQL',
       'Supabase',
-      'AJAX',
+      'Supabase Auth & RLS',
+      'Firebase',
+      'Node.js / Express',
       'REST APIs',
+      'AJAX',
       'Session Auth',
       'CRUD Systems',
     ],
@@ -130,7 +134,7 @@ export const skillCategories = [
     title: 'Currently Learning',
     icon: 'book',
     caption: 'Picking these up next, in order of priority.',
-    skills: ['TypeScript', 'Node.js', 'Laravel', 'C++ / C#'],
+    skills: ['TypeScript', 'Laravel', 'C++ / C#'],
     accent: true,
   },
 ]
