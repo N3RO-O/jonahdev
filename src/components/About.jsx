@@ -19,9 +19,9 @@ const stats = [
   { value: String(certifications.length), label: 'certificates' },
 ]
 
-// Three frames from the Creative section — the "visual storyteller" half
-// of the pitch, shown rather than asserted.
-const frames = creative.items.filter((i) => i.type === 'photo').slice(0, 3)
+// A contact sheet from the Creative section — the "visual storyteller"
+// half of the pitch, shown rather than asserted.
+const frames = creative.items.filter((i) => i.type === 'photo').slice(0, 6)
 
 const BODY_PREVIEW = 2
 
@@ -89,23 +89,13 @@ export default function About() {
               </AnimatePresence>
             </motion.div>
 
-            <motion.aside {...reveal(0.2)} className="about-rail">
-              <div className="sheet">
-                <div className="sheet-head">
-                  <span>At a glance</span>
-                </div>
-                <dl>
-                  {about.facts.map((f) => (
-                    <div key={f.label} className="sheet-row about-fact">
-                      <dt className="about-fact-label">{f.label}</dt>
-                      <dd className="about-fact-value">{f.value}</dd>
-                    </div>
-                  ))}
-                </dl>
-              </div>
-
-              {frames.length > 0 && (
+            {frames.length > 0 && (
+              <motion.aside {...reveal(0.2)} className="about-rail">
                 <div className="about-frames">
+                  <div className="sheet-head">
+                    <span>Recent frames</span>
+                    <span>{frames.length}</span>
+                  </div>
                   <div className="about-frames-grid">
                     {frames.map((f) => (
                       <ViewfinderFrame key={f.src} rounded="rounded-lg" className="about-frame">
@@ -118,8 +108,8 @@ export default function About() {
                     <ArrowUpRight size={13} />
                   </a>
                 </div>
-              )}
-            </motion.aside>
+              </motion.aside>
+            )}
           </div>
 
           {/* What defines the work, four across. */}

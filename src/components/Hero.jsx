@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { ArrowDown, Download, Mail } from 'lucide-react'
-import { site } from '../data/siteData'
+import { about, site } from '../data/siteData'
 import SocialLinks from './SocialLinks'
 import ViewfinderFrame from './ViewfinderFrame.jsx'
 
@@ -203,36 +203,62 @@ export default function Hero() {
           <motion.div
             initial={reduceMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            whileHover={reduceMotion ? undefined : { scale: 1.02 }}
             transition={reduceMotion ? { duration: 0 } : { delay: 0.2, duration: 0.5, type: 'spring', stiffness: 120, damping: 18 }}
-            className="relative mx-auto lg:mx-0 overflow-visible"
+            className="mx-auto flex flex-col items-center gap-4 lg:mx-0 lg:items-start"
           >
             {/* Viewfinder-framed portrait — the recurring signature motif
                 tying his photography eye to the rest of the site. */}
-            <ViewfinderFrame
-              variant="static"
-              rounded="rounded-2xl"
-              className="h-[clamp(15rem,12rem+10vw,21rem)] w-[clamp(15rem,12rem+10vw,21rem)]"
-            >
-              <div className="h-[clamp(15rem,12rem+10vw,21rem)] w-[clamp(15rem,12rem+10vw,21rem)] border-2 border-accent/30 shadow-2xl">
-                <img
-                  src={site.photo}
-                  alt={site.name}
-                  className="h-full w-full object-cover"
-                  width={320}
-                  height={320}
-                />
-              </div>
-            </ViewfinderFrame>
             <motion.div
-            initial={reduceMotion ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 18, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            whileHover={reduceMotion ? undefined : { scale: 1.03 }}
-            transition={reduceMotion ? { duration: 0 } : { delay: 0.55, duration: 0.45, ease: 'easeOut' }}
-            className="hero-badge absolute right-4 bottom-4 z-40 rounded-2xl border border-accent/90 bg-black/80 px-3 py-1.5 text-[11px] font-mono text-white shadow-[0_24px_60px_-24px_rgba(0,0,0,0.45),0_0_0_1px_rgba(220,170,78,0.65)]"
-          >
-            <span className="brand-accent">◎</span> jonah<span className="brand-accent">.dev</span> · 2026
-          </motion.div>
+              whileHover={reduceMotion ? undefined : { scale: 1.02 }}
+              transition={reduceMotion ? { duration: 0 } : { type: 'spring', stiffness: 120, damping: 18 }}
+              className="relative overflow-visible"
+            >
+              <ViewfinderFrame
+                variant="static"
+                rounded="rounded-2xl"
+                className="h-[clamp(15rem,12rem+10vw,21rem)] w-[clamp(15rem,12rem+10vw,21rem)]"
+              >
+                <div className="h-[clamp(15rem,12rem+10vw,21rem)] w-[clamp(15rem,12rem+10vw,21rem)] border-2 border-accent/30 shadow-2xl">
+                  <img
+                    src={site.photo}
+                    alt={site.name}
+                    className="h-full w-full object-cover"
+                    width={320}
+                    height={320}
+                  />
+                </div>
+              </ViewfinderFrame>
+              <motion.div
+                initial={reduceMotion ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 18, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                whileHover={reduceMotion ? undefined : { scale: 1.03 }}
+                transition={reduceMotion ? { duration: 0 } : { delay: 0.55, duration: 0.45, ease: 'easeOut' }}
+                className="hero-badge absolute right-4 bottom-4 z-40 rounded-2xl border border-accent/90 bg-black/80 px-3 py-1.5 text-[11px] font-mono text-white shadow-[0_24px_60px_-24px_rgba(0,0,0,0.45),0_0_0_1px_rgba(220,170,78,0.65)]"
+              >
+                <span className="brand-accent">◎</span> jonah<span className="brand-accent">.dev</span> · 2026
+              </motion.div>
+            </motion.div>
+
+            {/* Spec plate under the portrait — the facts read as part of
+                the profile here rather than floating in the About rail. */}
+            <motion.div
+              initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={reduceMotion ? { duration: 0 } : { delay: 0.62, duration: 0.5, ease: EASE }}
+              className="sheet hero-glance"
+            >
+              <div className="sheet-head">
+                <span>At a glance</span>
+              </div>
+              <dl>
+                {about.facts.map((f) => (
+                  <div key={f.label} className="sheet-row hero-glance-row">
+                    <dt className="hero-glance-label">{f.label}</dt>
+                    <dd className="hero-glance-value">{f.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </motion.div>
           </motion.div>
         </div>
       </div>
