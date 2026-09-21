@@ -561,11 +561,9 @@
     @apply w-full;
   }
 
-  /* ————— Skills spec sheet —————————————————————————————————————————
-     Replaces the old 3x2 grid of identical cards. The section now reads
-     like a technical datasheet: a primary-stack strip up top, then one
-     row per category so the eye tracks down a single column instead of
-     ping-ponging across six equal-weight boxes. ————— */
+  /* ————— Skills primary-stack strip ————————————————————————————————
+     Always open: these five are the answer to "what does he actually
+     build with", so they never hide behind a disclosure. ————— */
   .stack-strip {
     @apply mb-8 flex flex-col gap-4 rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-5 py-5 sm:flex-row sm:items-center sm:gap-6 sm:px-6;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
@@ -592,58 +590,84 @@
     box-shadow: 0 8px 22px -10px rgba(var(--accent-rgb), 0.55);
   }
 
-  .skill-sheet {
+  /* ————— Datasheet ————————————————————————————————————————————————
+     Shared by Skills & Tools and the certifications list. Rows sit
+     collapsed and open on demand, so neither section costs a screen and
+     a half of scroll to get past. ————— */
+  .sheet {
     @apply overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--surface)];
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
   }
 
-  .skill-sheet-head {
+  .sheet-head {
     @apply hidden items-center justify-between border-b border-[var(--border)] bg-[var(--surface-elevated)] px-6 py-2.5 font-mono text-[10px] uppercase tracking-[0.24em] text-[var(--text-muted)] sm:flex;
   }
 
-  .skill-row {
-    @apply relative grid gap-4 border-b border-[var(--border)] px-5 py-5 transition-colors duration-300 sm:px-6 md:grid-cols-[minmax(0,19rem)_1fr] md:items-start md:gap-8;
+  .sheet-head-btn {
+    @apply rounded transition-colors duration-200 hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent;
   }
-  .skill-row:last-child {
+
+  .sheet-row {
+    @apply relative border-b border-[var(--border)] transition-colors duration-300;
+  }
+  .sheet-row:last-child {
     @apply border-b-0;
   }
-  .skill-row:hover {
+  .sheet-row:hover {
     background: rgba(var(--accent-rgb), 0.04);
   }
 
   /* Accent rail that wipes down the left edge on hover — the row
      equivalent of the .card top-line treatment used elsewhere. */
-  .skill-row::before {
+  .sheet-row::before {
     content: '';
-    @apply pointer-events-none absolute inset-y-0 left-0 w-[2px] origin-top scale-y-0 transition-transform duration-300 ease-out;
+    @apply pointer-events-none absolute inset-y-0 left-0 z-10 w-[2px] origin-top scale-y-0 transition-transform duration-300 ease-out;
     background: linear-gradient(180deg, transparent, var(--accent), transparent);
   }
-  .skill-row:hover::before {
+  .sheet-row:hover::before {
     @apply scale-y-100;
   }
 
-  .skill-row-head {
-    @apply flex items-start gap-3;
+  /* Full-width disclosure bar closing a sheet ("Show all 11 …"). */
+  .sheet-expand {
+    @apply flex w-full items-center justify-between gap-3 border-t border-[var(--border)] bg-[var(--surface-elevated)] px-5 py-3.5 text-left text-[var(--text-muted)] transition-all duration-300 sm:px-6;
+  }
+  .sheet-expand:hover {
+    color: var(--accent);
+    background: rgba(var(--accent-rgb), 0.08);
+  }
+  .sheet-expand:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: -2px;
+  }
+
+  /* ————— Skills rows ——————————————————————————————————————————— */
+  .skill-row-btn {
+    @apply flex w-full items-start gap-3 px-5 py-4 text-left transition-colors duration-300 sm:px-6;
+  }
+  .skill-row-btn:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: -2px;
   }
 
   .skill-row-index {
-    @apply select-none pt-0.5 font-mono text-sm font-bold tabular-nums text-accent/30 transition-colors duration-300;
+    @apply shrink-0 select-none pt-1 font-mono text-sm font-bold tabular-nums text-accent/30 transition-colors duration-300;
   }
-  .skill-row:hover .skill-row-index {
+  .sheet-row:hover .skill-row-index {
     @apply text-accent/70;
   }
 
   .skill-row-icon {
     @apply mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-accent/10 text-accent transition-all duration-300;
   }
-  .skill-row:hover .skill-row-icon {
+  .sheet-row:hover .skill-row-icon {
     @apply scale-110 bg-accent/20;
   }
 
   .skill-row-title {
     @apply flex flex-wrap items-center gap-2 font-display text-base font-semibold transition-colors duration-300;
   }
-  .skill-row:hover .skill-row-title {
+  .sheet-row:hover .skill-row-title {
     @apply text-accent;
   }
 
@@ -652,15 +676,58 @@
   }
 
   .skill-row-caption {
-    @apply mt-1 text-sm leading-relaxed text-[var(--text-muted)];
+    @apply mt-1 block text-sm leading-relaxed text-[var(--text-muted)];
+  }
+
+  .skill-row-count {
+    @apply hidden shrink-0 pt-1 font-mono text-[11px] tabular-nums text-[var(--text-muted)] sm:block;
   }
 
   .skill-row-chips {
-    @apply flex flex-wrap gap-2 md:justify-end;
+    @apply flex flex-wrap gap-2 px-5 pb-5 pt-0 sm:px-6 sm:pl-[4.25rem];
   }
 
-  .skill-row.is-learning .badge {
+  .sheet-row.is-learning .badge {
     border-style: dashed;
+  }
+
+  /* ————— Certification rows ———————————————————————————————————— */
+  .cert-row {
+    @apply flex w-full items-center gap-4 px-5 py-3.5 text-left sm:px-6;
+  }
+  .cert-row:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: -2px;
+  }
+
+  .cert-row-thumb {
+    @apply relative grid h-10 w-14 shrink-0 place-items-center overflow-hidden rounded-md border border-[var(--border)] bg-[var(--surface-elevated)];
+  }
+  .cert-row-thumb img {
+    @apply h-full w-full object-cover;
+  }
+
+  .cert-row-zoom {
+    @apply absolute inset-0 grid place-items-center bg-black/55 text-white opacity-0 transition-opacity duration-200;
+  }
+  .cert-row.is-viewable:hover .cert-row-zoom,
+  .cert-row.is-viewable:focus-visible .cert-row-zoom {
+    @apply opacity-100;
+  }
+
+  .cert-row-title {
+    @apply block text-sm font-semibold leading-snug transition-colors duration-200;
+  }
+  .sheet-row:hover .cert-row-title {
+    @apply text-accent;
+  }
+
+  .cert-row-issuer {
+    @apply mt-0.5 block text-xs leading-snug text-[var(--text-muted)];
+  }
+
+  .cert-row-year {
+    @apply shrink-0 font-mono text-xs tabular-nums text-[var(--text-muted)];
   }
 
   /* ————— Project card footer —————————————————————————————————————

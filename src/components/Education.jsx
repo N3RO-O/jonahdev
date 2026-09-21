@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { GraduationCap, Award, Calendar, ChevronDown, Sparkles, BadgeCheck } from 'lucide-react'
+import { GraduationCap, Award, Calendar, ChevronDown, Sparkles, Maximize2 } from 'lucide-react'
 import { education, certifications } from '../data/siteData'
 import SectionHeader from './SectionHeader'
 import Lightbox from './Lightbox'
@@ -9,7 +9,7 @@ import { useInView } from '../hooks/useInView'
 export default function Education() {
   const [ref, inView] = useInView()
   const [expandedDegree, setExpandedDegree] = useState(false)
-  const [expandedCerts, setExpandedCerts] = useState({})
+  const [showAllCerts, setShowAllCerts] = useState(false)
   const [lightbox, setLightbox] = useState({ images: [], index: null })
 
   const certImages = certifications
@@ -17,6 +17,19 @@ export default function Education() {
     .map((c) => ({ src: c.image, caption: `${c.title} — ${c.issuer}` }))
 
   const dotStyles = ['bg-accent', 'bg-sky-400', 'bg-violet-400']
+
+  // Eleven full-bleed cards buried the rest of the page, so the list is
+  // compressed to a datasheet and trimmed to the most recent few until the
+  // reader asks for the rest.
+  const CERT_PREVIEW = 5
+  const visibleCerts = showAllCerts ? certifications : certifications.slice(0, CERT_PREVIEW)
+  const hiddenCount = certifications.length - CERT_PREVIEW
+
+  const openCert = (cert) =>
+    setLightbox({
+      images: certImages,
+      index: certImages.findIndex((item) => item.src === cert.image),
+    })
 
   return (
     <section id="education" className="py-20">
@@ -163,87 +176,77 @@ export default function Education() {
               </p>
             </div>
 
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {certifications.map((cert, i) => (
-                <motion.div
-                  key={cert.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ delay: 0.05 * i, duration: 0.45 }}
-                  className="group flex flex-col overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--surface)] shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-lg"
-                >
-                  {/* Image or Icon */}
-                  {cert.image ? (
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setLightbox({
-                          images: certImages,
-                          index: certImages.findIndex((item) => item.src === cert.image),
-                        })
-                      }
-                      className="relative block aspect-[16/10] overflow-hidden bg-[var(--surface-elevated)]"
-                      aria-label={`View ${cert.title}`}
-                    >
-                      <img
-                        src={cert.image}
-                        alt={cert.title}
-                        loading="lazy"
-                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                      />
-                      <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-black/70 px-2.5 py-1 text-[10px] font-semibold text-white backdrop-blur-md">
-                        <Calendar size={10} />
-                        {cert.year}
-                      </span>
-                    </button>
-                  ) : (
-                    <div className="relative flex aspect-[16/10] items-center justify-center bg-[var(--surface-elevated)]">
-                      <Award size={36} className="text-accent" />
-                      <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-black/70 px-2.5 py-1 text-[10px] font-semibold text-white backdrop-blur-md">
-                        <Calendar size={10} />
-                        {cert.year}
-                      </span>
-                    </div>
-                  )}
+            <div className="sheet">
+              <div className="sheet-head">
+                <span>{certifications.length} certificates &amp; training</span>
+                <span>{certImages.length} with scans</span>
+              </div>
 
-                  {/* Content */}
-                  <div className="flex flex-1 flex-col gap-3 p-5">
-                    <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-accent">
-                      <BadgeCheck size={13} />
-                      {cert.issuer}
-                    </div>
-                    <h4 className="text-base font-bold leading-snug text-[var(--text)] transition-colors group-hover:text-accent">
-                      {cert.title}
-                    </h4>
+              {visibleCerts.map((cert, i) => {
+                const body = (
+                  <>
+                    <span className="cert-row-thumb">
+                      {cert.image ? (
+                        <>
+                          <img src={cert.image} alt="" loading="lazy" />
+                          <span className="cert-row-zoom" aria-hidden="true">
+                            <Maximize2 size={13} />
+                          </span>
+                        </>
+                      ) : (
+                        <Award size={16} className="text-accent" />
+                      )}
+                    </span>
 
-                    <button
-                      type="button"
-                      onClick={() => setExpandedCerts((prev) => ({ ...prev, [i]: !prev[i] }))}
-                      className="mt-auto inline-flex w-fit items-center gap-1 text-xs font-medium text-[var(--text-muted)] transition-colors hover:text-accent"
-                      aria-expanded={expandedCerts[i]}
-                    >
-                      Details
-                      <ChevronDown size={14} className={`transition-transform ${expandedCerts[i] ? 'rotate-180' : ''}`} />
-                    </button>
-                  </div>
+                    <span className="min-w-0 flex-1">
+                      <span className="cert-row-title">{cert.title}</span>
+                      <span className="cert-row-issuer">{cert.issuer}</span>
+                    </span>
 
-                  {/* Expandable Detail */}
-                  <AnimatePresence>
-                    {expandedCerts[i] && (
-                      <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="overflow-hidden border-t border-[var(--border)] bg-[var(--surface-elevated)] px-5 py-4 text-xs leading-6 text-[var(--text-muted)]"
+                    <span className="cert-row-year">{cert.year}</span>
+                  </>
+                )
+
+                return (
+                  <motion.div
+                    key={cert.title}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={inView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ delay: Math.min(i, CERT_PREVIEW) * 0.04, duration: 0.4 }}
+                    className="sheet-row"
+                  >
+                    {cert.image ? (
+                      <button
+                        type="button"
+                        onClick={() => openCert(cert)}
+                        className="cert-row is-viewable"
+                        aria-label={`View certificate: ${cert.title}`}
                       >
-                        A recognition of professional growth and commitment to continuous learning in systems development and
-                        practical implementation, issued by {cert.issuer} ({cert.year}).
-                      </motion.div>
+                        {body}
+                      </button>
+                    ) : (
+                      <div className="cert-row">{body}</div>
                     )}
-                  </AnimatePresence>
-                </motion.div>
-              ))}
+                  </motion.div>
+                )
+              })}
+
+              {hiddenCount > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setShowAllCerts(!showAllCerts)}
+                  className="sheet-expand"
+                  aria-expanded={showAllCerts}
+                >
+                  <span className="font-mono text-[11px] uppercase tracking-[0.18em]">
+                    {showAllCerts ? 'Show fewer' : `Show all ${certifications.length} certificates`}
+                  </span>
+                  <ChevronDown
+                    size={15}
+                    className={`transition-transform duration-300 ${showAllCerts ? 'rotate-180' : ''}`}
+                  />
+                </button>
+              )}
             </div>
           </div>
         </div>
