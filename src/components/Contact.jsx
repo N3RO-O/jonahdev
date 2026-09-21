@@ -180,7 +180,7 @@ export default function Contact() {
               <a
                 href={site.cvUrl}
                 download
-                className="btn-primary inline-flex w-full items-center justify-center gap-2 border border-accent/70 hover:border-accent"
+                className="btn-download inline-flex w-full items-center justify-center gap-2"
               >
                 <FileDown size={16} />
                 Download résumé

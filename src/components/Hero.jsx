@@ -169,7 +169,7 @@ export default function Hero() {
                 View Projects
                 <ArrowDown size={16} />
               </button>
-              <a href={site.cvUrl} download className="btn-secondary inline-flex items-center gap-2">
+              <a href={site.cvUrl} download className="btn-download inline-flex items-center gap-2">
                 <Download size={16} />
                 Download CV
               </a>

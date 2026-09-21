@@ -13,6 +13,13 @@
     --accent: #dcaa4e;
     --accent-rgb: 220, 170, 78;
     --accent-ink: #0a0d12;
+    /* Résumé download reads as its own action, so it gets its own hue
+       rather than a second gold button sitting beside Send Message. Same
+       green already used as the Nerovault project accent. Dark ink on it
+       clears 6.4:1 — white would only manage 2.3:1. */
+    --download: #22c55e;
+    --download-rgb: 34, 197, 94;
+    --download-ink: #052e16;
     --accent-glow: rgba(220, 170, 78, 0.14);
     --focus-ring: rgba(220, 170, 78, 0.5);
     /* Secondary text tone — same yellow/black/white family, used to break up
@@ -32,6 +39,9 @@
     --accent: #dcaa4e;
     --accent-rgb: 220, 170, 78;
     --accent-ink: #0a0d12;
+    --download: #22c55e;
+    --download-rgb: 34, 197, 94;
+    --download-ink: #052e16;
     --accent-glow: rgba(220, 170, 78, 0.12);
     --focus-ring: rgba(220, 170, 78, 0.5);
     --text-secondary: #f0dba6;
@@ -515,6 +525,29 @@
     background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.45), transparent);
   }
   .btn-primary:hover::after {
+    @apply opacity-100;
+    left: 130%;
+  }
+
+  .btn-download {
+    @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl px-5 py-2.5 text-sm font-semibold shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--surface)];
+    background-color: var(--download);
+    color: var(--download-ink);
+    border: 1px solid rgba(var(--download-rgb), 0.12);
+    box-shadow: 0 6px 20px rgba(var(--download-rgb), 0.12);
+  }
+  .btn-download:hover {
+    box-shadow: 0 10px 28px rgba(var(--download-rgb), 0.38);
+  }
+  .btn-download:focus-visible {
+    --tw-ring-color: var(--download);
+  }
+  .btn-download::after {
+    content: '';
+    @apply pointer-events-none absolute inset-y-0 -left-1/2 w-1/3 -skew-x-12 opacity-0 transition-all duration-500;
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  }
+  .btn-download:hover::after {
     @apply opacity-100;
     left: 130%;
   }
