@@ -42,8 +42,13 @@ export const navLinks = [
 ]
 
 export const about = {
+  // Opening sentence runs as the section's lede at display size; the rest
+  // is body copy. Splitting them keeps the lede to one readable claim
+  // instead of a 60-word block set in large type.
+  lede:
+    'Results-driven BS Information Systems graduate with 2+ years of hands-on experience designing, developing, and successfully launching practical, user-friendly web applications.',
   paragraphs: [
-    'Results-driven BS Information Systems graduate with 2+ years of hands-on experience designing, developing, and successfully launching practical, user-friendly web applications. A reliable full-stack developer who thrives in taking projects from start to finish — gathering requirements from stakeholders, designing intuitive interfaces, implementing robust systems, and deploying live solutions that deliver real business value.',
+    'A reliable full-stack developer who thrives in taking projects from start to finish — gathering requirements from stakeholders, designing intuitive interfaces, implementing robust systems, and deploying live solutions that deliver real business value.',
     'At PHILRADS, I built and deployed two live management systems featuring inventory and asset tracking, smart expiration logic, secure approval workflows, and comprehensive activity logging. I also spearheaded the end-to-end development of an academic tracking system, from initial design through full launch.',
     'I specialize in creating clean, high-performance web applications and stakeholder-focused interfaces that are accessible even to non-technical users. My work combines strong technical skills with visual design sensibility and a deep focus on usability and impact.',
     'I am particularly interested in opportunities where I can contribute to reliable web solutions, systems analysis, and product-focused development within teams that value craftsmanship and meaningful outcomes.',
@@ -54,7 +59,6 @@ export const about = {
   // this just puts them where someone skimming will actually find them.
   facts: [
     { label: 'Based in', value: 'Virac, Catanduanes, PH' },
-    { label: 'Degree', value: 'BS Information Systems, 2026' },
     { label: 'Focus', value: 'Full-stack web systems' },
     { label: 'Open to', value: 'Web Development · IT Support · Systems Analysis' },
   ],
