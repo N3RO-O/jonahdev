@@ -288,26 +288,60 @@ export const projects = [
     year: '2026',
     accent: '#4a9eff',
     description:
-      'A separate web-based inventory management system built during OJT at PHILRADS — focused on stock and inventory workflows, independent from the Asset Database System.',
+      'A role-based relief inventory system for PHILRADS — tracking donations, expiry-aware stock, two-administrator release approvals, and the people each event serves, with a built-in AI support assistant.',
     problem:
-      'Inventory tracking relied on manual logs and spreadsheets, making stock updates slow and hard to coordinate across roles.',
+      'Relief goods were tracked in manual logs and spreadsheets, so stock levels, expiry dates, and who approved a release were hard to verify — especially in the field, where the connection drops.',
     solution:
-      'Built the IMS portal with role-based modules for inventory operations — a standalone system from the asset database project.',
-    role: 'Full-stack developer — requirements gathering, database design, PHP backend, and role-based UI modules.',
-    tech: ['PHP', 'MySQL', 'JavaScript', 'HTML/CSS', 'Bootstrap'],
+      'Built a PHP/MySQL system with batch-level stock that releases first-expired-first-out, two-administrator approval before any stock is deducted, event impact tracking, an audit trail, and an offline queue that retries submissions without creating duplicates.',
+    role: 'Full-stack developer — requirements gathering, database design, PHP backend, role-based UI, security hardening, and the AI support assistant.',
+    tech: ['PHP', 'MySQL', 'JavaScript', 'HTML/CSS', 'AI Assistant'],
     metrics: [
       'Live IMS portal deployed for PHILRADS',
-      'Role-based access for different staff workflows',
-      'Standalone system — separate from Asset Database',
+      '4 roles — Administrator, Warehouse Manager, Encoder, Viewer',
+      'Every release needs two different administrator approvals',
+      'Offline queue verified with automated tests',
     ],
     features: [
-      'Centralized inventory management workflows',
-      'Role-based views for PHILRADS staff (screenshots coming soon)',
-      'Deployed live during OJT at PHILRADS',
-      'Not connected to the Asset Database System',
+      'Batch-level inventory with first-expired-first-out releases and expiry alerts',
+      'Two-administrator approval before stock is deducted',
+      'Events page that auto-sums people served from released items',
+      'Offline queue — submissions retry automatically and never create duplicates',
+      'PRDS Support, an AI assistant that answers in English or Filipino and looks up live stock, releases and events through fixed read-only queries — the model never writes SQL or takes actions',
+      'Audit trail, optional two-factor sign-in, rate-limited password resets, and AES-256 encrypted backups',
     ],
-    galleries: [],
-    screenshotsPending: true,
+    galleries: [
+      {
+        label: 'Admin Dashboard',
+        images: [
+          {
+            src: '/assets/projects/philrads-ims/01-dashboard.png',
+            caption: 'Dashboard — stock needing attention and the release approval queue.',
+          },
+          {
+            src: '/assets/projects/philrads-ims/02-inventory.png',
+            caption: 'Inventory — stock on hand with next-expiry status.',
+          },
+          {
+            src: '/assets/projects/philrads-ims/03-releases.png',
+            caption: 'Releases — each request tracked from submission to final approval.',
+          },
+          {
+            src: '/assets/projects/philrads-ims/04-events.png',
+            caption: 'Events — people served tracked against each target.',
+          },
+        ],
+      },
+      {
+        label: 'AI Support Assistant',
+        images: [
+          {
+            src: '/assets/projects/philrads-ims/05-support-assistant.png',
+            caption:
+              'PRDS Support — live stock and release lookups plus guided help, shown with demo data.',
+          },
+        ],
+      },
+    ],
   },
   {
     id: 'nerovault',

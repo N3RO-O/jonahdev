@@ -1,2 +1,0 @@
-# Serve the production build when using XAMPP/Apache
-DirectoryIndex dist/index.html
