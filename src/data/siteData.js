@@ -366,10 +366,35 @@ export const projects = [
       'Budget categories with auto-normalizing percentages',
       'Bills with Not yet due → Ready → Paid lifecycle',
       'Savings goals with pace tracking + confetti',
-      'JSON backup/restore & CSV export (screenshots coming soon)',
+      'JSON backup/restore & CSV export',
     ],
-    galleries: [],
-    screenshotsPending: true,
+    galleries: [
+      {
+        label: 'App Screens',
+        images: [
+          {
+            src: '/assets/projects/nerovault/01-dashboard.png',
+            caption: 'Dashboard — payday summary plus available, bills, net worth and savings-rate cards.',
+          },
+          {
+            src: '/assets/projects/nerovault/02-budget.png',
+            caption: 'Budget — category limits, quick presets like 50/30/20, and live usage per category.',
+          },
+          {
+            src: '/assets/projects/nerovault/03-bills.png',
+            caption: 'Bills — each bill moves from Not yet due to Ready to pay to Paid.',
+          },
+          {
+            src: '/assets/projects/nerovault/04-goals.png',
+            caption: 'Goals — savings targets with pace estimates and a running savings ledger.',
+          },
+          {
+            src: '/assets/projects/nerovault/05-reports.png',
+            caption: 'Reports — where income went: spent, committed and free to spend.',
+          },
+        ],
+      },
+    ],
   },
 ]
 
