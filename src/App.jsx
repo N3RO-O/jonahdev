@@ -26,7 +26,12 @@ export default function App() {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    const frame = requestAnimationFrame(() => setMounted(true))
+    const frame = requestAnimationFrame(() => {
+      setMounted(true)
+      // Hash links can arrive before React mounts the target section.
+      const section = document.getElementById(window.location.hash.slice(1))
+      section?.scrollIntoView({ behavior: 'instant', block: 'start' })
+    })
     return () => cancelAnimationFrame(frame)
   }, [])
 

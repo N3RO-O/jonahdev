@@ -127,6 +127,10 @@
     max-width: 100%;
   }
 
+  main > section {
+    scroll-margin-top: 80px;
+  }
+
   /* Containers must never force the page wider than the viewport on mobile. */
   .section-container {
     width: 100%;

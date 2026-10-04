@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import {
+  ArrowUpRight,
+  Monitor,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
@@ -16,6 +18,7 @@ import { projects } from '../data/siteData'
 import SectionHeader from './SectionHeader'
 import Lightbox from './Lightbox'
 import { useInView } from '../hooks/useInView'
+import './projects.css'
 
 function GalleryViewer({ galleries, accent, onExpand }) {
   const [tab, setTab] = useState(0)
@@ -162,7 +165,12 @@ function GalleryViewer({ galleries, accent, onExpand }) {
               style={i === imgIdx ? { borderColor: accent } : undefined}
               aria-label={`View ${img.caption}`}
             >
-              <img src={img.src} alt="" loading="lazy" className="h-full w-full object-cover object-top" />
+              <img
+                src={img.src}
+                alt=""
+                loading="lazy"
+                className="h-full w-full object-cover object-top"
+              />
             </button>
           ))}
         </div>
@@ -173,76 +181,213 @@ function GalleryViewer({ galleries, accent, onExpand }) {
 
 export default function Projects() {
   const [ref] = useInView()
-
-  const techOptions = Array.from(
-    new Set(
-      projects
-        .flatMap((p) => p.tech ?? [])
-        .map((t) => String(t).trim())
-        .filter(Boolean),
-    ),
-  )
-
+  const [category, setCategory] = useState('all')
   const [activeTech, setActiveTech] = useState('All')
-
-  const filtered =
-    activeTech === 'All' ? projects : projects.filter((p) => (p.tech ?? []).includes(activeTech))
+  const techOptions = [...new Set(projects.flatMap((p) => p.tech ?? []))].sort()
+  const filtered = projects.filter(
+    (p) =>
+      (category === 'all' || (p.category ?? 'web') === category) &&
+      (activeTech === 'All' || (p.tech ?? []).includes(activeTech)),
+  )
+  const feature = filtered.find((p) => p.featured)
+  const otherProjects = filtered.filter((p) => p !== feature)
 
   return (
     <section id="projects" className="py-20">
       <div className="section-container">
         <SectionHeader
           index="03"
-          eyebrow="// featured work"
-          title="Featured Projects"
-          subtitle="Quality over quantity — capstone and OJT systems with real impact."
+          eyebrow="// selected work"
+          title="Built for real people."
+          subtitle="From classroom and inventory systems to an offline control room for church services. A closer look at what I build, how it works, and my role in each project."
         />
-
-        {techOptions.length > 0 && (
-          <div className="mb-6 flex flex-wrap items-center gap-1.5">
-            <button
-              type="button"
-              onClick={() => setActiveTech('All')}
-              className={`filter-pill ${activeTech === 'All' ? 'is-active' : ''}`}
-            >
-              All
-            </button>
-
-            {techOptions.map((t) => (
+        <div className="work-toolbar">
+          <div className="work-categories" role="group" aria-label="Project category">
+            {[
+              ['all', 'All work'],
+              ['web', 'Web applications'],
+              ['desktop', 'Desktop apps'],
+            ].map(([value, label]) => (
               <button
-                key={t}
                 type="button"
-                onClick={() => setActiveTech(t)}
-                className={`filter-pill ${activeTech === t ? 'is-active' : ''}`}
+                key={value}
+                className={`filter-pill ${category === value ? 'is-active' : ''}`}
+                aria-pressed={category === value}
+                onClick={() => setCategory(value)}
               >
-                {t}
+                {label}
               </button>
             ))}
           </div>
-        )}
-
-        <div ref={ref} className="sheet">
-          <div className="sheet-head">
-            <span>
-              {filtered.length} of {projects.length} projects
-            </span>
-            <span>{activeTech === 'All' ? 'all stacks' : activeTech}</span>
-          </div>
-
-          <AnimatePresence mode="popLayout" initial={false}>
-            {filtered.map((p) => (
-              <ProjectRow key={p.id} project={p} />
-            ))}
-          </AnimatePresence>
-
-          {filtered.length === 0 && (
-            <p className="px-6 py-10 text-center font-mono text-sm text-[var(--text-muted)]">
-              no projects use {activeTech}
-            </p>
-          )}
+          <label className="work-tech-filter">
+            Technology
+            <select
+              value={activeTech}
+              onChange={(e) => setActiveTech(e.target.value)}
+              aria-label="Filter projects by technology"
+            >
+              <option value="All">All technologies</option>
+              {techOptions.map((t) => (
+                <option key={t} value={t}>
+                  {t}
+                </option>
+              ))}
+            </select>
+          </label>
         </div>
+        <p className="work-result-count" role="status">
+          {filtered.length} of {projects.length} projects
+        </p>
+        {feature && <FeaturedProject key={feature.id} project={feature} />}
+        {otherProjects.length > 0 && (
+          <div ref={ref} className="sheet">
+            <div className="sheet-head">
+              <span>{feature ? 'More selected work' : 'Selected projects'}</span>
+              <span>Open a project to explore</span>
+            </div>
+            <AnimatePresence mode="popLayout" initial={false}>
+              {otherProjects.map((p) => (
+                <ProjectRow key={p.id} project={p} />
+              ))}
+            </AnimatePresence>
+          </div>
+        )}
+        {filtered.length === 0 && (
+          <div className="work-empty">
+            <p>No projects match these filters.</p>
+            <button
+              className="filter-pill"
+              onClick={() => {
+                setCategory('all')
+                setActiveTech('All')
+              }}
+            >
+              Show all work
+            </button>
+          </div>
+        )}
       </div>
     </section>
+  )
+}
+
+function FeaturedProject({ project }) {
+  const [expanded, setExpanded] = useState(false)
+  const [preview, setPreview] = useState(false)
+  const reduceMotion = useReducedMotion()
+  const cover = project.galleries[0].images[0]
+  const panelId = `${project.id}-case-study`
+  return (
+    <article className="featured-work" aria-labelledby={`${project.id}-title`}>
+      <div className="featured-work-topline">
+        <span>
+          <span className="work-status-dot" />
+          Latest release
+        </span>
+        <span>{project.year} / Independent product</span>
+      </div>
+      <div className="featured-work-grid">
+        <div className="featured-work-copy">
+          <p className="featured-work-type">
+            <Monitor size={15} />
+            {project.release}
+          </p>
+          <h3 id={`${project.id}-title`}>{project.title}</h3>
+          <p className="featured-work-description">{project.description}</p>
+          <ul className="featured-work-points">
+            {project.metrics.map((m) => (
+              <li key={m}>
+                <CheckCircle2 size={15} />
+                {m}
+              </li>
+            ))}
+          </ul>
+          <div className="project-row-chips">
+            {project.tech.map((t) => (
+              <span key={t} className="badge">
+                {t}
+              </span>
+            ))}
+          </div>
+          <button
+            className="work-case-button"
+            aria-expanded={expanded}
+            aria-controls={panelId}
+            onClick={() => setExpanded(!expanded)}
+          >
+            {expanded ? 'Close case study' : 'Explore the project'}
+            <ArrowUpRight size={17} />
+          </button>
+        </div>
+        <figure className="featured-work-figure">
+          <button
+            className="featured-work-image"
+            onClick={() => setPreview(true)}
+            aria-label={`Enlarge ${project.title} screenshot`}
+          >
+            <img
+              src={cover.src}
+              alt="Church Time’s Up controller showing a running service timer and a discreet message to the worship team."
+              loading="lazy"
+              width="1280"
+              height="720"
+            />
+            <span>
+              <Maximize2 size={15} />
+              View screenshot
+            </span>
+          </button>
+          <figcaption>
+            <span>01 — Service control room</span>
+            <span>Actual app · Demo service</span>
+          </figcaption>
+        </figure>
+      </div>
+      <AnimatePresence initial={false}>
+        {expanded && (
+          <motion.div
+            id={panelId}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: reduceMotion ? 0 : 0.25 }}
+            className="overflow-hidden"
+          >
+            <div className="featured-case-study">
+              <div className="featured-case-columns">
+                {[
+                  ['The challenge', project.problem],
+                  ['The approach', project.solution],
+                  ['My contribution', project.role],
+                ].map(([title, text]) => (
+                  <div key={title}>
+                    <h4>{title}</h4>
+                    <p>{text}</p>
+                  </div>
+                ))}
+              </div>
+              <ul className="featured-case-features">
+                {project.features.map((f) => (
+                  <li key={f}>
+                    <CheckCircle2 size={16} />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      {preview && (
+        <Lightbox
+          images={[cover]}
+          index={0}
+          onClose={() => setPreview(false)}
+          onPrev={() => {}}
+          onNext={() => {}}
+        />
+      )}
+    </article>
   )
 }
 
@@ -318,7 +463,9 @@ function ProjectRow({ project }) {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={reduceMotion ? { duration: 0 } : { duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            transition={
+              reduceMotion ? { duration: 0 } : { duration: 0.3, ease: [0.22, 1, 0.36, 1] }
+            }
             className="overflow-hidden"
           >
             <div className="space-y-6 border-t border-[var(--border)] px-5 py-6 sm:px-6">
@@ -365,14 +512,18 @@ function ProjectRow({ project }) {
                     <CircleDot size={14} />
                     The Problem
                   </h4>
-                  <p className="text-sm leading-relaxed text-[var(--text-muted)]">{project.problem}</p>
+                  <p className="text-sm leading-relaxed text-[var(--text-muted)]">
+                    {project.problem}
+                  </p>
                 </div>
                 <div className="space-y-2">
                   <h4 className="flex items-center gap-2 text-sm font-semibold text-accent">
                     <Lightbulb size={14} />
                     The Solution
                   </h4>
-                  <p className="text-sm leading-relaxed text-[var(--text-muted)]">{project.solution}</p>
+                  <p className="text-sm leading-relaxed text-[var(--text-muted)]">
+                    {project.solution}
+                  </p>
                 </div>
                 <div className="space-y-2">
                   <h4 className="flex items-center gap-2 text-sm font-semibold text-accent">

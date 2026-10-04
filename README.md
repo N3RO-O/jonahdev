@@ -24,8 +24,11 @@ npm run preview  # preview production build
 Edit `src/data/siteData.js` for:
 
 - Hero headline, availability banner, social links
-- Projects (case studies, tech badges, metrics, screenshots) — project cards
-  carry no outbound links; each one opens an inline case study instead
+- Projects (case studies, tech badges, metrics, screenshots) — the latest product
+  has a large feature with one representative screenshot and an inline case study.
+  Category and technology filters cover all projects; existing galleries remain available.
+  Set `featured: true` on the latest entry and use `category: "desktop"` for desktop apps.
+  Project entries carry no outbound links to private source repositories.
 - Skills: `coreStack` (the primary-stack strip) and `skillCategories`
   (the spec-sheet rows, each with a `caption`)
 - Experience, education, certifications

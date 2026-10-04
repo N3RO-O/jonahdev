@@ -1,26 +1,48 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
+import { createPortal } from 'react-dom'
 import { ChevronLeft, ChevronRight, X } from 'lucide-react'
 
 export default function Lightbox({ images, index, onClose, onPrev, onNext }) {
+  const dialog = useRef(null)
+  const callbacks = useRef({ onClose, onPrev, onNext })
+  callbacks.current = { onClose, onPrev, onNext }
   useEffect(() => {
+    const previousFocus = document.activeElement
+    const previousOverflow = document.body.style.overflow
+    dialog.current?.querySelector('button')?.focus()
     const handler = (e) => {
-      if (e.key === 'Escape') onClose()
-      if (e.key === 'ArrowLeft') onPrev()
-      if (e.key === 'ArrowRight') onNext()
+      if (e.key === 'Escape') callbacks.current.onClose()
+      if (e.key === 'ArrowLeft') callbacks.current.onPrev()
+      if (e.key === 'ArrowRight') callbacks.current.onNext()
+      if (e.key === 'Tab') {
+        const controls = Array.from(dialog.current?.querySelectorAll('button') ?? [])
+        const first = controls[0],
+          last = controls[controls.length - 1]
+        if (
+          (e.shiftKey && document.activeElement === first) ||
+          (!e.shiftKey && document.activeElement === last)
+        ) {
+          e.preventDefault()
+          const nextFocus = e.shiftKey ? last : first
+          nextFocus?.focus()
+        }
+      }
     }
     document.addEventListener('keydown', handler)
     document.body.style.overflow = 'hidden'
     return () => {
       document.removeEventListener('keydown', handler)
-      document.body.style.overflow = ''
+      document.body.style.overflow = previousOverflow
+      if (previousFocus?.isConnected) previousFocus.focus()
     }
-  }, [onClose, onPrev, onNext])
+  }, [])
 
   if (!images?.length || index == null) return null
   const item = images[index]
 
-  return (
+  return createPortal(
     <div
+      ref={dialog}
       className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
       onClick={onClose}
       role="dialog"
@@ -73,10 +95,13 @@ export default function Lightbox({ images, index, onClose, onPrev, onNext }) {
           <span aria-hidden="true" className="vf-corner vf-corner-active vf-br" />
         </div>
         <p className="mt-3 text-center text-sm text-white/80">{item.caption}</p>
-        <p className="text-center text-xs text-white/50">
-          {index + 1} / {images.length}
-        </p>
+        {images.length > 1 && (
+          <p className="text-center text-xs text-white/50">
+            {index + 1} / {images.length}
+          </p>
+        )}
       </div>
-    </div>
+    </div>,
+    document.body,
   )
 }

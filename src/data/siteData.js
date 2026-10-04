@@ -23,8 +23,18 @@ export const site = {
       href: 'https://www.facebook.com/profile.php?id=61591681414570',
       handle: 'Jonah Mark Tabuzo',
     },
-    { label: 'Website', icon: 'website', href: 'https://pixodeph.vercel.app/', handle: 'pixodeph.vercel.app' },
-    { label: 'Discord', icon: 'discord', href: 'https://discord.gg/HpUJFCTX33', handle: "Nero's Cult" },
+    {
+      label: 'Website',
+      icon: 'website',
+      href: 'https://pixodeph.vercel.app/',
+      handle: 'pixodeph.vercel.app',
+    },
+    {
+      label: 'Discord',
+      icon: 'discord',
+      href: 'https://discord.gg/HpUJFCTX33',
+      handle: "Nero's Cult",
+    },
   ],
   formspree: 'https://formspree.io/f/xojnyrwr',
   githubUser: 'N3RO-O',
@@ -45,14 +55,13 @@ export const about = {
   // Opening sentence runs as the section's lede at display size; the rest
   // is body copy. Splitting them keeps the lede to one readable claim
   // instead of a 60-word block set in large type.
-  lede:
-    'Results-driven BS Information Systems graduate with 2+ years of hands-on experience designing, developing, and successfully launching practical, user-friendly web applications.',
+  lede: 'Results-driven BS Information Systems graduate with 2+ years of hands-on experience designing, developing, and successfully launching practical, user-friendly web applications.',
   paragraphs: [
     'A reliable full-stack developer who thrives in taking projects from start to finish — gathering requirements from stakeholders, designing intuitive interfaces, implementing robust systems, and deploying live solutions that deliver real business value.',
-    'At PHILRADS, I built and deployed two live management systems featuring inventory and asset tracking, smart expiration logic, secure approval workflows, and comprehensive activity logging. I also spearheaded the end-to-end development of an academic tracking system, from initial design through full launch.',
+    'At PHILRADS, I built and deployed two live management systems featuring inventory and asset tracking, smart expiration logic, secure approval workflows, and comprehensive activity logging. I also led development of an academic tracking system. My latest independent product, Church Time’s Up, brings service timing and presenter cues into an offline desktop app.',
     'I specialize in creating clean, high-performance web applications and stakeholder-focused interfaces that are accessible even to non-technical users. My work combines strong technical skills with visual design sensibility and a deep focus on usability and impact.',
     'I am particularly interested in opportunities where I can contribute to reliable web solutions, systems analysis, and product-focused development within teams that value craftsmanship and meaningful outcomes.',
-    'Beyond coding, I create visual content, support creative initiatives, and actively contribute to community-driven projects through PIXODE Philippines and other local organizations.',
+    'I also contribute as a freelance Quality Assurance Engineer at PIXODE Philippines. Beyond software, I create visual content and support local creative initiatives.',
   ],
   // Scannable facts for the About rail. Every value here already appears
   // elsewhere on the site (hero location, education block, page meta) —
@@ -82,6 +91,7 @@ export const skillCategories = [
     caption: 'Interfaces built to stay readable for non-technical users.',
     skills: [
       'React',
+      'TypeScript',
       'JavaScript',
       'HTML5',
       'CSS3',
@@ -138,12 +148,50 @@ export const skillCategories = [
     title: 'Currently Learning',
     icon: 'book',
     caption: 'Picking these up next, in order of priority.',
-    skills: ['TypeScript', 'Laravel', 'C++ / C#'],
+    skills: ['Laravel', 'C++ / C#'],
     accent: true,
   },
 ]
 
 export const projects = [
+  {
+    id: 'church-times-up',
+    title: "Church Time's Up",
+    subtitle: 'Independent Product · Service Timing',
+    category: 'desktop',
+    featured: true,
+    release: 'Windows desktop · v1.6.2',
+    year: '2026',
+    accent: '#e9b84b',
+    description:
+      'A desktop control room for church services — keeping the run of show, presenter cues, and stage screens in sync, even without an internet connection.',
+    problem:
+      'Production teams need to keep speakers on time and send discreet prompts without accidentally displaying operator controls to the congregation.',
+    solution:
+      'Built an offline Windows app with synchronized local Wi-Fi screens, private controller access, explicit monitor selection, and a timer overlay for presentation slides.',
+    role: 'Product design and full-stack development — controller UI, timer engine, real-time synchronization, desktop packaging, and release testing.',
+    tech: ['React', 'TypeScript', 'Electron', 'Node.js', 'Socket.IO'],
+    metrics: ['Offline Windows app', 'Local Wi-Fi synchronization', 'OBS browser output'],
+    features: [
+      'Run-of-show timers with countdown, count-up, and presenter messages',
+      'Choose the stage monitor, with live overlay position and size controls',
+      'Private owner links and scoped invitations for operators',
+      'Fullscreen messages, automatic text fitting, and responsive phone views',
+    ],
+    galleries: [
+      {
+        label: 'Service control room',
+        images: [
+          {
+            src: '/assets/projects/church-times-up/controller.jpg',
+            caption:
+              "Church Time's Up — live timer and stage-message controller in a demonstration service.",
+          },
+        ],
+      },
+    ],
+  },
+
   {
     id: 'kiddytrack',
     title: 'KiddyTrack',
@@ -203,7 +251,7 @@ export const projects = [
     problem:
       'Manual spreadsheets made asset tracking slow, error-prone, and inaccessible to staff in the field.',
     solution:
-      'Built a responsive web system with Admin and Staff roles, full CRUD operations, and dashboards scoped to each role\'s needs.',
+      "Built a responsive web system with Admin and Staff roles, full CRUD operations, and dashboards scoped to each role's needs.",
     role: 'Full-stack developer — database, backend logic, and responsive UI.',
     tech: ['PHP', 'MySQL', 'JavaScript', 'CSS', 'Role-Based Access'],
     metrics: [
@@ -294,10 +342,10 @@ export const projects = [
 export const experience = [
   {
     period: 'Apr 2024 – Present',
-    title: 'Freelance — Administrative Support & Community Outreach',
+    title: 'Freelance — Quality Assurance Engineer',
     company: 'PIXODE Philippines',
     description:
-      'Provide administrative support and community outreach for a dev collective building practical digital tools for underserved communities across the Philippines.',
+      'Quality assurance for a development collective building practical digital tools in the Philippines, with a focus on software functionality, usability, and clear feedback for the development team.',
   },
   {
     period: 'Jun – Jul 2025',

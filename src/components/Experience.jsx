@@ -13,7 +13,7 @@ export default function Experience() {
           index="04"
           eyebrow="// experience"
           title="Experience"
-          subtitle="Transferable skills from tech, government, and client-facing roles."
+          subtitle="Quality assurance, full-stack development, and hands-on technical support."
         />
 
         <div ref={ref} className="relative max-w-3xl">
@@ -28,7 +28,9 @@ export default function Experience() {
             >
               <div className="absolute left-0 top-1.5 h-3.5 w-3.5 rounded-full border-2 border-accent bg-[var(--surface)] transition-all duration-300 group-hover:scale-125 group-hover:shadow-[0_0_0_4px_var(--accent-glow)]" />
               <time className="font-mono text-xs text-accent">{exp.period}</time>
-              <h3 className="mt-1 text-lg font-semibold transition-colors group-hover:text-accent">{exp.title}</h3>
+              <h3 className="mt-1 text-lg font-semibold transition-colors group-hover:text-accent">
+                {exp.title}
+              </h3>
               <p className="text-secondary text-sm font-medium">{exp.company}</p>
               <p className="mt-2 text-sm text-[var(--text-muted)] leading-relaxed">
                 {exp.description}
