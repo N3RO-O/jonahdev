@@ -1,0 +1,9 @@
+node_modules
+dist
+.DS_Store
+*.local
+.env
+
+# Vite build artifacts (XAMPP deploy copies — do not commit)
+assets/index-*.js
+assets/index-*.css

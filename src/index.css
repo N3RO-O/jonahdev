@@ -1,0 +1,1061 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg: #f7f7f5;
+    --surface: #ffffff;
+    --surface-elevated: #f0f0ec;
+    --text: #14161a;
+    --text-muted: #5b5f6a;
+    --border: #e2e2dc;
+    --accent: #dcaa4e;
+    --accent-rgb: 220, 170, 78;
+    --accent-ink: #0a0d12;
+    /* Résumé download reads as its own action, so it gets its own hue
+       rather than a second gold button sitting beside Send Message. Same
+       green already used as the Nerovault project accent. Dark ink on it
+       clears 6.4:1 — white would only manage 2.3:1. */
+    --download: #22c55e;
+    --download-rgb: 34, 197, 94;
+    --download-ink: #052e16;
+    --accent-glow: rgba(220, 170, 78, 0.14);
+    --focus-ring: rgba(220, 170, 78, 0.5);
+    /* Secondary text tone — same yellow/black/white family, used to break up
+       long stretches of copy without introducing an off-palette color. */
+    --text-secondary: #8a6a1f;
+    --card-hover-shadow: 0 18px 40px -12px rgba(20, 22, 26, 0.16);
+    --grid-line: rgba(20, 22, 26, 0.05);
+  }
+
+  .dark {
+    --bg: #07080b;
+    --surface: #0e1218;
+    --surface-elevated: #151b24;
+    --text: #eef0f3;
+    --text-muted: #8d95a3;
+    --border: #212836;
+    --accent: #dcaa4e;
+    --accent-rgb: 220, 170, 78;
+    --accent-ink: #0a0d12;
+    --download: #22c55e;
+    --download-rgb: 34, 197, 94;
+    --download-ink: #052e16;
+    --accent-glow: rgba(220, 170, 78, 0.12);
+    --focus-ring: rgba(220, 170, 78, 0.5);
+    --text-secondary: #f0dba6;
+    --card-hover-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.6);
+    --grid-line: rgba(220, 170, 78, 0.055);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Lock the page to the viewport width. Without this, a single
+       overflowing child stretches the layout viewport wider than the
+       screen and the browser "zooms out", leaving a black gutter on
+       the right in mobile device emulation. */
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  /* Any media must never exceed its container — this is what makes the
+     project screenshots / browser mockups scale down instead of spilling
+     over their card boundaries on narrow screens. */
+  img,
+  video,
+  svg,
+  canvas {
+    max-width: 100%;
+    height: auto;
+  }
+
+  body {
+    @apply bg-[var(--bg)] text-[var(--text)] font-sans antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Faint blueprint/dot-grid texture — reads as "systems engineer" rather
+     than a flat void, without competing with content. Fixed so it doesn't
+     scroll-jitter on long pages. */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+  }
+
+  /* Faint film-grain layer — a quiet nod to the photography side of the
+     site. Kept extremely subtle (opacity ~0.035) so it reads as texture,
+     not noise, and never fights with content. Fixed like the grid above. */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .dark body::after {
+    opacity: 0.05;
+  }
+
+  #root {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  main {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  main > section {
+    scroll-margin-top: 80px;
+  }
+
+  /* Containers must never force the page wider than the viewport on mobile. */
+  .section-container {
+    width: 100%;
+    max-width: 72rem;
+  }
+
+  /* Branded scrollbar — thin, accent-tinted, same warm gold used everywhere
+     else so the browser chrome doesn't feel like a bolt-on default. */
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(var(--accent-rgb), 0.55) transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 11px;
+    height: 11px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg);
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(var(--accent-rgb), 0.45);
+    background-clip: padding-box;
+    border: 3px solid var(--bg);
+    border-radius: 999px;
+    transition: background-color 0.2s ease;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(var(--accent-rgb), 0.75);
+  }
+
+  .app-shell {
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+
+  .app-shell.is-mounted {
+    opacity: 1;
+  }
+
+  /* Brand accent glyph tint — used by the hero wordmark badge. */
+  .brand-accent {
+    color: var(--accent);
+  }
+
+  ::selection {
+    background: var(--accent-glow);
+    color: var(--text);
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    #root {
+      transition: none !important;
+      transform: none !important;
+    }
+  }
+
+  @keyframes caretBlink {
+    0%, 45% { opacity: 1; }
+    50%, 95% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  /* Print: when the user prints the résumé, hide everything except the
+     resume section so "Save as PDF" yields a clean, single-page document. */
+  @media print {
+    .app-shell > *:not(main),
+    main > *:not(#resume),
+    .ambient-glow,
+    nav,
+    footer {
+      display: none !important;
+    }
+    body,
+    #root,
+    .app-shell,
+    main {
+      background: #fff !important;
+      color: #000 !important;
+      overflow: visible !important;
+    }
+    #resume {
+      padding: 0 !important;
+    }
+    .card {
+      box-shadow: none !important;
+      border-color: #ddd !important;
+    }
+  }
+}
+
+@layer components {
+  /* ————— Cursor-tracked ambient glow, used once on the hero. ————— */
+  .spotlight {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      480px circle at var(--mx, 50%) var(--my, 20%),
+      rgba(var(--accent-rgb), 0.10),
+      transparent 70%
+    );
+    transition: background 0.2s ease-out;
+  }
+
+  .hero-loop-group {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .hero-loop {
+    position: absolute;
+    border: 1px solid rgba(var(--accent-rgb), 0.15);
+    border-radius: 999px;
+    opacity: 0.55;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+
+  .hero-loop-one {
+    width: 7rem;
+    height: 7rem;
+    top: 28%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .hero-loop-two {
+    width: 10rem;
+    height: 10rem;
+    top: 55%;
+    left: 58%;
+    transform: translate(-50%, -50%);
+    animation-delay: 4.5s;
+  }
+
+  .hero-loop-three {
+    width: 13rem;
+    height: 13rem;
+    top: 42%;
+    left: 45%;
+    transform: translate(-50%, -50%) rotate(12deg);
+    animation-delay: 2s;
+    animation-name: loop-expand-rotate;
+  }
+
+
+  /* ————— Viewfinder corner brackets — recurring nod to Jonah's photography
+     work. Four L-shaped brackets, one per corner, drawn with two borders
+     each so they read as camera-focus marks rather than a plain frame. ————— */
+  .vf-corner {
+    @apply pointer-events-none absolute h-5 w-5 opacity-0 transition-all duration-300 ease-out sm:h-6 sm:w-6;
+    border-color: var(--accent);
+  }
+  .vf-tl { top: -2px; left: -2px; border-top: 2px solid; border-left: 2px solid; border-top-left-radius: 6px; }
+  .vf-tr { top: -2px; right: -2px; border-top: 2px solid; border-right: 2px solid; border-top-right-radius: 6px; }
+  .vf-bl { bottom: -2px; left: -2px; border-bottom: 2px solid; border-left: 2px solid; border-bottom-left-radius: 6px; }
+  .vf-br { bottom: -2px; right: -2px; border-bottom: 2px solid; border-right: 2px solid; border-bottom-right-radius: 6px; }
+
+  .vf-corner-active {
+    @apply opacity-90;
+    animation: vf-corner-breathe 3.6s ease-in-out infinite;
+  }
+
+  @keyframes vf-corner-breathe {
+    0%, 100% { filter: drop-shadow(0 0 0 rgba(var(--accent-rgb), 0)); }
+    50% { filter: drop-shadow(0 0 3px rgba(var(--accent-rgb), 0.65)); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .vf-corner-active {
+      animation: none;
+    }
+  }
+  .viewfinder:hover .vf-corner,
+  .viewfinder:focus-within .vf-corner {
+    @apply opacity-90;
+  }
+  .vf-tl { transform: translate(4px, 4px); }
+  .vf-tr { transform: translate(-4px, 4px); }
+  .vf-bl { transform: translate(4px, -4px); }
+  .vf-br { transform: translate(-4px, -4px); }
+  .viewfinder:hover .vf-tl, .viewfinder:hover .vf-tr,
+  .viewfinder:hover .vf-bl, .viewfinder:hover .vf-br,
+  .vf-corner-active.vf-tl, .vf-corner-active.vf-tr,
+  .vf-corner-active.vf-bl, .vf-corner-active.vf-br {
+    transform: translate(0, 0);
+  }
+
+  .section-container {
+    @apply mx-auto max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+
+  section[id] {
+    scroll-margin-top: 5.25rem;
+  }
+
+  @media (max-width: 768px) {
+    section[id] {
+      scroll-margin-top: 5rem;
+    }
+  }
+
+  .section-title {
+    @apply font-display font-semibold tracking-tight;
+    /* Fluid scale: grows smoothly with viewport instead of jumping at the
+       sm/lg breakpoints, so the title always feels intentionally sized
+       rather than "the sm: bucket happened to apply here". */
+    font-size: clamp(1.75rem, 1.35rem + 1.8vw, 2.75rem);
+    line-height: 1.15;
+  }
+
+  .section-eyebrow {
+    @apply mb-3 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.32em] text-[var(--text-muted)];
+  }
+  .section-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 1.5rem;
+    height: 1px;
+    background: rgba(var(--accent-rgb), 0.35);
+    transform: translateY(0.05rem);
+  }
+  .section-eyebrow span {
+    letter-spacing: 0.08em;
+  }
+
+  /* Editorial frame-counter numerals that sit beside each section header on
+     wide screens — a nod to the photography/viewfinder motif (frame
+     numbers on a contact sheet) that also gives the eye a rhythm to track
+     while scrolling, instead of every section announcing itself identically. */
+  .section-index {
+    @apply select-none font-mono font-bold tabular-nums text-accent/25;
+    font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2.5rem);
+    line-height: 1;
+  }
+  .section-index-rule {
+    background: linear-gradient(180deg, rgba(var(--accent-rgb), 0.5), transparent);
+    height: 2rem;
+  }
+
+  /* "Flagship" size step — used sparingly (About right after the Hero,
+     Projects as the featured-work section) so two or three beats in the
+     scroll get more weight than the rest, instead of all ten sections
+     announcing themselves at identical volume. */
+  .section-title-lg {
+    font-size: clamp(2.25rem, 1.6rem + 3vw, 4rem);
+    line-height: 1.08;
+  }
+  .section-index-lg {
+    font-size: clamp(2rem, 1.6rem + 2vw, 3.5rem);
+  }
+
+  .hero-badge {
+    @apply relative z-40 rounded-2xl px-3 py-1.5 font-mono text-[11px] text-white transition duration-300 ease-out;
+    border-color: rgba(220, 170, 78, 0.75);
+    background: rgba(0, 0, 0, 0.82);
+    box-shadow: 0 16px 48px -24px rgba(220, 170, 78, 0.72), 0 0 0 1px rgba(220, 170, 78, 0.16);
+    animation: hero-badge-pulse 4.5s ease-in-out infinite alternate;
+  }
+
+  .hero-badge::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: inherit;
+    background: radial-gradient(circle at top left, rgba(var(--accent-rgb), 0.22), transparent 42%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .hero-badge:hover::before {
+    opacity: 1;
+  }
+
+  .hero-badge::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: 0 0 0 1px rgba(220, 170, 78, 0.12), 0 26px 90px -32px rgba(220, 170, 78, 0.85);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .hero-badge:hover::after {
+    opacity: 1;
+  }
+
+  @keyframes hero-badge-pulse {
+    from {
+      transform: translateY(0) scale(1);
+      box-shadow: 0 16px 48px -24px rgba(220, 170, 78, 0.72), 0 0 0 1px rgba(220, 170, 78, 0.16);
+    }
+    to {
+      transform: translateY(-1px) scale(1.008);
+      box-shadow: 0 20px 58px -26px rgba(220, 170, 78, 0.82), 0 0 0 1px rgba(220, 170, 78, 0.18);
+    }
+  }
+
+  .viewfinder {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .viewfinder:hover {
+    transform: translateY(-2px);
+  }
+
+  .viewfinder .vf-corner {
+    border-color: var(--accent);
+  }
+
+  .card {
+    @apply relative rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:border-accent/40;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    transform-style: preserve-3d;
+  }
+  .card:hover {
+    box-shadow: var(--card-hover-shadow), 0 0 22px -2px rgba(var(--accent-rgb), 0.22), 0 0 0 1px rgba(var(--accent-rgb), 0.12);
+  }
+
+  /* Thin accent line that draws in from the left on hover — used to give
+     cards a clear "lit up" state instead of only a border-color change. */
+  .card::before {
+    content: '';
+    @apply pointer-events-none absolute inset-x-0 top-0 h-[2px] scale-x-0 rounded-t-2xl opacity-0 transition-all duration-300 ease-out;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    transform-origin: center;
+  }
+  .card:hover::before {
+    @apply scale-x-100 opacity-100;
+  }
+
+  /* Cursor-tracking spotlight — a soft radial glow that follows the pointer
+     across the card, driven by the --spot-x/--spot-y vars set in
+     useCardSpotlight.js. Sits above content at very low opacity so it reads
+     as light hitting the surface rather than an overlay. Skipped entirely
+     on touch devices and for reduced-motion, matching the hook. */
+  .card {
+    --spot-x: 50%;
+    --spot-y: 50%;
+    overflow: hidden;
+  }
+  .card::after {
+    content: '';
+    @apply pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-500 ease-out;
+    background-image:
+      linear-gradient(115deg, transparent 38%, rgba(255, 255, 255, 0.28) 50%, transparent 62%),
+      radial-gradient(280px circle at var(--spot-x) var(--spot-y), rgba(var(--accent-rgb), 0.14), transparent 72%);
+    background-repeat: no-repeat;
+    background-size: 250% 250%, 100% 100%;
+    background-position: 160% 0%, 0 0;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .card:hover::after {
+      @apply opacity-100;
+      background-position: -60% 100%, 0 0;
+      transition: opacity 0.5s ease-out, background-position 0.6s ease-out;
+    }
+  }
+
+  .btn-primary {
+    @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl px-5 py-2.5 text-sm font-semibold shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--surface)];
+    background-color: var(--accent);
+    color: var(--accent-ink);
+    border: 1px solid rgba(var(--accent-rgb), 0.12);
+    box-shadow: 0 6px 20px rgba(var(--accent-rgb), 0.08);
+    opacity: 1;
+  }
+  .btn-primary:hover {
+    box-shadow: 0 10px 28px rgba(var(--accent-rgb), 0.35);
+  }
+  /* Diagonal shine sweep on hover for a bit of polish on the primary CTA */
+  .btn-primary::after {
+    content: '';
+    @apply pointer-events-none absolute inset-y-0 -left-1/2 w-1/3 -skew-x-12 opacity-0 transition-all duration-500;
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  }
+  .btn-primary:hover::after {
+    @apply opacity-100;
+    left: 130%;
+  }
+
+  .btn-download {
+    @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl px-5 py-2.5 text-sm font-semibold shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--surface)];
+    background-color: var(--download);
+    color: var(--download-ink);
+    border: 1px solid rgba(var(--download-rgb), 0.12);
+    box-shadow: 0 6px 20px rgba(var(--download-rgb), 0.12);
+  }
+  .btn-download:hover {
+    box-shadow: 0 10px 28px rgba(var(--download-rgb), 0.38);
+  }
+  .btn-download:focus-visible {
+    --tw-ring-color: var(--download);
+  }
+  .btn-download::after {
+    content: '';
+    @apply pointer-events-none absolute inset-y-0 -left-1/2 w-1/3 -skew-x-12 opacity-0 transition-all duration-500;
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  }
+  .btn-download:hover::after {
+    @apply opacity-100;
+    left: 130%;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--border)] bg-[var(--surface-elevated)] px-5 py-2.5 text-sm font-medium text-[var(--text)] transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:text-accent hover:shadow-md active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--surface)];
+  }
+
+  .badge {
+    @apply inline-flex items-center rounded-lg border border-[var(--border)] bg-[var(--surface-elevated)] px-2.5 py-1 font-mono text-xs text-[var(--text-muted)] transition-all duration-200;
+  }
+  .badge:hover {
+    @apply -translate-y-0.5 border-accent text-accent;
+    background-color: var(--accent-glow);
+  }
+
+  .icon-btn {
+    @apply inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text-muted)] transition-all duration-200 hover:-translate-y-0.5 hover:scale-110 hover:rotate-6 hover:border-accent hover:text-accent hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--surface)];
+  }
+  .icon-btn:hover {
+    box-shadow: 0 6px 16px rgba(var(--accent-rgb), 0.25);
+  }
+
+  .eyebrow-tag {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-accent/25 bg-accent/10 px-3 py-1 font-mono text-[11px] font-medium uppercase tracking-wide text-accent transition-all duration-200 hover:border-accent/50 hover:bg-accent/15;
+  }
+
+  /* Secondary highlight text — theme-aware warm gold/cream tone, distinct
+     from the neutral grey used for muted copy. */
+  .text-secondary {
+    color: var(--text-secondary);
+  }
+
+  /* Underline-sweep effect for text links / nav items */
+  .link-underline {
+    @apply relative;
+  }
+  .link-underline::after {
+    content: '';
+    @apply absolute -bottom-0.5 left-0 h-[1.5px] w-0 rounded-full transition-all duration-300 ease-out;
+    background-color: var(--accent);
+  }
+  .link-underline:hover::after {
+    @apply w-full;
+  }
+
+  /* ————— Skills primary-stack strip ————————————————————————————————
+     Always open: these five are the answer to "what does he actually
+     build with", so they never hide behind a disclosure. ————— */
+  .stack-strip {
+    @apply mb-8 flex flex-col gap-4 rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-5 py-5 sm:flex-row sm:items-center sm:gap-6 sm:px-6;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  }
+
+  .stack-strip-label {
+    @apply shrink-0 font-mono text-[11px] uppercase tracking-[0.28em] text-[var(--text-muted)];
+  }
+
+  .stack-strip-items {
+    @apply flex flex-wrap items-center gap-2.5;
+  }
+
+  .stack-chip {
+    @apply inline-flex items-center rounded-xl px-3.5 py-2 font-display text-sm font-semibold transition-all duration-200;
+    color: var(--text);
+    border: 1px solid rgba(var(--accent-rgb), 0.28);
+    background: rgba(var(--accent-rgb), 0.08);
+  }
+  .stack-chip:hover {
+    color: var(--accent);
+    border-color: rgba(var(--accent-rgb), 0.6);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px -10px rgba(var(--accent-rgb), 0.55);
+  }
+
+  /* ————— Datasheet ————————————————————————————————————————————————
+     Shared by Skills & Tools and the certifications list. Rows sit
+     collapsed and open on demand, so neither section costs a screen and
+     a half of scroll to get past. ————— */
+  .sheet {
+    @apply overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--surface)];
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  }
+
+  .sheet-head {
+    @apply hidden items-center justify-between border-b border-[var(--border)] bg-[var(--surface-elevated)] px-6 py-2.5 font-mono text-[10px] uppercase tracking-[0.24em] text-[var(--text-muted)] sm:flex;
+  }
+
+  .sheet-head-btn {
+    @apply rounded transition-colors duration-200 hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent;
+  }
+
+  .sheet-row {
+    @apply relative border-b border-[var(--border)] transition-colors duration-300;
+  }
+  .sheet-row:last-child {
+    @apply border-b-0;
+  }
+  .sheet-row:hover {
+    background: rgba(var(--accent-rgb), 0.04);
+  }
+
+  /* Accent rail that wipes down the left edge on hover — the row
+     equivalent of the .card top-line treatment used elsewhere. */
+  .sheet-row::before {
+    content: '';
+    @apply pointer-events-none absolute inset-y-0 left-0 z-10 w-[2px] origin-top scale-y-0 transition-transform duration-300 ease-out;
+    background: linear-gradient(180deg, transparent, var(--accent), transparent);
+  }
+  .sheet-row:hover::before {
+    @apply scale-y-100;
+  }
+
+  /* Full-width disclosure bar closing a sheet ("Show all 11 …"). */
+  .sheet-expand {
+    @apply flex w-full items-center justify-between gap-3 border-t border-[var(--border)] bg-[var(--surface-elevated)] px-5 py-3.5 text-left text-[var(--text-muted)] transition-all duration-300 sm:px-6;
+  }
+  .sheet-expand:hover {
+    color: var(--accent);
+    background: rgba(var(--accent-rgb), 0.08);
+  }
+  .sheet-expand:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: -2px;
+  }
+
+  /* ————— Skills rows ——————————————————————————————————————————— */
+  .skill-row-btn {
+    @apply flex w-full items-start gap-3 px-5 py-4 text-left transition-colors duration-300 sm:px-6;
+  }
+  .skill-row-btn:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: -2px;
+  }
+
+  .skill-row-index {
+    @apply shrink-0 select-none pt-1 font-mono text-sm font-bold tabular-nums text-accent/30 transition-colors duration-300;
+  }
+  .sheet-row:hover .skill-row-index {
+    @apply text-accent/70;
+  }
+
+  .skill-row-icon {
+    @apply mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-accent/10 text-accent transition-all duration-300;
+  }
+  .sheet-row:hover .skill-row-icon {
+    @apply scale-110 bg-accent/20;
+  }
+
+  .skill-row-title {
+    @apply flex flex-wrap items-center gap-2 font-display text-base font-semibold transition-colors duration-300;
+  }
+  .sheet-row:hover .skill-row-title {
+    @apply text-accent;
+  }
+
+  .skill-row-tag {
+    @apply inline-flex items-center rounded-full border border-accent/30 bg-accent/10 px-2 py-0.5 font-mono text-[10px] font-medium uppercase tracking-wide text-accent;
+  }
+
+  .skill-row-caption {
+    @apply mt-1 block text-sm leading-relaxed text-[var(--text-muted)];
+  }
+
+  .skill-row-count {
+    @apply hidden shrink-0 pt-1 font-mono text-[11px] tabular-nums text-[var(--text-muted)] sm:block;
+  }
+
+  .skill-row-chips {
+    @apply flex flex-wrap gap-2 px-5 pb-5 pt-0 sm:px-6 sm:pl-[4.25rem];
+  }
+
+  .sheet-row.is-learning .badge {
+    border-style: dashed;
+  }
+
+  /* ————— Certification rows ———————————————————————————————————— */
+  .cert-row {
+    @apply flex w-full items-center gap-4 px-5 py-3.5 text-left sm:px-6;
+  }
+  .cert-row:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: -2px;
+  }
+
+  .cert-row-thumb {
+    @apply relative grid h-10 w-14 shrink-0 place-items-center overflow-hidden rounded-md border border-[var(--border)] bg-[var(--surface-elevated)];
+  }
+  .cert-row-thumb img {
+    @apply h-full w-full object-cover;
+  }
+
+  .cert-row-zoom {
+    @apply absolute inset-0 grid place-items-center bg-black/55 text-white opacity-0 transition-opacity duration-200;
+  }
+  .cert-row.is-viewable:hover .cert-row-zoom,
+  .cert-row.is-viewable:focus-visible .cert-row-zoom {
+    @apply opacity-100;
+  }
+
+  .cert-row-title {
+    @apply block text-sm font-semibold leading-snug transition-colors duration-200;
+  }
+  .sheet-row:hover .cert-row-title {
+    @apply text-accent;
+  }
+
+  .cert-row-issuer {
+    @apply mt-0.5 block text-xs leading-snug text-[var(--text-muted)];
+  }
+
+  .cert-row-year {
+    @apply shrink-0 font-mono text-xs tabular-nums text-[var(--text-muted)];
+  }
+
+  /* ————— Project rows ——————————————————————————————————————————
+     Four cards, each with a 16:10 cover plus a strip of up to 29
+     thumbnails, ran about four screens. The gallery now lives inside the
+     disclosure; the collapsed row keeps a cover thumb for recognition. */
+  .filter-pill {
+    @apply rounded-full border border-[var(--border)] px-3 py-1 font-mono text-[11px] text-[var(--text-muted)] transition-all duration-200 hover:border-accent/50 hover:text-[var(--text)];
+  }
+  .filter-pill.is-active {
+    @apply border-accent text-accent;
+    background: rgba(var(--accent-rgb), 0.1);
+  }
+
+  .project-row {
+    @apply flex w-full items-start gap-4 px-5 py-4 text-left transition-colors duration-300 sm:px-6;
+  }
+  .project-row:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: -2px;
+  }
+
+  .project-row-thumb {
+    @apply relative grid h-16 w-24 shrink-0 place-items-center overflow-hidden rounded-lg border bg-[var(--surface-elevated)] sm:h-20 sm:w-32;
+  }
+  .project-row-thumb img {
+    @apply h-full w-full object-cover object-top transition-transform duration-500 ease-out;
+  }
+  .sheet-row:hover .project-row-thumb img {
+    transform: scale(1.06);
+  }
+
+  .project-row-shots {
+    @apply absolute bottom-1 right-1 rounded-full bg-black/65 px-1.5 py-0.5 font-mono text-[9px] font-medium text-white backdrop-blur-sm;
+  }
+
+  .project-row-kicker {
+    @apply flex flex-wrap items-center gap-1.5 font-mono text-[10px] font-medium uppercase tracking-wide;
+  }
+
+  .project-row-wip {
+    @apply rounded-full border border-current px-1.5 py-0.5 text-[9px];
+  }
+
+  .project-row-title {
+    @apply mt-1 block font-display text-lg font-semibold leading-tight transition-colors duration-300 sm:text-xl;
+  }
+  .sheet-row:hover .project-row-title {
+    @apply text-accent;
+  }
+
+  /* Two lines of the pitch, clamped — enough to tell the projects apart
+     without reprinting the case study on the collapsed row. */
+  .project-row-desc {
+    @apply mt-1.5 hidden text-sm leading-relaxed text-[var(--text-muted)] sm:block;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .project-row-chips {
+    @apply mt-2.5 flex flex-wrap gap-1.5;
+  }
+
+  .project-row-side {
+    @apply flex shrink-0 flex-col items-end gap-2 pt-0.5 text-[var(--text-muted)];
+  }
+
+  .project-row-year {
+    @apply font-mono text-xs tabular-nums;
+  }
+
+  /* ————— Hero spec plate ——————————————————————————————————————
+     The at-a-glance facts sit under the portrait, where they read as
+     part of the profile instead of floating at the foot of About. The
+     column is narrow, so label and value stack rather than sitting on
+     opposite edges of a row. ————— */
+  .hero-glance {
+    @apply w-[clamp(15rem,12rem+10vw,21rem)] max-w-full;
+  }
+  .hero-glance .sheet-head {
+    @apply flex;
+  }
+
+  .hero-glance-row {
+    @apply px-4 py-2.5;
+  }
+
+  .hero-glance-label {
+    @apply block font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--text-muted)];
+  }
+
+  .hero-glance-value {
+    @apply mt-0.5 block text-sm font-medium leading-snug text-[var(--text)];
+  }
+
+  /* ————— About ——————————————————————————————————————————————————
+     Was a 2/3 card of five dense paragraphs beside a 1/3 stack of
+     mini-cards — all text, no visual, nothing a skimmer could catch.
+     Now: a lede at display size, a band of figures, body copy at one
+     readable measure, and a rail pairing facts with three frames from
+     the creative work. ————— */
+  .about-lede-wrap {
+    @apply relative max-w-4xl pl-5 sm:pl-7;
+  }
+
+  /* Viewfinder-style bracket rather than a plain rule — same focus-mark
+     motif the portrait and creative tiles use. */
+  .about-lede-mark {
+    @apply pointer-events-none absolute inset-y-0 left-0 w-2.5;
+    border-left: 2px solid var(--accent);
+    border-top: 2px solid var(--accent);
+    border-bottom: 2px solid var(--accent);
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    opacity: 0.8;
+  }
+
+  .about-lede {
+    @apply font-display font-medium tracking-tight text-[var(--text)];
+    font-size: clamp(1.2rem, 1rem + 0.95vw, 1.7rem);
+    line-height: 1.5;
+  }
+
+  /* Hairline dividers via a 1px grid gap showing the border color
+     through — keeps the band reading as one object at every width. */
+  .about-stats {
+    @apply mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-[var(--border)] sm:grid-cols-4;
+    background: var(--border);
+  }
+
+  .about-stat {
+    @apply flex flex-col gap-1 bg-[var(--surface)] px-5 py-5 transition-colors duration-300 sm:px-6;
+  }
+  .about-stat:hover {
+    background: rgba(var(--accent-rgb), 0.05);
+  }
+
+  .about-stat-value {
+    @apply font-display text-3xl font-bold leading-none tabular-nums text-accent sm:text-4xl;
+  }
+
+  .about-stat-label {
+    @apply font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--text-muted)];
+  }
+
+  .about-prose {
+    @apply max-w-2xl space-y-4 leading-relaxed text-[var(--text-muted)];
+  }
+
+  .about-more {
+    @apply inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--text-muted)] transition-colors duration-200 hover:text-accent;
+  }
+  .about-more svg {
+    @apply transition-transform duration-200;
+  }
+  .about-more:hover svg {
+    @apply translate-y-0.5;
+  }
+
+  .about-rail {
+    @apply space-y-4 lg:sticky lg:top-24 lg:self-start;
+  }
+
+  /* Contact-sheet strip — three frames from the Creative section, so the
+     "visual storyteller" half of the pitch is shown, not just claimed. */
+  .about-frames {
+    @apply overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--surface)];
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  }
+  /* The rail is narrow, but this label still earns its place. */
+  .about-frames .sheet-head {
+    @apply flex;
+  }
+
+  .about-frames-grid {
+    @apply grid grid-cols-3 gap-2 p-3;
+  }
+
+  .about-frame {
+    @apply aspect-square;
+  }
+  .about-frame img {
+    @apply h-full w-full object-cover transition-transform duration-500 ease-out;
+  }
+  .about-frame:hover img {
+    transform: scale(1.08);
+  }
+
+  .about-frames-link {
+    @apply flex items-center justify-center gap-1 border-t border-[var(--border)] px-4 py-2.5 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--text-muted)] transition-all duration-200;
+  }
+  .about-frames-link:hover {
+    color: var(--accent);
+    background: rgba(var(--accent-rgb), 0.06);
+  }
+
+  .about-highlights {
+    @apply mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4;
+  }
+
+  .about-highlight {
+    @apply flex items-start gap-3 rounded-xl border border-[var(--border)] bg-[var(--surface)] px-4 py-4 transition-all duration-300;
+  }
+  .about-highlight:hover {
+    @apply -translate-y-0.5 border-accent/40;
+    box-shadow: 0 10px 24px -14px rgba(var(--accent-rgb), 0.5);
+  }
+
+  .about-highlight-icon {
+    @apply inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent/10 text-accent transition-all duration-300;
+  }
+  .about-highlight:hover .about-highlight-icon {
+    @apply scale-110 bg-accent/20;
+  }
+
+  .about-highlight-label {
+    @apply block text-sm font-semibold leading-snug transition-colors duration-300;
+  }
+  .about-highlight:hover .about-highlight-label {
+    @apply text-accent;
+  }
+
+  .about-highlight-desc {
+    @apply mt-0.5 block text-xs leading-snug;
+    color: var(--text-secondary);
+  }
+
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar {
+    height: 6px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: var(--border);
+    border-radius: 999px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* ————— Site-wide cursor-tracked ambient glow — the hero's .spotlight
+     effect, extended across the whole page via useAmbientCursor.js. Sits
+     behind content (rendered first in the DOM) so it reads as ambient
+     light rather than an overlay, and eases in/out on enter/leave. ————— */
+  .ambient-glow {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    background: radial-gradient(420px circle at var(--gx, 50%) var(--gy, 50%), rgba(var(--accent-rgb), 0.05), transparent 72%);
+  }
+  .dark .ambient-glow {
+    background: radial-gradient(460px circle at var(--gx, 50%) var(--gy, 50%), rgba(var(--accent-rgb), 0.08), transparent 72%);
+    mix-blend-mode: screen;
+  }
+
+  /* ————— Live visitor counter badge — terminal-style pill mirroring
+     BackToTop's placement on the opposite corner. ————— */
+  .visitor-badge {
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .visitor-badge:hover {
+    transform: translateY(-2px);
+    border-color: rgba(var(--accent-rgb), 0.5);
+    box-shadow: 0 10px 28px -14px rgba(var(--accent-rgb), 0.45);
+  }
+  .visitor-dot {
+    @apply h-1.5 w-1.5 shrink-0 rounded-full;
+    background-color: var(--text-muted);
+  }
+  .visitor-dot.is-live {
+    background-color: var(--accent);
+    animation: visitor-pulse 2.2s ease-out infinite;
+  }
+  @keyframes visitor-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0.55); }
+    70% { box-shadow: 0 0 0 6px rgba(var(--accent-rgb), 0); }
+    100% { box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .visitor-dot.is-live {
+      animation: none;
+    }
+    .ambient-glow {
+      display: none;
+    }
+  }
+}
