@@ -219,23 +219,6 @@ const additions = [
     ],
   },
   {
-    id: "weekly-report-builder",
-    title: "Weekly Report Builder",
-    subtitle: "Archive · Earlier reporting application",
-    category: "web",
-    repository: repo("weekly-report-builder", "public"),
-    source: "GitHub",
-    status: "Archived repository",
-    description:
-      "An earlier React and Supabase reporting workspace in the Reportly project family, retained as an archived implementation.",
-    tech: ["React", "Vite", "Supabase"],
-    features: [
-      "React application in the reportly workspace",
-      "Supabase-backed application setup",
-      "Archived source retained for reference",
-    ],
-  },
-  {
     id: "habit-ops",
     title: "Habit Ops",
     subtitle: "Productivity · A habit tracker with a little XP",
@@ -255,23 +238,6 @@ const additions = [
     ],
     statusNote:
       "The latest local status supersedes the older deployment note: its shared hosted backend was removed, so this entry is listed as local development.",
-  },
-  {
-    id: "habit-quest",
-    title: "Habit Quest",
-    subtitle: "Productivity · Earlier habit-tracker edition",
-    category: "web",
-    year: "2026",
-    source: "Local",
-    status: "Earlier edition",
-    description:
-      "The earlier Habit Quest edition of the monthly habit tracker, with daily check-ins, a progress chart, XP, levels, streaks, and achievements.",
-    tech: ["Next.js", "React", "TypeScript", "Supabase"],
-    features: [
-      "Habit spreadsheet and completion history",
-      "Daily progress and gamified rewards",
-      "Earlier edition preserved alongside Habit Ops",
-    ],
   },
   {
     id: "pcec-update",
@@ -405,78 +371,6 @@ const additions = [
       "RSS-Bridge is an upstream open-source application by the RSS-Bridge project. This entry describes the local integration, not authorship of RSS-Bridge.",
   },
   {
-    id: "nero-soundcloud",
-    title: "Nero’s SoundCloud",
-    subtitle: "Fork · Discord music bot",
-    category: "bot",
-    repository: repo("Nero-s-Soundcloud", "public"),
-    source: "GitHub",
-    status: "Fork / adaptation",
-    description:
-      "A Discord music-bot repository based on PrimeMusic-Lavalink, with track and playlist support for YouTube, SoundCloud, and Spotify.",
-    tech: ["Node.js", "discord.js", "Lavalink", "MongoDB"],
-    features: [
-      "Slash-command music playback",
-      "Track links, searches, and playlists",
-      "Multiple music providers",
-    ],
-    attribution:
-      "Fork of PonnalaShiva/PrimeMusic-Lavalink. The original project credits Shiva; original authorship is not claimed here.",
-  },
-  {
-    id: "wand-enhancer",
-    title: "Wand Enhancer",
-    subtitle: "Fork · Desktop interoperability tooling",
-    category: "desktop",
-    repository: repo("Wand-Enhancer", "public"),
-    source: "GitHub",
-    status: "Fork / adaptation",
-    description:
-      "An open-source fork of Wand Enhancer, exploring client-side customization, local configuration, and a companion remote web panel for the Wand application.",
-    tech: ["C#", ".NET", "WPF", "React", "TypeScript"],
-    features: [
-      "Local client configuration tooling",
-      "Layout and theme customization",
-      "Companion remote web panel",
-    ],
-    attribution:
-      "Fork of k1tbyte/Wand-Enhancer. The upstream project and contributors retain their original authorship.",
-  },
-  {
-    id: "df2-necrotonine",
-    title: "DF2 / Necrotonine",
-    subtitle: "Experiment · Game modification",
-    category: "experiment",
-    repository: repo("df2-Necrotonine"),
-    source: "GitHub",
-    status: "Private experiment",
-    description:
-      "A C# and BepInEx game-modification experiment for Dead Frontier 2, with an in-game settings menu, display overlays, camera controls, and gameplay adjustments.",
-    tech: ["C#", ".NET Framework", "BepInEx", "Unity"],
-    features: [
-      "In-game settings interface",
-      "Display overlays and camera controls",
-      "Gameplay modification experiments",
-    ],
-  },
-  {
-    id: "patawad",
-    title: "Patawad",
-    subtitle: "Creative coding · A personal web story",
-    category: "experiment",
-    repository: repo("patawad", "public"),
-    source: "GitHub",
-    status: "Creative experiment",
-    description:
-      "An expressive one-page web story that combines editorial typography, scroll navigation, custom cursor details, and a soundtrack.",
-    tech: ["HTML", "CSS", "JavaScript"],
-    features: [
-      "Typographic storytelling",
-      "Scroll progress and section navigation",
-      "Custom pointer treatment and audio",
-    ],
-  },
-  {
     id: "shaina-portfolio",
     title: "Shaina / Personal Portfolio",
     subtitle: "Web design · Hospitality portfolio",
@@ -530,48 +424,6 @@ const additions = [
       "Links to case studies and contact channels",
     ],
   },
-  ...[
-    [
-      "earthquake-film",
-      "Before and After the Earthquake",
-      "An interview-led PHILRADS video project about the earthquake’s impact on communities and the experience of recovery.",
-    ],
-    [
-      "el-nino-film",
-      "El Niño / Umuulan Pa Rin",
-      "A PHILRADS educational video edit exploring why rain can still occur during El Niño.",
-    ],
-    [
-      "balde-film",
-      "Balde / Maghanda ng Plano",
-      "A PHILRADS preparedness video edit connecting practical water preparation with household planning.",
-    ],
-    [
-      "hoarding-film",
-      "Bakit Hindi Maganda ang Hoarding?",
-      "A PHILRADS educational video edit about hoarding, preparedness, and consideration for the wider community.",
-    ],
-    [
-      "hanapbuhay-film",
-      "Hanapbuhay at Panahon",
-      "A PHILRADS video edit about the relationship between weather, farming, and livelihoods.",
-    ],
-  ].map(([id, title, description]) => ({
-    id,
-    title,
-    description,
-    subtitle: "PHILRADS · Visual storytelling",
-    category: "visual",
-    year: "2026",
-    source: "Local",
-    status: "Final video export",
-    tech: ["Video Editing", "Visual Storytelling"],
-    features: [
-      "Final video edit available in the project archive",
-      "Supporting footage and production working materials",
-    ],
-    statusNote: "Full-resolution final export available on request.",
-  })),
 ];
 
 export const projectCatalog = [
@@ -594,6 +446,5 @@ export const catalogCategories = [
   ["web", "Web"],
   ["desktop", "Desktop"],
   ["bot", "Bots & automation"],
-  ["visual", "Visual"],
   ["experiment", "Experiments"],
 ];

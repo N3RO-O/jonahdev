@@ -52,8 +52,8 @@ export default function ProjectIndex({ onOpen }) {
           </h3>
         </div>
         <p>
-          {repositoryCount} GitHub repositories, local tools, earlier editions,
-          experiments, and visual work. Follow an idea a little further.
+          {repositoryCount} GitHub repositories, plus local tools, earlier
+          editions and experiments. Follow an idea a little further.
         </p>
       </div>
       <div className="index-search">

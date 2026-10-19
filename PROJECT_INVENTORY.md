@@ -1,6 +1,6 @@
 # Project inventory — 19 October 2026
 
-The NeroSec catalog contains **33 project entries**, with **9 selected projects** in the visual showcase. It represents all **21 owner repositories** returned by the connected GitHub account `N3RO-O`, plus local applications, earlier editions, and five finished video projects.
+The NeroSec catalog contains **22 project entries**, with **9 selected projects** in the visual showcase. It features **16 of the 21 owner repositories** on the GitHub account `N3RO-O`, plus local applications and earlier editions.
 
 ## GitHub coverage
 
@@ -21,11 +21,6 @@ Every repository below maps to exactly one catalog entry. Public source links ar
 | update-pcec-app          | PCEC Connect / Project Update | Public            |
 | philrads-disaster-bot    | PHILRADS Disaster Monitor     | Private           |
 | reportly-app             | Reportly                      | Public            |
-| weekly-report-builder    | Weekly Report Builder         | Public / archived |
-| Nero-s-Soundcloud        | Nero's SoundCloud             | Public / fork     |
-| Wand-Enhancer            | Wand Enhancer                 | Public / fork     |
-| df2-Necrotonine          | DF2 / Necrotonine             | Private           |
-| patawad                  | Patawad                       | Public            |
 | shainaportfolio          | Shaina / Personal Portfolio   | Public            |
 | jonahdev                 | NeroSec / This Portfolio      | Public            |
 | N3RO-O                   | NeroSec / GitHub Profile      | Public            |
@@ -51,7 +46,6 @@ Paths are relative to `C:/Users/hp/Desktop/Projects` and are documentation only.
 | PCEC App/Design Previews and Reports & Guides | Supporting materials for PCEC Connect and its update site                 |
 | PHILRADS Portal                               | PHILRADS Staff Portal                                                     |
 | Code & Systems/PHILRADS/habit-ops             | Habit Ops                                                                 |
-| Code & Systems/PHILRADS/habit-quest           | Habit Quest, earlier tracker edition                                      |
 | Bots/philrads-disaster-bot                    | PHILRADS Disaster Monitor                                                 |
 | Bots/philrads-rss-free                        | PHILRADS Monitor / Direct Edition                                         |
 | Bots/Strategy Bot                             | PHILRADS Best-Time Bot                                                    |
@@ -61,20 +55,16 @@ Paths are relative to `C:/Users/hp/Desktop/Projects` and are documentation only.
 
 `Code & Systems/aipeepshome` is empty. The outer `Code & Systems/habit-ops` folder contains a backend scaffold and is grouped with Habit Ops. Logos, signatures, certificates, background assets, dependency folders, backups, and repeated source copies are supporting materials rather than separate authored products.
 
-## Finished visual projects
+## Left out of the portfolio
 
-All five files in `PHILRADS Videos/Final Exports` have catalog entries:
+These are intentionally not catalog entries:
 
-1. Before and After the Earthquake
-2. PHILRADS - El Nino Umuulan Pa Rin
-3. PHILRADS - Video Edit 1 Balde Plano
-4. PHILRADS - Video Edit 3 Hoarding
-5. PHILRADS -Hanapbuhay Panahon
-
-The original full-resolution exports remain local; portfolio entries describe the work and provide an enquiry link. Existing portfolio video samples remain playable. Shared source footage is grouped with the relevant final video rather than treated as separate projects.
+- Repositories: `weekly-report-builder`, `Nero-s-Soundcloud` (fork), `Wand-Enhancer` (fork), `df2-Necrotonine`, `patawad`.
+- Local: `Code & Systems/PHILRADS/habit-quest` (earlier Habit Ops edition).
+- The five final PHILRADS video exports in `PHILRADS Videos/Final Exports`. They are separate work from the portfolio's own motion studies, which stay in the Creative section.
 
 ## Verification
 
-`npm run check` verifies all 21 repository mappings, unique project IDs, valid categories, source-link visibility, five visual entries, NeroSec manifest branding, and every referenced local asset. `npm run build` checks the production bundle.
+`npm run check` verifies the 16 featured repository mappings, unique project IDs, valid categories, source-link visibility, that no video exports are listed, NeroSec manifest branding, and every referenced local asset. `npm run build` checks the production bundle.
 
 The inventory is a reviewed snapshot, not an automatic claim about deployment readiness. Testing releases, prototypes, local tools, archived projects, and forks retain explicit status labels.

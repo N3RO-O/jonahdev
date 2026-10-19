@@ -10,20 +10,16 @@ import {
 import { site, creative, certifications } from "../src/data/siteData.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-// Owner repositories returned by the connected GitHub inventory, 2026-10-19.
+// Repositories featured in the portfolio. Forks, experiments and older
+// editions that are not portfolio pieces are intentionally left out.
 const expectedRepositories = [
-  "Nero-s-Soundcloud",
   "kiddytrack",
   "kiddytrack-CPIC",
   "Philrads-Asset-Inventory",
-  "patawad",
-  "weekly-report-builder",
   "reportly-app",
-  "Wand-Enhancer",
   "jonahdev",
   "Nerovault",
   "shainaportfolio",
-  "df2-Necrotonine",
   "habit-ops",
   "update-pcec-app",
   "ChurchTimesUp",
@@ -40,7 +36,7 @@ const represented = projectCatalog.flatMap((project) =>
 assert.deepEqual(
   [...represented].sort(),
   [...expectedRepositories].sort(),
-  "Every inventoried repository must appear exactly once.",
+  "Every featured repository must appear exactly once.",
 );
 assert.equal(
   new Set(projectCatalog.map((project) => project.id)).size,
@@ -92,8 +88,8 @@ const manifest = JSON.parse(
 assert.equal(manifest.short_name, "NeroSec");
 assert.equal(
   projectCatalog.filter((project) => project.category === "visual").length,
-  5,
-  "All five final PHILRADS video projects must be represented.",
+  0,
+  "Video exports are kept out of the project archive.",
 );
 console.log(
   `Checked ${projectCatalog.length} projects, ${represented.length} repositories, ${selectedProjects.length} selected projects, and ${assets.length} asset references. No missing assets or private source links.`,
