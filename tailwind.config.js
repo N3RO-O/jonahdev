@@ -12,8 +12,8 @@ export default {
       colors: {
         accent: {
           DEFAULT: 'rgb(var(--accent-rgb) / <alpha-value>)',
-          light: '#e8bf72',
-          dark: '#b8892f',
+          light: '#ff0000',
+          dark: '#950101',
         },
         surface: {
           DEFAULT: 'var(--surface)',

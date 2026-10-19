@@ -1,189 +1,239 @@
 export const site = {
-  url: 'https://tabuzoportfolio.vercel.app',
-  name: 'Jonah Mark Tabuzo',
-  title: 'Full-Stack Web Developer & Visual Creator',
+  url: "https://tabuzoportfolio.vercel.app",
+  name: "Jonah Mark Tabuzo",
+  brand: "NeroSec",
+  title: "Full-Stack Web Developer, Systems Creator & Visual Storyteller",
   tagline:
-    'Information Systems graduate building practical web solutions and visual stories from the Philippines.',
-  location: 'Virac, Bicol Region, Philippines',
-  email: 'jonahmarkt@gmail.com',
-  phone: '+63 928 574 4262',
-  cvUrl: '/assets/jonah-tabuzo-cv.pdf',
-  photo: '/assets/jonah-photo-updated.jpg?v=5',
+    "Information Systems graduate building practical web solutions and visual stories from the Philippines.",
+  location: "Virac, Bicol Region, Philippines",
+  email: "jonahmarkt@gmail.com",
+  phone: "+63 928 574 4262",
+  cvUrl: "/assets/jonah-tabuzo-cv.pdf",
+  photo: "/assets/jonah-photo-updated.jpg?v=5",
   socials: [
-    { label: 'GitHub', icon: 'github', href: 'https://github.com/N3RO-O', handle: 'N3RO-O' },
     {
-      label: 'LinkedIn',
-      icon: 'linkedin',
-      href: 'https://www.linkedin.com/in/jonah-mark-tabuzo-676389191/',
-      handle: 'Jonah Mark Tabuzo',
+      label: "GitHub",
+      icon: "github",
+      href: "https://github.com/N3RO-O",
+      handle: "N3RO-O",
     },
     {
-      label: 'Facebook',
-      icon: 'facebook',
-      href: 'https://www.facebook.com/profile.php?id=61591681414570',
-      handle: 'Jonah Mark Tabuzo',
+      label: "LinkedIn",
+      icon: "linkedin",
+      href: "https://www.linkedin.com/in/jonah-mark-tabuzo-676389191/",
+      handle: "Jonah Mark Tabuzo",
     },
     {
-      label: 'Website',
-      icon: 'website',
-      href: 'https://pixodeph.vercel.app/',
-      handle: 'pixodeph.vercel.app',
+      label: "Facebook",
+      icon: "facebook",
+      href: "https://www.facebook.com/profile.php?id=61591681414570",
+      handle: "Jonah Mark Tabuzo",
     },
     {
-      label: 'Discord',
-      icon: 'discord',
-      href: 'https://discord.gg/HpUJFCTX33',
+      label: "Website",
+      icon: "website",
+      href: "https://pixodeph.vercel.app/",
+      handle: "pixodeph.vercel.app",
+    },
+    {
+      label: "Discord",
+      icon: "discord",
+      href: "https://discord.gg/HpUJFCTX33",
       handle: "Nero's Cult",
     },
   ],
-  formspree: 'https://formspree.io/f/xojnyrwr',
-  githubUser: 'N3RO-O',
-}
+  formspree: "https://formspree.io/f/xojnyrwr",
+  githubUser: "N3RO-O",
+};
 
 export const navLinks = [
-  { id: 'about', label: 'About' },
-  { id: 'skills', label: 'Skills' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'creative', label: 'Creative' },
-  { id: 'education', label: 'Education' },
-  { id: 'blog', label: 'Blog' },
-  { id: 'contact', label: 'Contact' },
-]
+  { id: "about", label: "About" },
+  { id: "skills", label: "Skills" },
+  { id: "projects", label: "Projects" },
+  { id: "experience", label: "Experience" },
+  { id: "creative", label: "Creative" },
+  { id: "education", label: "Education" },
+  { id: "blog", label: "Blog" },
+  { id: "contact", label: "Contact" },
+];
 
 export const about = {
   // Opening sentence runs as the section's lede at display size; the rest
   // is body copy. Splitting them keeps the lede to one readable claim
   // instead of a 60-word block set in large type.
-  lede: 'Results-driven BS Information Systems graduate with 2+ years of hands-on experience designing, developing, and successfully launching practical, user-friendly web applications.',
+  lede: "Results-driven BS Information Systems graduate with 2+ years of hands-on experience designing, developing, and successfully launching practical, user-friendly web applications.",
   paragraphs: [
-    'A reliable full-stack developer who thrives in taking projects from start to finish — gathering requirements from stakeholders, designing intuitive interfaces, implementing robust systems, and deploying live solutions that deliver real business value.',
-    'At PHILRADS, I built and deployed two live management systems featuring inventory and asset tracking, smart expiration logic, secure approval workflows, and comprehensive activity logging. I also led development of an academic tracking system. My latest independent product, Church Time’s Up, brings service timing and presenter cues into an offline desktop app.',
-    'I specialize in creating clean, high-performance web applications and stakeholder-focused interfaces that are accessible even to non-technical users. My work combines strong technical skills with visual design sensibility and a deep focus on usability and impact.',
-    'I am particularly interested in opportunities where I can contribute to reliable web solutions, systems analysis, and product-focused development within teams that value craftsmanship and meaningful outcomes.',
-    'I also contribute as a freelance Quality Assurance Engineer at PIXODE Philippines. Beyond software, I create visual content and support local creative initiatives.',
+    "A reliable full-stack developer who thrives in taking projects from start to finish — gathering requirements from stakeholders, designing intuitive interfaces, implementing robust systems, and deploying live solutions that deliver real business value.",
+    "At PHILRADS, I built and deployed two live management systems featuring inventory and asset tracking, smart expiration logic, secure approval workflows, and comprehensive activity logging. I also led development of an academic tracking system. My latest independent product, Church Time’s Up, brings service timing and presenter cues into an offline desktop app.",
+    "I specialize in creating clean, high-performance web applications and stakeholder-focused interfaces that are accessible even to non-technical users. My work combines strong technical skills with visual design sensibility and a deep focus on usability and impact.",
+    "I am particularly interested in opportunities where I can contribute to reliable web solutions, systems analysis, and product-focused development within teams that value craftsmanship and meaningful outcomes.",
+    "I also contribute as a freelance Quality Assurance Engineer at PIXODE Philippines. Beyond software, I create visual content and support local creative initiatives.",
   ],
   // Scannable facts for the About rail. Every value here already appears
   // elsewhere on the site (hero location, education block, page meta) —
   // this just puts them where someone skimming will actually find them.
   facts: [
-    { label: 'Based in', value: 'Virac, Catanduanes, PH' },
-    { label: 'Focus', value: 'Full-stack web systems' },
-    { label: 'Open to', value: 'Web Development · IT Support · Systems Analysis' },
+    { label: "Based in", value: "Virac, Catanduanes, PH" },
+    { label: "Focus", value: "Full-stack web systems" },
+    {
+      label: "Open to",
+      value: "Web Development · IT Support · Systems Analysis",
+    },
   ],
   highlights: [
-    { icon: 'graduate', label: 'BSIS Graduate', desc: 'Catanduanes State University' },
-    { icon: 'briefcase', label: 'PHILRADS', desc: 'Contributing through meaningful projects' },
-    { icon: 'camera', label: 'Visual Creator', desc: 'Photography, video & editing' },
-    { icon: 'zap', label: 'Continuous Learner', desc: 'Modern web tools & workflows' },
+    {
+      icon: "graduate",
+      label: "BSIS Graduate",
+      desc: "Catanduanes State University",
+    },
+    {
+      icon: "briefcase",
+      label: "PHILRADS",
+      desc: "Contributing through meaningful projects",
+    },
+    {
+      icon: "camera",
+      label: "Visual Creator",
+      desc: "Photography, video & editing",
+    },
+    {
+      icon: "zap",
+      label: "Continuous Learner",
+      desc: "Modern web tools & workflows",
+    },
   ],
-}
+};
 
 // The tools that actually carry the shipped work — surfaced above the
 // full breakdown so a recruiter scanning for five seconds still lands on
 // the right five words.
-export const coreStack = ['PHP', 'MySQL', 'JavaScript', 'React', 'Tailwind CSS']
+export const coreStack = [
+  "PHP",
+  "MySQL",
+  "JavaScript",
+  "React",
+  "Tailwind CSS",
+];
 
 export const skillCategories = [
   {
-    title: 'Frontend',
-    icon: 'layout',
-    caption: 'Interfaces built to stay readable for non-technical users.',
+    title: "Frontend",
+    icon: "layout",
+    caption: "Interfaces built to stay readable for non-technical users.",
     skills: [
-      'React',
-      'TypeScript',
-      'JavaScript',
-      'HTML5',
-      'CSS3',
-      'Tailwind CSS',
-      'Responsive UI',
-      'WordPress',
-      'FlutterFlow',
-      'Figma',
+      "React",
+      "Next.js",
+      "TypeScript",
+      "JavaScript",
+      "HTML5",
+      "CSS3",
+      "Tailwind CSS",
+      "Responsive UI",
+      "WordPress",
+      "FlutterFlow",
+      "Figma",
     ],
   },
   {
-    title: 'Backend',
-    icon: 'server',
-    caption: 'Role-based systems, relational schemas, and CRUD workflows.',
+    title: "Backend",
+    icon: "server",
+    caption: "Role-based systems, relational schemas, and CRUD workflows.",
     skills: [
-      'PHP',
-      'MySQL',
-      'PostgreSQL',
-      'Supabase',
-      'Supabase Auth & RLS',
-      'Firebase',
-      'Node.js / Express',
-      'REST APIs',
-      'AJAX',
-      'Session Auth',
-      'CRUD Systems',
+      "PHP",
+      "MySQL",
+      "MongoDB",
+      "SQLite",
+      "PostgreSQL",
+      "Supabase",
+      "Supabase Auth & RLS",
+      "Firebase",
+      "Node.js / Express",
+      "REST APIs",
+      "AJAX",
+      "Session Auth",
+      "CRUD Systems",
     ],
   },
   {
-    title: 'Tools & Methods',
-    icon: 'wrench',
-    caption: 'Version control, database design, and requirements work.',
-    skills: ['Git', 'GitHub', 'Systems Analysis', 'SQL', 'Database Design', 'Basic Networking'],
-  },
-  {
-    title: 'Professional',
-    icon: 'briefcase',
-    caption: 'The non-code half of getting a system into real hands.',
+    title: "Tools & Methods",
+    icon: "wrench",
+    caption: "Version control, database design, and requirements work.",
     skills: [
-      'Project Management',
-      'Stakeholder Engagement',
-      'Communication',
-      'Documentation',
-      'QA & Testing',
+      "Git",
+      "GitHub",
+      "Systems Analysis",
+      "SQL",
+      "Database Design",
+      "Basic Networking",
     ],
   },
   {
-    title: 'Creative',
-    icon: 'camera',
-    caption: 'The same eye for composition that shapes the interfaces.',
-    skills: ['Photography', 'Videography', 'Video Editing', 'Visual Storytelling'],
+    title: "Professional",
+    icon: "briefcase",
+    caption: "The non-code half of getting a system into real hands.",
+    skills: [
+      "Project Management",
+      "Stakeholder Engagement",
+      "Communication",
+      "Documentation",
+      "QA & Testing",
+    ],
   },
   {
-    title: 'Currently Learning',
-    icon: 'book',
-    caption: 'Picking these up next, in order of priority.',
-    skills: ['Laravel', 'C++ / C#'],
+    title: "Creative",
+    icon: "camera",
+    caption: "The same eye for composition that shapes the interfaces.",
+    skills: [
+      "Photography",
+      "Videography",
+      "Video Editing",
+      "Visual Storytelling",
+    ],
+  },
+  {
+    title: "Currently Learning",
+    icon: "book",
+    caption: "Picking these up next, in order of priority.",
+    skills: ["Laravel", "C++"],
     accent: true,
   },
-]
+];
 
 export const projects = [
   {
-    id: 'church-times-up',
+    id: "church-times-up",
     title: "Church Time's Up",
-    subtitle: 'Independent Product · Service Timing',
-    category: 'desktop',
+    subtitle: "Independent Product · Service Timing",
+    category: "desktop",
     featured: true,
-    release: 'Windows desktop · v1.6.2',
-    year: '2026',
-    accent: '#e9b84b',
+    release: "Windows desktop · v1.6.2",
+    year: "2026",
+    accent: "#ff0000",
     description:
-      'A desktop control room for church services — keeping the run of show, presenter cues, and stage screens in sync, even without an internet connection.',
+      "A desktop control room for church services — keeping the run of show, presenter cues, and stage screens in sync, even without an internet connection.",
     problem:
-      'Production teams need to keep speakers on time and send discreet prompts without accidentally displaying operator controls to the congregation.',
+      "Production teams need to keep speakers on time and send discreet prompts without accidentally displaying operator controls to the congregation.",
     solution:
-      'Built an offline Windows app with synchronized local Wi-Fi screens, private controller access, explicit monitor selection, and a timer overlay for presentation slides.',
-    role: 'Product design and full-stack development — controller UI, timer engine, real-time synchronization, desktop packaging, and release testing.',
-    tech: ['React', 'TypeScript', 'Electron', 'Node.js', 'Socket.IO'],
-    metrics: ['Offline Windows app', 'Local Wi-Fi synchronization', 'OBS browser output'],
+      "Built an offline Windows app with synchronized local Wi-Fi screens, private controller access, explicit monitor selection, and a timer overlay for presentation slides.",
+    role: "Product design and full-stack development — controller UI, timer engine, real-time synchronization, desktop packaging, and release testing.",
+    tech: ["React", "TypeScript", "Electron", "Node.js", "Socket.IO"],
+    metrics: [
+      "Offline Windows app",
+      "Local Wi-Fi synchronization",
+      "OBS browser output",
+    ],
     features: [
-      'Run-of-show timers with countdown, count-up, and presenter messages',
-      'Choose the stage monitor, with live overlay position and size controls',
-      'Private owner links and scoped invitations for operators',
-      'Fullscreen messages, automatic text fitting, and responsive phone views',
+      "Run-of-show timers with countdown, count-up, and presenter messages",
+      "Choose the stage monitor, with live overlay position and size controls",
+      "Private owner links and scoped invitations for operators",
+      "Fullscreen messages, automatic text fitting, and responsive phone views",
     ],
     galleries: [
       {
-        label: 'Service control room',
+        label: "Service control room",
         images: [
           {
-            src: '/assets/projects/church-times-up/controller.jpg',
+            src: "/assets/projects/church-times-up/controller.jpg",
             caption:
               "Church Time's Up — live timer and stage-message controller in a demonstration service.",
           },
@@ -193,46 +243,46 @@ export const projects = [
   },
 
   {
-    id: 'kiddytrack',
-    title: 'KiddyTrack',
-    subtitle: 'Capstone · Lead Programmer',
-    year: '2024',
-    accent: '#e8b84b',
+    id: "kiddytrack",
+    title: "KiddyTrack",
+    subtitle: "Capstone · Lead Programmer",
+    year: "2024",
+    accent: "#ff0000",
     description:
-      'Role-based academic monitoring platform for teachers, parents, and school administrators — built from scratch for active classroom use.',
+      "Role-based academic monitoring platform for teachers, parents, and school administrators — built from scratch for active classroom use.",
     problem:
-      'Schools relied on manual grade tracking and fragmented communication between teachers, parents, and principals.',
+      "Schools relied on manual grade tracking and fragmented communication between teachers, parents, and principals.",
     solution:
-      'Designed separate dashboards per role with a relational database schema and academic tracking modules — grade data presented in human-readable views, not raw tables.',
-    role: 'Lead Programmer — full-stack development, database design, UI/UX for non-technical users.',
-    tech: ['PHP', 'MySQL', 'JavaScript', 'HTML/CSS', 'Systems Design'],
+      "Designed separate dashboards per role with a relational database schema and academic tracking modules — grade data presented in human-readable views, not raw tables.",
+    role: "Lead Programmer — full-stack development, database design, UI/UX for non-technical users.",
+    tech: ["PHP", "MySQL", "JavaScript", "HTML/CSS", "Systems Design"],
     metrics: [
-      '3 role-based dashboards (Teacher, Parent, Principal)',
-      'Zero training required for end users in pilot feedback',
-      'Full academic tracking module from schema to UI',
+      "3 role-based dashboards (Teacher, Parent, Principal)",
+      "Zero training required for end users in pilot feedback",
+      "Full academic tracking module from schema to UI",
     ],
     features: [
-      'Separate dashboards for teachers, parents, and principals',
-      'Relational database schema designed from scratch',
-      'Grade tracking presented clearly for non-technical users',
+      "Separate dashboards for teachers, parents, and principals",
+      "Relational database schema designed from scratch",
+      "Grade tracking presented clearly for non-technical users",
     ],
     galleries: [
       {
-        label: 'Teacher Dashboard',
+        label: "Teacher Dashboard",
         images: Array.from({ length: 11 }, (_, i) => ({
           src: `/assets/projects/kiddytrack/teacher pov/ss${i + 1}.png`,
           caption: `Teacher — view ${i + 1}`,
         })),
       },
       {
-        label: 'Parent Dashboard',
+        label: "Parent Dashboard",
         images: Array.from({ length: 5 }, (_, i) => ({
           src: `/assets/projects/kiddytrack/parent pov/ss${i + 1}.png`,
           caption: `Parent — view ${i + 1}`,
         })),
       },
       {
-        label: 'Principal Dashboard',
+        label: "Principal Dashboard",
         images: Array.from({ length: 9 }, (_, i) => ({
           src: `/assets/projects/kiddytrack/principal pov/ss${i + 1}.png`,
           caption: `Principal — view ${i + 1}`,
@@ -241,332 +291,376 @@ export const projects = [
     ],
   },
   {
-    id: 'philrads',
-    title: 'PHILRADS Asset Database System',
-    subtitle: 'OJT Project · Asset Management',
-    year: '2026',
-    accent: '#800000',
+    id: "philrads",
+    cover: "/assets/projects/Asset Database System/admin/ss2.png",
+    title: "PHILRADS Asset Database System",
+    subtitle: "OJT Project · Asset Management",
+    year: "2026",
+    accent: "#ff0000",
     description:
-      'Role-based asset inventory and management system for PHILRADS — tracking equipment, resources, and records with full CRUD functionality.',
+      "Role-based asset inventory and management system for PHILRADS — tracking equipment, resources, and records with full CRUD functionality.",
     problem:
-      'Manual spreadsheets made asset tracking slow, error-prone, and inaccessible to staff in the field.',
+      "Manual spreadsheets made asset tracking slow, error-prone, and inaccessible to staff in the field.",
     solution:
       "Built a responsive web system with Admin and Staff roles, full CRUD operations, and dashboards scoped to each role's needs.",
-    role: 'Full-stack developer — database, backend logic, and responsive UI.',
-    tech: ['PHP', 'MySQL', 'JavaScript', 'CSS', 'Role-Based Access'],
+    role: "Full-stack developer — database, backend logic, and responsive UI.",
+    tech: ["PHP", "MySQL", "JavaScript", "CSS", "Role-Based Access"],
     metrics: [
-      'Reduced manual inventory lookup time significantly',
-      'Full CRUD for asset records',
-      'Separate Admin & Staff dashboards',
+      "Reduced manual inventory lookup time significantly",
+      "Full CRUD for asset records",
+      "Separate Admin & Staff dashboards",
     ],
     features: [
-      'Add, view, edit, and delete asset records',
-      'Role-based access control (Admin / Staff)',
-      'Clean responsive interface for office and field use',
+      "Add, view, edit, and delete asset records",
+      "Role-based access control (Admin / Staff)",
+      "Clean responsive interface for office and field use",
     ],
     galleries: [
       {
-        label: 'Admin Dashboard',
+        label: "Admin Dashboard",
         images: Array.from({ length: 17 }, (_, i) => ({
           src: `/assets/projects/Asset Database System/admin/ss${i + 1}.png`,
           caption: `Admin — view ${i + 1}`,
         })),
       },
       {
-        label: 'Staff Dashboard',
+        label: "Staff Dashboard",
         images: Array.from({ length: 12 }, (_, i) => ({
-          src: `/assets/projects/Asset Database System/staff/ss${i + 1}.png`,
+          src: `/assets/projects/Asset Database System/staff/ss${i === 0 ? "" : i}.png`,
           caption: `Staff — view ${i + 1}`,
         })),
       },
     ],
   },
   {
-    id: 'philrads-ims',
-    title: 'PHILRADS Inventory Management System (IMS)',
-    subtitle: 'OJT Project · Inventory Management',
-    year: '2026',
-    accent: '#4a9eff',
+    id: "philrads-ims",
+    title: "PHILRADS Inventory Management System (IMS)",
+    subtitle: "OJT Project · Inventory Management",
+    year: "2026",
+    accent: "#ff0000",
     description:
-      'A role-based relief inventory system for PHILRADS — tracking donations, expiry-aware stock, two-administrator release approvals, and the people each event serves, with a built-in AI support assistant.',
+      "A role-based relief inventory system for PHILRADS — tracking donations, expiry-aware stock, two-administrator release approvals, and the people each event serves, with a built-in AI support assistant.",
     problem:
-      'Relief goods were tracked in manual logs and spreadsheets, so stock levels, expiry dates, and who approved a release were hard to verify — especially in the field, where the connection drops.',
+      "Relief goods were tracked in manual logs and spreadsheets, so stock levels, expiry dates, and who approved a release were hard to verify — especially in the field, where the connection drops.",
     solution:
-      'Built a PHP/MySQL system with batch-level stock that releases first-expired-first-out, two-administrator approval before any stock is deducted, event impact tracking, an audit trail, and an offline queue that retries submissions without creating duplicates.',
-    role: 'Full-stack developer — requirements gathering, database design, PHP backend, role-based UI, security hardening, and the AI support assistant.',
-    tech: ['PHP', 'MySQL', 'JavaScript', 'HTML/CSS', 'AI Assistant'],
+      "Built a PHP/MySQL system with batch-level stock that releases first-expired-first-out, two-administrator approval before any stock is deducted, event impact tracking, an audit trail, and an offline queue that retries submissions without creating duplicates.",
+    role: "Full-stack developer — requirements gathering, database design, PHP backend, role-based UI, security hardening, and the AI support assistant.",
+    tech: ["PHP", "MySQL", "JavaScript", "HTML/CSS", "AI Assistant"],
     metrics: [
-      'Live IMS portal deployed for PHILRADS',
-      '4 roles — Administrator, Warehouse Manager, Encoder, Viewer',
-      'Every release needs two different administrator approvals',
-      'Offline queue verified with automated tests',
+      "Live IMS portal deployed for PHILRADS",
+      "4 roles — Administrator, Warehouse Manager, Encoder, Viewer",
+      "Every release needs two different administrator approvals",
+      "Offline queue verified with automated tests",
     ],
     features: [
-      'Batch-level inventory with first-expired-first-out releases and expiry alerts',
-      'Two-administrator approval before stock is deducted',
-      'Events page that auto-sums people served from released items',
-      'Offline queue — submissions retry automatically and never create duplicates',
-      'PRDS Support, an AI assistant that answers in English or Filipino and looks up live stock, releases and events through fixed read-only queries — the model never writes SQL or takes actions',
-      'Audit trail, optional two-factor sign-in, rate-limited password resets, and AES-256 encrypted backups',
+      "Batch-level inventory with first-expired-first-out releases and expiry alerts",
+      "Two-administrator approval before stock is deducted",
+      "Events page that auto-sums people served from released items",
+      "Offline queue — submissions retry automatically and never create duplicates",
+      "PRDS Support, an AI assistant that answers in English or Filipino and looks up live stock, releases and events through fixed read-only queries — the model never writes SQL or takes actions",
+      "Audit trail, optional two-factor sign-in, rate-limited password resets, and AES-256 encrypted backups",
     ],
     galleries: [
       {
-        label: 'Admin Dashboard',
+        label: "Admin Dashboard",
         images: [
           {
-            src: '/assets/projects/philrads-ims/01-dashboard.png',
-            caption: 'Dashboard — stock needing attention and the release approval queue.',
+            src: "/assets/projects/philrads-ims/01-dashboard.png",
+            caption:
+              "Dashboard — stock needing attention and the release approval queue.",
           },
           {
-            src: '/assets/projects/philrads-ims/02-inventory.png',
-            caption: 'Inventory — stock on hand with next-expiry status.',
+            src: "/assets/projects/philrads-ims/02-inventory.png",
+            caption: "Inventory — stock on hand with next-expiry status.",
           },
           {
-            src: '/assets/projects/philrads-ims/03-releases.png',
-            caption: 'Releases — each request tracked from submission to final approval.',
+            src: "/assets/projects/philrads-ims/03-releases.png",
+            caption:
+              "Releases — each request tracked from submission to final approval.",
           },
           {
-            src: '/assets/projects/philrads-ims/04-events.png',
-            caption: 'Events — people served tracked against each target.',
+            src: "/assets/projects/philrads-ims/04-events.png",
+            caption: "Events — people served tracked against each target.",
           },
         ],
       },
       {
-        label: 'AI Support Assistant',
+        label: "AI Support Assistant",
         images: [
           {
-            src: '/assets/projects/philrads-ims/05-support-assistant.png',
+            src: "/assets/projects/philrads-ims/05-support-assistant.png",
             caption:
-              'PRDS Support — live stock and release lookups plus guided help, shown with demo data.',
+              "PRDS Support — live stock and release lookups plus guided help, shown with demo data.",
           },
         ],
       },
     ],
   },
   {
-    id: 'nerovault',
-    title: 'Nerovault',
-    subtitle: 'Solo Build · Budget & Savings Tracker',
-    year: '2026',
-    accent: '#22c55e',
+    id: "nerovault",
+    title: "Nerovault",
+    subtitle: "Solo Build · Budget & Savings Tracker",
+    year: "2026",
+    accent: "#ff0000",
     description:
-      'A 100% free, private budget and savings tracker. Everything stays on your device — no sign-up, no backend, no cloud uploads. Track income, expenses, bills, and savings goals with instant, local-first stats.',
+      "A 100% free, private budget and savings tracker. Everything stays on your device — no sign-up, no backend, no cloud uploads. Track income, expenses, bills, and savings goals with instant, local-first stats.",
     problem:
-      'Most budgeting tools lock your data behind accounts, subscriptions, or servers you don’t control — a hard no for people who just want to watch their own spending privately.',
+      "Most budgeting tools lock your data behind accounts, subscriptions, or servers you don’t control — a hard no for people who just want to watch their own spending privately.",
     solution:
-      'Built a single-page PWA that persists everything to the browser’s localStorage and runs entirely client-side, with an installable offline app shell (service worker + manifest) and CSV/JSON backup & restore.',
-    role: 'Solo developer — architecture, UI/UX, offline/PWA support, and data-migration pipeline.',
-    tech: ['HTML', 'CSS', 'JavaScript', 'Tailwind CSS', 'Chart.js', 'PWA', 'localStorage'],
+      "Built a single-page PWA that persists everything to the browser’s localStorage and runs entirely client-side, with an installable offline app shell (service worker + manifest) and CSV/JSON backup & restore.",
+    role: "Solo developer — architecture, UI/UX, offline/PWA support, and data-migration pipeline.",
+    tech: [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Tailwind CSS",
+      "Chart.js",
+      "PWA",
+      "localStorage",
+    ],
     metrics: [
-      'Zero backend — 100% client-side, no accounts',
-      'Installable offline PWA (service worker + manifest)',
-      'Live net-worth & savings-rate stats',
+      "Zero backend — 100% client-side, no accounts",
+      "Installable offline PWA (service worker + manifest)",
+      "Live net-worth & savings-rate stats",
     ],
     features: [
-      'Budget categories with auto-normalizing percentages',
-      'Bills with Not yet due → Ready → Paid lifecycle',
-      'Savings goals with pace tracking + confetti',
-      'JSON backup/restore & CSV export',
+      "Budget categories with auto-normalizing percentages",
+      "Bills with Not yet due → Ready → Paid lifecycle",
+      "Savings goals with pace tracking + confetti",
+      "JSON backup/restore & CSV export",
     ],
     galleries: [
       {
-        label: 'App Screens',
+        label: "App Screens",
         images: [
           {
-            src: '/assets/projects/nerovault/01-dashboard.png',
-            caption: 'Dashboard — payday summary plus available, bills, net worth and savings-rate cards.',
+            src: "/assets/projects/nerovault/01-dashboard.png",
+            caption:
+              "Dashboard — payday summary plus available, bills, net worth and savings-rate cards.",
           },
           {
-            src: '/assets/projects/nerovault/02-budget.png',
-            caption: 'Budget — category limits, quick presets like 50/30/20, and live usage per category.',
+            src: "/assets/projects/nerovault/02-budget.png",
+            caption:
+              "Budget — category limits, quick presets like 50/30/20, and live usage per category.",
           },
           {
-            src: '/assets/projects/nerovault/03-bills.png',
-            caption: 'Bills — each bill moves from Not yet due to Ready to pay to Paid.',
+            src: "/assets/projects/nerovault/03-bills.png",
+            caption:
+              "Bills — each bill moves from Not yet due to Ready to pay to Paid.",
           },
           {
-            src: '/assets/projects/nerovault/04-goals.png',
-            caption: 'Goals — savings targets with pace estimates and a running savings ledger.',
+            src: "/assets/projects/nerovault/04-goals.png",
+            caption:
+              "Goals — savings targets with pace estimates and a running savings ledger.",
           },
           {
-            src: '/assets/projects/nerovault/05-reports.png',
-            caption: 'Reports — where income went: spent, committed and free to spend.',
+            src: "/assets/projects/nerovault/05-reports.png",
+            caption:
+              "Reports — where income went: spent, committed and free to spend.",
           },
         ],
       },
     ],
   },
-]
+];
 
 export const experience = [
   {
-    period: 'Apr 2024 – Present',
-    title: 'Freelance — Quality Assurance Engineer',
-    company: 'PIXODE Philippines',
+    period: "Apr 2024 – Present",
+    title: "Freelance — Quality Assurance Engineer",
+    company: "PIXODE Philippines",
     description:
-      'Quality assurance for a development collective building practical digital tools in the Philippines, with a focus on software functionality, usability, and clear feedback for the development team.',
+      "Quality assurance for a development collective building practical digital tools in the Philippines, with a focus on software functionality, usability, and clear feedback for the development team.",
   },
   {
-    period: 'Jun – Jul 2025',
-    title: 'Samsung Product Promoter',
+    period: "Jun – Jul 2025",
+    title: "Samsung Product Promoter",
     company: "Alson's Trading · Virac",
     description:
-      'Contractual sales-floor role representing a global tech brand — built client relationships and honed communication, persuasion, and customer-facing skills.',
+      "Contractual sales-floor role representing a global tech brand — built client relationships and honed communication, persuasion, and customer-facing skills.",
   },
   {
-    period: 'Feb – May 2026',
-    title: 'IT Support — On-the-Job Training',
-    company: 'PHILRADS · Quezon City',
+    period: "Feb – May 2026",
+    title: "IT Support — On-the-Job Training",
+    company: "PHILRADS · Quezon City",
     description:
-      'Completed IT support OJT, assisting with technical operations and internal systems support.',
+      "Completed IT support OJT, assisting with technical operations and internal systems support.",
   },
   {
-    period: 'Feb – May 2026',
-    title: 'Full-Stack Web Development — On-the-Job Training',
-    company: 'PHILRADS · Quezon City',
+    period: "Feb – May 2026",
+    title: "Full-Stack Web Development — On-the-Job Training",
+    company: "PHILRADS · Quezon City",
     description:
-      '462-hour OJT building and deploying live web systems (Asset Database System, Inventory Management System) from requirements through rollout.',
+      "462-hour OJT building and deploying live web systems (Asset Database System, Inventory Management System) from requirements through rollout.",
   },
   {
-    period: 'May – Nov 2023',
-    title: 'Contract of Service — GIP & Admin Support / Community Outreach',
-    company: 'DOLE · Government Service',
+    period: "May – Nov 2023",
+    title: "Contract of Service — GIP & Admin Support / Community Outreach",
+    company: "DOLE · Government Service",
     description:
-      'Contract-of-Service role under the Government Internship Program (GIP) and Administrative Support & Community Outreach, counted as government service.',
+      "Contract-of-Service role under the Government Internship Program (GIP) and Administrative Support & Community Outreach, counted as government service.",
   },
-]
+];
 
 export const education = {
-  degree: 'Bachelor of Science in Information Systems',
-  school: 'Catanduanes State University',
-  period: 'Graduated June 2026',
+  degree: "Bachelor of Science in Information Systems",
+  school: "Catanduanes State University",
+  period: "Graduated June 2026",
   details: [
-    'Completing a BS in Information Systems, expected to graduate in 2026',
-    'Capstone Lead Programmer — KiddyTrack academic monitoring system',
-    'OJT — PHILRADS IMS & Asset Database System (separate live deployments)',
+    "Graduated with a BS in Information Systems in June 2026",
+    "Capstone Lead Programmer — KiddyTrack academic monitoring system",
+    "OJT — PHILRADS IMS & Asset Database System (separate live deployments)",
   ],
   secondary: {
-    degree: 'Technical Vocational and Livelihood (TVL)',
-    school: 'Catanduanes Colleges High School',
-    period: '2013 – 2019',
-    note: 'Graduated with a Loyalty Award',
+    degree: "Technical Vocational and Livelihood (TVL)",
+    school: "Catanduanes Colleges High School",
+    period: "2013 – 2019",
+    note: "Graduated with a Loyalty Award",
   },
-  postgrad: 'No vocational/trade course or graduate studies completed.',
-}
+  postgrad: "No vocational/trade course or graduate studies completed.",
+};
 
 export const certifications = [
   {
-    title: 'From Manual to Algorithmic: Prioritizing Disaster Relief with Data',
-    issuer: 'University of the Cordilleras · Webinar',
-    year: '2026',
-    image: '/assets/cert/tabuzo-certificate.png',
+    title: "From Manual to Algorithmic: Prioritizing Disaster Relief with Data",
+    issuer: "University of the Cordilleras · Webinar",
+    year: "2026",
+    image: "/assets/cert/tabuzo-certificate.png",
   },
   {
     title:
-      'Predicting Dengue, Protecting Communities: A Machine Learning–Based Approach to Smarter Public Health Action',
-    issuer: 'University of the Cordilleras · Webinar',
-    year: '2026',
-    image: '/assets/cert/certificate.png',
+      "Predicting Dengue, Protecting Communities: A Machine Learning–Based Approach to Smarter Public Health Action",
+    issuer: "University of the Cordilleras · Webinar",
+    year: "2026",
+    image: "/assets/cert/certificate.png",
   },
   {
-    title: 'Power BI Dashboard: Zero to Low Code',
-    issuer: 'Datasense PH · Training',
-    year: '2026',
-    image: '/assets/cert/power-bi.png',
+    title: "Power BI Dashboard: Zero to Low Code",
+    issuer: "Datasense PH · Training",
+    year: "2026",
+    image: "/assets/cert/power-bi.png",
   },
   {
-    title: 'Employment Coaching & Career Counseling Seminar',
-    issuer: 'Catanduanes State University',
-    year: '2025',
+    title: "Employment Coaching & Career Counseling Seminar",
+    issuer: "Catanduanes State University",
+    year: "2025",
     image: null,
   },
   {
-    title: 'HACK4GOV CTF 2023',
-    issuer: 'Department of Information and Communications Technology (DICT)',
-    year: '2023',
+    title: "HACK4GOV CTF 2023",
+    issuer: "Department of Information and Communications Technology (DICT)",
+    year: "2023",
     image: null,
   },
   {
-    title: 'GIP DOLE Training Program (1,480 hours)',
-    issuer: 'Department of Labor and Employment',
-    year: '2023',
-    image: '/assets/cert/Dole.jpg',
+    title: "GIP DOLE Training Program (1,480 hours)",
+    issuer: "Department of Labor and Employment",
+    year: "2023",
+    image: "/assets/cert/Dole.jpg",
   },
   {
-    title: 'On-the-Job Training in Hospitality Operations (80 hours)',
-    issuer: 'Rakdell Inn',
-    year: '2019',
+    title: "On-the-Job Training in Hospitality Operations (80 hours)",
+    issuer: "Rakdell Inn",
+    year: "2019",
     image: null,
   },
   {
-    title: 'Techniques in Tourguiding',
-    issuer: 'Regional Food and Travel Expo',
-    year: '2018',
+    title: "Techniques in Tourguiding",
+    issuer: "Regional Food and Travel Expo",
+    year: "2018",
     image: null,
   },
   {
-    title: 'TVL Skills Competition Participant',
-    issuer: 'Catanduanes Colleges',
-    year: '2017',
+    title: "TVL Skills Competition Participant",
+    issuer: "Catanduanes Colleges",
+    year: "2017",
     image: null,
   },
   {
-    title: 'Certificate of Completion — Professional Training',
-    issuer: 'Professional Training',
-    year: '2026',
-    image: '/assets/cert/COC.jpg',
+    title: "Certificate of Completion — Professional Training",
+    issuer: "Professional Training",
+    year: "2026",
+    image: "/assets/cert/COC.jpg",
   },
   {
-    title: 'CC Loyalty Award',
-    issuer: 'Recognition & Achievement',
-    year: '2019',
-    image: '/assets/cert/loyalty.jpg',
+    title: "CC Loyalty Award",
+    issuer: "Recognition & Achievement",
+    year: "2019",
+    image: "/assets/cert/loyalty.jpg",
   },
-]
+];
 
 export const creative = {
   intro:
-    'Beyond code, I shoot and edit — commercial photography, event coverage, and short-form video for local businesses in Catanduanes. The same eye for composition in a frame shapes how I design interfaces.',
+    "Beyond code, I shoot and edit — commercial photography, event coverage, and short-form video for local businesses in Catanduanes. The same eye for composition in a frame shapes how I design interfaces.",
   items: [
-    { type: 'photo', src: '/assets/creative/photo-01.jpg', alt: 'Photography sample 1' },
-    { type: 'photo', src: '/assets/creative/photo-02.jpg', alt: 'Photography sample 2' },
-    { type: 'photo', src: '/assets/creative/photo-03.jpg', alt: 'Photography sample 3' },
-    { type: 'photo', src: '/assets/creative/photo-04.jpg', alt: 'Photography sample 4' },
-    { type: 'photo', src: '/assets/creative/photo-05.jpg', alt: 'Photography sample 5' },
-    { type: 'photo', src: '/assets/creative/photo-06.jpg', alt: 'Photography sample 6' },
-    { type: 'photo', src: '/assets/creative/photo-07.jpg', alt: 'Photography sample 7' },
     {
-      type: 'video',
-      src: '/assets/creative/video-1.mp4',
-      poster: '/assets/creative/video-1-thumbnail.png',
-      alt: 'Videography sample 1',
+      type: "photo",
+      src: "/assets/creative/photo-01.jpg",
+      alt: "Photography sample 1",
     },
     {
-      type: 'video',
-      src: '/assets/creative/video-2.mp4',
-      poster: '/assets/creative/video-2-thumbnail.jpg',
-      alt: 'Videography sample 2',
+      type: "photo",
+      src: "/assets/creative/photo-02.jpg",
+      alt: "Photography sample 2",
     },
     {
-      type: 'video',
-      src: '/assets/creative/video-3.mp4',
-      poster: '/assets/creative/video-3-thumbnail.png',
-      alt: 'Videography sample 3',
+      type: "photo",
+      src: "/assets/creative/photo-03.jpg",
+      alt: "Photography sample 3",
+    },
+    {
+      type: "photo",
+      src: "/assets/creative/photo-04.jpg",
+      alt: "Photography sample 4",
+    },
+    {
+      type: "photo",
+      src: "/assets/creative/photo-05.jpg",
+      alt: "Photography sample 5",
+    },
+    {
+      type: "photo",
+      src: "/assets/creative/photo-06.jpg",
+      alt: "Photography sample 6",
+    },
+    {
+      type: "photo",
+      src: "/assets/creative/photo-07.jpg",
+      alt: "Photography sample 7",
+    },
+    {
+      type: "video",
+      src: "/assets/creative/video-1.mp4",
+      poster: "/assets/creative/video-1-thumbnail.png",
+      alt: "Videography sample 1",
+    },
+    {
+      type: "video",
+      src: "/assets/creative/video-2.mp4",
+      poster: "/assets/creative/video-2-thumbnail.jpg",
+      alt: "Videography sample 2",
+    },
+    {
+      type: "video",
+      src: "/assets/creative/video-3.mp4",
+      poster: "/assets/creative/video-3-thumbnail.png",
+      alt: "Videography sample 3",
     },
   ],
-}
+};
 
 export const testimonials = [
   {
     quote:
-      'Jonah consistently delivered clean, well-structured code for our internal tools at PIXODE. He has a sharp eye for detail and an impressive ability to translate business requirements into working systems — fast.',
-    name: 'PIXODE Philippines',
-    role: 'Dev Org · Quality Assurance',
+      "Jonah consistently delivered clean, well-structured code for our internal tools at PIXODE. He has a sharp eye for detail and an impressive ability to translate business requirements into working systems — fast.",
+    name: "PIXODE Philippines",
+    role: "Dev Org · Quality Assurance",
   },
   {
     quote:
-      'Working with Jonah on the KiddyTrack project was seamless. He understood the needs of both teachers and parents immediately, and built dashboards that non-technical users could navigate without any training.',
-    name: 'KiddyTrack Project',
-    role: 'Academic Monitoring System · 2024',
+      "Working with Jonah on the KiddyTrack project was seamless. He understood the needs of both teachers and parents immediately, and built dashboards that non-technical users could navigate without any training.",
+    name: "KiddyTrack Project",
+    role: "Academic Monitoring System · 2024",
   },
-]
+];

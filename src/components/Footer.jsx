@@ -26,7 +26,7 @@ export default function Footer() {
       <div className="section-container">
         <div className="flex flex-col items-center text-center">
           <span className="font-mono text-2xl font-bold">
-            jonah<span className="brand-accent">.dev</span>
+            NeroSec
           </span>
           <p className="mt-3 max-w-md text-sm text-[var(--text-muted)]">
             {site.tagline}
@@ -43,7 +43,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-[var(--border)] pt-6 text-xs text-[var(--text-muted)] sm:flex-row">
-          <span>© {year} Jonah Mark Tabuzo. All rights reserved.</span>
+          <span>© {year} NeroSec — Jonah Mark Tabuzo. All rights reserved.</span>
           <span>
             Built with <span className="text-[var(--accent)]">React</span> +{' '}
             <span className="text-[var(--accent)]">Vite</span>
@@ -53,4 +53,3 @@ export default function Footer() {
     </footer>
   )
 }
-

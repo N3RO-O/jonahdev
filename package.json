@@ -1,10 +1,11 @@
 {
-  "name": "jonah-tabuzo-portfolio",
+  "name": "nerosec-portfolio",
   "private": true,
   "version": "2.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "check": "node scripts/check-projects.mjs",
     "build": "vite build",
     "preview": "vite preview"
   },
