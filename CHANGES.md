@@ -21,6 +21,12 @@ Brand: every surface now reads **NeroSec**, the digital identity of Jonah Mark T
 - **404.** It's rebuilt in the new identity and moved to `public/404.html`, so Vite now ships it.
   Its old links pointed to a `#work` anchor that doesn't exist.
 - **Social card + icons.** They're regenerated in terracotta.
+- **NS logo.** The asterisk is replaced by a "Console" monogram: NS in DM Mono, a terracotta cursor
+  and crop marks. Source SVGs (mark, light, transparent, favicon, lockups) live in
+  `public/assets/brand/`. The header uses `src/components/NsMark.jsx`, and the hero and contact
+  headlines end in the same blinking cursor. The favicon, app icons, apple-touch icon, social
+  card and 404 page all use the new mark. `scripts/render_brand_assets.py` is removed because it
+  would redraw the old asterisk icons.
 - **Effects** (all turned off with reduced motion):
   - **Moving grain.** The noise layer shifts in small steps, like projected film.
   - **Darkroom reveal.** Sections fade in, rise and come into focus as you scroll. Headlines wipe up line by line.

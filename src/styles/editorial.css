@@ -112,7 +112,20 @@ body {
 }
 
 .portfolio .brand {
+  gap: 12px;
   transition: font-size 0.35s var(--ease-out);
+}
+
+.portfolio .brand > svg {
+  width: 44px;
+  height: 44px;
+  color: var(--text);
+  margin-block: -4px;
+}
+
+#main .portrait-stamp svg {
+  width: 46px;
+  height: 46px;
 }
 
 .portfolio .navigation > a {
@@ -529,10 +542,11 @@ body {
   color: var(--muted);
 }
 
-#main .marquee-group > svg {
-  display: block !important;
-  width: 20px;
-  height: 20px;
+#main .marquee-mark {
+  display: block;
+  width: 11px;
+  height: 7px;
+  background: var(--accent);
 }
 
 @keyframes marquee {
@@ -717,15 +731,16 @@ body {
 
 /* ---------- Contact ----------------------------------------------------- */
 
-/* The asterisk now sits on the line, punctuating "mind?" instead of
-   floating over the headline. */
-#main .contact-heading h2 > svg {
-  position: static;
+/* The console cursor from the NS mark closes the big headlines. */
+#main .hero-cursor,
+#main .heading-cursor {
   display: inline-block;
-  width: 0.62em;
-  height: 0.62em;
-  margin-left: 0.04em;
-  vertical-align: 0.42em;
+  width: 0.3em;
+  height: 0.14em;
+  margin-left: 0.08em;
+  background: var(--accent);
+  vertical-align: baseline;
+  animation: caret-blink 1.1s steps(1) infinite;
 }
 
 #main .notes-section {
@@ -811,6 +826,11 @@ body {
 }
 
 @media (max-width: 600px) {
+  .portfolio .brand > svg {
+    width: 36px;
+    height: 36px;
+  }
+
   :root {
     --label: 10.5px;
     --header-h: 68px;

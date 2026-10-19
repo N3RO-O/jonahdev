@@ -28,6 +28,7 @@ import {
 } from "./data/projectCatalog";
 import ProjectIndex from "./components/ProjectIndex";
 import EditorialCursor from "./components/EditorialCursor";
+import NsMark from "./components/NsMark";
 import useEditorialEffects from "./hooks/useEditorialEffects";
 import { posts } from "./data/blog";
 import {
@@ -207,7 +208,7 @@ export default function App() {
         className={scrolled ? "site-header is-scrolled" : "site-header"}
       >
         <a className="brand" href="#hero" aria-label="NeroSec home">
-          <Asterisk strokeWidth={1.6} />
+          <NsMark size={44} />
           NeroSec<span className="registered">™</span>
         </a>
         <nav
@@ -260,7 +261,7 @@ export default function App() {
                 Logic meets
                 <br />
                 <em>instinct.</em>
-                <span className="hero-period">*</span>
+                <span className="hero-cursor" aria-hidden="true" />
               </h1>
               <div className="hero-description">
                 <span className="small-cross" aria-hidden="true">
@@ -305,7 +306,12 @@ export default function App() {
                 </div>
               </div>
               <div className="portrait-stamp" aria-hidden="true">
-                <Asterisk size={33} strokeWidth={1.3} />
+                <NsMark
+                  size={46}
+                  marks={false}
+                  color="var(--ink)"
+                  accent="var(--ink)"
+                />
                 <span>
                   HUMAN IDEAS.
                   <br />
@@ -358,7 +364,7 @@ export default function App() {
               <div className="marquee-group" key={copy}>
                 {[...disciplines, ...disciplines].map((label, index) => [
                   <span key={`${label}-${index}`}>{label}</span>,
-                  <Asterisk key={`mark-${index}`} />,
+                  <i className="marquee-mark" key={`mark-${index}`} />,
                 ])}
               </div>
             ))}
@@ -842,7 +848,7 @@ export default function App() {
               Have something
               <br />
               in <em>mind?</em>
-              <Asterisk aria-hidden="true" />
+              <span className="heading-cursor" aria-hidden="true" />
             </h2>
           </div>
           <div className="contact-grid">
