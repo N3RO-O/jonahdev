@@ -27,6 +27,11 @@ Brand: every surface now reads **NeroSec**, the digital identity of Jonah Mark T
   headlines end in the same blinking cursor. The favicon, app icons, apple-touch icon, social
   card and 404 page all use the new mark. `scripts/render_brand_assets.py` is removed because it
   would redraw the old asterisk icons.
+- **Résumé download check.** The three CV links now open a dialog where you press and hold
+  (mouse, touch, or Space/Enter) for about a second before the PDF downloads. There's no plain
+  link to the PDF in the page until then. `vercel.json` sends `X-Robots-Tag: noindex` for the PDF
+  and `robots.txt` disallows it. This keeps crawlers and scrapers off the file, but the PDF is
+  still public to anyone who already has the URL.
 - **Effects** (all turned off with reduced motion):
   - **Moving grain.** The noise layer shifts in small steps, like projected film.
   - **Darkroom reveal.** Sections fade in, rise and come into focus as you scroll. Headlines wipe up line by line.

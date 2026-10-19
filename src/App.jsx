@@ -37,6 +37,7 @@ import {
   MediaDetail,
   SystemConsole,
   ContactForm,
+  CvDownload,
 } from "./components/EditorialTools";
 
 const navigation = [
@@ -279,9 +280,13 @@ export default function App() {
                 <a className="button button-cream" href="#projects">
                   Explore my work <ArrowDown size={17} />
                 </a>
-                <a className="text-link" href={site.cvUrl} download>
+                <button
+                  className="text-link"
+                  onClick={() => setModal({ type: "cv" })}
+                  aria-haspopup="dialog"
+                >
                   Download CV <Download size={15} />
-                </a>
+                </button>
               </div>
             </div>
             <div className="hero-visual">
@@ -634,9 +639,13 @@ export default function App() {
               <br />
               <em>behind the work.</em>
             </h2>
-            <a className="text-link" href={site.cvUrl} download>
+            <button
+              className="text-link"
+              onClick={() => setModal({ type: "cv" })}
+              aria-haspopup="dialog"
+            >
               Get the full résumé <Download size={16} />
-            </a>
+            </button>
           </div>
           <div className="experience-list">
             {experience.map((item) => (
@@ -882,9 +891,13 @@ export default function App() {
                   </a>
                 ))}
               </div>
-              <a className="text-link" href={site.cvUrl} download>
+              <button
+                className="text-link"
+                onClick={() => setModal({ type: "cv" })}
+                aria-haspopup="dialog"
+              >
                 Download my résumé <Download size={16} />
-              </a>
+              </button>
             </div>
             <ContactForm />
           </div>
@@ -931,6 +944,8 @@ export default function App() {
           title={
             modal.type === "console"
               ? "NeroSec System Console"
+              : modal.type === "cv"
+                ? "Download résumé"
               : modal.type === "project"
                 ? modal.project.title
                 : modal.type === "post"
@@ -950,6 +965,7 @@ export default function App() {
               }}
             />
           )}
+          {modal.type === "cv" && <CvDownload />}
           {modal.type === "project" && (
             <ProjectDetail project={modal.project} />
           )}
