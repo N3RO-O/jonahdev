@@ -6,7 +6,7 @@ import random
 
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / 'public' / 'assets'
-BG, CREAM, ACCENT, MUTED = '#121214', '#f4f4f0', '#ff0000', '#a1a1aa'
+BG, CREAM, ACCENT, MUTED = '#121214', '#f4f4f0', '#d97757', '#a1a1aa'
 FONT_DIR = Path('C:/Windows/Fonts')
 
 def font(name, size):

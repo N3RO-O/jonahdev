@@ -1,3 +1,40 @@
+# NeroSec editorial redesign — October 2026
+
+Brand: every surface now reads **NeroSec**, the digital identity of Jonah Mark Tabuzo.
+
+- **Palette.** Charcoal canvas `#121214`, bone text `#F4F4F0`, zinc `#A1A1AA`, hairlines
+  `rgba(255,255,255,.08)` and a vintage terracotta accent `#D97757` replace the pure red.
+  Text on the paper spread uses a deeper terracotta (`#9A4529`) to keep 4.5:1 contrast.
+- **Grain.** The global `.bg-grain` noise layer is applied site-wide, with a coarser
+  fibre pass on the paper section and the project art.
+- **Type.** DM Sans, DM Mono and Instrument Serif are self-hosted via Fontsource
+  (no Google Fonts request). Small labels have an 11px floor (10.5px on phones), body copy
+  sits at 15–17px, and form fields are 16px so iOS Safari no longer zooms on focus.
+- **System Console badge.** The hero badge shows a live prompt, online status and the
+  current time in the Philippines. Press `/` anywhere to open the console.
+- **Navigation.** The header stays visible while scrolling, blurs over content, and shows a
+  terracotta reading-progress line. Active section links get an underline.
+- **Work.** Project cards use a set of warm tones (terracotta, espresso, clay, bone,
+  charcoal). The 33-entry archive shows 8 entries first; search or filters reveal the rest.
+- **Details.** The discipline strip is now a slow marquee (paused on hover, static with
+  reduced motion). The contact asterisk sits on the headline. Dialogs ease in.
+- **404.** It's rebuilt in the new identity and moved to `public/404.html`, so Vite now ships it.
+  Its old links pointed to a `#work` anchor that doesn't exist.
+- **Social card + icons.** They're regenerated in terracotta.
+- **Effects** (all turned off with reduced motion):
+  - **Moving grain.** The noise layer shifts in small steps, like projected film.
+  - **Darkroom reveal.** Sections fade in, rise and come into focus as you scroll. Headlines wipe up line by line.
+  - **Hero entrance.** The hero comes in with a short staggered fade on first load.
+  - **Light leak.** A warm leak drifts across the portrait.
+  - **Crop marks.** Printer's crop marks frame project art on hover or keyboard focus.
+  - **Photo colour.** Photographs move from a faded print to full colour on hover.
+  - **Link underline.** Text links draw a terracotta underline on hover.
+  - **Loupe cursor.** On desktop with a mouse, a terracotta ring follows the cursor. It reads "View", "Play" or "Open" over work samples. The system cursor stays visible.
+
+Styling lives in `src/styles/editorial.css`, which loads after `src/index.css`.
+
+---
+
 # Design pass — what changed
 
 No copy, data, or layout structure was touched — only visual polish. Five files:

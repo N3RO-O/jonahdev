@@ -1,14 +1,18 @@
 import { useMemo, useState } from "react";
-import { ArrowUpRight, Search, X } from "lucide-react";
+import { ArrowUpRight, Minus, Plus, Search, X } from "lucide-react";
 import {
   projectCatalog,
   repositoryCount,
   catalogCategories,
 } from "../data/projectCatalog";
 
+// Show a short, scannable list first; searching or filtering reveals everything.
+const PREVIEW_COUNT = 8;
+
 export default function ProjectIndex({ onOpen }) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("all");
+  const [expanded, setExpanded] = useState(false);
   const matches = useMemo(() => {
     const words = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
     return projectCatalog.filter((project) => {
@@ -29,6 +33,10 @@ export default function ProjectIndex({ onOpen }) {
       );
     });
   }, [query, category]);
+  const narrowed = query.trim() !== "" || category !== "all";
+  const showAll = expanded || narrowed;
+  const visible = showAll ? matches : matches.slice(0, PREVIEW_COUNT);
+  const hidden = matches.length - visible.length;
 
   return (
     <div className="project-index" id="project-index">
@@ -88,10 +96,10 @@ export default function ProjectIndex({ onOpen }) {
         ))}
       </div>
       <div className="index-count" role="status">
-        Showing {matches.length} of {projectCatalog.length} projects
+        Showing {visible.length} of {projectCatalog.length} projects
       </div>
-      <div className="index-list">
-        {matches.map((project) => (
+      <div className="index-list" id="project-index-list">
+        {visible.map((project) => (
           <button
             key={project.id}
             className="index-row"
@@ -112,6 +120,24 @@ export default function ProjectIndex({ onOpen }) {
             <ArrowUpRight size={18} />
           </button>
         ))}
+        {!narrowed && matches.length > PREVIEW_COUNT && (
+          <button
+            className="index-toggle"
+            aria-expanded={expanded}
+            aria-controls="project-index-list"
+            onClick={() => setExpanded(!expanded)}
+          >
+            <span>
+              {expanded
+                ? "Show fewer projects"
+                : `Show all ${matches.length} projects`}
+              <small>
+                {expanded ? "Collapse the archive" : `+${hidden} more`}
+              </small>
+            </span>
+            {expanded ? <Minus size={18} /> : <Plus size={18} />}
+          </button>
+        )}
       </div>
       {!matches.length && (
         <div className="index-empty">

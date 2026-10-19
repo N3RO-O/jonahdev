@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowUpRight,
   ArrowDown,
@@ -27,6 +27,8 @@ import {
   projectCatalog,
 } from "./data/projectCatalog";
 import ProjectIndex from "./components/ProjectIndex";
+import EditorialCursor from "./components/EditorialCursor";
+import useEditorialEffects from "./hooks/useEditorialEffects";
 import { posts } from "./data/blog";
 import {
   Modal,
@@ -62,6 +64,37 @@ const faqs = [
   ],
 ];
 
+const disciplines = [
+  "Code with purpose",
+  "Systems that work",
+  "Stories that stay",
+  "Made by NeroSec",
+];
+
+const manilaTime = new Intl.DateTimeFormat("en-GB", {
+  timeZone: "Asia/Manila",
+  hour: "2-digit",
+  minute: "2-digit",
+});
+
+function useManilaClock() {
+  const [time, setTime] = useState(() => manilaTime.format(new Date()));
+  useEffect(() => {
+    const tick = () => setTime(manilaTime.format(new Date()));
+    const id = setInterval(tick, 15000);
+    return () => clearInterval(id);
+  }, []);
+  return time;
+}
+
+function isTypingTarget(element) {
+  return (
+    element instanceof HTMLElement &&
+    (element.isContentEditable ||
+      ["INPUT", "TEXTAREA", "SELECT"].includes(element.tagName))
+  );
+}
+
 function SectionLabel({ number, children, note }) {
   return (
     <div className="section-label">
@@ -80,6 +113,53 @@ export default function App() {
   const [modal, setModal] = useState(null);
   const [morePhotos, setMorePhotos] = useState(false);
   const [showCerts, setShowCerts] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const headerRef = useRef(null);
+  const clock = useManilaClock();
+  useEditorialEffects();
+
+  // Sticky header state + reading progress, updated once per frame.
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+      headerRef.current?.style.setProperty("--progress", progress.toFixed(4));
+      setScrolled(window.scrollY > 24);
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
+  // Press "/" anywhere (outside a text field) to open the System Console.
+  useEffect(() => {
+    const onKey = (event) => {
+      if (
+        event.key !== "/" ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.altKey ||
+        isTypingTarget(event.target) ||
+        document.querySelector("dialog[open]")
+      )
+        return;
+      event.preventDefault();
+      setMenuOpen(false);
+      setModal({ type: "console" });
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -122,7 +202,10 @@ export default function App() {
       <a className="skip-link" href="#main">
         Skip to content
       </a>
-      <header className="site-header">
+      <header
+        ref={headerRef}
+        className={scrolled ? "site-header is-scrolled" : "site-header"}
+      >
         <a className="brand" href="#hero" aria-label="NeroSec home">
           <Asterisk strokeWidth={1.6} />
           NeroSec<span className="registered">™</span>
@@ -156,6 +239,7 @@ export default function App() {
         >
           {menuOpen ? <X /> : <Menu />}
         </button>
+        <span className="scroll-progress" aria-hidden="true" />
       </header>
       <main id="main">
         <section id="hero" className="hero wrap">
@@ -237,11 +321,29 @@ export default function App() {
             <button
               className="console-badge"
               onClick={() => setModal({ type: "console" })}
+              aria-keyshortcuts="/"
+              aria-label="Open the NeroSec System Console (shortcut: slash)"
             >
-              <Terminal size={15} />
-              <span>NeroSec System Console</span>
-              <span className="console-status">ONLINE</span>
-              <ArrowUpRight size={14} />
+              <span className="console-badge-icon" aria-hidden="true">
+                <Terminal size={18} />
+              </span>
+              <span className="console-badge-copy">
+                <span className="console-badge-title">
+                  NeroSec System Console
+                </span>
+                <span className="console-badge-line">
+                  <b>nerosec ~ $</b> whoami
+                  <i className="caret" aria-hidden="true" />
+                </span>
+              </span>
+              <span className="console-badge-meta">
+                <span className="console-status">
+                  <i aria-hidden="true" />
+                  ONLINE
+                </span>
+                <span>{clock} PHT</span>
+              </span>
+              <kbd aria-hidden="true">/</kbd>
             </button>
             <a className="scroll-note" href="#projects">
               Scroll to discover <ArrowDown size={14} />
@@ -249,16 +351,17 @@ export default function App() {
             <span className="edition">Portfolio — Vol. 01 / 2026</span>
           </div>
         </section>
-        <div className="discipline-strip" aria-label="Disciplines">
-          <div className="wrap">
-            <span>Code with purpose</span>
-            <Asterisk />
-            <span>Systems that work</span>
-            <Asterisk />
-            <span>Stories that stay</span>
-            <Asterisk />
-            <span>Made by NeroSec</span>
-            <Asterisk />
+        <div className="discipline-strip">
+          <p className="sr-only">{disciplines.join(". ")}.</p>
+          <div className="marquee" aria-hidden="true">
+            {[0, 1].map((copy) => (
+              <div className="marquee-group" key={copy}>
+                {[...disciplines, ...disciplines].map((label, index) => [
+                  <span key={`${label}-${index}`}>{label}</span>,
+                  <Asterisk key={`mark-${index}`} />,
+                ])}
+              </div>
+            ))}
           </div>
         </div>
         <section id="projects" className="work-section wrap section-space">
@@ -816,6 +919,7 @@ export default function App() {
           </span>
         </div>
       </footer>
+      <EditorialCursor />
       {modal && (
         <Modal
           title={

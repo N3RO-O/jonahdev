@@ -208,7 +208,7 @@ export const projects = [
     featured: true,
     release: "Windows desktop · v1.6.2",
     year: "2026",
-    accent: "#ff0000",
+    accent: "#d97757",
     description:
       "A desktop control room for church services — keeping the run of show, presenter cues, and stage screens in sync, even without an internet connection.",
     problem:
@@ -247,7 +247,7 @@ export const projects = [
     title: "KiddyTrack",
     subtitle: "Capstone · Lead Programmer",
     year: "2024",
-    accent: "#ff0000",
+    accent: "#d97757",
     description:
       "Role-based academic monitoring platform for teachers, parents, and school administrators — built from scratch for active classroom use.",
     problem:
@@ -296,7 +296,7 @@ export const projects = [
     title: "PHILRADS Asset Database System",
     subtitle: "OJT Project · Asset Management",
     year: "2026",
-    accent: "#ff0000",
+    accent: "#d97757",
     description:
       "Role-based asset inventory and management system for PHILRADS — tracking equipment, resources, and records with full CRUD functionality.",
     problem:
@@ -337,7 +337,7 @@ export const projects = [
     title: "PHILRADS Inventory Management System (IMS)",
     subtitle: "OJT Project · Inventory Management",
     year: "2026",
-    accent: "#ff0000",
+    accent: "#d97757",
     description:
       "A role-based relief inventory system for PHILRADS — tracking donations, expiry-aware stock, two-administrator release approvals, and the people each event serves, with a built-in AI support assistant.",
     problem:
@@ -401,7 +401,7 @@ export const projects = [
     title: "Nerovault",
     subtitle: "Solo Build · Budget & Savings Tracker",
     year: "2026",
-    accent: "#ff0000",
+    accent: "#d97757",
     description:
       "A 100% free, private budget and savings tracker. Everything stays on your device — no sign-up, no backend, no cloud uploads. Track income, expenses, bills, and savings goals with instant, local-first stats.",
     problem:
