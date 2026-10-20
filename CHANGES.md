@@ -14,6 +14,8 @@ The portfolio is rebranded from **NeroSec** to **Nero** and redesigned after ner
 
   All of these respect reduced motion, and on phones the reel and fan become simple grids.
 - **New sections.** "What I do" service cards, principles next to a halftone portrait, "Your idea. Your system. Built with care.", skill cards with chips, social pills, and a black contact panel with the form inside.
+- **Portrait reveal.** The About portrait is a grey halftone print. Hovering over it (or dragging on touch) scatters the dots near the cursor as small particles, uncovering the clear colour photo. The print heals back about half a second after the pointer moves away.
+- **Form placeholders.** The contact form examples now say Juan Dela Cruz and juan@example.com.
 - **Cleanup.** The unused v1 components and hooks (`Hero.jsx`, `Navbar.jsx`, `Projects.jsx` and the others) are removed, along with the editorial cursor and effects that are no longer used.
 
 ---

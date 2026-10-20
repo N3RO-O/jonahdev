@@ -460,7 +460,7 @@ export function ContactForm() {
             id="contact-name"
             name="name"
             autoComplete="name"
-            placeholder="Alex Smith"
+            placeholder="Juan Dela Cruz"
             required
             maxLength={120}
           />
@@ -472,7 +472,7 @@ export function ContactForm() {
             name="email"
             type="email"
             autoComplete="email"
-            placeholder="alex@example.com"
+            placeholder="juan@example.com"
             required
             maxLength={254}
           />

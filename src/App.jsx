@@ -40,6 +40,7 @@ import Scramble from "./components/nero/Scramble";
 import ParticleWave from "./components/nero/ParticleWave";
 import PinnedWork from "./components/nero/PinnedWork";
 import CardFan from "./components/nero/CardFan";
+import PortraitReveal from "./components/nero/PortraitReveal";
 import useLenis from "./hooks/useLenis";
 import useReveal from "./hooks/useReveal";
 
@@ -439,12 +440,9 @@ export default function App() {
                 </a>
               </div>
               <figure className="portrait" data-reveal>
-                <img
+                <PortraitReveal
                   src={site.photo}
                   alt="Jonah Mark Tabuzo, the developer behind Nero"
-                  width="1000"
-                  height="1000"
-                  loading="lazy"
                 />
                 <figcaption>
                   <span>Catanduanes, PH</span>
