@@ -1,3 +1,23 @@
+# Nero redesign — October 2026
+
+The portfolio is rebranded from **NeroSec** to **Nero** and redesigned after nerochain.io, with red as the brand colour.
+
+- **Look.** White canvas, black type and red (`#D81111`) accents. Uppercase headings in Tomorrow, pixel `//` accents in VT323, labels in Fragment Mono, and rounded soft-grey cards. The dark editorial theme (grain, terracotta, Instrument Serif) is retired.
+- **Brand.** A new pixel-"N" mark and NERO lockup in `public/assets/brand/`, plus a new favicon, app icons and social card (`nero-social.png`). Every NeroSec string is renamed, including the meta tags, manifest, console prompt (`nero ~ $`), 404 page and project titles.
+- **Motion, taken from the reference:**
+  - Lenis smooth scrolling, with anchor links that glide to their section.
+  - A particle-wave hero canvas.
+  - Pixel headings that decode from scrambled glyphs.
+  - Selected work as a pinned horizontal reel, driven by scrolling.
+  - A card stack that fans out as you scroll.
+  - A stack marquee, rise-in reveals and a red reading-progress bar.
+
+  All of these respect reduced motion, and on phones the reel and fan become simple grids.
+- **New sections.** "What I do" service cards, principles next to a halftone portrait, "Your idea. Your system. Built with care.", skill cards with chips, social pills, and a black contact panel with the form inside.
+- **Cleanup.** The unused v1 components and hooks (`Hero.jsx`, `Navbar.jsx`, `Projects.jsx` and the others) are removed, along with the editorial cursor and effects that are no longer used.
+
+---
+
 # NeroSec editorial redesign — October 2026
 
 Brand: every surface now reads **NeroSec**, the digital identity of Jonah Mark Tabuzo.

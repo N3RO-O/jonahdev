@@ -1,16 +1,16 @@
 {
   "description": "Full-Stack Web Developer, Systems Creator & Visual Storyteller from the Philippines.",
-  "background_color": "#121214",
-  "name": "NeroSec — Jonah Mark Tabuzo",
+  "background_color": "#ffffff",
+  "name": "Nero — Jonah Mark Tabuzo",
   "display": "standalone",
-  "short_name": "NeroSec",
-  "theme_color": "#121214",
+  "short_name": "Nero",
+  "theme_color": "#ffffff",
   "icons": [
     {
       "type": "image/svg+xml",
       "purpose": "any",
       "sizes": "any",
-      "src": "/assets/icons/nerosec.svg"
+      "src": "/assets/icons/nero.svg"
     },
     {
       "type": "image/png",

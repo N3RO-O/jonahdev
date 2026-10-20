@@ -1,6 +1,6 @@
 # Project inventory — 19 October 2026
 
-The NeroSec catalog contains **22 project entries**, with **9 selected projects** in the visual showcase. It features **16 of the 21 owner repositories** on the GitHub account `N3RO-O`, plus local applications and earlier editions.
+The Nero catalog contains **22 project entries**, with **9 selected projects** in the visual showcase. It features **16 of the 21 owner repositories** on the GitHub account `N3RO-O`, plus local applications and earlier editions.
 
 ## GitHub coverage
 
@@ -22,8 +22,8 @@ Every repository below maps to exactly one catalog entry. Public source links ar
 | philrads-disaster-bot    | PHILRADS Disaster Monitor     | Private           |
 | reportly-app             | Reportly                      | Public            |
 | shainaportfolio          | Shaina / Personal Portfolio   | Public            |
-| jonahdev                 | NeroSec / This Portfolio      | Public            |
-| N3RO-O                   | NeroSec / GitHub Profile      | Public            |
+| jonahdev                 | Nero / This Portfolio         | Public            |
+| N3RO-O                   | Nero / GitHub Profile         | Public            |
 
 ## Local coverage
 
@@ -51,7 +51,7 @@ Paths are relative to `C:/Users/hp/Desktop/Projects` and are documentation only.
 | Bots/Strategy Bot                             | PHILRADS Best-Time Bot                                                    |
 | Code & Systems/philrads-feed-bridge           | PHILRADS / Feed Bridge, credited as an upstream RSS-Bridge integration    |
 | Code & Systems/PHILRADS/IMS                   | Working materials associated with the existing PHILRADS IMS case study    |
-| jonahdev-main                                 | NeroSec / This Portfolio                                                  |
+| jonahdev-main                                 | Nero / This Portfolio                                                     |
 
 `Code & Systems/aipeepshome` is empty. The outer `Code & Systems/habit-ops` folder contains a backend scaffold and is grouped with Habit Ops. Logos, signatures, certificates, background assets, dependency folders, backups, and repeated source copies are supporting materials rather than separate authored products.
 
@@ -65,6 +65,6 @@ These are intentionally not catalog entries:
 
 ## Verification
 
-`npm run check` verifies the 16 featured repository mappings, unique project IDs, valid categories, source-link visibility, that no video exports are listed, NeroSec manifest branding, and every referenced local asset. `npm run build` checks the production bundle.
+`npm run check` verifies the 16 featured repository mappings, unique project IDs, valid categories, source-link visibility, that no video exports are listed, Nero manifest branding, and every referenced local asset. `npm run build` checks the production bundle.
 
 The inventory is a reviewed snapshot, not an automatic claim about deployment readiness. Testing releases, prototypes, local tools, archived projects, and forks retain explicit status labels.

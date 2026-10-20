@@ -30,6 +30,7 @@ export function Modal({ title, children, kind, onClose }) {
   return (
     <dialog
       ref={ref}
+      data-lenis-prevent
       className={`editorial-modal modal-${kind}`}
       onCancel={onClose}
       onClick={(event) => {
@@ -51,7 +52,7 @@ export function Modal({ title, children, kind, onClose }) {
           <Terminal size={15} />
           {kind === "console"
             ? title
-            : `NeroSec / ${
+            : `Nero / ${
                 {
                   project: "Project notes",
                   post: "Field notes",
@@ -293,7 +294,7 @@ export function SystemConsole({ onNavigate }) {
   const [history, setHistory] = useState([]);
   const [historyIndex, setHistoryIndex] = useState(0);
   const [lines, setLines] = useState([
-    { text: "NeroSec System Console / v1.0", type: "accent" },
+    { text: "Nero System Console / v2.0", type: "accent" },
     { text: "Human ideas. Purposeful code. All systems ready." },
     { text: "Type “help” to look around." },
   ]);
@@ -324,7 +325,7 @@ export function SystemConsole({ onNavigate }) {
         break;
       case "whoami":
         response =
-          "NeroSec / Jonah Mark Tabuzo\nFull-Stack Web Developer, Systems Creator & Visual Storyteller.\nBased in Catanduanes, Philippines (UTC+8).";
+          "Nero / Jonah Mark Tabuzo\nFull-Stack Web Developer, Systems Creator & Visual Storyteller.\nBased in Catanduanes, Philippines (UTC+8).";
         break;
       case "projects":
         response =
@@ -343,7 +344,7 @@ export function SystemConsole({ onNavigate }) {
         break;
       case "status":
         response =
-          "NeroSec: online.\nOpen to entry-level web development, IT support, systems analysis, and creative collaborations.";
+          "Nero: online.\nOpen to entry-level web development, IT support, systems analysis, and creative collaborations.";
         break;
       case "go archive":
         onNavigate("project-index");
@@ -362,12 +363,12 @@ export function SystemConsole({ onNavigate }) {
     }
     setLines((previous) => [
       ...previous.slice(-80),
-      { text: `nerosec ~ $ ${input.trim()}`, type: "command" },
+      { text: `nero ~ $ ${input.trim()}`, type: "command" },
       { text: response },
     ]);
   };
   return (
-    <div className="system-console">
+    <div className="system-console" data-lenis-prevent>
       <div
         ref={output}
         className="console-output"
@@ -382,7 +383,7 @@ export function SystemConsole({ onNavigate }) {
         ))}
       </div>
       <form onSubmit={run} className="console-input">
-        <label htmlFor="console-command">nerosec ~ $</label>
+        <label htmlFor="console-command">nero ~ $</label>
         <input
           ref={field}
           id="console-command"
@@ -412,7 +413,7 @@ export function SystemConsole({ onNavigate }) {
       <div className="console-footer">
         <span>
           <i />
-          NeroSec / online
+          Nero / online
         </span>
         <span>Type help ↵</span>
       </div>
@@ -450,7 +451,7 @@ export function ContactForm() {
       <input
         type="hidden"
         name="_subject"
-        value="NeroSec — Portfolio enquiry"
+        value="Nero — Portfolio enquiry"
       />
       <div className="form-pair">
         <label htmlFor="contact-name">

@@ -1,7 +1,7 @@
 export const site = {
   url: "https://tabuzoportfolio.vercel.app",
   name: "Jonah Mark Tabuzo",
-  brand: "NeroSec",
+  brand: "Nero",
   title: "Full-Stack Web Developer, Systems Creator & Visual Storyteller",
   tagline:
     "Information Systems graduate building practical web solutions and visual stories from the Philippines.",

@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>404 — Page not found · NeroSec</title>
+    <title>404 — Page not found · Nero</title>
     <meta name="robots" content="noindex" />
-    <meta name="theme-color" content="#121214" />
-    <link rel="icon" type="image/svg+xml" href="/assets/icons/nerosec.svg" />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="icon" type="image/svg+xml" href="/assets/icons/nero.svg" />
     <script
       async
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3322399863518049"
@@ -14,218 +14,67 @@
     ></script>
     <style>
       :root {
-        --bg: #121214;
-        --text: #f4f4f0;
-        --muted: #a1a1aa;
-        --line: rgba(255, 255, 255, 0.08);
-        --accent: #d97757;
-        --ink: #121214;
-        --sans: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-        --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
-        --mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+        --bg: #ffffff; --ink: #0a0a0a; --muted: #5c5c63; --line: rgba(10, 10, 10, 0.1);
+        --soft: #f2f2f2; --red: #d81111;
+        --sans: "Tomorrow", system-ui, -apple-system, "Segoe UI", sans-serif;
+        --pixel: "VT323", ui-monospace, "SFMono-Regular", Menlo, monospace;
+        --mono: ui-monospace, "SFMono-Regular", Menlo, monospace;
       }
-      * {
-        box-sizing: border-box;
-        margin: 0;
-      }
-      html,
-      body {
-        min-height: 100%;
-      }
-      body {
-        background:
-          radial-gradient(120% 60% at 50% -10%, rgba(217, 119, 87, 0.06), transparent 60%),
-          var(--bg);
-        color: var(--text);
-        font-family: var(--sans);
-        -webkit-font-smoothing: antialiased;
-      }
-      body::after {
-        content: "";
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
-        background-size: 180px 180px;
-      }
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-      a:focus-visible {
-        outline: 2px solid var(--accent);
-        outline-offset: 6px;
-      }
-      .page {
-        width: min(1328px, calc(100% - 44px));
-        min-height: 100vh;
-        margin-inline: auto;
-        display: flex;
-        flex-direction: column;
-      }
-      header,
-      footer {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 20px;
-        padding-block: 26px;
-        border-bottom: 1px solid var(--line);
-        font-family: var(--mono);
-        font-size: 11px;
-        letter-spacing: 0.06em;
-        color: var(--muted);
-      }
-      footer {
-        border-bottom: 0;
-        border-top: 1px solid var(--line);
-      }
-      .brand {
-        display: inline-flex;
-        align-items: center;
-        gap: 9px;
-        font-family: var(--sans);
-        font-size: 24px;
-        font-weight: 700;
-        letter-spacing: -0.05em;
-        color: var(--text);
-      }
-      .brand svg {
-        width: 36px;
-        height: 36px;
-        margin-block: -4px;
-      }
-      main {
-        flex: 1;
-        display: grid;
-        align-content: center;
-        gap: 34px;
-        padding-block: 60px;
-      }
-      .eyebrow {
-        font-family: var(--mono);
-        font-size: 11px;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--muted);
-      }
-      .eyebrow b {
-        color: var(--accent);
-        font-weight: 400;
-      }
-      h1 {
-        font-size: clamp(58px, 11vw, 168px);
-        line-height: 0.92;
-        font-weight: 550;
-        letter-spacing: -0.07em;
-      }
-      h1 em {
-        font-family: var(--serif);
-        font-weight: 400;
-        letter-spacing: -0.02em;
-        color: var(--accent);
-        font-size: 1.12em;
-      }
-      .console {
-        max-width: 620px;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        background: linear-gradient(180deg, #1b1b1e, #151517);
-        font-family: var(--mono);
-        font-size: 14px;
-        line-height: 1.9;
-        padding: 18px 22px;
-        overflow-wrap: anywhere;
-      }
-      .console p {
-        color: var(--muted);
-      }
-      .console .prompt {
-        color: var(--accent);
-      }
-      .console .cmd {
-        color: var(--text);
-      }
-      .caret {
-        display: inline-block;
-        width: 8px;
-        height: 15px;
-        vertical-align: -2px;
-        background: var(--accent);
-        animation: blink 1.1s steps(1) infinite;
-      }
-      @keyframes blink {
-        50% {
-          opacity: 0;
-        }
-      }
-      .actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 14px 28px;
-        align-items: center;
-      }
-      .button {
-        display: inline-flex;
-        align-items: center;
-        gap: 30px;
-        min-height: 48px;
-        padding: 14px 20px;
-        background: var(--text);
-        color: var(--ink);
-        font-size: 14px;
-        transition:
-          background 0.2s,
-          transform 0.2s;
-      }
-      .button:hover {
-        background: var(--accent);
-        transform: translateY(-2px);
-      }
-      .text-link {
-        font-size: 14px;
-        padding-block: 8px;
-        border-bottom: 1px solid #5e5c56;
-        transition: color 0.2s;
-      }
-      .text-link:hover {
-        color: var(--accent);
-      }
-      @media (prefers-reduced-motion: reduce) {
-        .caret {
-          animation: none;
-        }
-        .button {
-          transition: none;
-        }
-      }
+      * { box-sizing: border-box; margin: 0; }
+      body { min-height: 100vh; background: var(--bg); color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+      a { color: inherit; text-decoration: none; }
+      a:focus-visible { outline: 2px solid var(--red); outline-offset: 4px; border-radius: 6px; }
+      .page { width: min(1280px, calc(100% - 32px)); min-height: 100vh; margin-inline: auto; display: flex; flex-direction: column; }
+      header, footer { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-block: 20px;
+        font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+      footer { border-top: 1px solid var(--line); }
+      .brand { display: inline-flex; align-items: center; gap: 10px; font-family: var(--sans); font-weight: 600; font-size: 24px;
+        letter-spacing: -0.04em; color: var(--ink); }
+      .brand img { width: 34px; height: 34px; border-radius: 8px; }
+      main { flex: 1; display: grid; align-content: center; gap: 28px; padding-block: 48px; }
+      .code { font-family: var(--pixel); font-size: clamp(120px, 26vw, 320px); line-height: 0.8; color: var(--red); }
+      h1 { font-size: clamp(40px, 6vw, 84px); font-weight: 500; line-height: 1; letter-spacing: -0.07em; text-transform: uppercase; }
+      .console { max-width: 620px; padding: 16px 20px; border-radius: 14px; background: var(--ink); color: #b9b9be;
+        font-family: var(--mono); font-size: 14px; line-height: 1.9; overflow-wrap: anywhere; }
+      .prompt { color: #ff6b6b; }
+      .cmd { color: #fff; }
+      .caret { display: inline-block; width: 8px; height: 15px; vertical-align: -2px; background: #ff6b6b; animation: blink 1.1s steps(1) infinite; }
+      @keyframes blink { 50% { opacity: 0; } }
+      .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+      .button { display: inline-flex; align-items: center; gap: 10px; min-height: 46px; padding: 12px 20px; border-radius: 10px;
+        font-size: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.02em; border: 1px solid var(--ink); transition: background 0.2s, color 0.2s; }
+      .button:hover { background: var(--ink); color: #fff; }
+      .button.red { background: var(--red); border-color: var(--red); color: #fff; }
+      .button.red:hover { background: #a70d0d; }
+      @media (prefers-reduced-motion: reduce) { .caret { animation: none; } }
     </style>
   </head>
   <body>
     <div class="page">
       <header>
-        <a class="brand" href="/" aria-label="NeroSec home">
-          <svg aria-hidden="true" viewBox="0 0 100 100"><path d="M14.00 24.00V14.00H24.00M86.00 24.00V14.00H76.00M14.00 76.00V86.00H24.00M86.00 76.00V86.00H76.00" fill="none" stroke="#d97757" stroke-width="1.8" stroke-linecap="square"/><path fill="currentColor" transform="translate(17.58 67.00) scale(0.04857 -0.04857)" d="M51 0V700H155L448 187V700H549V0H445L152 513V0Z"/><path fill="currentColor" transform="translate(43.47 67.20) scale(0.04857 -0.04857)" d="M307 -12Q233 -12 177.5 15.0Q122 42 90.5 92.0Q59 142 58 211H170Q171 158 206.5 120.5Q242 83 306 83Q365 83 398.0 110.5Q431 138 431 182Q431 219 411.5 243.5Q392 268 351.0 287.5Q310 307 245 328Q158 356 117.0 405.5Q76 455 76 527Q76 610 136.0 661.0Q196 712 301 712Q403 712 465.0 659.5Q527 607 529 514H416Q416 539 402.0 562.5Q388 586 362.0 601.5Q336 617 298 617Q251 618 219.0 594.5Q187 571 187 531Q187 482 226.0 454.5Q265 427 353 398Q408 380 450.5 354.5Q493 329 517.5 289.5Q542 250 542 189Q542 133 514.0 87.5Q486 42 433.5 15.0Q381 -12 307 -12Z"/><rect x="72.80" y="62.58" width="7.14" height="4.42" fill="#d97757"/></svg>
-          NeroSec
+        <a class="brand" href="/" aria-label="Nero home">
+          <img src="/assets/brand/nero-mark.svg" alt="" />
+          NERO
         </a>
         <span>Error / 404</span>
       </header>
       <main>
-        <span class="eyebrow"><b>404 /</b> Off the map</span>
-        <h1>This page<br />took <em>a detour.</em></h1>
-        <div class="console" role="note" aria-label="NeroSec System Console">
-          <p><span class="prompt">nerosec ~ $</span> <span class="cmd">cd <span id="path">this page</span></span></p>
+        <span class="code" aria-hidden="true">404</span>
+        <h1>This page took a detour.</h1>
+        <div class="console" role="note" aria-label="Nero System Console">
+          <p><span class="prompt">nero ~ $</span> <span class="cmd">cd <span id="path">this page</span></span></p>
           <p>No such page. Try the work, the archive, or say hello.</p>
-          <p><span class="prompt">nerosec ~ $</span> <span class="caret" aria-hidden="true"></span></p>
+          <p><span class="prompt">nero ~ $</span> <span class="caret" aria-hidden="true"></span></p>
         </div>
         <div class="actions">
-          <a class="button" href="/">Back to the homepage <span aria-hidden="true">↗</span></a>
-          <a class="text-link" href="/#projects">See selected work</a>
-          <a class="text-link" href="/#project-index">Browse the archive</a>
-          <a class="text-link" href="/#contact">Get in touch</a>
+          <a class="button red" href="/">Back to the homepage ↗</a>
+          <a class="button" href="/#projects">Selected work</a>
+          <a class="button" href="/#project-index">The archive</a>
+          <a class="button" href="/#contact">Get in touch</a>
         </div>
       </main>
       <footer>
-        <span>© NeroSec — Jonah Mark Tabuzo</span>
+        <span>© Nero — Jonah Mark Tabuzo</span>
         <span>Made in the Philippines</span>
       </footer>
     </div>

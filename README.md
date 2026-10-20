@@ -1,6 +1,6 @@
-# NeroSec — Jonah Mark Tabuzo
+# Nero — Jonah Mark Tabuzo
 
-An editorial portfolio for a Full-Stack Web Developer, Systems Creator & Visual Storyteller. Built with React 18, Vite, Tailwind's base reset, and Lucide icons.
+Portfolio of Jonah Mark Tabuzo (Nero): Full-Stack Web Developer, Systems Creator & Visual Storyteller. Built with React 18, Vite, Tailwind CSS 4 (base reset only), Lenis and Lucide icons.
 
 ## Run locally
 
@@ -12,33 +12,40 @@ npm run build
 npm run preview
 ```
 
-The development server runs at http://localhost:5173. Production files are generated in `dist/`. The existing `vercel.json` retains the Vite deployment configuration.
+The development server runs at http://localhost:5173. Production files are generated in `dist/`, which `vercel.json` deploys.
 
-## Design and content
+## Design
 
-- `src/App.jsx`: portfolio sections, navigation, project filters, and modal entry points.
-- `src/components/EditorialTools.jsx`: accessible native dialogs, project galleries, image/video viewer, system console, and contact form.
-- `src/index.css`: the original dark grain canvas, bone-white type, and the requested black/red palette (`#000000`, `#3D0000`, `#950101`, `#FF0000`). Responsive layouts and reduced-motion preferences are supported.
-- `src/data/siteData.js`: profile, original account URLs, original case studies, skills, experience, education, certificates, and creative assets.
-- `src/data/projectCatalog.js`: 33 projects covering all 21 inventoried GitHub repositories, local tools, earlier editions, and five visual projects. Nine projects appear in the selected showcase.
-- `src/components/ProjectIndex.jsx`: searchable project index with category filters and complete project details.
-- `PROJECT_INVENTORY.md`: repository and local-folder coverage, duplicate mappings, attribution, and source notes.
-- `src/data/blog.js`: field notes, rendered in a reading dialog.
-- `public/assets/`: original photography, screenshots, video, and résumé, plus NeroSec brand assets.
-- `index.html` and `public/manifest.json`: NeroSec metadata, social preview, structured identity data, and app icons.
+The look and motion follow [nerochain.io](https://nerochain.io/), with red as the brand colour: a white canvas, black type, uppercase headings in Tomorrow, pixel accents in VT323 and labels in Fragment Mono (all self-hosted through Fontsource).
 
-The visual direction references [Graphic Design Portfolio 2025 by Sam Momin](https://www.behance.net/gallery/224632473/Graphic-Design-Portfolio-2025): large typography, portrait framing, paper textures, restrained color, and editorial composition.
+Effects, all switched off for visitors who prefer reduced motion:
 
-## NeroSec System Console
+- **Smooth scrolling.** Lenis gives weighted scrolling, and anchor links glide to their section.
+- **Particle wave.** The hero has a canvas of dots rippling like a surface, with red and black nodes. It reacts to the pointer and pauses when off screen.
+- **Scramble text.** Pixel headings decode from random glyphs when they scroll into view.
+- **Pinned work reel.** Selected work scrolls sideways while the section stays pinned, with a progress counter. On phones it becomes a vertical grid.
+- **Card fan.** The "Starts here" cards fan out as you scroll.
+- **Smaller touches.** There's a stack marquee, rise-in reveals and a reading-progress bar.
 
-Open the console badge beneath the hero. Supported commands: `help`, `whoami`, `projects`, `skills`, `contact`, `status`, `clear`, `go work`, `go archive`, `go about`, and `go contact`. Up/down arrows recall command history. Escape closes the dialog. Commands operate on portfolio content in the browser.
+## Code map
+
+- `src/App.jsx`: page sections, navigation, the console shortcut (`/`) and the dialogs.
+- `src/components/nero/`: the Nero mark, pixel icons, scramble text, particle wave, pinned reel and card fan.
+- `src/hooks/`: Lenis, scroll-progress and reveal hooks.
+- `src/styles/nero.css`: the theme. `src/index.css` only loads Tailwind.
+- `src/components/EditorialTools.jsx`: native dialogs, project galleries, the image and video viewer, the system console, the contact form and the résumé download check.
+- `src/components/ProjectIndex.jsx`: the searchable archive.
+- `src/data/`: profile, projects (`projectCatalog.js`), skills, experience and field notes.
+- `PROJECT_INVENTORY.md`: which repositories and local folders map to which projects.
+
+## Nero System Console
+
+Press `/` anywhere, or use the console button in the header or hero. Commands: `help`, `whoami`, `projects`, `skills`, `contact`, `status`, `clear`, `go work`, `go archive`, `go about`, `go contact`.
 
 ## Contact and analytics
 
-The contact form keeps the existing Formspree endpoint, includes browser validation, and handles sending, success, failure, and request timeout. Update `site.formspree` to change its destination. The social links retain the owner's actual account URLs.
-
-Microsoft Clarity remains optional and disabled unless `VITE_CLARITY_ID` is set in the environment.
+The contact form posts to Formspree (`site.formspree`). The résumé downloads only after a press-and-hold check. Microsoft Clarity stays off unless `VITE_CLARITY_ID` is set.
 
 ## Brand assets
 
-`public/assets/icons/nerosec.svg` is the vector mark. PNG app icons and the 1200×630 social image can be regenerated with `python scripts/render_brand_assets.py` (Pillow and Windows fonts required).
+`public/assets/brand/` holds the pixel-N mark (red, black, glyph-only) and the NERO lockups (for light and dark backgrounds). `public/assets/icons/nero.svg` is the favicon. The PNG app icons and the 1200×630 social image (`nero-social.png`) are rendered from these.

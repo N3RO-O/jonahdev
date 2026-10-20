@@ -47,10 +47,10 @@ const categories = new Set(catalogCategories.map(([key]) => key));
 const assets = [
   site.photo,
   site.cvUrl,
-  "/assets/icons/nerosec.svg",
+  "/assets/icons/nero.svg",
   "/assets/icons/icon-192.png",
   "/assets/icons/icon-512.png",
-  "/assets/nerosec-social.png",
+  "/assets/nero-social.png",
 ];
 for (const project of projectCatalog) {
   assert.ok(
@@ -85,7 +85,7 @@ for (const asset of assets) {
 const manifest = JSON.parse(
   fs.readFileSync(path.join(root, "public/manifest.json"), "utf8"),
 );
-assert.equal(manifest.short_name, "NeroSec");
+assert.equal(manifest.short_name, "Nero");
 assert.equal(
   projectCatalog.filter((project) => project.category === "visual").length,
   0,
