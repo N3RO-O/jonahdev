@@ -229,9 +229,6 @@ export default function PortraitReveal({ src, alt, focusX = 0.5, focusY = 0.18 }
     <div className="portrait-reveal" ref={wrap}>
       <img src={src} alt={alt} width="1000" height="1000" loading="lazy" />
       <canvas ref={canvas} aria-hidden="true" />
-      <span className="portrait-hint" aria-hidden="true">
-        Hover to clear the print
-      </span>
     </div>
   );
 }

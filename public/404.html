@@ -34,19 +34,13 @@
       main { flex: 1; display: grid; align-content: center; gap: 28px; padding-block: 48px; }
       .code { font-family: var(--pixel); font-size: clamp(120px, 26vw, 320px); line-height: 0.8; color: var(--red); }
       h1 { font-size: clamp(40px, 6vw, 84px); font-weight: 500; line-height: 1; letter-spacing: -0.07em; text-transform: uppercase; }
-      .console { max-width: 620px; padding: 16px 20px; border-radius: 14px; background: var(--ink); color: #b9b9be;
-        font-family: var(--mono); font-size: 14px; line-height: 1.9; overflow-wrap: anywhere; }
-      .prompt { color: #ff6b6b; }
-      .cmd { color: #fff; }
-      .caret { display: inline-block; width: 8px; height: 15px; vertical-align: -2px; background: #ff6b6b; animation: blink 1.1s steps(1) infinite; }
-      @keyframes blink { 50% { opacity: 0; } }
+      .note { max-width: 560px; font-size: 18px; line-height: 1.6; color: var(--muted); }
       .actions { display: flex; flex-wrap: wrap; gap: 10px; }
       .button { display: inline-flex; align-items: center; gap: 10px; min-height: 46px; padding: 12px 20px; border-radius: 10px;
         font-size: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.02em; border: 1px solid var(--ink); transition: background 0.2s, color 0.2s; }
       .button:hover { background: var(--ink); color: #fff; }
       .button.red { background: var(--red); border-color: var(--red); color: #fff; }
       .button.red:hover { background: #a70d0d; }
-      @media (prefers-reduced-motion: reduce) { .caret { animation: none; } }
     </style>
   </head>
   <body>
@@ -61,11 +55,7 @@
       <main>
         <span class="code" aria-hidden="true">404</span>
         <h1>This page took a detour.</h1>
-        <div class="console" role="note" aria-label="Nero System Console">
-          <p><span class="prompt">nero ~ $</span> <span class="cmd">cd <span id="path">this page</span></span></p>
-          <p>No such page. Try the work, the archive, or say hello.</p>
-          <p><span class="prompt">nero ~ $</span> <span class="caret" aria-hidden="true"></span></p>
-        </div>
+        <p class="note">No such page. Try the work, the archive, or say hello.</p>
         <div class="actions">
           <a class="button red" href="/">Back to the homepage ↗</a>
           <a class="button" href="/#projects">Selected work</a>
@@ -78,13 +68,5 @@
         <span>Made in the Philippines</span>
       </footer>
     </div>
-    <script>
-      // textContent keeps the requested path inert (no HTML injection).
-      var requested = window.location.pathname || "/";
-      try {
-        requested = decodeURIComponent(requested);
-      } catch (error) {}
-      document.getElementById("path").textContent = requested;
-    </script>
   </body>
 </html>

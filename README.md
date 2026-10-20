@@ -21,6 +21,7 @@ The look and motion follow [nerochain.io](https://nerochain.io/), with red as th
 Effects, all switched off for visitors who prefer reduced motion:
 
 - **Smooth scrolling.** Lenis gives weighted scrolling, and anchor links glide to their section.
+- **Portrait reveal.** Hovering the About portrait scatters its halftone dots and uncovers the clear colour photo.
 - **Particle wave.** The hero has a canvas of dots rippling like a surface, with red and black nodes. It reacts to the pointer and pauses when off screen.
 - **Scramble text.** Pixel headings decode from random glyphs when they scroll into view.
 - **Pinned work reel.** Selected work scrolls sideways while the section stays pinned, with a progress counter. On phones it becomes a vertical grid.
@@ -29,18 +30,14 @@ Effects, all switched off for visitors who prefer reduced motion:
 
 ## Code map
 
-- `src/App.jsx`: page sections, navigation, the console shortcut (`/`) and the dialogs.
+- `src/App.jsx`: page sections, navigation and the dialogs.
 - `src/components/nero/`: the Nero mark, pixel icons, scramble text, particle wave, pinned reel and card fan.
 - `src/hooks/`: Lenis, scroll-progress and reveal hooks.
 - `src/styles/nero.css`: the theme. `src/index.css` only loads Tailwind.
-- `src/components/EditorialTools.jsx`: native dialogs, project galleries, the image and video viewer, the system console, the contact form and the résumé download check.
+- `src/components/EditorialTools.jsx`: native dialogs, project galleries, the image and video viewer, the contact form and the résumé download check.
 - `src/components/ProjectIndex.jsx`: the searchable archive.
 - `src/data/`: profile, projects (`projectCatalog.js`), skills, experience and field notes.
 - `PROJECT_INVENTORY.md`: which repositories and local folders map to which projects.
-
-## Nero System Console
-
-Press `/` anywhere, or use the console button in the header or hero. Commands: `help`, `whoami`, `projects`, `skills`, `contact`, `status`, `clear`, `go work`, `go archive`, `go about`, `go contact`.
 
 ## Contact and analytics
 

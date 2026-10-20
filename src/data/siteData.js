@@ -61,7 +61,7 @@ export const about = {
   // Opening sentence runs as the section's lede at display size; the rest
   // is body copy. Splitting them keeps the lede to one readable claim
   // instead of a 60-word block set in large type.
-  lede: "Results-driven BS Information Systems graduate with 2+ years of hands-on experience designing, developing, and successfully launching practical, user-friendly web applications.",
+  lede: "Results-driven BS Information Systems graduate with 3+ years of hands-on experience designing, developing, and successfully launching practical, user-friendly web applications.",
   paragraphs: [
     "A reliable full-stack developer who thrives in taking projects from start to finish — gathering requirements from stakeholders, designing intuitive interfaces, implementing robust systems, and deploying live solutions that deliver real business value.",
     "At PHILRADS, I built and deployed two live management systems featuring inventory and asset tracking, smart expiration logic, secure approval workflows, and comprehensive activity logging. I also led development of an academic tracking system. My latest independent product, Church Time’s Up, brings service timing and presenter cues into an offline desktop app.",

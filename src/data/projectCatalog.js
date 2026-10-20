@@ -398,13 +398,13 @@ const additions = [
     source: "GitHub + local",
     status: "Current redesign",
     description:
-      "The portfolio you’re exploring: a tactile editorial identity for Jonah Mark Tabuzo, with project stories, photography, field notes, and an interactive system console.",
+      "The portfolio you’re exploring: the Nero identity of Jonah Mark Tabuzo, with project stories, photography, field notes, smooth scrolling and pixel-type motion.",
     tech: ["React", "Vite", "CSS", "JavaScript"],
     features: [
-      "Responsive grain-textured editorial layouts",
+      "Responsive layouts with a pinned work reel and particle hero",
       "Project case studies and a searchable complete index",
       "Photography, video, and writing",
-      "Accessible dialogs and the Nero System Console",
+      "Accessible dialogs and a press-and-hold résumé download",
     ],
   },
   {

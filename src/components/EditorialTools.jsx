@@ -4,12 +4,11 @@ import {
   ArrowLeft,
   ArrowRight,
   X,
-  Terminal,
   FileText,
   Check,
 } from "lucide-react";
-import { site, coreStack } from "../data/siteData";
-import { projectCatalog as projects } from "../data/projectCatalog";
+import { site } from "../data/siteData";
+import NeroMark from "./nero/NeroMark";
 
 export function Modal({ title, children, kind, onClose }) {
   const ref = useRef(null);
@@ -18,7 +17,6 @@ export function Modal({ title, children, kind, onClose }) {
     const previousFocus = document.activeElement;
     const previousOverflow = document.body.style.overflow;
     element.showModal();
-    if (kind === "console") element.querySelector("input")?.focus();
     if (kind === "cv") element.querySelector(".hold-button")?.focus();
     document.body.style.overflow = "hidden";
     return () => {
@@ -49,10 +47,8 @@ export function Modal({ title, children, kind, onClose }) {
     >
       <div className="modal-header">
         <span>
-          <Terminal size={15} />
-          {kind === "console"
-            ? title
-            : `Nero / ${
+          <NeroMark size={18} radius={20} />
+          {`Nero / ${
                 {
                   project: "Project notes",
                   post: "Field notes",
@@ -64,7 +60,7 @@ export function Modal({ title, children, kind, onClose }) {
           className="icon-button"
           aria-label="Close dialog"
           onClick={onClose}
-          autoFocus={kind !== "console" && kind !== "cv"}
+          autoFocus={kind !== "cv"}
         >
           <X size={21} />
         </button>
@@ -286,138 +282,6 @@ export function MediaDetail({ item, items, start = 0 }) {
         )}
       </figcaption>
     </figure>
-  );
-}
-
-export function SystemConsole({ onNavigate }) {
-  const [input, setInput] = useState("");
-  const [history, setHistory] = useState([]);
-  const [historyIndex, setHistoryIndex] = useState(0);
-  const [lines, setLines] = useState([
-    { text: "Nero System Console / v2.0", type: "accent" },
-    { text: "Human ideas. Purposeful code. All systems ready." },
-    { text: "Type “help” to look around." },
-  ]);
-  const output = useRef(null);
-  const field = useRef(null);
-  useEffect(() => {
-    field.current?.focus();
-  }, []);
-  useEffect(() => {
-    if (output.current) output.current.scrollTop = output.current.scrollHeight;
-  }, [lines]);
-  const run = (event) => {
-    event.preventDefault();
-    const command = input.trim().toLowerCase();
-    if (!command) return;
-    setInput("");
-    setHistory((previous) => [...previous, input.trim()]);
-    setHistoryIndex(history.length + 1);
-    if (command === "clear") {
-      setLines([]);
-      return;
-    }
-    let response;
-    switch (command) {
-      case "help":
-        response =
-          "whoami  — meet the person\nprojects — list the complete collection\nskills   — the everyday stack\ncontact  — start a conversation\nstatus   — current availability\nclear    — clear the console\ngo work / go archive / go about / go contact — jump to a section";
-        break;
-      case "whoami":
-        response =
-          "Nero / Jonah Mark Tabuzo\nFull-Stack Web Developer, Systems Creator & Visual Storyteller.\nBased in Catanduanes, Philippines (UTC+8).";
-        break;
-      case "projects":
-        response =
-          projects
-            .map(
-              (project, index) =>
-                `${String(index + 1).padStart(2, "0")} / ${project.title}`,
-            )
-            .join("\n") + "\nUse “go archive” to explore every project.";
-        break;
-      case "skills":
-        response = coreStack.join(" / ");
-        break;
-      case "contact":
-        response = `${site.email}\nLet’s build something thoughtful. Use “go contact” to get in touch.`;
-        break;
-      case "status":
-        response =
-          "Nero: online.\nOpen to entry-level web development, IT support, systems analysis, and creative collaborations.";
-        break;
-      case "go archive":
-        onNavigate("project-index");
-        return;
-      case "go work":
-        onNavigate("projects");
-        return;
-      case "go about":
-        onNavigate("about");
-        return;
-      case "go contact":
-        onNavigate("contact");
-        return;
-      default:
-        response = `Command not found: ${input.trim()}. Try “help”.`;
-    }
-    setLines((previous) => [
-      ...previous.slice(-80),
-      { text: `nero ~ $ ${input.trim()}`, type: "command" },
-      { text: response },
-    ]);
-  };
-  return (
-    <div className="system-console" data-lenis-prevent>
-      <div
-        ref={output}
-        className="console-output"
-        role="log"
-        aria-live="polite"
-        aria-label="Console output"
-      >
-        {lines.map((line, index) => (
-          <p key={index} className={line.type || ""}>
-            {line.text}
-          </p>
-        ))}
-      </div>
-      <form onSubmit={run} className="console-input">
-        <label htmlFor="console-command">nero ~ $</label>
-        <input
-          ref={field}
-          id="console-command"
-          value={input}
-          onChange={(event) => setInput(event.target.value)}
-          onKeyDown={(event) => {
-            if (event.key === "ArrowUp" || event.key === "ArrowDown") {
-              event.preventDefault();
-              const next = Math.min(
-                history.length,
-                Math.max(0, historyIndex + (event.key === "ArrowUp" ? -1 : 1)),
-              );
-              setHistoryIndex(next);
-              setInput(history[next] || "");
-            }
-          }}
-          autoComplete="off"
-          autoCapitalize="off"
-          spellCheck="false"
-          aria-label="Console command"
-          placeholder="help"
-        />
-        <button className="icon-button" aria-label="Run command" type="submit">
-          <ArrowUpRight size={18} />
-        </button>
-      </form>
-      <div className="console-footer">
-        <span>
-          <i />
-          Nero / online
-        </span>
-        <span>Type help ↵</span>
-      </div>
-    </div>
   );
 }
 

@@ -3,7 +3,7 @@
 The portfolio is rebranded from **NeroSec** to **Nero** and redesigned after nerochain.io, with red as the brand colour.
 
 - **Look.** White canvas, black type and red (`#D81111`) accents. Uppercase headings in Tomorrow, pixel `//` accents in VT323, labels in Fragment Mono, and rounded soft-grey cards. The dark editorial theme (grain, terracotta, Instrument Serif) is retired.
-- **Brand.** A new pixel-"N" mark and NERO lockup in `public/assets/brand/`, plus a new favicon, app icons and social card (`nero-social.png`). Every NeroSec string is renamed, including the meta tags, manifest, console prompt (`nero ~ $`), 404 page and project titles.
+- **Brand.** A new pixel-"N" mark and NERO lockup in `public/assets/brand/`, plus a new favicon, app icons and social card (`nero-social.png`). Every NeroSec string is renamed, including the meta tags, manifest, 404 page and project titles.
 - **Motion, taken from the reference:**
   - Lenis smooth scrolling, with anchor links that glide to their section.
   - A particle-wave hero canvas.
@@ -16,6 +16,8 @@ The portfolio is rebranded from **NeroSec** to **Nero** and redesigned after ner
 - **New sections.** "What I do" service cards, principles next to a halftone portrait, "Your idea. Your system. Built with care.", skill cards with chips, social pills, and a black contact panel with the form inside.
 - **Portrait reveal.** The About portrait is a grey halftone print. Hovering over it (or dragging on touch) scatters the dots near the cursor as small particles, uncovering the clear colour photo. The print heals back about half a second after the pointer moves away.
 - **Form placeholders.** The contact form examples now say Juan Dela Cruz and juan@example.com.
+- **Experience.** The About facts and profile summary now say 3+ years of building systems.
+- **Console removed.** The Nero System Console is gone: the hero badge, the header button, the footer link, the `/` shortcut, the dialog itself and its styles. The 404 page drops its terminal block too.
 - **Cleanup.** The unused v1 components and hooks (`Hero.jsx`, `Navbar.jsx`, `Projects.jsx` and the others) are removed, along with the editorial cursor and effects that are no longer used.
 
 ---

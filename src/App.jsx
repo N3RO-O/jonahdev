@@ -5,7 +5,6 @@ import {
   ArrowUp,
   Menu,
   X,
-  Terminal,
   Download,
   Plus,
   Minus,
@@ -30,7 +29,6 @@ import {
   Modal,
   ProjectDetail,
   MediaDetail,
-  SystemConsole,
   ContactForm,
   CvDownload,
 } from "./components/EditorialTools";
@@ -134,14 +132,6 @@ function useManilaClock() {
   return time;
 }
 
-function isTypingTarget(element) {
-  return (
-    element instanceof HTMLElement &&
-    (element.isContentEditable ||
-      ["INPUT", "TEXTAREA", "SELECT"].includes(element.tagName))
-  );
-}
-
 /* Section title: a pixel "//" kicker line over a display line. */
 function Title({ pixel, children, align = "left", as: Tag = "h2" }) {
   return (
@@ -218,26 +208,6 @@ export default function App() {
     return () => document.removeEventListener("keydown", onKey);
   }, [menuOpen]);
 
-  // Press "/" anywhere (outside a text field) to open the System Console.
-  useEffect(() => {
-    const onKey = (event) => {
-      if (
-        event.key !== "/" ||
-        event.metaKey ||
-        event.ctrlKey ||
-        event.altKey ||
-        isTypingTarget(event.target) ||
-        document.querySelector("dialog[open]")
-      )
-        return;
-      event.preventDefault();
-      setMenuOpen(false);
-      setModal({ type: "console" });
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, []);
-
   const photos = creative.items.filter((item) => item.type === "photo");
   const videos = creative.items.filter((item) => item.type === "video");
   const openCv = () => setModal({ type: "cv" });
@@ -280,15 +250,6 @@ export default function App() {
           </a>
         </nav>
         <div className="header-actions">
-          <button
-            className="header-console"
-            onClick={() => setModal({ type: "console" })}
-            aria-label="Open the Nero System Console (shortcut: slash)"
-            aria-keyshortcuts="/"
-          >
-            <Terminal size={16} />
-            <kbd aria-hidden="true">/</kbd>
-          </button>
           <a className="button button-red header-cta" href="#contact">
             Let’s talk <ArrowUpRight size={16} />
           </a>
@@ -326,28 +287,6 @@ export default function App() {
               Catanduanes, Philippines.
             </p>
             <div className="hero-actions">
-              <button
-                className="console-pill"
-                onClick={() => setModal({ type: "console" })}
-                aria-keyshortcuts="/"
-                aria-label="Open the Nero System Console (shortcut: slash)"
-              >
-                <span className="console-pill-icon" aria-hidden="true">
-                  <Terminal size={16} />
-                </span>
-                <span className="console-pill-copy">
-                  <span>Nero System Console</span>
-                  <span className="console-pill-line">
-                    <b>nero ~ $</b> whoami<i className="caret" />
-                  </span>
-                </span>
-                <span className="console-pill-status">
-                  <span>
-                    <i aria-hidden="true" /> Online
-                  </span>
-                  <span>{clock} PHT</span>
-                </span>
-              </button>
               <a className="button button-red" href="#projects">
                 Explore my work <ArrowDown size={16} />
               </a>
@@ -456,7 +395,7 @@ export default function App() {
             <div className="facts">
               {[
                 [String(projectCatalog.length), "Projects & experiments"],
-                ["02+", "Years building & learning"],
+                ["03+", "Years building systems"],
                 ["462", "Hours of full-stack OJT"],
                 ["BSIS", "CatSU, class of 2026"],
               ].map(([value, label]) => (
@@ -776,7 +715,6 @@ export default function App() {
               <p>Contact</p>
               <a href={`mailto:${site.email}`}>Email</a>
               <button onClick={openCv}>Résumé</button>
-              <button onClick={() => setModal({ type: "console" })}>Console</button>
             </div>
           </div>
           <Scramble as="p" className="footer-giant" text="NERO" duration={1000} />
@@ -792,9 +730,7 @@ export default function App() {
       {modal && (
         <Modal
           title={
-            modal.type === "console"
-              ? "Nero System Console"
-              : modal.type === "cv"
+            modal.type === "cv"
                 ? "Download résumé"
                 : modal.type === "project"
                   ? modal.project.title
@@ -805,18 +741,6 @@ export default function App() {
           kind={modal.type}
           onClose={() => setModal(null)}
         >
-          {modal.type === "console" && (
-            <SystemConsole
-              onNavigate={(id) => {
-                setModal(null);
-                requestAnimationFrame(() => {
-                  const target = document.getElementById(id);
-                  if (window.__lenis && target) window.__lenis.scrollTo(target);
-                  else window.location.hash = id;
-                });
-              }}
-            />
-          )}
           {modal.type === "cv" && <CvDownload />}
           {modal.type === "project" && <ProjectDetail project={modal.project} />}
           {modal.type === "media" && (
