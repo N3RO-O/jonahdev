@@ -1,4 +1,3 @@
-import { Minus, Plus } from "lucide-react";
 import { toolkit } from "../data/siteData";
 import { projectCatalog } from "../data/projectCatalog";
 
@@ -8,53 +7,49 @@ const usedIn = (skill) => {
   return projectCatalog.filter((project) => project.tech.some((tech) => names.includes(tech))).length;
 };
 const plural = (count) => `${count} project${count === 1 ? "" : "s"}`;
+const pad = (value) => String(value).padStart(2, "0");
 
 /*
   Primary technologies first, each with the number of archive projects
-  that use it. Everything else sits in expandable categories, with
-  "currently learning" kept visibly separate from tools already used.
+  that use it, then every category in a bordered grid. "Currently
+  learning" is kept visibly apart from tools already used in projects.
 */
 export default function Toolkit() {
   return (
     <div className="toolkit">
       <ul className="toolkit-primary" aria-label="Primary technologies">
         {toolkit.primary.map((name) => (
-          <li key={name}>
+          <li key={name} data-reveal>
             <strong>{name}</strong>
-            <span>Used in {plural(usedIn(name))}</span>
+            <span className="label">Used in {plural(usedIn(name))}</span>
           </li>
         ))}
       </ul>
-      <div className="toolkit-groups">
-        {toolkit.groups.map((group) => (
-          <details key={group.title} className={group.learning ? "toolkit-group is-learning" : "toolkit-group"}>
-            <summary>
-              <h3>{group.title}</h3>
-              <span className="toolkit-count">{group.skills.length}</span>
-              <Plus className="expand-plus" size={16} aria-hidden="true" />
-              <Minus className="expand-minus" size={16} aria-hidden="true" />
-            </summary>
-            <ul>
+      <div className="cells cells-3 toolkit-groups">
+        {toolkit.groups.map((group, index) => (
+          <section key={group.title} className={group.learning ? "cell is-learning" : "cell"} data-reveal>
+            <div className="cell-head">
+              <h3 className="label">{group.title}</h3>
+              <span className="label">{pad(index + 1)}</span>
+            </div>
+            <ul className="tags">
               {group.skills.map((skill) => {
                 const count = group.learning ? 0 : usedIn(skill);
+                const note = group.learning ? "Learning" : count > 0 ? plural(count) : "";
                 return (
-                  <li key={skillName(skill)}>
+                  <li key={skillName(skill)} title={note || undefined}>
                     {skillName(skill)}
-                    {group.learning ? (
-                      <span>Learning</span>
-                    ) : (
-                      count > 0 && <span>{plural(count)}</span>
-                    )}
+                    {group.learning ? <em>Learning</em> : count > 0 && <em>{count}</em>}
                   </li>
                 );
               })}
             </ul>
-          </details>
+          </section>
         ))}
       </div>
       <p className="toolkit-note">
-        Project counts come from the stacks listed in the archive. Skills without a count are used in work and
-        study outside these projects.
+        Numbers beside a skill are the projects in the archive that use it. Skills without a number are used in
+        work and study outside these projects.
       </p>
     </div>
   );

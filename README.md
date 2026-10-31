@@ -31,14 +31,25 @@ PNG screenshots have WebP copies beside them, which the site loads; the PNGs are
 
 ## Design
 
-Dark editorial minimalism around the Nero identity: charcoal surfaces, off-white Tomorrow type, the red pixel-N mark, VT323 for counts and the footer wordmark, Fragment Mono for technology stacks (all self-hosted through Fontsource). Screenshots carry the visual weight. The hero settles in once on load; everything else moves only in response to the visitor. Lenis smooth scrolling, the hero animation and all transitions switch off for reduced motion.
+Monochrome studio style: near-black paper, off-white ink, a thin frame around the viewport, ruled sections and bracketed labels (`[ 01 / 05 ]`). Big Shoulders Display (variable) sets the condensed headings, Geist the text and Geist Mono the small tracked labels, all self-hosted through Fontsource. The red Nero mark is the only colour.
+
+Effects, all answering scroll or pointer on the same frame, and off or still for reduced motion:
+
+- **Dot sphere** (`components/fx/DotSphere.jsx`): a halftone sphere of square pixels behind the hero that leans toward the pointer.
+- **Kinetic headline** (`KineticTitle.jsx`): letters rise in on load, then thicken near the pointer through the variable weight axis.
+- **Product reel** (`ProductReel.jsx`): on large screens with a mouse the section pins and the cards move sideways exactly with the scroll. Phones, tablets and reduced motion get a vertical list.
+- **Dithered screenshots** (`DitherImage.jsx`): each cover first shows as a dot-matrix print and resolves on hover or focus, or when it scrolls into view on touch screens.
+- **Ridge lines** (`RidgeLines.jsx`): the drifting line landscape behind the footer name.
+- **Cursor** (`Cursor.jsx`): a dot and ring that sit exactly on the pointer, with a label over cards and media. Fine pointers only.
+- **Smaller touches**: rolling link text, a marquee band, quick reveals that start before content reaches the screen, and Lenis smooth scrolling with a light lerp so the page answers the wheel at once.
 
 ## Code map
 
 - `src/App.jsx`: page sections, navigation, the floating contact button and dialogs.
 - `src/hooks/useRoute.js`: the `/work/<id>` history router. `useLenis.js`: smooth scrolling.
-- `src/components/`: `ProductGrid`, `CaseStudy`, `ScreenshotGallery`, `ProjectIndex`, `Toolkit`, `StageBadge`, and `EditorialTools` (dialogs, photo/video viewer, contact form, résumé download check).
-- `src/components/nero/`: the Nero mark, scramble text and the portrait reveal.
+- `src/components/`: `ProductReel`, `CaseStudy`, `ScreenshotGallery`, `ProjectIndex`, `Toolkit`, `StageBadge`, and `EditorialTools` (dialogs, photo/video viewer, contact form, résumé download check).
+- `src/components/fx/`: canvas effects, the cursor, the kinetic headline, rolling link text and the NERO wordmark.
+- `src/components/nero/`: the Nero mark and the portrait reveal.
 - `src/styles/nero.css`: the theme. `src/index.css` only loads Tailwind.
 - `src/data/`: profile, projects, Staff Portal case study, toolkit, experience and field notes.
 - `PROJECT_INVENTORY.md`: which repositories and local folders map to which projects.

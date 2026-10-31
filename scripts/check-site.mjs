@@ -65,7 +65,9 @@ try {
     const { context, page, problems } = await open(width, height);
     await page.goto(BASE);
     await page.getByRole("heading", { level: 1 }).waitFor();
-    assert.match(await page.getByRole("heading", { level: 1 }).innerText(), /Building digital products\.\s*Turning ideas into working systems\./);
+    // Each headline line is read from its visually hidden plain-text copy.
+    const heading = await page.locator("h1 .sr-only").allTextContents();
+    assert.equal(heading.join(" "), "Building digital products. Turning ideas into working systems.");
     await page.screenshot({ path: resolve(output, `home-${label}.png`) });
 
     // Products are the first section after the hero and every card links to its case study.
@@ -175,7 +177,6 @@ try {
     await page.locator("#experience").getByRole("button", { name: /Download résumé/ }).click();
     await page.getByRole("button", { name: /Press and hold to download/ }).waitFor();
     await page.getByRole("button", { name: "Close dialog" }).click();
-    await page.locator("#toolkit summary").first().click();
     await page.locator("#creative").getByRole("button", { name: /Show all 7 photographs/ }).click();
     assert.equal(await page.locator(".photo-tile").count(), 7);
     await page.locator(".photo-tile").first().click();
@@ -234,8 +235,31 @@ try {
     const { context, page, problems } = await open(1440, 900, { reducedMotion: "no-preference" });
     await page.goto(BASE);
     await page.waitForTimeout(1400);
-    assert.equal(await page.locator(".hero h1 span").first().evaluate((el) => getComputedStyle(el).opacity), "1");
+    assert.equal(await page.locator(".hero h1 .char").first().evaluate((el) => getComputedStyle(el).opacity), "1");
+    // Headline letters thicken under the pointer on the next frame.
+    const first = page.locator(".hero h1 .char").first();
+    const box = await first.boundingBox();
+    await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+    await page.waitForTimeout(80);
+    const weight = await first.evaluate((el) => Number(el.style.fontVariationSettings.match(/\d+/)?.[0] || 0));
+    assert.ok(weight > 600, `Letter under the pointer thickens (wght ${weight})`);
     await page.screenshot({ path: resolve(output, `home-motion-desktop.png`) });
+    // The product reel pins and the cards travel sideways with the scroll.
+    assert.ok(await page.locator("#products.is-pinned").count(), "Product reel is pinned on desktop");
+    const top = await page.evaluate(() => document.getElementById("products").getBoundingClientRect().top + window.scrollY);
+    const shift = async (y) => {
+      await page.evaluate((y) => window.__lenis ? window.__lenis.scrollTo(y, { immediate: true }) : window.scrollTo(0, y), y);
+      await page.waitForTimeout(120);
+      return page.locator(".reel-track").evaluate((el) => new DOMMatrix(getComputedStyle(el).transform).m41);
+    };
+    const start = await shift(top);
+    const middle = await shift(top + 1200);
+    assert.ok(start > -2 && middle < -800, `Cards move with the scroll (${start} -> ${middle})`);
+    await page.screenshot({ path: resolve(output, `reel-motion-desktop.png`) });
+    await page.locator(".reel-card").nth(3).hover();
+    await page.waitForTimeout(700);
+    assert.ok(await page.locator(".reel-card").nth(3).locator(".dither.is-revealed").count(), "Hover reveals the screenshot");
+    await page.screenshot({ path: resolve(output, `reel-hover-desktop.png`) });
     assert.deepEqual(problems, [], problems.join("\n"));
     await context.close();
     console.log("PASS full-motion load settles with the hero visible.");

@@ -12,8 +12,9 @@ export default function useLenis() {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const instance = new Lenis({
-      duration: 1.15,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      // A light lerp keeps the glide but answers the wheel at once; a long
+      // fixed duration felt like the page was catching up.
+      lerp: 0.13,
       smoothWheel: true,
       autoRaf: true,
       // Section scroll-margin-top already clears the fixed header.
