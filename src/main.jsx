@@ -2,13 +2,11 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
 import { initAnalytics } from "./analytics";
-// Self-hosted type: Tomorrow (display + text), VT323 (pixel accents),
-// Fragment Mono (labels and code). No third-party font requests.
-import "@fontsource/tomorrow/400.css";
-import "@fontsource/tomorrow/500.css";
-import "@fontsource/tomorrow/600.css";
-import "@fontsource/vt323/400.css";
-import "@fontsource/fragment-mono/400.css";
+// Self-hosted variable type: Big Shoulders Display (headings), Geist (text)
+// and Geist Mono (labels). No third-party font requests.
+import "@fontsource-variable/big-shoulders-display";
+import "@fontsource-variable/geist";
+import "@fontsource-variable/geist-mono";
 import "lenis/dist/lenis.css";
 import "./index.css";
 import "./styles/nero.css";

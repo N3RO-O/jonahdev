@@ -1,10 +1,10 @@
 {
-  "description": "Full-Stack Web Developer, Systems Creator & Visual Storyteller from the Philippines.",
-  "background_color": "#ffffff",
+  "description": "Product builder and full-stack developer from the Philippines.",
+  "background_color": "#0f1012",
   "name": "Nero — Jonah Mark Tabuzo",
   "display": "standalone",
   "short_name": "Nero",
-  "theme_color": "#ffffff",
+  "theme_color": "#0f1012",
   "icons": [
     {
       "type": "image/svg+xml",

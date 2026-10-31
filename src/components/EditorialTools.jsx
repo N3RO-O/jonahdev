@@ -50,7 +50,6 @@ export function Modal({ title, children, kind, onClose }) {
           <NeroMark size={18} radius={20} />
           {`Nero / ${
                 {
-                  project: "Project notes",
                   post: "Field notes",
                   cv: "Résumé",
                 }[kind] || "Image archive"
@@ -67,159 +66,6 @@ export function Modal({ title, children, kind, onClose }) {
       </div>
       {children}
     </dialog>
-  );
-}
-
-export function ProjectDetail({ project }) {
-  const [tab, setTab] = useState(0);
-  const [index, setIndex] = useState(0);
-  const gallery = project.galleries?.[tab];
-  const current = gallery?.images[index];
-  const move = (direction) =>
-    setIndex(
-      (previous) =>
-        (previous + direction + gallery.images.length) % gallery.images.length,
-    );
-  return (
-    <article className="project-detail">
-      <div className="detail-intro">
-        <span className="eyebrow">
-          {project.subtitle}
-          {project.year ? ` / ${project.year}` : ""}
-        </span>
-        <h2>{project.title}</h2>
-        <p className="lede">{project.description}</p>
-        <div className="skill-tags">
-          {project.tech.map((tech) => (
-            <span key={tech}>{tech}</span>
-          ))}
-        </div>
-        <div className="project-links">
-          <span className="eyebrow">{project.status || "Project notes"}</span>
-          {project.liveUrl && <a className="text-link" href={project.liveUrl} target="_blank" rel="noreferrer">Open app <ArrowUpRight size={16} /></a>}
-          {project.documentationUrl && <a className="text-link" href={project.documentationUrl} target="_blank" rel="noreferrer">Requirements & documentation <ArrowUpRight size={16} /></a>}
-          {project.repository?.url ? (
-            <a
-              className="text-link"
-              href={project.repository.url}
-              target="_blank"
-              rel="noreferrer"
-            >
-              View source on GitHub <ArrowUpRight size={16} />
-            </a>
-          ) : (
-            <a
-              className="text-link"
-              href={`mailto:${site.email}?subject=${encodeURIComponent(`Tell me about ${project.title}`)}`}
-            >
-              Ask about this project <ArrowUpRight size={16} />
-            </a>
-          )}
-        </div>
-        {project.statusNote && (
-          <p className="project-status-note">{project.statusNote}</p>
-        )}
-        {project.attribution && (
-          <p className="project-attribution">{project.attribution}</p>
-        )}
-      </div>
-      {gallery && (
-        <>
-          <div
-            className="gallery-tabs"
-            role="group"
-            aria-label="Project galleries"
-          >
-            {project.galleries.map((item, i) => (
-              <button
-                key={item.label}
-                className={i === tab ? "active" : ""}
-                aria-pressed={i === tab}
-                onClick={() => {
-                  setTab(i);
-                  setIndex(0);
-                }}
-              >
-                {item.label}
-              </button>
-            ))}
-          </div>
-          <figure className="detail-gallery">
-            <img
-              src={current.src}
-              alt={current.caption}
-              width="1400"
-              height="900"
-            />
-            <figcaption>
-              <span>{current.caption}</span>
-              <span className="gallery-controls">
-                <button
-                  className="icon-button"
-                  onClick={() => move(-1)}
-                  disabled={gallery.images.length < 2}
-                  aria-label="Previous screenshot"
-                >
-                  <ArrowLeft size={18} />
-                </button>
-                <span aria-live="polite">
-                  {index + 1} / {gallery.images.length}
-                </span>
-                <button
-                  className="icon-button"
-                  onClick={() => move(1)}
-                  disabled={gallery.images.length < 2}
-                  aria-label="Next screenshot"
-                >
-                  <ArrowRight size={18} />
-                </button>
-              </span>
-            </figcaption>
-          </figure>
-        </>
-      )}
-      <div className="project-story">
-        {project.problem && (
-          <div>
-            <span className="eyebrow">01 / The challenge</span>
-            <p>{project.problem}</p>
-          </div>
-        )}
-        {project.solution && (
-          <div>
-            <span className="eyebrow">02 / The approach</span>
-            <p>{project.solution}</p>
-          </div>
-        )}
-        {project.role && (
-          <div>
-            <span className="eyebrow">03 / My role</span>
-            <p>{project.role}</p>
-          </div>
-        )}
-        <div className={project.featureGroups ? "pcec-feature-inventory" : undefined}>
-          <span className="eyebrow">In the details</span>
-          {project.featureGroups ? <><h3>Every implemented capability.</h3><p>Source inventory, grouped by the task it supports. Test evidence and external acceptance limits are recorded in the project documentation.</p><div className="pcec-feature-groups">{project.featureGroups.map(group => <details key={group.module}><summary>{group.module} <span>{group.features.length}</span></summary><ul>{group.features.map(feature => <li key={feature.id}><a href={`https://update-pcec-app.vercel.app/product-requirements.html#${feature.id.toLowerCase()}`} target="_blank" rel="noreferrer">{feature.name}</a><span className="pcec-feature-id">{feature.id}</span></li>)}</ul></details>)}</div></> : <ul>
-            {project.features.map((feature) => (
-              <li key={feature}>{feature}</li>
-            ))}
-          </ul>}
-        </div>
-        {project.futureFeatures && <div className="pcec-feature-inventory"><span className="eyebrow">Planned / external dependencies</span><p>These are separate from the implemented feature inventory.</p><ul>{project.futureFeatures.map(feature => <li key={feature.id}>{feature.name} — {feature.status}</li>)}</ul></div>}
-        {project.variants && (
-          <div>
-            <span className="eyebrow">
-              Related editions & working materials
-            </span>
-            <ul>
-              {project.variants.map((variant) => (
-                <li key={variant}>{variant}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </div>
-    </article>
   );
 }
 
@@ -366,7 +212,7 @@ export function ContactForm() {
         />
       </label>
       <button
-        className="button button-cream"
+        className="button button-red"
         type="submit"
         disabled={status === "sending"}
       >

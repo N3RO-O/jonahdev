@@ -1,5 +1,6 @@
 import { projects as originalProjects } from "./siteData.js";
 import pcecInventory from "./pcecFeatureInventory.json" with { type: "json" };
+import { philradsPortal } from "./philradsPortal.js";
 
 // Reviewed against the owner's 21 GitHub repositories and local project folders,
 // 19 October 2026. Repository visibility is a snapshot, not a runtime API call.
@@ -102,7 +103,7 @@ const additions = [
     year: "2026",
     repository: repo("DateMyLDR"),
     source: "GitHub + local",
-    status: "MVP",
+    status: "MVP in development",
     selected: true,
     description:
       "A cozy pixel-art world for long-distance couples: private two-person rooms, shared movement, real-time chat, ambient sound, and small games made for two.",
@@ -176,28 +177,7 @@ const additions = [
       "Design previews and supporting guides",
     ],
   },
-  {
-    id: "philrads-portal",
-    title: "PHILRADS Staff Portal",
-    subtitle: "Operations platform · Staff workspace",
-    category: "web",
-    year: "2026",
-    repository: repo("PHILRADS-Portal", "public"),
-    source: "GitHub + local",
-    status: "Milestone 1",
-    selected: true,
-    description:
-      "An installable staff operations portal for PHILRADS, with a dashboard, navigation across nine modules, and a foundation for staff authentication and document workflows.",
-    tech: ["React", "TypeScript", "Vite", "Tailwind CSS", "Supabase"],
-    features: [
-      "Responsive home dashboard and nine-module navigation",
-      "PWA installation, offline shell, and update handling",
-      "Database schema and role-based access policies",
-      "Prepared document-upload boundary for Google Drive",
-    ],
-    statusNote:
-      "Milestone 1 includes the dashboard and application foundation. Eight other modules are placeholders; unconnected dashboards use labelled sample data.",
-  },
+  philradsPortal,
   {
     id: "kiddytrack-cpic",
     title: "KiddyTrack / CPIC",
@@ -264,6 +244,7 @@ const additions = [
     repository: repo("update-pcec-app", "public"),
     source: "GitHub + local",
     status: "Project reporting site",
+    liveUrl: "https://update-pcec-app.vercel.app/",
     description:
       "A leadership-facing project update site with a concise progress summary, readiness checklist, roadmap, architecture guide, and supporting reviews for PCEC Connect.",
     tech: ["HTML", "CSS", "JavaScript"],
@@ -442,6 +423,82 @@ const additions = [
   },
 ];
 
+// How each project is presented. `stage` is the plain development status
+// shown on cards and in the archive; `types` drive the archive filters.
+// Featured products appear on the homepage in this order.
+const presentation = {
+  "philrads-portal": {
+    featured: 1, size: "lg", stage: "In development", context: "Built for PHILRADS", platform: "Web app · PWA",
+    summary: "Staff operations platform for a relief organization: stock, field response, statistics, tasks and forms in one offline-ready app.",
+    types: ["web", "business"],
+  },
+  "church-times-up": {
+    featured: 2, size: "md", stage: "Released", context: "Independent product", platform: "Windows desktop",
+    summary: "An offline desktop control room that keeps church service timers, presenter cues and stage screens in sync.",
+    audience: "Church production teams who keep speakers on time and send discreet prompts to the stage.",
+    types: ["desktop"],
+  },
+  "pcec-connect": {
+    featured: 3, size: "md", stage: "Testing", context: "Community platform", platform: "Web app · PWA",
+    summary: "An installable community platform with member accounts, news, events, feeds, prayer, QR giving and administration.",
+    audience: "Members and administrators of the Philippine Council of Evangelical Churches.",
+    types: ["web", "business"],
+  },
+  "philrads-ims": {
+    featured: 4, stage: "Deployed", context: "OJT project", platform: "Web app",
+    summary: "Relief inventory with expiry-aware stock, two-administrator release approvals and an AI support assistant.",
+    audience: "PHILRADS administrators, warehouse managers, encoders and viewers.",
+    types: ["web", "business", "ai"],
+  },
+  philrads: {
+    featured: 5, stage: "Deployed", context: "OJT project", platform: "Web app",
+    summary: "A role-based asset inventory for tracking equipment, resources and records, with admin and staff dashboards.",
+    audience: "PHILRADS administrators and staff, in the office and in the field.",
+    types: ["web", "business"],
+  },
+  kiddytrack: {
+    featured: 6, stage: "Completed", context: "Academic capstone", platform: "Web app",
+    summary: "A school information and academic monitoring system with dashboards for teachers, parents and principals.",
+    audience: "Teachers, parents and school principals.",
+    types: ["web", "business"],
+  },
+  nerovault: {
+    featured: 7, stage: "Open source", context: "Solo build", platform: "Local-first PWA",
+    summary: "A private budget and savings tracker that keeps every number on your own device.",
+    audience: "People who want to watch their own spending without accounts or cloud uploads.",
+    types: ["web"],
+  },
+  myaipeeps: {
+    featured: 8, stage: "In development", context: "Independent product", platform: "Desktop app",
+    summary: "A desktop workspace for coordinating a small team of AI coding agents, set in a pixel-art office.",
+    audience: "Developers who work with several AI coding agents at once.",
+    types: ["desktop", "ai"],
+  },
+  datemyldr: {
+    featured: 9, stage: "In development", context: "Independent product", platform: "Web app",
+    summary: "A cozy pixel-art world where long-distance couples share private rooms, chat and small games.",
+    audience: "Long-distance couples.",
+    coverNote: "Environment artwork, not an interface screenshot",
+    types: ["web", "creative"],
+  },
+  "kiddytrack-cpic": { stage: "Open source", types: ["web", "business"] },
+  reportly: { stage: "Open source", types: ["web"] },
+  "habit-ops": { stage: "In development", types: ["web"] },
+  "pcec-update": { stage: "Deployed", types: ["web"] },
+  "pcec-auth-prototype": { stage: "Prototype", types: ["experiment"] },
+  "ctu-publisher": { stage: "Local tool", types: ["web", "business"] },
+  "philrads-disaster-bot": { types: ["ai"] },
+  "philrads-rss-free": { stage: "Local tool", types: ["ai"] },
+  "philrads-best-time": { stage: "Local tool", types: ["ai"] },
+  "philrads-feed-bridge": { stage: "Integration", types: ["ai", "experiment"] },
+  "shaina-portfolio": { stage: "Open source", types: ["web", "creative"] },
+  "nero-portfolio": { stage: "Deployed", liveUrl: "https://tabuzoportfolio.vercel.app/", types: ["web", "creative"] },
+  "github-profile": { stage: "Open source", types: ["creative", "experiment"] },
+};
+
+// PNG screenshots have optimized WebP copies beside them.
+const optimized = (src) => src.replace(/\.png$/, ".webp");
+
 export const projectCatalog = [
   ...originalProjects.map((project) => ({
     ...project,
@@ -449,18 +506,36 @@ export const projectCatalog = [
     selected: true,
   })),
   ...additions,
-].map((project) => ({ galleries: [], features: [], ...project }));
+]
+  .map((project) => ({ galleries: [], features: [], ...project, ...presentation[project.id] }))
+  .map((project) => ({
+    ...project,
+    galleries: project.galleries.map((group) => ({
+      ...group,
+      images: group.images.map((image) => ({ ...image, src: optimized(image.src) })),
+    })),
+    ...(project.featured
+      ? {
+          cover: `/assets/projects/covers/${project.id}-1600.webp`,
+          coverSmall: `/assets/projects/covers/${project.id}-800.webp`,
+        }
+      : {}),
+  }));
 
-export const selectedProjects = projectCatalog.filter(
-  (project) => project.selected,
-);
+export const featuredProducts = projectCatalog
+  .filter((project) => project.featured)
+  .sort((a, b) => a.featured - b.featured);
+export const selectedProjects = featuredProducts;
 export const repositoryCount = projectCatalog.filter(
   (project) => project.repository,
 ).length;
 export const catalogCategories = [
-  ["all", "All projects"],
-  ["web", "Web"],
-  ["desktop", "Desktop"],
-  ["bot", "Bots & automation"],
+  ["all", "All"],
+  ["web", "Web applications"],
+  ["desktop", "Desktop applications"],
+  ["business", "Business systems"],
+  ["ai", "AI & automation"],
+  ["creative", "Creative projects"],
   ["experiment", "Experiments"],
 ];
+export const projectById = (id) => projectCatalog.find((project) => project.id === id);

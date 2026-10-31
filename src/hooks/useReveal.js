@@ -1,47 +1,35 @@
 import { useEffect } from "react";
 
 /*
-  Elements marked data-reveal rise and fade in as they enter the viewport,
-  staggered among siblings. Content is only hidden once JavaScript runs,
-  and nothing is hidden for reduced motion.
+  Elements marked data-reveal fade up as they approach the viewport. The
+  observer fires before an element is on screen (the bottom margin is
+  positive), the move is short and quick, and siblings are offset by at
+  most a few frames, so content is already settling by the time it is
+  seen. Nothing is hidden without JavaScript or with reduced motion.
 */
-export default function useReveal() {
+export default function useReveal(deps = []) {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     if (!("IntersectionObserver" in window)) return;
-    const elements = [...document.querySelectorAll("[data-reveal]")];
+    const elements = [...document.querySelectorAll("[data-reveal]:not(.is-in)")];
     const order = new Map();
     elements.forEach((element) => {
       const parent = element.parentElement;
       const position = order.get(parent) ?? 0;
       order.set(parent, position + 1);
-      element.style.setProperty("--reveal-delay", `${Math.min(position, 6) * 70}ms`);
-      element.classList.add("reveal");
+      element.style.setProperty("--reveal-delay", `${Math.min(position, 3) * 45}ms`);
+      element.classList.add("will-reveal");
     });
-    const timers = [];
     const observer = new IntersectionObserver(
       (entries) =>
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
-          const element = entry.target;
-          element.classList.add("is-revealed");
-          observer.unobserve(element);
-          const delay = parseFloat(element.style.getPropertyValue("--reveal-delay")) || 0;
-          // Hand the element back to its own hover transitions once settled.
-          timers.push(
-            setTimeout(() => {
-              element.classList.remove("reveal", "is-revealed");
-              element.style.removeProperty("--reveal-delay");
-            }, delay + 1100),
-          );
+          entry.target.classList.add("is-in");
+          observer.unobserve(entry.target);
         }),
-      { rootMargin: "0px 0px -6% 0px", threshold: 0.06 },
+      { rootMargin: "0px 0px 12% 0px" },
     );
     elements.forEach((element) => observer.observe(element));
-    return () => {
-      observer.disconnect();
-      timers.forEach(clearTimeout);
-      elements.forEach((element) => element.classList.remove("reveal", "is-revealed"));
-    };
-  }, []);
+    return () => observer.disconnect();
+  }, deps);
 }

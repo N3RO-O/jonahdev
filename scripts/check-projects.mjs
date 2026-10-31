@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import {
   projectCatalog,
   selectedProjects,
+  featuredProducts,
   catalogCategories,
 } from "../src/data/projectCatalog.js";
 import { site, creative, certifications } from "../src/data/siteData.js";
@@ -58,22 +59,35 @@ for (const project of projectCatalog) {
     `Missing project content: ${project.id}`,
   );
   assert.ok(
-    categories.has(project.category),
-    `Unknown category: ${project.id}`,
+    project.types.length && project.types.every((type) => categories.has(type)),
+    `Unknown or missing archive category: ${project.id}`,
   );
+  assert.ok(project.stage || project.status, `Missing status: ${project.id}`);
   if (project.repository?.visibility === "private")
     assert.ok(
       !project.repository.url,
       `Private source link exposed: ${project.id}`,
     );
-  if (project.cover) assets.push(project.cover);
+  if (project.cover) assets.push(project.cover, project.coverSmall);
   for (const gallery of project.galleries) {
     assert.ok(gallery.images.length, `Empty gallery: ${project.id}`);
-    assets.push(...gallery.images.map((image) => image.src));
+    for (const image of gallery.images) {
+      assert.ok(image.caption, `Screenshot without a caption: ${image.src}`);
+      assets.push(image.src, ...(image.thumb ? [image.thumb] : []));
+    }
   }
+  for (const strip of project.motion || [])
+    assets.push(...strip.frames.map((frame) => frame.src));
 }
+assert.equal(projectCatalog.length, 22, "All 22 projects stay in the archive.");
+assert.equal(featuredProducts.length, 9, "Nine featured products on the homepage.");
+for (const product of featuredProducts)
+  assert.ok(product.cover && product.summary, `Featured product needs a cover and summary: ${product.id}`);
+const portal = projectCatalog.find((project) => project.id === "philrads-portal");
+assert.equal(portal.repository.url, undefined, "The Staff Portal has no public source link.");
+assert.equal(portal.liveUrl, undefined, "The Staff Portal has no public demo.");
 for (const item of creative.items)
-  assets.push(item.src, ...(item.poster ? [item.poster] : []));
+  assets.push(item.src, ...(item.thumb ? [item.thumb] : []), ...(item.poster ? [item.poster] : []));
 assets.push(...certifications.map((cert) => cert.image).filter(Boolean));
 for (const asset of assets) {
   assert.ok(asset.startsWith("/assets/"), `Unexpected asset path: ${asset}`);
@@ -92,5 +106,5 @@ assert.equal(
   "Video exports are kept out of the project archive.",
 );
 console.log(
-  `Checked ${projectCatalog.length} projects, ${represented.length} repositories, ${selectedProjects.length} selected projects, and ${assets.length} asset references. No missing assets or private source links.`,
+  `Checked ${projectCatalog.length} projects, ${represented.length} repositories, ${selectedProjects.length} featured products, and ${assets.length} asset references. No missing assets or private source links.`,
 );
