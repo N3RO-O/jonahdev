@@ -2,6 +2,8 @@
 
 Portfolio of Jonah Mark Tabuzo (Nero): Full-Stack Web Developer, Systems Creator & Visual Storyteller. Built with React 18, Vite, Tailwind CSS 4 (base reset only), Lenis and Lucide icons.
 
+The PCEC Connect case study was refreshed on 31 October 2026 with 54 current capabilities, six separately labelled future items, 13 actual interface captures and links to the live app and its nine-document reference library. Captures use an isolated sample backend. The feature snapshot lives in `src/data/pcecFeatureInventory.json`; planned integrations must stay separate from shipped functionality. Run `npm run check`, `npm run build`, then `npm run test:pcec` to verify the catalog, assets, mobile/desktop modal, feature search, gallery and close behavior. Playwright Chromium must be installed in the test environment (`npx playwright install chromium`).
+
 ## Run locally
 
 ```sh

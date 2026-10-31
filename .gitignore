@@ -3,6 +3,8 @@ dist
 .DS_Store
 *.local
 .env
+.local-test/
+.local-test-*.log
 
 # Vite build artifacts (XAMPP deploy copies — do not commit)
 assets/index-*.js

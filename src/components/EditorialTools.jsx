@@ -96,6 +96,8 @@ export function ProjectDetail({ project }) {
         </div>
         <div className="project-links">
           <span className="eyebrow">{project.status || "Project notes"}</span>
+          {project.liveUrl && <a className="text-link" href={project.liveUrl} target="_blank" rel="noreferrer">Open app <ArrowUpRight size={16} /></a>}
+          {project.documentationUrl && <a className="text-link" href={project.documentationUrl} target="_blank" rel="noreferrer">Requirements & documentation <ArrowUpRight size={16} /></a>}
           {project.repository?.url ? (
             <a
               className="text-link"
@@ -195,14 +197,15 @@ export function ProjectDetail({ project }) {
             <p>{project.role}</p>
           </div>
         )}
-        <div>
+        <div className={project.featureGroups ? "pcec-feature-inventory" : undefined}>
           <span className="eyebrow">In the details</span>
-          <ul>
+          {project.featureGroups ? <><h3>Every implemented capability.</h3><p>Source inventory, grouped by the task it supports. Test evidence and external acceptance limits are recorded in the project documentation.</p><div className="pcec-feature-groups">{project.featureGroups.map(group => <details key={group.module}><summary>{group.module} <span>{group.features.length}</span></summary><ul>{group.features.map(feature => <li key={feature.id}><a href={`https://update-pcec-app.vercel.app/product-requirements.html#${feature.id.toLowerCase()}`} target="_blank" rel="noreferrer">{feature.name}</a><span className="pcec-feature-id">{feature.id}</span></li>)}</ul></details>)}</div></> : <ul>
             {project.features.map((feature) => (
               <li key={feature}>{feature}</li>
             ))}
-          </ul>
+          </ul>}
         </div>
+        {project.futureFeatures && <div className="pcec-feature-inventory"><span className="eyebrow">Planned / external dependencies</span><p>These are separate from the implemented feature inventory.</p><ul>{project.futureFeatures.map(feature => <li key={feature.id}>{feature.name} — {feature.status}</li>)}</ul></div>}
         {project.variants && (
           <div>
             <span className="eyebrow">

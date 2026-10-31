@@ -1,0 +1,759 @@
+{
+  "reviewed": "2026-10-31",
+  "release": "1.1.11",
+  "source": "PCEC feature-catalog.json; external acceptance remains separately recorded.",
+  "current": [
+    {
+      "id": "AUTH-001",
+      "name": "Welcome and first visit",
+      "module": "Access",
+      "status": "Implemented"
+    },
+    {
+      "id": "AUTH-002",
+      "name": "Email registration and consent",
+      "module": "Access",
+      "status": "Implemented"
+    },
+    {
+      "id": "AUTH-003",
+      "name": "Email confirmation and resend",
+      "module": "Access",
+      "status": "Implemented"
+    },
+    {
+      "id": "AUTH-004",
+      "name": "Email/password login",
+      "module": "Access",
+      "status": "Implemented"
+    },
+    {
+      "id": "AUTH-005",
+      "name": "Google sign-in and first-time consent",
+      "module": "Access",
+      "status": "Implemented"
+    },
+    {
+      "id": "AUTH-006",
+      "name": "Password recovery and change",
+      "module": "Access",
+      "status": "Implemented"
+    },
+    {
+      "id": "AUTH-007",
+      "name": "Session renewal, routing and logout",
+      "module": "Access",
+      "status": "Implemented"
+    },
+    {
+      "id": "PROF-001",
+      "name": "Newcomer profile setup",
+      "module": "Profiles",
+      "status": "Implemented"
+    },
+    {
+      "id": "PROF-002",
+      "name": "Profile view, edit and photo",
+      "module": "Profiles",
+      "status": "Implemented"
+    },
+    {
+      "id": "PROF-003",
+      "name": "Discovery and shared profile privacy",
+      "module": "Profiles",
+      "status": "Implemented"
+    },
+    {
+      "id": "ACCT-001",
+      "name": "Account deletion",
+      "module": "Profiles",
+      "status": "Implemented"
+    },
+    {
+      "id": "HOME-001",
+      "name": "Home and navigation",
+      "module": "Content",
+      "status": "Implemented"
+    },
+    {
+      "id": "NEWS-001",
+      "name": "Church news and announcements",
+      "module": "Content",
+      "status": "Implemented"
+    },
+    {
+      "id": "EVT-001",
+      "name": "Event discovery and lifecycle",
+      "module": "Content",
+      "status": "Implemented"
+    },
+    {
+      "id": "EVT-002",
+      "name": "Event registration and cancellation",
+      "module": "Content",
+      "status": "Implemented"
+    },
+    {
+      "id": "COM-001",
+      "name": "Post composer, photo and audience",
+      "module": "Community",
+      "status": "Implemented"
+    },
+    {
+      "id": "COM-002",
+      "name": "Latest and ranked feed, pagination and live updates",
+      "module": "Community",
+      "status": "Implemented"
+    },
+    {
+      "id": "COM-003",
+      "name": "Comments and threaded replies",
+      "module": "Community",
+      "status": "Implemented"
+    },
+    {
+      "id": "COM-004",
+      "name": "Reactions and reactor list",
+      "module": "Community",
+      "status": "Implemented"
+    },
+    {
+      "id": "COM-005",
+      "name": "Saved posts, reposting and sharing",
+      "module": "Community",
+      "status": "Implemented"
+    },
+    {
+      "id": "COM-006",
+      "name": "Post management, reports and blocking",
+      "module": "Community",
+      "status": "Implemented"
+    },
+    {
+      "id": "SOC-001",
+      "name": "Following, followers and suggestions",
+      "module": "Connections",
+      "status": "Implemented"
+    },
+    {
+      "id": "CHAT-001",
+      "name": "Shared Community Chat",
+      "module": "Conversations",
+      "status": "Implemented"
+    },
+    {
+      "id": "CHAT-002",
+      "name": "Direct messages and requests",
+      "module": "Conversations",
+      "status": "Implemented"
+    },
+    {
+      "id": "CHAT-003",
+      "name": "Private group creation and friend picker",
+      "module": "Conversations",
+      "status": "Implemented"
+    },
+    {
+      "id": "CHAT-004",
+      "name": "Group privacy and membership management",
+      "module": "Conversations",
+      "status": "Implemented"
+    },
+    {
+      "id": "CHAT-005",
+      "name": "Message editing, emoji and footprints",
+      "module": "Conversations",
+      "status": "Implemented"
+    },
+    {
+      "id": "CHAT-006",
+      "name": "Typing, reconnect and current-window drafts",
+      "module": "Conversations",
+      "status": "Implemented"
+    },
+    {
+      "id": "CHAT-007",
+      "name": "Delivery/read receipts and unread indicators",
+      "module": "Conversations",
+      "status": "Implemented"
+    },
+    {
+      "id": "CHAT-008",
+      "name": "Inbox folders and conversation controls",
+      "module": "Conversations",
+      "status": "Implemented"
+    },
+    {
+      "id": "CHAT-009",
+      "name": "Conversation abuse reports and moderation",
+      "module": "Conversations",
+      "status": "Implemented"
+    },
+    {
+      "id": "NOTIF-001",
+      "name": "Notifications and activity",
+      "module": "Community",
+      "status": "Implemented"
+    },
+    {
+      "id": "SEARCH-001",
+      "name": "Permission-aware global search",
+      "module": "Discovery",
+      "status": "Implemented"
+    },
+    {
+      "id": "PRAY-001",
+      "name": "Prayer requests and support",
+      "module": "Community",
+      "status": "Implemented"
+    },
+    {
+      "id": "DIR-001",
+      "name": "Church directory",
+      "module": "Content",
+      "status": "Implemented"
+    },
+    {
+      "id": "MEDIA-001",
+      "name": "Member photo gallery and upload",
+      "module": "Media",
+      "status": "Implemented"
+    },
+    {
+      "id": "MEDIA-002",
+      "name": "Keyboard-accessible media navigation",
+      "module": "Media",
+      "status": "Implemented"
+    },
+    {
+      "id": "MEM-001",
+      "name": "Membership and NDC information",
+      "module": "Content",
+      "status": "Implemented"
+    },
+    {
+      "id": "DON-001",
+      "name": "Supplied payment QR and amount selection",
+      "module": "Giving",
+      "status": "Implemented"
+    },
+    {
+      "id": "DON-002",
+      "name": "Donation report, receipt and own activity",
+      "module": "Giving",
+      "status": "Implemented"
+    },
+    {
+      "id": "DON-003",
+      "name": "Finance review and confirmed donation ledger",
+      "module": "Giving",
+      "status": "Implemented"
+    },
+    {
+      "id": "DON-004",
+      "name": "Donation analytics and export",
+      "module": "Giving",
+      "status": "Implemented"
+    },
+    {
+      "id": "ADMIN-001",
+      "name": "Admin dashboard and member management",
+      "module": "Administration",
+      "status": "Implemented"
+    },
+    {
+      "id": "ADMIN-002",
+      "name": "Official content and church management",
+      "module": "Administration",
+      "status": "Implemented"
+    },
+    {
+      "id": "ADMIN-003",
+      "name": "Payment options and lossless QR editor",
+      "module": "Administration",
+      "status": "Implemented"
+    },
+    {
+      "id": "ADMIN-004",
+      "name": "Moderation and inquiry inbox",
+      "module": "Administration",
+      "status": "Implemented"
+    },
+    {
+      "id": "HELP-001",
+      "name": "Help, office contact and feedback",
+      "module": "Support",
+      "status": "Implemented"
+    },
+    {
+      "id": "SYS-001",
+      "name": "Theme and readable responsive interface",
+      "module": "Experience",
+      "status": "Implemented"
+    },
+    {
+      "id": "SYS-002",
+      "name": "Installable PWA and offline shell",
+      "module": "Experience",
+      "status": "Implemented"
+    },
+    {
+      "id": "SYS-003",
+      "name": "Controlled updates and navigation recovery",
+      "module": "Experience",
+      "status": "Implemented"
+    },
+    {
+      "id": "SYS-004",
+      "name": "Request, file and service safeguards",
+      "module": "Platform",
+      "status": "Implemented"
+    },
+    {
+      "id": "DOC-001",
+      "name": "Public app guides and advertising boundary",
+      "module": "Documentation",
+      "status": "Implemented"
+    },
+    {
+      "id": "DOC-002",
+      "name": "Requirements library and public feature inventory",
+      "module": "Documentation",
+      "status": "Implemented"
+    },
+    {
+      "id": "PORT-001",
+      "name": "Complete PCEC portfolio case study",
+      "module": "Documentation",
+      "status": "Implemented"
+    }
+  ],
+  "groups": [
+    {
+      "module": "Access",
+      "features": [
+        {
+          "id": "AUTH-001",
+          "name": "Welcome and first visit",
+          "module": "Access",
+          "status": "Implemented"
+        },
+        {
+          "id": "AUTH-002",
+          "name": "Email registration and consent",
+          "module": "Access",
+          "status": "Implemented"
+        },
+        {
+          "id": "AUTH-003",
+          "name": "Email confirmation and resend",
+          "module": "Access",
+          "status": "Implemented"
+        },
+        {
+          "id": "AUTH-004",
+          "name": "Email/password login",
+          "module": "Access",
+          "status": "Implemented"
+        },
+        {
+          "id": "AUTH-005",
+          "name": "Google sign-in and first-time consent",
+          "module": "Access",
+          "status": "Implemented"
+        },
+        {
+          "id": "AUTH-006",
+          "name": "Password recovery and change",
+          "module": "Access",
+          "status": "Implemented"
+        },
+        {
+          "id": "AUTH-007",
+          "name": "Session renewal, routing and logout",
+          "module": "Access",
+          "status": "Implemented"
+        }
+      ]
+    },
+    {
+      "module": "Profiles",
+      "features": [
+        {
+          "id": "PROF-001",
+          "name": "Newcomer profile setup",
+          "module": "Profiles",
+          "status": "Implemented"
+        },
+        {
+          "id": "PROF-002",
+          "name": "Profile view, edit and photo",
+          "module": "Profiles",
+          "status": "Implemented"
+        },
+        {
+          "id": "PROF-003",
+          "name": "Discovery and shared profile privacy",
+          "module": "Profiles",
+          "status": "Implemented"
+        },
+        {
+          "id": "ACCT-001",
+          "name": "Account deletion",
+          "module": "Profiles",
+          "status": "Implemented"
+        }
+      ]
+    },
+    {
+      "module": "Content",
+      "features": [
+        {
+          "id": "HOME-001",
+          "name": "Home and navigation",
+          "module": "Content",
+          "status": "Implemented"
+        },
+        {
+          "id": "NEWS-001",
+          "name": "Church news and announcements",
+          "module": "Content",
+          "status": "Implemented"
+        },
+        {
+          "id": "EVT-001",
+          "name": "Event discovery and lifecycle",
+          "module": "Content",
+          "status": "Implemented"
+        },
+        {
+          "id": "EVT-002",
+          "name": "Event registration and cancellation",
+          "module": "Content",
+          "status": "Implemented"
+        },
+        {
+          "id": "DIR-001",
+          "name": "Church directory",
+          "module": "Content",
+          "status": "Implemented"
+        },
+        {
+          "id": "MEM-001",
+          "name": "Membership and NDC information",
+          "module": "Content",
+          "status": "Implemented"
+        }
+      ]
+    },
+    {
+      "module": "Community",
+      "features": [
+        {
+          "id": "COM-001",
+          "name": "Post composer, photo and audience",
+          "module": "Community",
+          "status": "Implemented"
+        },
+        {
+          "id": "COM-002",
+          "name": "Latest and ranked feed, pagination and live updates",
+          "module": "Community",
+          "status": "Implemented"
+        },
+        {
+          "id": "COM-003",
+          "name": "Comments and threaded replies",
+          "module": "Community",
+          "status": "Implemented"
+        },
+        {
+          "id": "COM-004",
+          "name": "Reactions and reactor list",
+          "module": "Community",
+          "status": "Implemented"
+        },
+        {
+          "id": "COM-005",
+          "name": "Saved posts, reposting and sharing",
+          "module": "Community",
+          "status": "Implemented"
+        },
+        {
+          "id": "COM-006",
+          "name": "Post management, reports and blocking",
+          "module": "Community",
+          "status": "Implemented"
+        },
+        {
+          "id": "NOTIF-001",
+          "name": "Notifications and activity",
+          "module": "Community",
+          "status": "Implemented"
+        },
+        {
+          "id": "PRAY-001",
+          "name": "Prayer requests and support",
+          "module": "Community",
+          "status": "Implemented"
+        }
+      ]
+    },
+    {
+      "module": "Connections",
+      "features": [
+        {
+          "id": "SOC-001",
+          "name": "Following, followers and suggestions",
+          "module": "Connections",
+          "status": "Implemented"
+        }
+      ]
+    },
+    {
+      "module": "Conversations",
+      "features": [
+        {
+          "id": "CHAT-001",
+          "name": "Shared Community Chat",
+          "module": "Conversations",
+          "status": "Implemented"
+        },
+        {
+          "id": "CHAT-002",
+          "name": "Direct messages and requests",
+          "module": "Conversations",
+          "status": "Implemented"
+        },
+        {
+          "id": "CHAT-003",
+          "name": "Private group creation and friend picker",
+          "module": "Conversations",
+          "status": "Implemented"
+        },
+        {
+          "id": "CHAT-004",
+          "name": "Group privacy and membership management",
+          "module": "Conversations",
+          "status": "Implemented"
+        },
+        {
+          "id": "CHAT-005",
+          "name": "Message editing, emoji and footprints",
+          "module": "Conversations",
+          "status": "Implemented"
+        },
+        {
+          "id": "CHAT-006",
+          "name": "Typing, reconnect and current-window drafts",
+          "module": "Conversations",
+          "status": "Implemented"
+        },
+        {
+          "id": "CHAT-007",
+          "name": "Delivery/read receipts and unread indicators",
+          "module": "Conversations",
+          "status": "Implemented"
+        },
+        {
+          "id": "CHAT-008",
+          "name": "Inbox folders and conversation controls",
+          "module": "Conversations",
+          "status": "Implemented"
+        },
+        {
+          "id": "CHAT-009",
+          "name": "Conversation abuse reports and moderation",
+          "module": "Conversations",
+          "status": "Implemented"
+        }
+      ]
+    },
+    {
+      "module": "Discovery",
+      "features": [
+        {
+          "id": "SEARCH-001",
+          "name": "Permission-aware global search",
+          "module": "Discovery",
+          "status": "Implemented"
+        }
+      ]
+    },
+    {
+      "module": "Media",
+      "features": [
+        {
+          "id": "MEDIA-001",
+          "name": "Member photo gallery and upload",
+          "module": "Media",
+          "status": "Implemented"
+        },
+        {
+          "id": "MEDIA-002",
+          "name": "Keyboard-accessible media navigation",
+          "module": "Media",
+          "status": "Implemented"
+        }
+      ]
+    },
+    {
+      "module": "Giving",
+      "features": [
+        {
+          "id": "DON-001",
+          "name": "Supplied payment QR and amount selection",
+          "module": "Giving",
+          "status": "Implemented"
+        },
+        {
+          "id": "DON-002",
+          "name": "Donation report, receipt and own activity",
+          "module": "Giving",
+          "status": "Implemented"
+        },
+        {
+          "id": "DON-003",
+          "name": "Finance review and confirmed donation ledger",
+          "module": "Giving",
+          "status": "Implemented"
+        },
+        {
+          "id": "DON-004",
+          "name": "Donation analytics and export",
+          "module": "Giving",
+          "status": "Implemented"
+        }
+      ]
+    },
+    {
+      "module": "Administration",
+      "features": [
+        {
+          "id": "ADMIN-001",
+          "name": "Admin dashboard and member management",
+          "module": "Administration",
+          "status": "Implemented"
+        },
+        {
+          "id": "ADMIN-002",
+          "name": "Official content and church management",
+          "module": "Administration",
+          "status": "Implemented"
+        },
+        {
+          "id": "ADMIN-003",
+          "name": "Payment options and lossless QR editor",
+          "module": "Administration",
+          "status": "Implemented"
+        },
+        {
+          "id": "ADMIN-004",
+          "name": "Moderation and inquiry inbox",
+          "module": "Administration",
+          "status": "Implemented"
+        }
+      ]
+    },
+    {
+      "module": "Support",
+      "features": [
+        {
+          "id": "HELP-001",
+          "name": "Help, office contact and feedback",
+          "module": "Support",
+          "status": "Implemented"
+        }
+      ]
+    },
+    {
+      "module": "Experience",
+      "features": [
+        {
+          "id": "SYS-001",
+          "name": "Theme and readable responsive interface",
+          "module": "Experience",
+          "status": "Implemented"
+        },
+        {
+          "id": "SYS-002",
+          "name": "Installable PWA and offline shell",
+          "module": "Experience",
+          "status": "Implemented"
+        },
+        {
+          "id": "SYS-003",
+          "name": "Controlled updates and navigation recovery",
+          "module": "Experience",
+          "status": "Implemented"
+        }
+      ]
+    },
+    {
+      "module": "Platform",
+      "features": [
+        {
+          "id": "SYS-004",
+          "name": "Request, file and service safeguards",
+          "module": "Platform",
+          "status": "Implemented"
+        }
+      ]
+    },
+    {
+      "module": "Documentation",
+      "features": [
+        {
+          "id": "DOC-001",
+          "name": "Public app guides and advertising boundary",
+          "module": "Documentation",
+          "status": "Implemented"
+        },
+        {
+          "id": "DOC-002",
+          "name": "Requirements library and public feature inventory",
+          "module": "Documentation",
+          "status": "Implemented"
+        },
+        {
+          "id": "PORT-001",
+          "name": "Complete PCEC portfolio case study",
+          "module": "Documentation",
+          "status": "Implemented"
+        }
+      ]
+    }
+  ],
+  "future": [
+    {
+      "id": "FUT-001",
+      "name": "Administrator MFA and recovery enforcement",
+      "status": "Planned / owner acceptance required"
+    },
+    {
+      "id": "FUT-002",
+      "name": "Backup and isolated restore acceptance",
+      "status": "Planned / external operations gate"
+    },
+    {
+      "id": "FUT-003",
+      "name": "Verified provider payment integration",
+      "status": "Blocked by unavailable provider contract"
+    },
+    {
+      "id": "FUT-004",
+      "name": "Optional background reminders",
+      "status": "Planned / service and consent needed"
+    },
+    {
+      "id": "FUT-005",
+      "name": "Durable offline submission queue",
+      "status": "Planned / separate data contract"
+    },
+    {
+      "id": "FUT-006",
+      "name": "Read-only bilingual help assistant",
+      "status": "Planned / budget and privacy decision"
+    }
+  ]
+}

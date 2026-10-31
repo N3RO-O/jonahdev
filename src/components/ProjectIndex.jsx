@@ -24,6 +24,7 @@ export default function ProjectIndex({ onOpen }) {
         project.source,
         project.repository?.name,
         ...project.tech,
+        ...project.features,
       ]
         .join(" ")
         .toLowerCase();

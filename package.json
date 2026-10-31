@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "check": "node scripts/check-projects.mjs",
+    "test:pcec": "node scripts/check-pcec.mjs",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -25,6 +26,7 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.3",
     "@vitejs/plugin-react": "^4.3.4",
+    "playwright": "^1.63.0",
     "postcss": "^8.4.49",
     "tailwindcss": "^4.3.3",
     "vite": "^6.0.5"

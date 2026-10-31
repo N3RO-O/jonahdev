@@ -1,4 +1,5 @@
 import { projects as originalProjects } from "./siteData.js";
+import pcecInventory from "./pcecFeatureInventory.json" with { type: "json" };
 
 // Reviewed against the owner's 21 GitHub repositories and local project folders,
 // 19 October 2026. Repository visibility is a snapshot, not a runtime API call.
@@ -133,25 +134,40 @@ const additions = [
     year: "2026",
     repository: repo("pcec-connect-pwa"),
     source: "GitHub + local",
-    status: "Testing release",
+    status: "1.1.11 · Testing release",
     selected: true,
     description:
-      "A member-focused progressive web app for the Philippine Council of Evangelical Churches, bringing profiles, announcements, events, community conversations, and administrative workflows together.",
-    tech: ["JavaScript", "PWA", "Supabase", "PostgreSQL", "Realtime"],
-    features: [
-      "Member profiles, announcements, events, and community content",
-      "Friends, post audiences, group invitations, and moderation",
-      "Chat, reactions, notifications, and typing indicators",
-      "Installable app with member and administrator workflows",
-    ],
+      "An installable community platform for the Philippine Council of Evangelical Churches: member accounts, church news, events, social feeds, private conversations, prayer, QR giving and administration in one responsive app.",
+    tech: ["TypeScript", "PWA", "Supabase", "PostgreSQL", "Realtime", "Playwright"],
+    liveUrl: "https://pcec-connect.vercel.app/",
+    documentationUrl: "https://update-pcec-app.vercel.app/documentation.html",
+    problem: "Members and administrators need one place for church information and community activity, with clear privacy boundaries. Giving also has to work through an existing Surgebox QR without access to its payment API.",
+    solution: "Separate member and administrator journeys, enforce permissions in PostgreSQL, keep private media behind signed access, and record donor reports independently from confirmed receipts. The supplied bank QR stays usable while finance reconciles the reference against the actual payment record.",
+    role: "Product requirements, responsive interface, TypeScript application, Supabase data and access rules, testing, deployment and technical handover documentation.",
+    features: pcecInventory.current.map(feature => feature.name),
+    featureGroups: pcecInventory.groups,
+    futureFeatures: pcecInventory.future,
     statusNote:
-      "The project is a testing release. Public launch readiness is still being reviewed.",
+      "Implemented features have isolated test evidence. Real email delivery, bank reconciliation, administrator MFA, backup restoration and current physical-device acceptance remain launch gates. A bank reference alone does not confirm payment. Gallery captures use isolated sample data; no real member records or receipts are shown.",
     galleries: [
-      gallery("Member app overview", [
-        [
-          "/assets/projects/pcec-connect/app-screens.webp",
-          "PCEC Connect — illustrative member app screens from the project’s presentation assets.",
-        ],
+      gallery("Member app", [
+        ["/assets/projects/pcec-connect/home-1440.jpg", "Actual home interface · isolated sample backend · desktop."],
+        ["/assets/projects/pcec-connect/community-1440.jpg", "Actual community feed · isolated sample members and posts."],
+        ["/assets/projects/pcec-connect/new-group-390.jpg", "Actual friend picker for a private group · isolated sample friend."],
+        ["/assets/projects/pcec-connect/media-viewer-1440.jpg", "Actual media viewer with previous/next controls · bundled artwork as sample items."],
+        ["/assets/projects/pcec-connect/donate-390.jpg", "Actual giving screen using the supplied Surgebox QR · no payment performed."],
+      ]),
+      gallery("Accounts & mobile", [
+        ["/assets/projects/pcec-connect/login-390.jpg", "Actual white and blue PCEC login on a phone-sized viewport."],
+        ["/assets/projects/pcec-connect/signup-390.jpg", "Actual registration form · no account submitted."],
+        ["/assets/projects/pcec-connect/home-768.jpg", "Actual tablet layout · isolated sample content."],
+        ["/assets/projects/pcec-connect/profile-390.jpg", "Actual established-member profile · isolated sample account."],
+        ["/assets/projects/pcec-connect/settings-390.jpg", "Actual appearance, privacy and account settings · isolated sample account."],
+      ]),
+      gallery("Administration", [
+        ["/assets/projects/pcec-connect/admin-1440.jpg", "Actual administrator dashboard · isolated sample backend."],
+        ["/assets/projects/pcec-connect/admin-members-1440.jpg", "Actual member management table · isolated sample accounts."],
+        ["/assets/projects/pcec-connect/admin-donation-analytics-1440.jpg", "Actual donation analytics empty state · no provider connection or real transactions."],
       ]),
     ],
     variants: [
