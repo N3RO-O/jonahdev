@@ -11,34 +11,36 @@ npm install
 npm run dev
 npm run check
 npm run build
-npm run preview
+npm run test:site   # Playwright end-to-end check of the built site
+npm run test:pcec
 ```
 
-The development server runs at http://localhost:5173. Production files are generated in `dist/`, which `vercel.json` deploys.
+The development server runs at http://localhost:5173. `npm run build` writes `dist/` and then `scripts/prerender.mjs` adds a copy of the page at `dist/work/<id>/index.html` for every project (own title, description and social image) plus `dist/sitemap.xml`. `vercel.json` rewrites `/work/<id>` to that file. The Playwright checks use the bundled Chromium; set `PLAYWRIGHT_CHANNEL=msedge` (or `chrome`) to use an installed browser instead.
+
+## Structure
+
+Products first: a compact hero, then nine featured products, the full archive of 22 projects, About, Experience, Toolkit, Visual storytelling and Contact.
+
+- **Products.** `featuredProducts` in `src/data/projectCatalog.js`, ordered by `featured`. Each has a 16:10 cover in `public/assets/projects/covers/` (800 and 1600 px WebP), a one-line `summary`, a development `stage` (Released, Deployed, Completed, Testing, In development, Open source, Prototype, Local tool) and a `context`.
+- **Case studies.** Every project opens at `/work/<id>` as a full-screen view (`src/components/CaseStudy.jsx`) with a screenshot gallery and viewer (`ScreenshotGallery.jsx`). Longer content sits in expandable sections. Live, documentation and source links appear only when the project data has a real URL.
+- **Archive.** `src/components/ProjectIndex.jsx`: search plus filters for web, desktop, business systems, AI & automation, creative projects and experiments (`types` on each project).
+- **Toolkit.** `toolkit` in `src/data/siteData.js`. "Used in" counts are calculated from project stacks.
+- **PHILRADS Staff Portal.** `src/data/philradsPortal.js`, with screenshots in `public/assets/projects/philrads-portal/` taken from the production build with invented sample data.
+
+PNG screenshots have WebP copies beside them, which the site loads; the PNGs are kept as originals.
 
 ## Design
 
-The look and motion follow [nerochain.io](https://nerochain.io/), with red as the brand colour: a white canvas, black type, uppercase headings in Tomorrow, pixel accents in VT323 and labels in Fragment Mono (all self-hosted through Fontsource).
-
-Effects, all switched off for visitors who prefer reduced motion:
-
-- **Smooth scrolling.** Lenis gives weighted scrolling, and anchor links glide to their section.
-- **Portrait reveal.** Hovering the About portrait scatters its halftone dots and uncovers the clear colour photo.
-- **Particle wave.** The hero has a canvas of dots rippling like a surface, with red and black nodes. It reacts to the pointer and pauses when off screen.
-- **Scramble text.** Pixel headings decode from random glyphs when they scroll into view.
-- **Pinned work reel.** Selected work scrolls sideways while the section stays pinned, with a progress counter. On phones it becomes a vertical grid.
-- **Card fan.** The "Starts here" cards fan out as you scroll.
-- **Smaller touches.** There's a stack marquee, rise-in reveals and a reading-progress bar.
+Dark editorial minimalism around the Nero identity: charcoal surfaces, off-white Tomorrow type, the red pixel-N mark, VT323 for counts and the footer wordmark, Fragment Mono for technology stacks (all self-hosted through Fontsource). Screenshots carry the visual weight. The hero settles in once on load; everything else moves only in response to the visitor. Lenis smooth scrolling, the hero animation and all transitions switch off for reduced motion.
 
 ## Code map
 
-- `src/App.jsx`: page sections, navigation and the dialogs.
-- `src/components/nero/`: the Nero mark, pixel icons, scramble text, particle wave, pinned reel and card fan.
-- `src/hooks/`: Lenis, scroll-progress and reveal hooks.
+- `src/App.jsx`: page sections, navigation, the floating contact button and dialogs.
+- `src/hooks/useRoute.js`: the `/work/<id>` history router. `useLenis.js`: smooth scrolling.
+- `src/components/`: `ProductGrid`, `CaseStudy`, `ScreenshotGallery`, `ProjectIndex`, `Toolkit`, `StageBadge`, and `EditorialTools` (dialogs, photo/video viewer, contact form, résumé download check).
+- `src/components/nero/`: the Nero mark, scramble text and the portrait reveal.
 - `src/styles/nero.css`: the theme. `src/index.css` only loads Tailwind.
-- `src/components/EditorialTools.jsx`: native dialogs, project galleries, the image and video viewer, the contact form and the résumé download check.
-- `src/components/ProjectIndex.jsx`: the searchable archive.
-- `src/data/`: profile, projects (`projectCatalog.js`), skills, experience and field notes.
+- `src/data/`: profile, projects, Staff Portal case study, toolkit, experience and field notes.
 - `PROJECT_INVENTORY.md`: which repositories and local folders map to which projects.
 
 ## Contact and analytics

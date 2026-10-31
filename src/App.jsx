@@ -1,76 +1,36 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
-  ArrowUpRight,
   ArrowDown,
   ArrowUp,
-  Menu,
-  X,
+  ArrowUpRight,
   Download,
-  Plus,
+  Mail,
+  Menu,
   Minus,
+  Play,
+  Plus,
+  X,
 } from "lucide-react";
-import {
-  site,
-  about,
-  skillCategories,
-  coreStack,
-  experience,
-  education,
-  certifications,
-  creative,
-} from "./data/siteData";
-import {
-  selectedProjects as projects,
-  projectCatalog,
-} from "./data/projectCatalog";
-import ProjectIndex from "./components/ProjectIndex";
+import { site, about, experience, education, certifications, creative } from "./data/siteData";
+import { projectCatalog, featuredProducts, projectById } from "./data/projectCatalog";
 import { posts } from "./data/blog";
-import {
-  Modal,
-  ProjectDetail,
-  MediaDetail,
-  ContactForm,
-  CvDownload,
-} from "./components/EditorialTools";
+import { Modal, MediaDetail, ContactForm, CvDownload } from "./components/EditorialTools";
+import ProductGrid from "./components/ProductGrid";
+import ProjectIndex from "./components/ProjectIndex";
+import CaseStudy from "./components/CaseStudy";
+import Toolkit from "./components/Toolkit";
 import NeroMark from "./components/nero/NeroMark";
-import PixelIcon from "./components/nero/PixelIcon";
 import Scramble from "./components/nero/Scramble";
-import ParticleWave from "./components/nero/ParticleWave";
-import PinnedWork from "./components/nero/PinnedWork";
-import CardFan from "./components/nero/CardFan";
 import PortraitReveal from "./components/nero/PortraitReveal";
 import useLenis from "./hooks/useLenis";
-import useReveal from "./hooks/useReveal";
+import useRoute from "./hooks/useRoute";
 
 const navigation = [
-  ["projects", "Work"],
+  ["products", "Products"],
+  ["projects", "Projects"],
   ["about", "About"],
-  ["skills", "Skills"],
   ["experience", "Experience"],
-  ["creative", "Creative"],
-];
-
-const services = [
-  {
-    icon: "code",
-    title: "Full-stack web",
-    text: "React, PHP and MySQL applications taken from requirements to a live deployment.",
-  },
-  {
-    icon: "data",
-    title: "Systems & data",
-    text: "Role-based systems, relational schemas, approval workflows and activity logs.",
-  },
-  {
-    icon: "check",
-    title: "QA & IT support",
-    text: "Freelance QA at PIXODE: test plans, bug reports and calm troubleshooting.",
-  },
-  {
-    icon: "camera",
-    title: "Visual stories",
-    text: "Photography and video edits that make information easier to remember.",
-  },
+  ["contact", "Contact"],
 ];
 
 const principles = [
@@ -107,15 +67,9 @@ const faqs = [
   ],
 ];
 
-const marqueeItems = [
-  ...coreStack,
-  "TypeScript",
-  "Next.js",
-  "Supabase",
-  "Electron",
-  "Node.js",
-  "Figma",
-];
+const pad = (value) => String(value).padStart(2, "0");
+const defaultTitle = document.title;
+const defaultDescription = document.querySelector('meta[name="description"]')?.content || "";
 
 const manilaTime = new Intl.DateTimeFormat("en-GB", {
   timeZone: "Asia/Manila",
@@ -132,12 +86,15 @@ function useManilaClock() {
   return time;
 }
 
-/* Section title: a pixel "//" kicker line over a display line. */
-function Title({ pixel, children, align = "left", as: Tag = "h2" }) {
+/* Section heading: the title and, where it helps, a pixel-type count. */
+function Heading({ id, children, count, aside }) {
   return (
-    <div className={`title title-${align}`} data-reveal>
-      <Scramble as="p" className="pixel-kicker" text={pixel} />
-      <Tag className="display">{children}</Tag>
+    <div className="section-head">
+      <h2 id={id}>
+        {children}
+        {count != null && <span className="count">{pad(count)}</span>}
+      </h2>
+      {aside && <p>{aside}</p>}
     </div>
   );
 }
@@ -146,23 +103,32 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState("");
   const [modal, setModal] = useState(null);
-  const [morePhotos, setMorePhotos] = useState(false);
+  const [allPhotos, setAllPhotos] = useState(false);
   const [showCerts, setShowCerts] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const headerRef = useRef(null);
+  const [showFab, setShowFab] = useState(false);
+  const menuRef = useRef(null);
   const clock = useManilaClock();
   const lenis = useLenis();
-  useReveal();
+  const { projectId, openProject, switchProject, closeProject } = useRoute();
+  const project = projectId ? projectById(projectId) : null;
 
-  // Header state + reading progress.
+  // Case studies page through featured products first, then the archive.
+  const order = useMemo(
+    () => [...featuredProducts, ...projectCatalog.filter((item) => !item.featured)],
+    [],
+  );
+  const position = project ? order.indexOf(project) : -1;
+
+  // Header state and the floating contact button.
   useEffect(() => {
     let frame = 0;
     const update = () => {
       frame = 0;
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = max > 0 ? Math.min(1, window.scrollY / max) : 0;
-      headerRef.current?.style.setProperty("--progress", progress.toFixed(4));
       setScrolled(window.scrollY > 24);
+      const contact = document.getElementById("contact");
+      const nearContact = contact && contact.getBoundingClientRect().top < window.innerHeight;
+      setShowFab(window.scrollY > window.innerHeight * 0.9 && !nearContact);
     };
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(update);
@@ -184,23 +150,22 @@ export default function App() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) setActive(entry.target.id);
         }),
-      { rootMargin: "-40% 0px -55% 0px" },
+      { rootMargin: "-35% 0px -60% 0px" },
     );
-    document
-      .querySelectorAll("main section[id]")
-      .forEach((section) => observer.observe(section));
+    document.querySelectorAll("main section[id]").forEach((section) => observer.observe(section));
     return () => observer.disconnect();
   }, []);
 
-  // Pause smooth scrolling while a dialog or the mobile menu is open.
+  // Pause smooth scrolling while any overlay is open.
   useEffect(() => {
     if (!lenis.current) return;
-    if (modal || menuOpen) lenis.current.stop();
+    if (modal || menuOpen || project) lenis.current.stop();
     else lenis.current.start();
-  }, [modal, menuOpen, lenis]);
+  }, [modal, menuOpen, project, lenis]);
 
   useEffect(() => {
     if (!menuOpen) return;
+    menuRef.current?.querySelector("a")?.focus();
     const onKey = (event) => {
       if (event.key === "Escape") setMenuOpen(false);
     };
@@ -208,9 +173,29 @@ export default function App() {
     return () => document.removeEventListener("keydown", onKey);
   }, [menuOpen]);
 
+  // Page title and description follow the open case study.
+  useEffect(() => {
+    const description = document.querySelector('meta[name="description"]');
+    if (project) {
+      document.title = `${project.title} — Nero / Jonah Mark Tabuzo`;
+      description?.setAttribute("content", project.summary || project.description);
+    } else {
+      document.title = defaultTitle;
+      description?.setAttribute("content", defaultDescription);
+    }
+  }, [project]);
+
+  // An unknown /work/ address falls back to the homepage.
+  useEffect(() => {
+    if (projectId && !project) closeProject();
+  }, [projectId, project, closeProject]);
+
   const photos = creative.items.filter((item) => item.type === "photo");
+  const featuredPhotos = photos.filter((item) => item.featured);
+  const shownPhotos = allPhotos ? photos : featuredPhotos;
   const videos = creative.items.filter((item) => item.type === "video");
   const openCv = () => setModal({ type: "cv" });
+  const closeMenu = () => setMenuOpen(false);
 
   return (
     <div className="site">
@@ -218,467 +203,389 @@ export default function App() {
         Skip to content
       </a>
 
-      <header
-        ref={headerRef}
-        className={scrolled ? "site-header is-scrolled" : "site-header"}
-      >
-        <a className="brand" href="#hero" aria-label="Nero home">
-          <NeroMark size={34} />
-          <span>Nero</span>
-        </a>
-        <nav
-          className={menuOpen ? "navigation is-open" : "navigation"}
-          id="primary-navigation"
-          aria-label="Primary navigation"
-        >
-          {navigation.map(([id, label]) => (
-            <a
-              key={id}
-              className={active === id ? "active" : ""}
-              href={`#${id}`}
-              onClick={() => setMenuOpen(false)}
-            >
-              {label}
+      <header className={scrolled || menuOpen ? "site-header is-scrolled" : "site-header"}>
+        <div className="wrap header-inner">
+          <a className="brand" href="#top" aria-label="Nero, back to top">
+            <NeroMark size={30} />
+            <span>Nero</span>
+          </a>
+          <nav
+            ref={menuRef}
+            className={menuOpen ? "navigation is-open" : "navigation"}
+            id="primary-navigation"
+            aria-label="Primary"
+          >
+            {navigation.map(([id, label]) => (
+              <a
+                key={id}
+                className={active === id ? "active" : undefined}
+                aria-current={active === id ? "location" : undefined}
+                href={`#${id}`}
+                onClick={closeMenu}
+              >
+                {label}
+                {id === "products" && <span className="nav-count">{pad(featuredProducts.length)}</span>}
+              </a>
+            ))}
+          </nav>
+          <div className="header-actions">
+            <a className="button button-light header-cta" href="#contact">
+              Let’s talk
             </a>
-          ))}
-          <a
-            className="nav-cta-mobile"
-            href="#contact"
-            onClick={() => setMenuOpen(false)}
-          >
-            Let’s talk <ArrowUpRight size={18} />
-          </a>
-        </nav>
-        <div className="header-actions">
-          <a className="button button-red header-cta" href="#contact">
-            Let’s talk <ArrowUpRight size={16} />
-          </a>
-          <button
-            className="menu-toggle"
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={menuOpen}
-            aria-controls="primary-navigation"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            {menuOpen ? <X /> : <Menu />}
-          </button>
+            <button
+              type="button"
+              className="menu-toggle"
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={menuOpen}
+              aria-controls="primary-navigation"
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              {menuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
         </div>
-        <span className="scroll-progress" aria-hidden="true" />
       </header>
 
       <main id="main">
         {/* ---------------------------------------------------------- Hero */}
-        <section id="hero" className="hero">
-          <div className="wrap hero-head">
-            <h1>
-              <span className="hero-line">Logic meets</span>
-              <Scramble
-                className="hero-line hero-pixel"
-                text="//instinct"
-                duration={1100}
-              />
+        <section className="hero" id="top" aria-labelledby="hero-title">
+          <div className="wrap">
+            <p className="hero-name">Jonah Mark Tabuzo, also known as Nero</p>
+            <h1 id="hero-title">
+              <span>Building digital products.</span>
+              <span>Turning ideas into working systems.</span>
             </h1>
-          </div>
-          <ParticleWave className="hero-wave" />
-          <div className="wrap hero-foot">
-            <p className="hero-intro">
-              <strong>Jonah Mark Tabuzo</strong> — aka Nero. Full-stack web
-              developer, systems creator and visual storyteller from
-              Catanduanes, Philippines.
-            </p>
-            <div className="hero-actions">
-              <a className="button button-red" href="#projects">
-                Explore my work <ArrowDown size={16} />
-              </a>
-            </div>
-          </div>
-          <div className="wrap hero-scrollbar" aria-hidden="true">
-            <span>Scroll</span>
-            <i />
-            <span>Vol. 02 / 2026</span>
-          </div>
-        </section>
-
-        {/* ---------------------------------------------------- What I do */}
-        <section id="services" className="section services">
-          <div className="wrap">
-            <Title pixel="//what I do" align="center">
-              Code with purpose
-            </Title>
-            <p className="lede lede-center" data-reveal>
-              I build practical web systems for organisations that need them to
-              work on day one — and I tell their stories with the same care.
-            </p>
-            <div className="service-grid">
-              {services.map((service) => (
-                <article className="soft-card service-card" key={service.title} data-reveal>
-                  <PixelIcon name={service.icon} size={64} />
-                  <h3>{service.title}</h3>
-                  <p>{service.text}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <div className="marquee" aria-label="Everyday stack">
-          <div className="marquee-track">
-            {[0, 1].map((copy) => (
-              <div className="marquee-group" key={copy} aria-hidden={copy === 1}>
-                {marqueeItems.map((item) => (
-                  <span className="marquee-tile" key={item}>
-                    {item}
-                  </span>
-                ))}
+            <div className="hero-foot">
+              <p className="hero-intro">
+                Independent product builder and full-stack developer creating practical software, digital
+                systems, and interactive experiences.
+              </p>
+              <div className="hero-side">
+                <a className="button button-red" href="#products">
+                  Explore products <ArrowDown size={16} aria-hidden="true" />
+                </a>
+                <ul className="hero-status">
+                  <li>
+                    <i className="dot-live" aria-hidden="true" /> Available for work
+                  </li>
+                  <li>
+                    Philippines <time>{clock}</time> UTC+8
+                  </li>
+                </ul>
               </div>
-            ))}
+            </div>
           </div>
-        </div>
+        </section>
 
-        {/* ------------------------------------------------ Selected work */}
-        <PinnedWork
-          projects={projects}
-          total={projectCatalog.length}
-          onOpen={(project) => setModal({ type: "project", project })}
-        />
-
-        <section className="section archive-section">
+        {/* ------------------------------------------------------ Products */}
+        <section id="products" className="section products" aria-labelledby="products-title">
           <div className="wrap">
-            <ProjectIndex
-              onOpen={(project) => setModal({ type: "project", project })}
-            />
-            <a
-              className="link-arrow github-link"
-              href={site.socials[0].href}
-              target="_blank"
-              rel="noreferrer"
+            <Heading
+              id="products-title"
+              count={featuredProducts.length}
+              aside="Applications and systems I designed and built. Open one for screenshots, features and the technical story."
             >
-              More experiments and commits on GitHub <ArrowUpRight size={16} />
+              Products
+            </Heading>
+            <ProductGrid products={featuredProducts} onOpen={openProject} />
+          </div>
+        </section>
+
+        {/* ------------------------------------------------------ Archive */}
+        <section id="projects" className="section archive" aria-labelledby="projects-title">
+          <div className="wrap">
+            <Heading
+              id="projects-title"
+              count={projectCatalog.length}
+              aside="Every project and experiment, including internal tools, bots, prototypes and earlier editions."
+            >
+              All projects
+            </Heading>
+            <ProjectIndex onOpen={openProject} />
+            <a className="text-link" href={site.socials[0].href} target="_blank" rel="noreferrer">
+              More experiments on GitHub <ArrowUpRight size={15} aria-hidden="true" />
             </a>
           </div>
         </section>
 
         {/* -------------------------------------------------------- About */}
-        <section id="about" className="section about">
-          <div className="wrap">
-            <Scramble as="p" className="pixel-giant" text="Jonah Mark" duration={1200} />
-            <div className="title title-center" data-reveal>
-              <h2 className="display">A systems mind. A storyteller’s eye.</h2>
-              <p className="kicker">Nero is my digital identity</p>
-            </div>
-            <div className="about-grid">
+        <section id="about" className="section about" aria-labelledby="about-title">
+          <div className="wrap about-grid">
+            <div className="about-text">
+              <Heading id="about-title">About</Heading>
+              <p className="about-lede">
+                I’m Jonah Mark Tabuzo, also known as Nero. I build practical software, design digital
+                experiences, and turn real-world requirements into working systems.
+              </p>
               <div className="principles">
                 {principles.map(([title, text]) => (
-                  <div className="principle" key={title} data-reveal>
-                    <h3>{title}</h3>
+                  <details key={title}>
+                    <summary>
+                      {title}
+                      <Plus className="expand-plus" size={16} aria-hidden="true" />
+                      <Minus className="expand-minus" size={16} aria-hidden="true" />
+                    </summary>
                     <p>{text}</p>
-                  </div>
+                  </details>
                 ))}
-                <a className="button button-black" href="#contact" data-reveal>
-                  Let’s make something meaningful <ArrowUpRight size={16} />
-                </a>
+                <details>
+                  <summary>
+                    More about me
+                    <Plus className="expand-plus" size={16} aria-hidden="true" />
+                    <Minus className="expand-minus" size={16} aria-hidden="true" />
+                  </summary>
+                  {about.paragraphs.slice(0, 2).map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
+                </details>
               </div>
-              <figure className="portrait" data-reveal>
-                <PortraitReveal
-                  src={site.photo}
-                  alt="Jonah Mark Tabuzo, the developer behind Nero"
-                />
-                <figcaption>
-                  <span>Catanduanes, PH</span>
-                  <span>13°35′ N — 124°14′ E</span>
-                </figcaption>
-              </figure>
             </div>
-            <p className="about-body" data-reveal>
-              {about.paragraphs[0]}
-            </p>
-            <div className="facts">
+            <figure className="portrait">
+              <PortraitReveal src={site.photo} alt="Jonah Mark Tabuzo, the developer behind Nero" />
+              <figcaption>Catanduanes, Philippines</figcaption>
+            </figure>
+            <dl className="facts">
               {[
-                [String(projectCatalog.length), "Projects & experiments"],
-                ["03+", "Years building systems"],
-                ["462", "Hours of full-stack OJT"],
-                ["BSIS", "CatSU, class of 2026"],
+                [String(projectCatalog.length), "projects and experiments"],
+                ["3+", "years building systems"],
+                ["462", "hours of full-stack OJT"],
+                ["2026", "BS Information Systems graduate"],
               ].map(([value, label]) => (
-                <div className="fact" key={label} data-reveal>
-                  <Scramble as="strong" text={value} />
-                  <span>{label}</span>
+                <div key={label}>
+                  <dt>{value}</dt>
+                  <dd>{label}</dd>
                 </div>
               ))}
-            </div>
-          </div>
-        </section>
-
-        <CardFan />
-
-        <section className="section manifesto">
-          <div className="wrap">
-            {["Your idea.", "Your system.", "Built with care."].map((line, index) => (
-              <Scramble
-                key={line}
-                as="p"
-                className={index === 2 ? "manifesto-line is-red" : "manifesto-line"}
-                text={line}
-                duration={700 + index * 250}
-              />
-            ))}
-          </div>
-        </section>
-
-        {/* ------------------------------------------------------- Skills */}
-        <section id="skills" className="section skills">
-          <div className="wrap">
-            <Title pixel="//toolkit">Different tools, one approach</Title>
-            <div className="skill-grid">
-              {skillCategories.map((category, index) => (
-                <article className="soft-card skill-card" key={category.title} data-reveal>
-                  <div className="skill-card-head">
-                    <span className="index">0{index + 1}</span>
-                    <h3>{category.title}</h3>
-                  </div>
-                  <p>{category.caption}</p>
-                  <ul className="chips">
-                    {category.skills.map((skill) => (
-                      <li key={skill}>{skill}</li>
-                    ))}
-                  </ul>
-                </article>
-              ))}
-            </div>
+            </dl>
           </div>
         </section>
 
         {/* --------------------------------------------------- Experience */}
-        <section id="experience" className="section experience">
+        <section id="experience" className="section experience" aria-labelledby="experience-title">
           <div className="wrap">
-            <div className="split-head">
-              <Title pixel="//experience">The work behind the work</Title>
-              <button className="button button-outline" onClick={openCv} aria-haspopup="dialog">
-                Get the full résumé <Download size={16} />
+            <Heading id="experience-title" aside="Roles, training and education. Open a row for the details.">
+              Experience
+            </Heading>
+            <ol className="timeline">
+              {experience.map((item) => (
+                <li key={item.title}>
+                  <details className="timeline-item">
+                    <summary>
+                      <span className="timeline-period">{item.period}</span>
+                      <span className="timeline-main">
+                        <h3>{item.title}</h3>
+                        <span>
+                          {item.company} <em>{item.type}</em>
+                        </span>
+                      </span>
+                      {item.highlight && <span className="timeline-highlight">{item.highlight}</span>}
+                      <Plus className="expand-plus" size={18} aria-hidden="true" />
+                      <Minus className="expand-minus" size={18} aria-hidden="true" />
+                    </summary>
+                    <div className="timeline-detail">
+                      <p>{item.summary}</p>
+                      <ul>
+                        {item.details.map((detail) => (
+                          <li key={detail}>{detail}</li>
+                        ))}
+                      </ul>
+                      {item.projects && (
+                        <p className="timeline-links">
+                          Systems contributed to:
+                          {item.projects.map((id) => (
+                            <a
+                              key={id}
+                              href={`/work/${id}`}
+                              onClick={(event) => {
+                                event.preventDefault();
+                                openProject(id);
+                              }}
+                            >
+                              {projectById(id).title} <ArrowUpRight size={14} aria-hidden="true" />
+                            </a>
+                          ))}
+                        </p>
+                      )}
+                    </div>
+                  </details>
+                </li>
+              ))}
+              <li>
+                <div className="timeline-item timeline-static" id="education">
+                  <span className="timeline-period">{education.period}</span>
+                  <span className="timeline-main">
+                    <h3>{education.degree}</h3>
+                    <span>
+                      {education.school} <em>Education</em>
+                    </span>
+                  </span>
+                </div>
+              </li>
+            </ol>
+            <div className="experience-actions">
+              <button type="button" className="button button-light" onClick={openCv} aria-haspopup="dialog">
+                Download résumé <Download size={16} aria-hidden="true" />
+              </button>
+              <button
+                type="button"
+                className="button button-ghost"
+                aria-expanded={showCerts}
+                aria-controls="certificates"
+                onClick={() => setShowCerts(!showCerts)}
+              >
+                Certifications and training ({certifications.length})
+                {showCerts ? <Minus size={16} aria-hidden="true" /> : <Plus size={16} aria-hidden="true" />}
               </button>
             </div>
-            <div className="rows">
-              {experience.map((item) => (
-                <details key={item.title} className="row" data-reveal>
-                  <summary>
-                    <span className="row-period">{item.period}</span>
-                    <span className="row-main">
-                      <h3>
-                        {item.title
-                          .replace("Freelance — ", "")
-                          .replace(" — On-the-Job Training", "")}
-                      </h3>
-                      <span>{item.company}</span>
-                    </span>
-                    <Plus className="expand-plus" size={20} />
-                    <Minus className="expand-minus" size={20} />
-                  </summary>
-                  <p className="row-detail">{item.description}</p>
-                </details>
-              ))}
-              <div id="education" className="row row-static" data-reveal>
-                <span className="row-period">The foundation</span>
-                <span className="row-main">
-                  <h3>{education.degree}</h3>
-                  <span>
-                    {education.school} / {education.period}
+            <ul className="certificates" id="certificates" hidden={!showCerts}>
+              {certifications.map((cert) => (
+                <li key={cert.title}>
+                  <span className="cert-year">{cert.year}</span>
+                  <span className="cert-main">
+                    <strong>{cert.title}</strong>
+                    <span>{cert.issuer}</span>
                   </span>
-                </span>
-                <PixelIcon name="note" size={28} />
-              </div>
-            </div>
-            <button
-              className="link-arrow certificate-toggle"
-              aria-expanded={showCerts}
-              aria-controls="certificates"
-              onClick={() => setShowCerts(!showCerts)}
-            >
-              {showCerts ? "Hide" : "View"} certifications & training (
-              {certifications.length})
-              {showCerts ? <Minus size={16} /> : <Plus size={16} />}
-            </button>
-            {showCerts && (
-              <div className="certificates" id="certificates">
-                {certifications.map((cert) => (
-                  <div className="certificate" key={cert.title}>
-                    <span className="row-period">{cert.year}</span>
-                    <div>
-                      <h4>{cert.title}</h4>
-                      <p>{cert.issuer}</p>
-                    </div>
-                    {cert.image && (
-                      <button
-                        className="icon-button"
-                        onClick={() =>
-                          setModal({
-                            type: "media",
-                            item: { type: "photo", src: cert.image, alt: cert.title },
-                          })
-                        }
-                        aria-label={`View certificate: ${cert.title}`}
-                      >
-                        <ArrowUpRight size={18} />
-                      </button>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
+                  {cert.image && (
+                    <button
+                      type="button"
+                      className="text-link"
+                      onClick={() =>
+                        setModal({ type: "media", item: { type: "photo", src: cert.image, alt: cert.title } })
+                      }
+                      aria-label={`View certificate: ${cert.title}`}
+                    >
+                      View
+                    </button>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        {/* ------------------------------------------------------ Toolkit */}
+        <section id="toolkit" className="section toolkit-section" aria-labelledby="toolkit-title">
+          <div className="wrap">
+            <Heading id="toolkit-title" aside="What I use most, with the projects that use it. Open a category for the rest.">
+              Toolkit
+            </Heading>
+            <Toolkit />
           </div>
         </section>
 
         {/* ----------------------------------------------------- Creative */}
-        <section id="creative" className="section creative">
+        <section id="creative" className="section creative" aria-labelledby="creative-title">
           <div className="wrap">
-            <div className="split-head">
-              <Title pixel="//off the clock">Life through another lens</Title>
-              <p className="lede" data-reveal>
-                Photography, motion, and moments worth paying attention to.
-              </p>
-            </div>
-            <div className="photo-grid">
-              {photos.slice(0, morePhotos ? undefined : 4).map((item, index) => (
+            <Heading id="creative-title" aside={creative.intro}>
+              Visual storytelling
+            </Heading>
+            <div className={allPhotos ? "photo-grid is-all" : "photo-grid"}>
+              {shownPhotos.map((item) => (
                 <button
                   key={item.src}
+                  type="button"
                   className="photo-tile"
-                  onClick={() => setModal({ type: "media", item, items: photos, index })}
-                  aria-label={`View photograph ${index + 1}`}
-                  data-reveal
+                  onClick={() =>
+                    setModal({ type: "media", item, items: photos, index: photos.indexOf(item) })
+                  }
+                  aria-label={`View photograph: ${item.alt}`}
                 >
-                  <img src={item.src} alt={item.alt} loading="lazy" width="800" height="1000" />
-                  <span>Frame {String(index + 1).padStart(2, "0")}</span>
+                  <img src={item.thumb} alt={item.alt} loading="lazy" decoding="async" width="1200" height="800" />
                 </button>
               ))}
             </div>
             <button
-              className="link-arrow"
-              onClick={() => setMorePhotos(!morePhotos)}
-              aria-expanded={morePhotos}
+              type="button"
+              className="text-link"
+              onClick={() => setAllPhotos(!allPhotos)}
+              aria-expanded={allPhotos}
             >
-              {morePhotos ? "Fewer frames" : `All ${photos.length} frames`}
-              {morePhotos ? <Minus size={16} /> : <Plus size={16} />}
+              {allPhotos ? "Show fewer photographs" : `Show all ${photos.length} photographs`}
+              {allPhotos ? <Minus size={15} aria-hidden="true" /> : <Plus size={15} aria-hidden="true" />}
             </button>
-            <div className="video-grid">
-              {videos.map((item, index) => (
-                <button
-                  key={item.src}
-                  className="video-tile"
-                  onClick={() => setModal({ type: "media", item })}
-                  aria-label={`Play ${item.alt}`}
-                  data-reveal
-                >
-                  <img src={item.poster} alt="" loading="lazy" width="640" height="360" />
-                  <span className="play" aria-hidden="true">▶</span>
-                  <span className="video-label">Motion study {String(index + 1).padStart(2, "0")}</span>
-                </button>
+            <h3 className="subhead">Video</h3>
+            <ul className="video-grid">
+              {videos.map((item) => (
+                <li key={item.src}>
+                  <button
+                    type="button"
+                    className="video-tile"
+                    onClick={() => setModal({ type: "media", item })}
+                    aria-label={`Play video: ${item.alt}`}
+                  >
+                    <img src={item.poster} alt="" loading="lazy" decoding="async" width="1200" height="675" />
+                    <span className="play" aria-hidden="true">
+                      <Play size={18} />
+                    </span>
+                  </button>
+                  <p>{item.alt}</p>
+                </li>
               ))}
-            </div>
-          </div>
-        </section>
-
-        {/* -------------------------------------------------------- Notes */}
-        <section id="blog" className="section notes">
-          <div className="wrap">
-            <div className="split-head">
-              <Title pixel="//field notes">A few things on my mind</Title>
-            </div>
-            <div className={`note-grid count-${Math.min(3, posts.length)}`}>
-              {posts.map((post, index) => (
-                <button
-                  key={post.slug}
-                  className="note-card"
-                  onClick={() => setModal({ type: "post", post })}
-                  data-reveal
-                >
-                  <span className="note-thumb">
-                    <NeroMark size={28} />
-                    <Scramble as="span" className="note-thumb-title" text={`Field note ${String(index + 1).padStart(2, "0")}`} />
-                    <span className="note-thumb-meta">{post.readingTime}</span>
-                  </span>
-                  <span className="note-date">
-                    {new Date(post.date + "T00:00:00").toLocaleDateString("en", {
-                      month: "long",
-                      day: "numeric",
-                      year: "numeric",
-                    })}
-                  </span>
-                  <h3>{post.title}</h3>
-                  <span className="note-more">
-                    Read more <ArrowUpRight size={15} />
-                  </span>
-                </button>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ------------------------------------------------------ Connect */}
-        <section className="section connect">
-          <div className="wrap">
-            <Title pixel="//join me" align="center">
-              Find Nero online
-            </Title>
-            <div className="pills" data-reveal>
-              {site.socials.map((social) => (
-                <a
-                  key={social.label}
-                  className="pill"
-                  href={social.href}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {social.label} <ArrowUpRight size={16} />
-                </a>
-              ))}
-            </div>
+            </ul>
           </div>
         </section>
 
         {/* ------------------------------------------------------ Contact */}
-        <section id="contact" className="section contact">
+        <section id="contact" className="section contact" aria-labelledby="contact-title">
           <div className="wrap">
-            <div className="contact-panel">
-              <div className="contact-head">
-                <p className="availability">
-                  <i aria-hidden="true" /> Open to opportunities
-                </p>
-                <h2 className="display">
-                  Have something
-                  <br />
-                  <Scramble className="pixel-inline" text="//in mind?" />
-                </h2>
+            <div className="contact-grid">
+              <div className="contact-details">
+                <h2 id="contact-title">Have a project, a role or an idea?</h2>
+                <p>Send a message here or email me directly. I reply from the Philippines, UTC+8.</p>
+                <a className="contact-email" href={`mailto:${site.email}`}>
+                  {site.email}
+                </a>
+                <a className="contact-phone" href={`tel:${site.phone.replace(/\s/g, "")}`}>
+                  {site.phone}
+                </a>
+                <button type="button" className="button button-ghost" onClick={openCv} aria-haspopup="dialog">
+                  Download résumé <Download size={16} aria-hidden="true" />
+                </button>
+                <ul className="socials">
+                  {site.socials.map((social) => (
+                    <li key={social.label}>
+                      <a href={social.href} target="_blank" rel="noreferrer">
+                        {social.label} <ArrowUpRight size={14} aria-hidden="true" />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <div className="contact-grid">
-                <div className="contact-details">
-                  <p>
-                    A project, a role, or a creative collaboration. I’d love to
-                    hear what you’re thinking.
-                  </p>
-                  <a className="contact-email" href={`mailto:${site.email}`}>
-                    {site.email} <ArrowUpRight size={22} />
-                  </a>
-                  <a className="contact-phone" href={`tel:${site.phone.replace(/\s/g, "")}`}>
-                    {site.phone}
-                  </a>
-                  <button className="button button-white" onClick={openCv} aria-haspopup="dialog">
-                    Download my résumé <Download size={16} />
-                  </button>
-                </div>
-                <ContactForm />
-              </div>
+              <ContactForm />
             </div>
-            <div className="faq">
-              <p className="kicker">Before we begin</p>
-              <div>
+            <div className="contact-more">
+              <div className="faq">
+                <h3 className="subhead">Before we begin</h3>
                 {faqs.map(([question, answer]) => (
-                  <details key={question} data-reveal>
+                  <details key={question}>
                     <summary>
                       {question}
-                      <Plus className="expand-plus" size={18} />
-                      <Minus className="expand-minus" size={18} />
+                      <Plus className="expand-plus" size={16} aria-hidden="true" />
+                      <Minus className="expand-minus" size={16} aria-hidden="true" />
                     </summary>
                     <p>{answer}</p>
                   </details>
                 ))}
+              </div>
+              <div className="notes">
+                <h3 className="subhead">Field notes</h3>
+                <ul>
+                  {posts.map((post) => (
+                    <li key={post.slug}>
+                      <button type="button" onClick={() => setModal({ type: "post", post })}>
+                        <strong>{post.title}</strong>
+                        <span>
+                          {new Date(post.date + "T00:00:00").toLocaleDateString("en", {
+                            month: "long",
+                            day: "numeric",
+                            year: "numeric",
+                          })}
+                          , {post.readingTime}
+                        </span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>
@@ -688,75 +595,69 @@ export default function App() {
       <footer className="footer">
         <div className="wrap">
           <div className="footer-top">
-            <div className="footer-brand">
-              <a className="brand" href="#hero" aria-label="Nero home">
-                <NeroMark size={34} />
-                <span>Nero</span>
-              </a>
-              <p>Thoughtfully built in Catanduanes, Philippines. Always evolving.</p>
-            </div>
-            <div className="footer-col">
-              <p>Navigate</p>
+            <a className="brand" href="#top" aria-label="Nero, back to top">
+              <NeroMark size={30} />
+              <span>Nero</span>
+            </a>
+            <nav className="footer-nav" aria-label="Footer">
               {navigation.map(([id, label]) => (
                 <a key={id} href={`#${id}`}>
                   {label}
                 </a>
               ))}
-            </div>
-            <div className="footer-col">
-              <p>Elsewhere</p>
-              {site.socials.map((social) => (
-                <a key={social.label} href={social.href} target="_blank" rel="noreferrer">
-                  {social.label}
-                </a>
-              ))}
-            </div>
-            <div className="footer-col">
-              <p>Contact</p>
-              <a href={`mailto:${site.email}`}>Email</a>
-              <button onClick={openCv}>Résumé</button>
-            </div>
+              <a href="#toolkit">Toolkit</a>
+              <a href="#creative">Visual storytelling</a>
+            </nav>
           </div>
-          <Scramble as="p" className="footer-giant" text="NERO" duration={1000} />
+          <Scramble as="p" className="footer-giant" text="NERO" duration={1000} aria-hidden="true" />
           <div className="footer-bottom">
-            <span>© {new Date().getFullYear()} Nero — Jonah Mark Tabuzo</span>
-            <a href="#hero">
-              Back to top <ArrowUp size={14} />
+            <span>© {new Date().getFullYear()} Nero — Jonah Mark Tabuzo. Built in Catanduanes, Philippines.</span>
+            <a href="#top">
+              Back to top <ArrowUp size={14} aria-hidden="true" />
             </a>
           </div>
         </div>
       </footer>
 
+      <a
+        className={showFab && !project && !modal ? "fab is-visible" : "fab"}
+        href="#contact"
+        aria-hidden={!showFab || undefined}
+        tabIndex={showFab ? undefined : -1}
+      >
+        <Mail size={16} aria-hidden="true" /> Contact
+      </a>
+
+      {project && (
+        <CaseStudy
+          project={project}
+          previous={position > 0 ? order[position - 1] : null}
+          next={position < order.length - 1 ? order[position + 1] : null}
+          onClose={closeProject}
+          onSwitch={switchProject}
+        />
+      )}
+
       {modal && (
         <Modal
           title={
-            modal.type === "cv"
-                ? "Download résumé"
-                : modal.type === "project"
-                  ? modal.project.title
-                  : modal.type === "post"
-                    ? modal.post.title
-                    : modal.item.alt
+            modal.type === "cv" ? "Download résumé" : modal.type === "post" ? modal.post.title : modal.item.alt
           }
           kind={modal.type}
           onClose={() => setModal(null)}
         >
           {modal.type === "cv" && <CvDownload />}
-          {modal.type === "project" && <ProjectDetail project={modal.project} />}
-          {modal.type === "media" && (
-            <MediaDetail item={modal.item} items={modal.items} start={modal.index} />
-          )}
+          {modal.type === "media" && <MediaDetail item={modal.item} items={modal.items} start={modal.index} />}
           {modal.type === "post" && (
             <article className="post-body">
-              <span className="eyebrow">
-                Nero field notes /{" "}
+              <p className="post-meta">
                 {new Date(modal.post.date + "T00:00:00").toLocaleDateString("en", {
                   month: "long",
                   day: "numeric",
                   year: "numeric",
-                })}{" "}
-                / {modal.post.readingTime}
-              </span>
+                })}
+                , {modal.post.readingTime}
+              </p>
               <h2>{modal.post.title}</h2>
               {modal.post.body.map((block, index) =>
                 block.type === "h2" ? (

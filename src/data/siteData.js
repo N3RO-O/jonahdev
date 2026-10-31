@@ -115,89 +115,51 @@ export const coreStack = [
   "Tailwind CSS",
 ];
 
-export const skillCategories = [
-  {
-    title: "Frontend",
-    icon: "layout",
-    caption: "Interfaces built to stay readable for non-technical users.",
-    skills: [
-      "React",
-      "Next.js",
-      "TypeScript",
-      "JavaScript",
-      "HTML5",
-      "CSS3",
-      "Tailwind CSS",
-      "Responsive UI",
-      "WordPress",
-      "FlutterFlow",
-      "Figma",
-    ],
-  },
-  {
-    title: "Backend",
-    icon: "server",
-    caption: "Role-based systems, relational schemas, and CRUD workflows.",
-    skills: [
-      "PHP",
-      "MySQL",
-      "MongoDB",
-      "SQLite",
-      "PostgreSQL",
-      "Supabase",
-      "Supabase Auth & RLS",
-      "Firebase",
-      "Node.js / Express",
-      "REST APIs",
-      "AJAX",
-      "Session Auth",
-      "CRUD Systems",
-    ],
-  },
-  {
-    title: "Tools & Methods",
-    icon: "wrench",
-    caption: "Version control, database design, and requirements work.",
-    skills: [
-      "Git",
-      "GitHub",
-      "Systems Analysis",
-      "SQL",
-      "Database Design",
-      "Basic Networking",
-    ],
-  },
-  {
-    title: "Professional",
-    icon: "briefcase",
-    caption: "The non-code half of getting a system into real hands.",
-    skills: [
-      "Project Management",
-      "Stakeholder Engagement",
-      "Communication",
-      "Documentation",
-      "QA & Testing",
-    ],
-  },
-  {
-    title: "Creative",
-    icon: "camera",
-    caption: "The same eye for composition that shapes the interfaces.",
-    skills: [
-      "Photography",
-      "Videography",
-      "Video Editing",
-      "Visual Storytelling",
-    ],
-  },
-  {
-    title: "Currently Learning",
-    icon: "book",
-    caption: "Picking these up next, in order of priority.",
-    skills: ["Laravel", "C++"],
-    accent: true,
-  },
-];
+// Toolkit. "Used in" counts are worked out from each project's stack in
+// projectCatalog.js, so they only claim what the archive shows. `match`
+// lists the stack names that count for a skill.
+export const toolkit = {
+  primary: ["React", "TypeScript", "JavaScript", "PHP", "MySQL", "Supabase", "PostgreSQL", "Electron"],
+  groups: [
+    {
+      title: "Frontend",
+      skills: ["React", "Next.js", "TypeScript", "JavaScript", { name: "HTML & CSS", match: ["HTML", "CSS", "HTML/CSS"] }, "Tailwind CSS", "Responsive UI", "WordPress", "FlutterFlow"],
+    },
+    {
+      title: "Backend",
+      skills: ["PHP", { name: "Node.js / Express", match: ["Node.js", "Express"] }, "REST APIs", "AJAX", "Session auth", "Supabase Auth & RLS", "Firebase"],
+    },
+    {
+      title: "Databases",
+      skills: ["MySQL", "PostgreSQL", "Supabase", "SQLite", "MongoDB", "SQL", "Database design"],
+    },
+    {
+      title: "Desktop development",
+      skills: ["Electron", "Socket.IO", "Desktop packaging"],
+    },
+    {
+      title: "Development tools",
+      skills: ["Git", "GitHub", "Vite", { name: "PWA & service workers", match: ["PWA"] }, "Basic networking"],
+    },
+    {
+      title: "Systems analysis",
+      skills: ["Systems analysis", "Stakeholder engagement", "Documentation", "Project management", "Communication"],
+    },
+    {
+      title: "QA and testing",
+      skills: ["QA & testing", "Test plans & bug reports", "Playwright"],
+    },
+    {
+      title: "Creative tools",
+      skills: ["Photography", "Videography", "Video editing", "Visual storytelling", "Figma"],
+    },
+    {
+      title: "Currently learning",
+      learning: true,
+      skills: ["Laravel", "C++"],
+    },
+  ],
+};
 
 export const projects = [
   {
@@ -464,41 +426,52 @@ export const projects = [
   },
 ];
 
+// Timeline, newest role first. Dates and descriptions are unchanged from the
+// earlier site; the two PHILRADS trainings run together, so they share a row.
 export const experience = [
   {
     period: "Apr 2024 – Present",
-    title: "Freelance — Quality Assurance Engineer",
+    title: "Quality Assurance Engineer",
+    type: "Freelance",
     company: "PIXODE Philippines",
-    description:
-      "Quality assurance for a development collective building practical digital tools in the Philippines, with a focus on software functionality, usability, and clear feedback for the development team.",
+    summary: "Quality assurance for a development collective building practical digital tools in the Philippines.",
+    details: [
+      "Focus on software functionality, usability, and clear feedback for the development team.",
+    ],
+  },
+  {
+    period: "Feb – May 2026",
+    title: "IT Support and Full-Stack Web Development OJT",
+    type: "On-the-job training",
+    company: "PHILRADS · Quezon City",
+    highlight: "462 hours of full-stack OJT",
+    summary: "Built and deployed live web systems from requirements through rollout.",
+    details: [
+      "Full-stack web development: a 462-hour OJT building and deploying live web systems (Asset Database System, Inventory Management System) from requirements through rollout.",
+      "IT support: completed IT support OJT, assisting with technical operations and internal systems support.",
+    ],
+    projects: ["philrads", "philrads-ims"],
   },
   {
     period: "Jun – Jul 2025",
     title: "Samsung Product Promoter",
+    type: "Contract",
     company: "Alson's Trading · Virac",
-    description:
-      "Contractual sales-floor role representing a global tech brand — built client relationships and honed communication, persuasion, and customer-facing skills.",
-  },
-  {
-    period: "Feb – May 2026",
-    title: "IT Support — On-the-Job Training",
-    company: "PHILRADS · Quezon City",
-    description:
-      "Completed IT support OJT, assisting with technical operations and internal systems support.",
-  },
-  {
-    period: "Feb – May 2026",
-    title: "Full-Stack Web Development — On-the-Job Training",
-    company: "PHILRADS · Quezon City",
-    description:
-      "462-hour OJT building and deploying live web systems (Asset Database System, Inventory Management System) from requirements through rollout.",
+    summary: "Contractual sales-floor role representing a global tech brand.",
+    details: [
+      "Built client relationships and honed communication, persuasion, and customer-facing skills.",
+    ],
   },
   {
     period: "May – Nov 2023",
-    title: "Contract of Service — GIP & Admin Support / Community Outreach",
+    title: "Government Internship Program & Administrative Support",
+    type: "Contract of Service",
     company: "DOLE · Government Service",
-    description:
-      "Contract-of-Service role under the Government Internship Program (GIP) and Administrative Support & Community Outreach, counted as government service.",
+    summary: "GIP and Administrative Support & Community Outreach, counted as government service.",
+    details: [
+      "Contract-of-Service role under the Government Internship Program (GIP) and Administrative Support & Community Outreach.",
+      "Completed the GIP DOLE Training Program (1,480 hours).",
+    ],
   },
 ];
 
@@ -597,55 +570,65 @@ export const creative = {
     {
       type: "photo",
       src: "/assets/creative/photo-01.jpg",
-      alt: "Photography sample 1",
+      thumb: "/assets/creative/photo-01-1200.webp",
+      featured: true,
+      alt: "Bride under a sheer veil, backlit in warm light",
     },
     {
       type: "photo",
       src: "/assets/creative/photo-02.jpg",
-      alt: "Photography sample 2",
+      thumb: "/assets/creative/photo-02-1200.webp",
+      alt: "Guest in a pale green dress at a decorated wedding table",
     },
     {
       type: "photo",
       src: "/assets/creative/photo-03.jpg",
-      alt: "Photography sample 3",
+      thumb: "/assets/creative/photo-03-1200.webp",
+      alt: "Wedding party in yellow gowns gathered around the couple",
     },
     {
       type: "photo",
       src: "/assets/creative/photo-04.jpg",
-      alt: "Photography sample 4",
+      thumb: "/assets/creative/photo-04-1200.webp",
+      alt: "Bride in a white gown holding her bouquet",
     },
     {
       type: "photo",
       src: "/assets/creative/photo-05.jpg",
-      alt: "Photography sample 5",
+      thumb: "/assets/creative/photo-05-1200.webp",
+      featured: true,
+      alt: "Couple beneath a veil by candlelight during the ceremony",
     },
     {
       type: "photo",
       src: "/assets/creative/photo-06.jpg",
-      alt: "Photography sample 6",
+      thumb: "/assets/creative/photo-06-1200.webp",
+      featured: true,
+      alt: "Waterfront portrait under a blue evening sky",
     },
     {
       type: "photo",
       src: "/assets/creative/photo-07.jpg",
-      alt: "Photography sample 7",
+      thumb: "/assets/creative/photo-07-1200.webp",
+      alt: "Black-and-white portrait on the rocks by the sea",
     },
     {
       type: "video",
       src: "/assets/creative/video-1.mp4",
-      poster: "/assets/creative/video-1-thumbnail.png",
-      alt: "Videography sample 1",
+      poster: "/assets/creative/video-1-thumbnail-1200.webp",
+      alt: "Motion piece with drifting embers",
     },
     {
       type: "video",
       src: "/assets/creative/video-2.mp4",
-      poster: "/assets/creative/video-2-thumbnail.jpg",
-      alt: "Videography sample 2",
+      poster: "/assets/creative/video-2-thumbnail-1200.webp",
+      alt: "Wedding film opening on the rings",
     },
     {
       type: "video",
       src: "/assets/creative/video-3.mp4",
-      poster: "/assets/creative/video-3-thumbnail.png",
-      alt: "Videography sample 3",
+      poster: "/assets/creative/video-3-thumbnail-1200.webp",
+      alt: "Kalaykay, a short film by the sea",
     },
   ],
 };

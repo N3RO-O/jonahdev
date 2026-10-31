@@ -7,8 +7,9 @@
     "dev": "vite",
     "check": "node scripts/check-projects.mjs",
     "test:pcec": "node scripts/check-pcec.mjs",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "vite build && node scripts/prerender.mjs",
+    "preview": "vite preview",
+    "test:site": "node scripts/check-site.mjs"
   },
   "dependencies": {
     "@fontsource/fragment-mono": "^5.3.0",

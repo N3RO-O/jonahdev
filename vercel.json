@@ -14,5 +14,11 @@
         }
       ]
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/work/:id",
+      "destination": "/work/:id/index.html"
+    }
   ]
 }

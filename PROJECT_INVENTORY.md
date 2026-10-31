@@ -16,7 +16,7 @@ Every repository below maps to exactly one catalog entry. Public source links ar
 | MyAIpeeps                | MyAIpeeps                     | Private           |
 | DateMyLDR                | DateMyLDR                     | Private           |
 | pcec-connect-pwa         | PCEC Connect                  | Private           |
-| PHILRADS-Portal          | PHILRADS Staff Portal         | Public            |
+| PHILRADS-Portal          | PHILRADS Staff Portal         | Private (no link) |
 | habit-ops                | Habit Ops                     | Private           |
 | update-pcec-app          | PCEC Connect / Project Update | Public            |
 | philrads-disaster-bot    | PHILRADS Disaster Monitor     | Private           |

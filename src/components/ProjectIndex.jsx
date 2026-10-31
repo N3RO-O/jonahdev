@@ -1,18 +1,28 @@
 import { useMemo, useState } from "react";
 import { ArrowUpRight, Minus, Plus, Search, X } from "lucide-react";
-import {
-  projectCatalog,
-  repositoryCount,
-  catalogCategories,
-} from "../data/projectCatalog";
+import { projectCatalog, catalogCategories } from "../data/projectCatalog";
+import StageBadge from "./StageBadge";
 
 // Show a short, scannable list first; searching or filtering reveals everything.
-const PREVIEW_COUNT = 8;
+const PREVIEW_COUNT = 10;
+const typeLabel = Object.fromEntries(catalogCategories);
 
 export default function ProjectIndex({ onOpen }) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("all");
   const [expanded, setExpanded] = useState(false);
+  const counts = useMemo(
+    () =>
+      Object.fromEntries(
+        catalogCategories.map(([key]) => [
+          key,
+          key === "all"
+            ? projectCatalog.length
+            : projectCatalog.filter((project) => project.types.includes(key)).length,
+        ]),
+      ),
+    [],
+  );
   const matches = useMemo(() => {
     const words = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
     return projectCatalog.filter((project) => {
@@ -21,15 +31,17 @@ export default function ProjectIndex({ onOpen }) {
         project.subtitle,
         project.description,
         project.status,
+        project.stage,
         project.source,
         project.repository?.name,
+        ...project.types.map((type) => typeLabel[type]),
         ...project.tech,
         ...project.features,
       ]
         .join(" ")
         .toLowerCase();
       return (
-        (category === "all" || project.category === category) &&
+        (category === "all" || project.types.includes(category)) &&
         words.every((word) => text.includes(word))
       );
     });
@@ -38,126 +50,107 @@ export default function ProjectIndex({ onOpen }) {
   const showAll = expanded || narrowed;
   const visible = showAll ? matches : matches.slice(0, PREVIEW_COUNT);
   const hidden = matches.length - visible.length;
+  const reset = () => {
+    setQuery("");
+    setCategory("all");
+  };
 
   return (
     <div className="project-index" id="project-index">
-      <div className="index-heading">
-        <div>
-          <span className="eyebrow">
-            The full collection / {projectCatalog.length} entries
-          </span>
-          <h3>
-            Every project.
-            <br />
-            <em>Part of the story.</em>
-          </h3>
+      <div className="index-tools">
+        <div className="index-search">
+          <Search size={17} aria-hidden="true" />
+          <label className="sr-only" htmlFor="project-search">
+            Search the complete project index
+          </label>
+          <input
+            id="project-search"
+            type="search"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Search by name, technology or feature"
+            autoComplete="off"
+          />
+          {query && (
+            <button
+              type="button"
+              className="icon-button"
+              aria-label="Clear project search"
+              onClick={() => setQuery("")}
+            >
+              <X size={16} />
+            </button>
+          )}
         </div>
-        <p>
-          {repositoryCount} GitHub repositories, plus local tools, earlier
-          editions and experiments. Follow an idea a little further.
-        </p>
+        <div className="index-filters" role="group" aria-label="Filter projects by category">
+          {catalogCategories.map(([key, label]) => (
+            <button
+              key={key}
+              type="button"
+              aria-pressed={category === key}
+              onClick={() => setCategory(key)}
+            >
+              {label}
+              <span>{counts[key]}</span>
+            </button>
+          ))}
+        </div>
       </div>
-      <div className="index-search">
-        <Search size={17} aria-hidden="true" />
-        <label className="sr-only" htmlFor="project-search">
-          Search the complete project index
-        </label>
-        <input
-          id="project-search"
-          type="search"
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-          placeholder="Find a project, technology, or idea…"
-          autoComplete="off"
-        />
-        {query && (
-          <button
-            className="icon-button"
-            aria-label="Clear project search"
-            onClick={() => setQuery("")}
-          >
-            <X size={16} />
-          </button>
-        )}
-      </div>
-      <div
-        className="index-filters"
-        role="group"
-        aria-label="Project index categories"
-      >
-        {catalogCategories.map(([key, label]) => (
-          <button
-            key={key}
-            aria-pressed={category === key}
-            onClick={() => setCategory(key)}
-            className={category === key ? "active" : ""}
-          >
-            {label}
-          </button>
-        ))}
-      </div>
-      <div className="index-count" role="status">
-        Showing {visible.length} of {projectCatalog.length} projects
-      </div>
-      <div className="index-list" id="project-index-list">
+      <p className="index-count" role="status">
+        {narrowed
+          ? `${matches.length} of ${projectCatalog.length} projects match`
+          : `Showing ${visible.length} of ${projectCatalog.length} projects`}
+      </p>
+      <ul className="index-list" id="project-index-list">
         {visible.map((project) => (
-          <button
-            key={project.id}
-            className="index-row"
-            onClick={() => onOpen(project)}
-            aria-label={`Read about ${project.title}`}
-          >
-            <span className="row-index">
-              {String(projectCatalog.indexOf(project) + 1).padStart(2, "0")}
-            </span>
-            <span className="index-project-name">
-              <strong>{project.title}</strong>
-              <span>{project.subtitle}</span>
-            </span>
-            <span className="index-project-stack">
-              {project.tech.slice(0, 3).join(" / ")}
-            </span>
-            <span className="index-project-status">{project.status}</span>
-            <ArrowUpRight size={18} />
-          </button>
+          <li key={project.id}>
+            <a
+              className="index-row"
+              href={`/work/${project.id}`}
+              onClick={(event) => {
+                if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
+                event.preventDefault();
+                onOpen(project.id);
+              }}
+              aria-label={`Read about ${project.title}`}
+            >
+              <span className="index-name">
+                <strong>{project.title}</strong>
+                <span>{project.subtitle}</span>
+              </span>
+              <span className="index-types">
+                {project.types.map((type) => typeLabel[type]).join(", ")}
+              </span>
+              <span className="index-stack">{project.tech.slice(0, 3).join(" / ")}</span>
+              <span className="index-status">
+                <StageBadge stage={project.stage} fallback={project.status} />
+              </span>
+              <span className="index-year">{project.year || "—"}</span>
+              <ArrowUpRight className="index-arrow" size={18} aria-hidden="true" />
+            </a>
+          </li>
         ))}
-        {!narrowed && matches.length > PREVIEW_COUNT && (
-          <button
-            className="index-toggle"
-            aria-expanded={expanded}
-            aria-controls="project-index-list"
-            onClick={() => setExpanded(!expanded)}
-          >
-            <span>
-              {expanded
-                ? "Show fewer projects"
-                : `Show all ${matches.length} projects`}
-              <small>
-                {expanded ? "Collapse the archive" : `+${hidden} more`}
-              </small>
-            </span>
-            {expanded ? <Minus size={18} /> : <Plus size={18} />}
-          </button>
-        )}
-      </div>
+      </ul>
+      {!narrowed && matches.length > PREVIEW_COUNT && (
+        <button
+          type="button"
+          className="index-toggle"
+          aria-expanded={expanded}
+          aria-controls="project-index-list"
+          onClick={() => setExpanded(!expanded)}
+        >
+          {expanded ? "Show fewer projects" : `Show all ${matches.length} projects (+${hidden})`}
+          {expanded ? <Minus size={16} aria-hidden="true" /> : <Plus size={16} aria-hidden="true" />}
+        </button>
+      )}
       {!matches.length && (
         <div className="index-empty">
-          <p>No projects match that combination.</p>
-          <button
-            className="text-link"
-            onClick={() => {
-              setQuery("");
-              setCategory("all");
-            }}
-          >
-            Show every project <ArrowUpRight size={15} />
+          <p>No projects match “{query}” in this category. Try a technology such as React or PHP.</p>
+          <button type="button" className="text-link" onClick={reset}>
+            Clear search and filters
           </button>
         </div>
       )}
-      <p className="index-footnote">
-        A working archive, including prototypes and forks. Project notes
-        identify their status and original contributors.
-      </p>
     </div>
   );
 }
